@@ -1,11 +1,8 @@
 import { createAction } from 'redux-actions';
 import { replace } from 'react-router-redux';
-// import contract from 'truffle-contract';
 import { promisify } from 'bluebird';
 import actions from './action-types';
 import store from './store';
-// import jobArtifacts from '../build/contracts/Job.json';
-import config from '../config/local.json';
 
 function apiRequest(endpoint, method = 'GET', body, isJson = true) {
   const options = {
@@ -23,7 +20,7 @@ function apiRequest(endpoint, method = 'GET', body, isJson = true) {
       options.body = body;
     }
   }
-  return fetch(`http://${config.API_ADDRESS}${endpoint}`, options);
+  return fetch(`${process.env.BACKEND_ADDRESS}${endpoint}`, options);
 }
 
 export const setError = createAction(actions.SET_ERROR);
@@ -203,36 +200,6 @@ export const withdrawPayments = () => async (dispatch) => {
     }
     const data = await res.json();
     dispatch(setWorker(data.worker));
-    // const { web3, worker } = store.getState();
-    //
-    // // extra check that metamask account matches state
-    // const account = web3.eth.accounts[0];
-    // if (account.slice(2) !== worker.id) {
-    //   throw new Error('Incorrect user');
-    // }
-    //
-    // const jobContract = contract(jobArtifacts);
-    // jobContract.setProvider(web3.currentProvider);
-    // jobContract.defaults({
-    //   from: account,
-    //   gas: 800000,
-    // });
-    //
-    // const jobInstance = await jobContract.deployed();
-    // const result = await jobInstance.payoutValue(account, worker.balance);
-    // console.dir(result);
-    //
-    // if (result.logs.length !== 1) {
-    //   throw unexpectedEventError;
-    // }
-    // const log = result.logs[0];
-    // if (log.event !== 'Payout') {
-    //   throw unexpectedEventError;
-    // }
-    // const logArgs = log.args;
-    // if (logArgs.worker !== account || logArgs.value.toNumber() !== worker.balance) {
-    //   throw unexpectedEventError;
-    // }
   } catch (err) {
     dispatch(setError(err.toString()));
   }

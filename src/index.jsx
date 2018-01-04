@@ -12,24 +12,26 @@ import Jobs from './containers/Jobs';
 import Account from './containers/Account';
 import Task from './containers/Task';
 
-// Initialize react-router-redux.
-const history = syncHistoryWithStore(browserHistory, store);
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize react-router-redux.
+  const history = syncHistoryWithStore(browserHistory, store);
 
-ReactDOM.render(
-  (
-    <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={Home} />
-          <Route path="login" component={Login} />
-          <Route component={Private}>
-            <Route path="task" component={Task} />
-            <Route path="jobs" component={Jobs} />
-            <Route path="account" component={Account} />
+  ReactDOM.render(
+    (
+      <Provider store={store}>
+        <Router history={history}>
+          <Route path="/" component={App}>
+            <IndexRoute component={Home} />
+            <Route path="login" component={Login} />
+            <Route component={Private}>
+              <Route path="task" component={Task} />
+              <Route path="jobs" component={Jobs} />
+              <Route path="account" component={Account} />
+            </Route>
           </Route>
-        </Route>
-      </Router>
-    </Provider>
-  ),
-  document.getElementById('root'),
-);
+        </Router>
+      </Provider>
+    ),
+    document.getElementById('root'),
+  );
+});
