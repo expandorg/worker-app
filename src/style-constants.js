@@ -13,3 +13,19 @@ export const PANEL = css({
   display: 'block',
   margin: PADDING,
 });
+
+export const BTN = css({
+  width: '132px',
+  height: '42px',
+  borderRadius: '4px',
+  backgroundColor: '#ff7092',
+  fontSize: '11px',
+  textAlign: 'center',
+  display: 'block',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  cursor: 'pointer',
+  ':focus': {
+    outline: '0px',
+  },
+});

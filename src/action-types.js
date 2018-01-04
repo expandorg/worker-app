@@ -9,6 +9,7 @@ const actions = [
   'SET_PREVIOUS_JOB_ID',
   'SET_WEB3',
   'SET_WORKER',
+  'SET_METAMASK',
 ];
 
 export default actions.reduce((prev, cur) => {
