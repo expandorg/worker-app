@@ -14,6 +14,17 @@ export const PANEL = css({
   margin: PADDING,
 });
 
+export const FLEX_PANEL = css({
+  padding: PADDING,
+  borderRadius: BORDER_R,
+  backgroundColor: '#ffffff',
+  border: 'solid 1px #f2f2f2',
+  margin: PADDING,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
 export const BTN = css({
   width: '132px',
   height: '42px',

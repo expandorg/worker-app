@@ -1,15 +1,31 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
-import { PADDING, BORDER_R, PANEL } from '../style-constants';
+import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
 
 const styles = {
-  innerContainer: PANEL,
-  accountSection: css({
-    marginLeft: '22%',
+  innerContainer: FLEX_PANEL,
+  table: css({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    margin: '0 0 3em 0',
+    padding: '0',
+  }),
+  cell: css({
+    boxSizing: 'border-box',
+    flexGrow: '0 1 auto',
+    flexDirection: 'column',
+    width: '100%',
+    padding: '0.8em 1.2em',
+    overflow: 'hidden',
+    listStyle: 'none',
   }),
   heading: css({
     fontSize: 16,
@@ -29,8 +45,8 @@ const styles = {
     marginLeft: 20,
   }),
   gem: css({
-    width: '25px',
-    height: '25px',
+    width: '20px',
+    height: '20px',
     marginLeft: '10px',
   }),
   accountInputContainer: css({
@@ -82,6 +98,15 @@ const styles = {
       outline: '0px',
     },
   }),
+  loginBtn: css({
+    float: 'right',
+    backgroundColor: '#ffffff',
+    border: 'solid 2px #ff7092',
+  }),
+  availableFunds: css({
+    marginLeft: '2px',
+    display: 'inline-block',
+  }),
 };
 
 class Account extends PureComponent {
@@ -96,7 +121,11 @@ class Account extends PureComponent {
 
   renderGems() {
     if (this.props.worker.balance > 0) {
-      return(this.props.worker.balance);
+      return (
+        <div className={styles.availableFunds}>
+          <span>{this.props.worker.balance} Gem</span>
+        </div>
+      );
     }
     return false;
   }
@@ -104,9 +133,13 @@ class Account extends PureComponent {
   render() {
     return this.props.worker && (
       <div className={styles.innerContainer}>
-        <div className={styles.accountSection}>
-          <span className={styles.heading}>Your Account</span>
-          <div>
+        <div className={styles.table}>
+          <span
+            className={classNames({ [styles.heading]: true, [styles.cell]: true })}
+          >
+            Your Account
+          </span>
+          <div className={styles.cell}>
             <div className={styles.subHeading}>Account Address</div>
             <div className={styles.accountInput}>
               <div className={styles.accountInputContainer}>
@@ -119,6 +152,8 @@ class Account extends PureComponent {
                 Copy
               </Clipboard>
             </div>
+          </div>
+          <div className={styles.cell}>
             <button
               className={styles.btn}
               onClick={this.props.withdrawPayments}
@@ -126,10 +161,9 @@ class Account extends PureComponent {
             >
               Withdraw
               {this.renderGems()}
-              <img className={styles.gem} src="../images/mobile-logo.png" alt="Gems" />
             </button>
             <button
-              className={styles.btn}
+              className={classNames({ [styles.btn]: true, [styles.loginBtn]: true })}
               onClick={this.props.logout}
             >
               Log Out
