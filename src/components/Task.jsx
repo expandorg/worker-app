@@ -42,6 +42,36 @@ const styles = {
       backgroundImage: 'linear-gradient(to bottom right,#ff7092,#FF8EA9)',
     },
   }),
+  heading: css({
+    fontSize: '20px',
+    letterSpacing: '-0.3px',
+    textAlign: 'center',
+    color: '#3a506b',
+    display: 'block',
+    marginBottom: PADDING / 2,
+  }),
+  btn: css({
+    width: 205,
+    height: 50,
+    lineHeight: '50px',
+    borderRadius: BORDER_R,
+    backgroundColor: '#6fffe9',
+    display: 'block',
+    margin: 'auto',
+    marginBottom: PADDING,
+    fontSize: '18px',
+    letterSpacing: '-0.7px',
+    textAlign: 'center',
+    border: 0,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    ':focus': {
+      outline: 0,
+    },
+    ':hover': {
+      backgroundImage: 'linear-gradient(to bottom right,#6fffe9,#94FFEF)',
+    },
+  }),
 };
 
 const TRUE = 'true';
@@ -101,18 +131,22 @@ class Task extends PureComponent {
     if (this.props.task === null) {
       return (
         <Modal
-          heading={<span>Submitting task</span>}
+          heading={<span>Task Submitted</span>}
           toggleModal={this.toggleModal}
         >
           {this.props.task !== null && <div>Submitting task...</div>}
           {this.props.task === null && (
             <div>
-              <div>Submission successful.</div>
+              <div className={styles.heading}>Submission successful!</div>
               {
                 this.hasNextTask() &&
-                <div><button onClick={this.handleAssign}>Next task</button></div>
+                <button className={styles.btn} onClick={this.handleAssign}>
+                  Next task
+                </button>
               }
-              <div><Link to="/jobs">Browse available jobs</Link></div>
+              <div className={styles.heading}>
+                <Link to="/jobs">Browse available jobs</Link>
+              </div>
             </div>
           )}
         </Modal>
