@@ -10,6 +10,7 @@ import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
 const styles = {
   innerContainer: FLEX_PANEL,
   table: css({
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
