@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App}>
-            <IndexRoute component={Home} />
+            <IndexRoute component={Login} />
             <Route path="login" component={Login} />
             <Route component={Private}>
               <Route path="task" component={Task} />
