@@ -77,5 +77,6 @@ export default {
   devServer: {
     contentBase: './public',
     hot: true,
+    historyApiFallback: true,
   },
 };
