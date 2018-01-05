@@ -68,9 +68,11 @@ function Modal(props) {
           <div className={styles.headingText}>
             {props.heading}
           </div>
-          <button href="#" className={styles.closeBtn} onClick={props.toggleModal}>
-            <img src="../images/close-btn.png" alt="Close" />
-          </button>
+          {props.toggleModal && (
+            <button href="#" className={styles.closeBtn} onClick={props.toggleModal}>
+              <img src="../images/close-btn.png" alt="Close" />
+            </button>
+          )}
         </div>
         {props.children}
       </div>
@@ -78,10 +80,14 @@ function Modal(props) {
   );
 }
 
+Modal.defaultProps = {
+  toggleModal: null,
+};
+
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   heading: PropTypes.element.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func,
 };
 
 export default Modal;
