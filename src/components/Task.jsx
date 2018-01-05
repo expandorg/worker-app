@@ -21,6 +21,7 @@ const styles = {
     margin: 'auto',
     textAlign: 'center',
     marginBottom: PADDING,
+    width: '80%',
   }),
   submit: css({
     width: '119px',
@@ -51,7 +52,8 @@ const styles = {
     marginBottom: PADDING / 2,
   }),
   input: css({
-    width: '495px',
+    width: 'calc(100% - 200px)',
+    minWidth: '200px',
     height: '50px',
     borderRadius: '4px',
     backgroundColor: '#ffffff',

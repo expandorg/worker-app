@@ -21,6 +21,7 @@ export const FLEX_PANEL = css({
   border: 'solid 1px #f2f2f2',
   margin: PADDING,
   display: 'flex',
+  flexWrap: 'wrap',
   alignItems: 'center',
   justifyContent: 'center',
 });
