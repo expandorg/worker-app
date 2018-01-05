@@ -149,10 +149,6 @@ class App extends PureComponent {
     this.setState({ sidebar: !currentState });
   }
 
-  isHome() {
-    return this.props.location.pathname === '/';
-  }
-
   renderNav() {
     const links = [];
     if (this.props.isAuthorized !== true) {
@@ -207,12 +203,9 @@ class App extends PureComponent {
         <div
           className={classNames({ [styles.container]: true, [styles.sbw]: this.state.sidebar })}
         >
-          {
-            this.isHome() ||
-            <div className={styles.title}>
-              <span className={styles.titleText}>{this.props.title}</span>
-            </div>
-          }
+          <div className={styles.title}>
+            <span className={styles.titleText}>{this.props.title}</span>
+          </div>
           {this.props.children}
         </div>
       </div>
