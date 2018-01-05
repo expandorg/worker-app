@@ -5,10 +5,10 @@ import { Link } from 'react-router';
 import { css } from 'glamor';
 import Modal from './Modal';
 import { job as jobPropTypes, task as taskPropTypes } from '../schemas';
-import { PANEL, BORDER_R, PADDING } from '../style-constants';
+import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
 
 const styles = {
-  container: PANEL,
+  container: FLEX_PANEL,
   task: css({
     fontSize: '32px',
     textAlign: 'center',
@@ -50,6 +50,26 @@ const styles = {
     display: 'block',
     marginBottom: PADDING / 2,
   }),
+  input: css({
+    width: '495px',
+    height: '50px',
+    borderRadius: '4px',
+    backgroundColor: '#ffffff',
+    border: 'solid 1px #e0e0e0',
+    display: 'inline-block',
+    fontSize: '16px',
+    textAlign: 'left',
+    paddingLeft: '15px',
+    color: '#b8b8b8',
+    '::placeholder' : {
+     fontSize: '16px',
+     textAlign: 'left',
+     color: '#b8b8b8'
+    },
+    ':focus': {
+     outline: '0'
+    }
+  }),
   btn: css({
     width: 205,
     height: 50,
@@ -74,9 +94,6 @@ const styles = {
   }),
 };
 
-const TRUE = 'true';
-const FALSE = 'false';
-
 class Task extends PureComponent {
   constructor(props) {
     super(props);
@@ -95,10 +112,6 @@ class Task extends PureComponent {
     this.props.setTitle('Task');
   }
 
-  getClickHandler(value) {
-    return () => this.setState({ value });
-  }
-
   toggleModal() {
     this.props.setPreviousJobId(null);
   }
@@ -107,6 +120,10 @@ class Task extends PureComponent {
     e.preventDefault();
     this.props.submitTask(this.state.value);
     this.setState({ value: null });
+  }
+
+  handleChange(e) {
+    this.setState({value: e.target.value});
   }
 
   handleAssign(e) {
@@ -155,28 +172,17 @@ class Task extends PureComponent {
 
     // Completing task
     return (
-      <div>
+      <div className={styles.container}>
         <div className={styles.task}>{this.props.task.description}</div>
         <form onSubmit={this.handleSubmit} className={styles.submitForm}>
-          <label htmlFor="true-value">
+          <label htmlFor="answer">
             <input
-              type="radio"
-              id="true-value"
-              value="true"
-              checked={this.state.value === TRUE}
-              onChange={this.getClickHandler(TRUE)}
+              className={styles.input}
+              onChange={this.handleChange}
+              id="answer"
+              value={this.state.value}
+              placeholder="Answer"
             />
-            Valid edit
-          </label>
-          <label htmlFor="false-value">
-            <input
-              type="radio"
-              id="false-value"
-              value="false"
-              checked={this.state.value === FALSE}
-              onChange={this.getClickHandler(FALSE)}
-            />
-            Invalid edit
           </label>
           <button
             className={styles.submit}
