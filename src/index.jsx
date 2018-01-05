@@ -6,7 +6,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import store from './store';
 import App from './containers/App';
 import Private from './containers/Private';
-import Home from './components/Home';
 import Login from './containers/Login';
 import Jobs from './containers/Jobs';
 import Account from './containers/Account';
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App}>
-            <IndexRoute component={Home} />
+            <IndexRoute component={Login} />
             <Route path="login" component={Login} />
             <Route component={Private}>
               <Route path="task" component={Task} />

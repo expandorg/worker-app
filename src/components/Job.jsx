@@ -34,6 +34,21 @@ const styles = {
     color: '#939393',
     marginBottom: PADDING / 2,
   }),
+  rewardMobile: css({
+    display: 'none',
+    verticalAlign: 'top',
+    borderRadius: BORDER_R,
+    border: 'solid 1px #e0e0e0',
+    padding: '0 2px 2px 9px',
+    height: PADDING * 1.25,
+    textAlign: 'center',
+    cursor: 'default',
+    marginLeft: PADDING * 2,
+    lineHeight: `${PADDING * 1.25}px`,
+    '@media(max-width: 1150px)': {
+      display: 'inline-block',
+    },
+  }),
   reward: css({
     display: 'inline-block',
     verticalAlign: 'top',
@@ -45,6 +60,9 @@ const styles = {
     cursor: 'default',
     marginLeft: PADDING * 2,
     lineHeight: `${PADDING * 1.25}px`,
+    '@media(max-width: 1150px)': {
+      display: 'none',
+    },
   }),
   rewardNumber: css({
     verticalAlign: 'middle',
@@ -94,8 +112,8 @@ const styles = {
     marginBottom: PADDING / 2,
   }),
   screenShot: css({
-    width: 487,
-    height: 247,
+    maxWidth: '100%',
+    width: 'calc(100% - 50px)',
     display: 'block',
     margin: 'auto',
     marginBottom: PADDING * 1.5,
@@ -106,7 +124,7 @@ const styles = {
     textAlign: 'center',
     color: '#3a506b',
     display: 'block',
-    width: '644.5px',
+    width: '100%',
     margin: 'auto',
     marginBottom: PADDING,
   }),
@@ -168,6 +186,10 @@ class Job extends PureComponent {
     return (
       <div>
         <button onClick={this.toggleModal} className={styles.joinBtn}>Join</button>
+        <div className={styles.rewardMobile}>
+          <span className={styles.rewardNumber}>{this.props.job.reward}</span>
+          <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
+        </div>
         {
           this.state.isModalOpen &&
           <Modal

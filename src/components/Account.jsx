@@ -1,26 +1,59 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
-import { PADDING, BORDER_R, PANEL } from '../style-constants';
+import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
 
 const styles = {
-  innerContainer: PANEL,
+  innerContainer: FLEX_PANEL,
+  table: css({
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    margin: '0 0 3em 0',
+    padding: '0',
+  }),
+  cell: css({
+    boxSizing: 'border-box',
+    flexGrow: '0 1 auto',
+    flexDirection: 'column',
+    width: '100%',
+    padding: '0.8em 1.2em',
+    overflow: 'hidden',
+    listStyle: 'none',
+  }),
   heading: css({
     fontSize: 16,
     letterSpacing: 0.5,
+    opacity: '0.4',
     color: '#0b132b',
     display: 'block',
     textTransform: 'uppercase',
     marginBottom: PADDING / 2,
+    marginTop: PADDING / 2,
   }),
   subHeading: css({
     fontSize: 16,
     color: '#3a506b',
     display: 'inline-block',
     marginRight: PADDING / 2,
+    marginLeft: 20,
+  }),
+  gem: css({
+    width: '20px',
+    height: '20px',
+    marginLeft: '10px',
+  }),
+  accountInputContainer: css({
+    display: 'inline-block',
+    width: 'calc(100% - 62px)',
+    verticalAlign: 'middle',
   }),
   accountInput: css({
     borderRadius: BORDER_R,
@@ -30,6 +63,8 @@ const styles = {
     textAlign: 'left',
     color: '#3a506b',
     padding: '8px 12px',
+    minWidth: '50%',
+    maxWidth: 'calc(100% - 25px)',
     ':focus': {
       outline: 0,
     },
@@ -44,6 +79,34 @@ const styles = {
     backgroundColor: 'transparent',
     marginLeft: PADDING,
     padding: 0,
+    cursor: 'pointer',
+  }),
+  address: css({
+    display: 'block',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  }),
+  btn: css({
+    minWidth: '25%',
+    maxWidth: 'calc(25% - 25px)',
+    height: '40px',
+    borderRadius: '4px',
+    backgroundColor: '#ff7092',
+    margin: PADDING / 2,
+    cursor: 'pointer',
+    border: '0',
+    ':focus': {
+      outline: '0px',
+    },
+  }),
+  loginBtn: css({
+    float: 'right',
+    backgroundColor: '#ffffff',
+    border: 'solid 2px #ff7092',
+  }),
+  availableFunds: css({
+    marginLeft: '2px',
+    display: 'inline-block',
   }),
 };
 
@@ -57,27 +120,57 @@ class Account extends PureComponent {
     this.props.setTitle('Account');
   }
 
+  renderGems() {
+    if (this.props.worker.balance > 0) {
+      return (
+        <div className={styles.availableFunds}>
+          <span>{this.props.worker.balance} Gem</span>
+        </div>
+      );
+    }
+    return false;
+  }
+
   render() {
     return this.props.worker && (
       <div className={styles.innerContainer}>
-        <div>{this.props.worker.balance}</div>
-        <button onClick={this.props.withdrawPayments} disabled={this.props.worker.balance < 1}>
-          Withdraw
-        </button>
-        <span className={styles.heading}>Your Account</span>
-        <div>
-          <div className={styles.subHeading}>Account Address</div>
-          <div className={styles.accountInput}>
-            <span id="address">{this.props.worker.id}</span>
-            <Clipboard
-              className={styles.copyBtn.toString()}
-              data-clipboard-text={this.props.worker.id}
+        <div className={styles.table}>
+          <span
+            className={classNames({ [styles.heading]: true, [styles.cell]: true })}
+          >
+            Your Account
+          </span>
+          <div className={styles.cell}>
+            <div className={styles.subHeading}>Account Address</div>
+            <div className={styles.accountInput}>
+              <div className={styles.accountInputContainer}>
+                <span className={styles.address} id="address">{this.props.worker.id}</span>
+              </div>
+              <Clipboard
+                className={styles.copyBtn.toString()}
+                data-clipboard-text={this.props.worker.id}
+              >
+                Copy
+              </Clipboard>
+            </div>
+          </div>
+          <div className={styles.cell}>
+            <button
+              className={styles.btn}
+              onClick={this.props.withdrawPayments}
+              disabled={this.props.worker.balance < 1}
             >
-              Copy
-            </Clipboard>
+              Withdraw
+              {this.renderGems()}
+            </button>
+            <button
+              className={classNames({ [styles.btn]: true, [styles.loginBtn]: true })}
+              onClick={this.props.logout}
+            >
+              Log Out
+            </button>
           </div>
         </div>
-        <button onClick={this.props.logout}>Log Out</button>
       </div>
     );
   }

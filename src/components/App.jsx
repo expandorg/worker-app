@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { css } from 'glamor';
 import { IndexLink, Link } from 'react-router';
 import { task as taskPropTypes } from '../schemas';
 import { SIDEBAR_W, PADDING, BLUE } from '../style-constants';
+import Hamburger from './Hamburger';
+import InstallMetaMaskModal from './InstallMetaMaskModal';
 
 const styles = {
   app: css({
@@ -19,11 +22,47 @@ const styles = {
     height: '100%',
     display: 'inline-block',
     background: BLUE,
+    '@media(max-width: 1150px)': {
+      display: 'none',
+      '> img': {
+        display: 'none',
+      },
+    },
+  }),
+  ib: css({
+    display: 'inline-block',
+    background: '#0B132B',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 2,
+  }),
+  mobileHeader: css({
+    display: 'none',
+    width: '100%',
+    height: '68px',
+    backgroundColor: '#1c2541',
+    '@media(max-width: 1150px)': {
+      display: 'block',
+      zIndex: 3,
+    },
   }),
   logo: css({
     marginTop: 10,
     width: 119,
     height: 50,
+  }),
+  mobileLogoContainer: css({
+    display: 'inline-block',
+    width: 'calc(95% - 99px)',
+    verticalAlign: 'middle',
+  }),
+  mobileLogo: css({
+    height: 30,
+    width: 30,
+    textAlign: 'center',
+    margin: 'auto',
+    display: 'block',
   }),
   nav: css({
     padding: 0,
@@ -49,6 +88,12 @@ const styles = {
     backgroundColor: '#f2f2f2',
     display: 'inline-block',
     verticalAlign: 'top',
+    '@media(max-width: 1150px)': {
+      width: '100%',
+    },
+  }),
+  sbw: css({
+    marginLeft: `${SIDEBAR_W}px`,
   }),
   title: css({
     backgroundColor: '#ffffff',
@@ -59,6 +104,9 @@ const styles = {
     fontSize: 24,
     marginLeft: PADDING * 2,
     lineHeight: '70px',
+    '@media(max-width: 1150px)': {
+      marginLeft: '25px',
+    },
   }),
 };
 
@@ -86,11 +134,19 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      sidebar: false,
+    };
   }
 
   componentWillMount() {
     this.props.initWeb3();
     this.props.fetchAuth();
+  }
+
+  toggleSidebar() {
+    const currentState = this.state.sidebar;
+    this.setState({ sidebar: !currentState });
   }
 
   isHome() {
@@ -111,15 +167,46 @@ class App extends PureComponent {
     return <ul className={styles.nav}>{links}</ul>;
   }
 
+  renderWarnings() {
+    if (this.props.metamask !== true) {
+      return (
+        <InstallMetaMaskModal />
+      );
+    }
+    return false;
+  }
+
   render() {
     return (
-      <div className={styles.app}>
+      <div
+        className={styles.app}
+      >
+        {this.renderWarnings()}
         {this.props.error !== null && <div>{this.props.error}</div>}
-        <div className={styles.sideBar}>
-          <img className={styles.logo} src="../images/logo.svg" alt="Gems" />
+        <div
+          className={classNames({ [styles.mobileHeader]: true, [styles.sbw]: this.state.sidebar })}
+        >
+          <Hamburger
+            onClick={this.toggleSidebar}
+            onKeyPress={this.toggleSidebar}
+          />
+          <div className={styles.mobileLogoContainer}>
+            <img className={styles.mobileLogo} src="../images/mobile-logo.png" alt="Gems" />
+          </div>
+        </div>
+        <div
+          className={classNames({ [styles.sideBar]: true, [styles.ib]: this.state.sidebar })}
+        >
+          <img
+            className={styles.logo}
+            src="../images/logo.svg"
+            alt="Gems"
+          />
           {this.renderNav()}
         </div>
-        <div className={styles.container}>
+        <div
+          className={classNames({ [styles.container]: true, [styles.sbw]: this.state.sidebar })}
+        >
           {
             this.isHome() ||
             <div className={styles.title}>
@@ -137,6 +224,7 @@ App.defaultProps = {
   error: null,
   isAuthorized: null,
   task: null,
+  metamask: true,
 };
 
 App.propTypes = {
@@ -150,6 +238,7 @@ App.propTypes = {
   }).isRequired,
   task: PropTypes.shape(taskPropTypes),
   title: PropTypes.string.isRequired,
+  metamask: PropTypes.bool,
 };
 
 export default App;

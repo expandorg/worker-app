@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   isAuthorized: state.isAuthorized,
   task: state.task,
   title: state.pageTitle,
+  metamask: state.metamask,
 });
 
 const mapDispatchToProps = {
