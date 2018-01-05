@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
-import { FLEX_PANEL, BORDER_R, PADDING, BTN} from '../style-constants';
+import { FLEX_PANEL, BORDER_R, PADDING, BTN } from '../style-constants';
 
 const styles = {
   innerContainer: FLEX_PANEL,
@@ -160,7 +160,11 @@ class Account extends PureComponent {
               {this.renderGems()}
             </button>
             <button
-              className={classNames({ [styles.defaultBtn]: true, [styles.btn]: true, [styles.loginBtn]: true })}
+              className={classNames({
+                  [styles.defaultBtn]: true,
+                  [styles.btn]: true,
+                  [styles.loginBtn]: true,
+                })}
               onClick={this.props.logout}
             >
               Log Out
