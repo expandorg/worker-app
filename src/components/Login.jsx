@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
 import { css } from 'glamor';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import autoBind from 'auto-bind';
 import Carousel from './Carousel';
+import { BTN } from '../style-constants';
 
 const styles = {
+  btn: BTN,
   container: css({
     position: 'relative',
     display: 'block',
@@ -28,32 +31,12 @@ const styles = {
   startBtn: css({
     width: '174px',
     height: '64px',
-    borderRadius: '4px',
-    backgroundColor: '#ff7092',
     marginTop: '35px',
-    fontSize: '11px',
-    textAlign: 'center',
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    ':focus': {
-      outline: '0px',
-    },
   }),
   loginBtn: css({
     width: 'calc(174px / 1.5)',
     height: 'calc(64px / 1.5)',
-    borderRadius: '4px',
-    backgroundColor: '#ff7092',
     marginTop: '17.5px',
-    fontSize: '11px',
-    textAlign: 'center',
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    ':focus': {
-      outline: '0px',
-    },
   }),
   instructions: css({
     fontFamily: 'Poppins',
@@ -110,7 +93,12 @@ class Login extends PureComponent {
       return (
         <div className={styles.container}>
           <Carousel />
-          <button className={styles.startBtn} onClick={this.showLogin}>Start</button>
+          <button
+            className={classNames({ [styles.btn]: true, [styles.startBtn]: true })}
+            onClick={this.showLogin}
+          >
+            Start
+          </button>
         </div>
       );
     }
@@ -126,7 +114,12 @@ class Login extends PureComponent {
           <br />
           (similar to the above). Click below to log in.
         </span>
-        <button className={styles.loginBtn} onClick={this.props.login}>Log In</button>
+        <button
+          className={classNames({ [styles.btn]: true, [styles.loginBtn]: true })}
+          onClick={this.props.login}
+        >
+          Log In
+        </button>
       </div>
     );
   }

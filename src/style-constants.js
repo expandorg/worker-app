@@ -30,13 +30,23 @@ export const BTN = css({
   height: '42px',
   borderRadius: '4px',
   backgroundColor: '#ff7092',
-  fontSize: '11px',
+  fontSize: '16px',
   textAlign: 'center',
   display: 'block',
   marginLeft: 'auto',
   marginRight: 'auto',
+  border: 0,
   cursor: 'pointer',
   ':focus': {
     outline: '0px',
+  },
+  ':hover': {
+    backgroundImage: 'linear-gradient(to bottom right,#ff7092,#FF8EA9)',
+  },
+  ':disabled': {
+    backgroundColor: '#f2f2f2',
+    ':hover': {
+      backgroundImage: 'none',
+    },
   },
 });

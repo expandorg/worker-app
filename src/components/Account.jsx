@@ -5,10 +5,11 @@ import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
-import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
+import { FLEX_PANEL, BORDER_R, PADDING, BTN} from '../style-constants';
 
 const styles = {
   innerContainer: FLEX_PANEL,
+  btn: BTN,
   table: css({
     width: '100%',
     display: 'flex',
@@ -86,18 +87,13 @@ const styles = {
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   }),
-  btn: css({
+  defaultBtn: css({
     minWidth: '25%',
     maxWidth: 'calc(25% - 25px)',
     height: '40px',
-    borderRadius: '4px',
-    backgroundColor: '#ff7092',
     margin: PADDING / 2,
-    cursor: 'pointer',
-    border: '0',
-    ':focus': {
-      outline: '0px',
-    },
+    display: 'inline-block',
+    fontSize: '12px',
   }),
   loginBtn: css({
     float: 'right',
@@ -156,7 +152,7 @@ class Account extends PureComponent {
           </div>
           <div className={styles.cell}>
             <button
-              className={styles.btn}
+              className={classNames({ [styles.defaultBtn]: true, [styles.btn]: true })}
               onClick={this.props.withdrawPayments}
               disabled={this.props.worker.balance < 1}
             >
@@ -164,7 +160,7 @@ class Account extends PureComponent {
               {this.renderGems()}
             </button>
             <button
-              className={classNames({ [styles.btn]: true, [styles.loginBtn]: true })}
+              className={classNames({ [styles.defaultBtn]: true, [styles.btn]: true, [styles.loginBtn]: true })}
               onClick={this.props.logout}
             >
               Log Out
