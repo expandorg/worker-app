@@ -61,14 +61,14 @@ const styles = {
     textAlign: 'left',
     paddingLeft: '15px',
     color: '#b8b8b8',
-    '::placeholder' : {
-     fontSize: '16px',
-     textAlign: 'left',
-     color: '#b8b8b8'
+    '::placeholder': {
+      fontSize: '16px',
+      textAlign: 'left',
+      color: '#b8b8b8',
     },
     ':focus': {
-     outline: '0'
-    }
+      outline: '0',
+    },
   }),
   btn: css({
     width: 205,
@@ -123,7 +123,7 @@ class Task extends PureComponent {
   }
 
   handleChange(e) {
-    this.setState({value: e.target.value});
+    this.setState({ value: e.target.value });
   }
 
   handleAssign(e) {
