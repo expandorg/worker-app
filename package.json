@@ -12,6 +12,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "bluebird": "^3.5.1",
+    "classnames": "^2.2.5",
     "css-loader": "^0.28.7",
     "dotenv-webpack": "^1.5.4",
     "eslint": "^4.7.2",
@@ -43,9 +44,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --port 3000 --progress",
-    "build": "npm run clean && NODE_ENV=production webpack --progress"
-  },
-  "dependencies": {
-    "classnames": "^2.2.5"
+    "build": "npm run clean && NODE_ENV=production webpack --progress",
+    "clean": "rimraf build"
   }
 }
