@@ -226,9 +226,6 @@ App.propTypes = {
   fetchAuth: PropTypes.func.isRequired,
   initWeb3: PropTypes.func.isRequired,
   isAuthorized: PropTypes.bool,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
   task: PropTypes.shape(taskPropTypes),
   title: PropTypes.string.isRequired,
   metamask: PropTypes.bool,
