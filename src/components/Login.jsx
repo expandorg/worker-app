@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import autoBind from 'auto-bind';
 import Carousel from './Carousel';
+import UnlockMetaMaskModal from './UnlockMetaMaskModal';
 import { BTN } from '../style-constants';
 
 const styles = {
@@ -104,6 +105,7 @@ class Login extends PureComponent {
     }
     return (
       <div className={styles.loginContainer}>
+        {this.props.locked && <UnlockMetaMaskModal />}
         <img
           className={styles.screenShot}
           src="images/login-screenshot.svg"
@@ -134,6 +136,7 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   replace: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
+  locked: PropTypes.bool.isRequired,
 };
 
 export default Login;

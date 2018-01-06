@@ -34,6 +34,7 @@ const reducer = combineReducers({
   web3: simpleReducer(null, actions.SET_WEB3),
   worker: simpleReducer(null, actions.SET_WORKER),
   metamask: simpleReducer(null, actions.SET_METAMASK),
+  locked: simpleReducer(null, actions.SET_METAMASK_LOCKED),
 });
 
 export default reducer;

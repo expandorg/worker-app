@@ -4,6 +4,8 @@ export const SIDEBAR_W = 250;
 export const PADDING = 25;
 export const BORDER_R = 4;
 export const BLUE = '#1c2541';
+export const PINK = '#ff7092';
+export const GREEN = '#6fffe9';
 
 export const PANEL = css({
   padding: PADDING,
@@ -30,7 +32,7 @@ export const BTN = css({
   width: '132px',
   height: '42px',
   borderRadius: '4px',
-  backgroundColor: '#ff7092',
+  backgroundColor: PINK,
   fontSize: '16px',
   textAlign: 'center',
   display: 'block',

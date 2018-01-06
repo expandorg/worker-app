@@ -10,6 +10,7 @@ const actions = [
   'SET_WEB3',
   'SET_WORKER',
   'SET_METAMASK',
+  'SET_METAMASK_LOCKED',
 ];
 
 export default actions.reduce((prev, cur) => {
