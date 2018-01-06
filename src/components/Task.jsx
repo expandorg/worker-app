@@ -111,7 +111,7 @@ class Task extends PureComponent {
       this.props.replace('/jobs');
       return;
     }
-    this.props.setTitle('Task');
+    this.props.setTitle('Complete Math Problem');
   }
 
   toggleModal() {
