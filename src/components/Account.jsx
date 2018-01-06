@@ -127,6 +127,10 @@ class Account extends PureComponent {
     return false;
   }
 
+  workerAdderss() {
+    return `0x${this.props.worker.id}`;
+  }
+
   render() {
     return this.props.worker && (
       <div className={styles.innerContainer}>
@@ -140,11 +144,11 @@ class Account extends PureComponent {
             <div className={styles.subHeading}>Account Address</div>
             <div className={styles.accountInput}>
               <div className={styles.accountInputContainer}>
-                <span className={styles.address} id="address">{this.props.worker.id}</span>
+                <span className={styles.address} id="address">{this.workerAdderss()}</span>
               </div>
               <Clipboard
                 className={styles.copyBtn.toString()}
-                data-clipboard-text={this.props.worker.id}
+                data-clipboard-text={this.workerAdderss()}
               >
                 Copy
               </Clipboard>
