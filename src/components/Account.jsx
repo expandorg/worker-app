@@ -116,6 +116,10 @@ class Account extends PureComponent {
     this.props.setTitle('Account');
   }
 
+  workerAdderss() {
+    return `0x${this.props.worker.id}`;
+  }
+
   renderGems() {
     if (this.props.worker.balance > 0) {
       return (
@@ -125,10 +129,6 @@ class Account extends PureComponent {
       );
     }
     return false;
-  }
-
-  workerAdderss() {
-    return `0x${this.props.worker.id}`;
   }
 
   render() {

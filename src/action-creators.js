@@ -45,6 +45,8 @@ export const setWorker = createAction(actions.SET_WORKER);
 
 export const setMetamask = createAction(actions.SET_METAMASK);
 
+export const setMetamaskLocked = createAction(actions.SET_METAMASK_LOCKED);
+
 export const logout = () => (dispatch) => {
   document.cookie = 'JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   dispatch(setIsAuthorized(false));
@@ -119,6 +121,9 @@ export const initWeb3 = () => (dispatch) => {
     }
     dispatch(setWeb3(web3));
     dispatch(setMetamask(true));
+    if (web3.eth.accounts.length === 0) {
+      dispatch(setMetamaskLocked(true));
+    }
   } catch (err) {
     dispatch(setMetamask(false));
   }
