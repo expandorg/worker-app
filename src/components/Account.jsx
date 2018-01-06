@@ -64,8 +64,8 @@ const styles = {
     textAlign: 'left',
     color: '#3a506b',
     padding: '8px 12px',
-    minWidth: '50%',
-    maxWidth: 'calc(100% - 25px)',
+    width: 'calc(100% - 205px)',
+    minWidth: '200px',
     ':focus': {
       outline: 0,
     },
@@ -88,12 +88,12 @@ const styles = {
     overflow: 'hidden',
   }),
   defaultBtn: css({
-    minWidth: '25%',
-    maxWidth: 'calc(25% - 25px)',
+    minWidth: '100px',
+    width: 'calc(25% - 25px)',
     height: '40px',
     margin: PADDING / 2,
     display: 'inline-block',
-    fontSize: '12px',
+    fontSize: '16px',
   }),
   loginBtn: css({
     float: 'right',
