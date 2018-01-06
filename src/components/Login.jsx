@@ -80,7 +80,7 @@ class Login extends PureComponent {
 
   checkAuth() {
     if (this.props.isAuthorized) {
-      this.props.replace('/account');
+      this.props.replace('/jobs');
     }
   }
 
