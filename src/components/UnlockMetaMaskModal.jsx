@@ -41,7 +41,7 @@ class UnlockMetaMaskModal extends PureComponent {
       >
         <div className={styles.container}>
           <span className={styles.description}>
-            Unlock MetaMask and refresh page to continue. Here is how:
+            Unlock MetaMask. Here is how:
           </span>
           <img
             className={styles.screenShot}

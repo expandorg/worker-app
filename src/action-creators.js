@@ -123,6 +123,12 @@ export const initWeb3 = () => (dispatch) => {
     dispatch(setMetamask(true));
     if (web3.eth.accounts.length === 0) {
       dispatch(setMetamaskLocked(true));
+      const accountInterval = setInterval(() => {
+        if (web3.eth.accounts.length > 0) {
+          clearInterval(accountInterval);
+          dispatch(setMetamaskLocked(false));
+        }
+      }, 300);
     }
   } catch (err) {
     dispatch(setMetamask(false));
