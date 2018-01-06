@@ -129,6 +129,7 @@ class Login extends PureComponent {
 
 Login.defaultProps = {
   isAuthorized: null,
+  locked: false,
 };
 
 Login.propTypes = {
@@ -136,7 +137,7 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   replace: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
-  locked: PropTypes.bool.isRequired,
+  locked: PropTypes.bool,
 };
 
 export default Login;
