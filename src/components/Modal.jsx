@@ -57,6 +57,9 @@ const styles = {
     display: 'inline-block',
     cursor: 'pointer',
     border: 0,
+    ':focus': {
+      outline: '0px',
+    },
   }),
 };
 
