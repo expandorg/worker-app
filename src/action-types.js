@@ -5,6 +5,7 @@ const actions = [
   'SET_JOB',
   'SET_JOBS',
   'SET_TASK',
+  'SET_STATS',
   'SET_PAGE_TITLE',
   'SET_PREVIOUS_JOB_ID',
   'SET_WEB3',

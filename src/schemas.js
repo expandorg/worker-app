@@ -18,3 +18,8 @@ export const worker = {
   id: PropTypes.string.isRequired,
   balance: PropTypes.number.isRequired,
 };
+
+export const stats = {
+  complete: PropTypes.number.isRequired,
+  incomplete: PropTypes.number.isRequired,
+};
