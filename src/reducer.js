@@ -33,6 +33,7 @@ const reducer = combineReducers({
   task: simpleReducer(null, actions.SET_TASK),
   web3: simpleReducer(null, actions.SET_WEB3),
   worker: simpleReducer(null, actions.SET_WORKER),
+  stats: simpleReducer(null, actions.SET_STATS),
   metamask: simpleReducer(null, actions.SET_METAMASK),
   locked: simpleReducer(null, actions.SET_METAMASK_LOCKED),
 });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { css } from 'glamor';
 import Modal from './Modal';
-import { job as jobPropTypes, task as taskPropTypes } from '../schemas';
+import { job as jobPropTypes, task as taskPropTypes, stats as statsProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
 
 const styles = {
@@ -94,6 +94,22 @@ const styles = {
       backgroundImage: 'linear-gradient(to bottom right,#6fffe9,#94FFEF)',
     },
   }),
+  completed: css({
+    width: '40%',
+    display: 'inline-block',
+    border: 'solid 1px #f2f2f2',
+    borderRadius: '4px',
+    fontSize: '40px',
+    color: '#ff7092',
+    textAlign: 'center',
+    paddingTop: '46px',
+    paddingBottom: '46px',
+    '> span': {
+      fontSize: '16px',
+      color: '#3a506b',
+      display: 'block',
+    },
+  }),
 };
 
 class Task extends PureComponent {
@@ -101,8 +117,13 @@ class Task extends PureComponent {
     super(props);
     autoBind(this);
 
+    const complete = this.props.stats ? this.props.stats.complete : 0;
+    const incomplete = this.props.stats ? this.props.stats.incomplete : 0;
+
     this.state = {
       value: null,
+      complete,
+      incomplete,
     };
   }
 
@@ -112,6 +133,7 @@ class Task extends PureComponent {
       return;
     }
     this.props.setTitle('Complete Math Problem');
+    this.props.fetchAuth();
   }
 
   toggleModal() {
@@ -121,7 +143,10 @@ class Task extends PureComponent {
   handleSubmit(e) {
     e.preventDefault();
     this.props.submitTask(this.state.value);
-    this.setState({ value: null });
+    this.setState({
+      value: null,
+      incomplete: this.state.incomplete + 1,
+    });
   }
 
   handleChange(e) {
@@ -194,6 +219,14 @@ class Task extends PureComponent {
             Submit
           </button>
         </form>
+        <div className={styles.completed}>
+          {this.state.complete ? this.state.complete : 0}
+          <span>Tasks Verified</span>
+        </div>
+        <div className={styles.completed}>
+          {this.state.incomplete ? this.state.incomplete : 0}
+          <span>Tasks Pending</span>
+        </div>
       </div>
     );
   }
@@ -202,6 +235,7 @@ class Task extends PureComponent {
 Task.defaultProps = {
   previousJobId: null,
   task: null,
+  stats: { complete: 0, incomplete: 0 },
 };
 
 Task.propTypes = {
@@ -213,6 +247,8 @@ Task.propTypes = {
   setTitle: PropTypes.func.isRequired,
   submitTask: PropTypes.func.isRequired,
   task: PropTypes.shape(taskPropTypes),
+  fetchAuth: PropTypes.func.isRequired,
+  stats: PropTypes.shape(statsProps),
 };
 
 export default Task;

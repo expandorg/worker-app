@@ -37,6 +37,8 @@ export const setPreviousJobId = createAction(actions.SET_PREVIOUS_JOB_ID);
 
 export const setTask = createAction(actions.SET_TASK);
 
+export const setStats = createAction(actions.SET_STATS);
+
 export const setTitle = createAction(actions.SET_PAGE_TITLE);
 
 export const setWeb3 = createAction(actions.SET_WEB3);
@@ -55,6 +57,7 @@ export const logout = () => (dispatch) => {
 function setLoggedIn(dispatch, data) {
   dispatch(setWorker(data.worker));
   dispatch(setTask(data.task));
+  dispatch(setStats(data.stats));
   if (data.job !== null) {
     dispatch(setAssignedJobId(data.job.id));
     dispatch(setPreviousJobId(data.job.id));
