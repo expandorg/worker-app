@@ -23,6 +23,9 @@ export const LOADING = css({
   width: '150px',
   background: 'url(../images/loading-animation.gif) no-repeat left top',
   backgroundSize: 'contain',
+  position: 'relative',
+  top: '35%',
+  transform: 'translateY(-50%)',
 });
 
 export const FLEX_PANEL = css({

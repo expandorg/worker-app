@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
+import { css } from 'glamor';
 import Job from '../components/Job';
 import { job as jobPropTypes } from '../schemas';
 import { PANEL, LOADING } from '../style-constants';
@@ -8,6 +9,9 @@ import { PANEL, LOADING } from '../style-constants';
 const styles = {
   innerContainer: PANEL,
   loading: LOADING,
+  fullheight: css({
+    height: '100%',
+  }),
 };
 
 class Jobs extends PureComponent {
@@ -35,7 +39,9 @@ class Jobs extends PureComponent {
         );
       }
       return (
-        <div className={styles.loading} />
+        <div className={styles.fullheight}>
+          <div className={styles.loading} />
+        </div>
       );
     }
     return (
