@@ -52,7 +52,7 @@ export const setMetamask = createAction(actions.SET_METAMASK);
 export const setMetamaskLocked = createAction(actions.SET_METAMASK_LOCKED);
 
 export const logout = () => (dispatch) => {
-  document.cookie = 'JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie = 'JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
   dispatch(setIsAuthorized(false));
 };
 
