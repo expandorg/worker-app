@@ -11,6 +11,7 @@ const actions = [
   'SET_PREVIOUS_JOB_ID',
   'SET_WEB3',
   'SET_WORKER',
+  'SET_TRANSACTION',
   'SET_METAMASK',
   'SET_METAMASK_LOCKED',
 ];

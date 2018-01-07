@@ -6,6 +6,7 @@ import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING, BTN } from '../style-constants';
+import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 
 const styles = {
   innerContainer: FLEX_PANEL,
@@ -131,9 +132,21 @@ class Account extends PureComponent {
     return false;
   }
 
+  renderTransactionSuccess() {
+    if (this.props.transaction) {
+      return (
+        <SuccessfulTransactionModal
+          transaction={this.props.transaction}
+        />
+      );
+    }
+    return false;
+  }
+
   render() {
     return this.props.worker && (
       <div className={styles.innerContainer}>
+        {this.renderTransactionSuccess()}
         <div className={styles.table}>
           <span
             className={classNames({ [styles.heading]: true, [styles.cell]: true })}
@@ -182,6 +195,7 @@ class Account extends PureComponent {
 
 Account.defaultProps = {
   worker: null,
+  transaction: null,
 };
 
 Account.propTypes = {
@@ -189,6 +203,7 @@ Account.propTypes = {
   setTitle: PropTypes.func.isRequired,
   withdrawPayments: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
+  transaction: PropTypes.string,
 };
 
 export default Account;

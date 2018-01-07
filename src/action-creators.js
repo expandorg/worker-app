@@ -47,6 +47,8 @@ export const setWeb3 = createAction(actions.SET_WEB3);
 
 export const setWorker = createAction(actions.SET_WORKER);
 
+export const setTransaction = createAction(actions.SET_TRANSACTION);
+
 export const setMetamask = createAction(actions.SET_METAMASK);
 
 export const setMetamaskLocked = createAction(actions.SET_METAMASK_LOCKED);
@@ -220,6 +222,7 @@ export const withdrawPayments = () => async (dispatch) => {
     }
     const data = await res.json();
     dispatch(setWorker(data.worker));
+    dispatch(setTransaction(data.tx));
   } catch (err) {
     dispatch(setError(err.toString()));
   }

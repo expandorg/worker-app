@@ -4,6 +4,7 @@ import { logout, setTitle, withdrawPayments } from '../action-creators';
 
 const mapStateToProps = state => ({
   worker: state.worker,
+  transaction: state.transaction,
 });
 
 const mapDispatchToProps = {
