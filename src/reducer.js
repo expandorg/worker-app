@@ -36,6 +36,7 @@ const reducer = combineReducers({
   stats: simpleReducer(null, actions.SET_STATS),
   metamask: simpleReducer(null, actions.SET_METAMASK),
   locked: simpleReducer(null, actions.SET_METAMASK_LOCKED),
+  jobsretrieved: simpleReducer(null, actions.SET_JOBS_RETRIEVED),
 });
 
 export default reducer;

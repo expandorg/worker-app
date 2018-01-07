@@ -4,6 +4,7 @@ const actions = [
   'SET_IS_AUTHORIZED',
   'SET_JOB',
   'SET_JOBS',
+  'SET_JOBS_RETRIEVED',
   'SET_TASK',
   'SET_STATS',
   'SET_PAGE_TITLE',

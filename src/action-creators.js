@@ -33,6 +33,8 @@ export const setJob = createAction(actions.SET_JOB);
 
 export const setJobs = createAction(actions.SET_JOBS);
 
+export const setJobsRetrieved = createAction(actions.SET_JOBS_RETRIEVED);
+
 export const setPreviousJobId = createAction(actions.SET_PREVIOUS_JOB_ID);
 
 export const setTask = createAction(actions.SET_TASK);
@@ -100,6 +102,7 @@ export const fetchJobs = () => async (dispatch) => {
     }, {});
 
     dispatch(setJobs(jobs));
+    dispatch(setJobsRetrieved(true));
 
     const { previousJobId } = store.getState();
     if (

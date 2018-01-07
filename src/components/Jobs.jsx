@@ -13,18 +13,11 @@ class Jobs extends PureComponent {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = {
-      mounted: false,
-    };
   }
 
   componentWillMount() {
     this.props.setTitle('Browse Jobs');
     this.props.fetchJobs();
-  }
-
-  componentDidUpdate() {
-    this.setState({ mounted: true })
   }
 
   getHandleJoin(jobId) {
@@ -33,7 +26,7 @@ class Jobs extends PureComponent {
 
   render() {
     if (Object.getOwnPropertyNames(this.props.jobs).length <= 0) {
-      if (this.state.mounted) {
+      if (this.props.jobsretrieved) {
         return (
           <div className={styles.innerContainer}>
             There are currently no available jobs. Please check back soon!
@@ -65,6 +58,7 @@ class Jobs extends PureComponent {
 
 Jobs.defaultProps = {
   assignedJobId: null,
+  jobsretrieved: false,
 };
 
 Jobs.propTypes = {
@@ -73,6 +67,7 @@ Jobs.propTypes = {
   fetchJobs: PropTypes.func.isRequired,
   jobs: PropTypes.objectOf(PropTypes.shape(jobPropTypes)).isRequired,
   setTitle: PropTypes.func.isRequired,
+  jobsretrieved: PropTypes.bool,
 };
 
 export default Jobs;

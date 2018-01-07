@@ -5,6 +5,7 @@ import { assignTask, fetchJobs, setTitle } from '../action-creators';
 const mapStateToProps = state => ({
   assignedJobId: state.assignedJobId,
   jobs: state.jobs,
+  jobsretrieved: state.jobsretrieved,
 });
 
 const mapDispatchToProps = {
