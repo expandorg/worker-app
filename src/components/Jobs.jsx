@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
 import Job from '../components/Job';
 import { job as jobPropTypes } from '../schemas';
-import { PANEL } from '../style-constants';
+import { PANEL, LOADING } from '../style-constants';
 
 const styles = {
   innerContainer: PANEL,
+  loading: LOADING,
 };
 
 class Jobs extends PureComponent {
@@ -34,9 +35,7 @@ class Jobs extends PureComponent {
         );
       }
       return (
-        <div className={styles.innerContainer}>
-        Loading Jobs...
-        </div>
+        <div className={styles.loading} />
       );
     }
     return (

@@ -16,6 +16,15 @@ export const PANEL = css({
   margin: PADDING,
 });
 
+export const LOADING = css({
+  display: 'block',
+  margin: 'auto',
+  height: '150px',
+  width: '150px',
+  background: 'url(../images/loading-animation.gif) no-repeat left top',
+  backgroundSize: 'contain',
+});
+
 export const FLEX_PANEL = css({
   padding: PADDING,
   borderRadius: BORDER_R,
