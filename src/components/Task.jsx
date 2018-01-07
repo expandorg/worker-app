@@ -182,7 +182,7 @@ class Task extends PureComponent {
               className={styles.input}
               onChange={this.handleChange}
               id="answer"
-              value={this.state.value}
+              value={this.state.value || ''}
               placeholder="Answer"
             />
           </label>
