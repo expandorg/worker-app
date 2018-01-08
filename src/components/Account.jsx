@@ -160,6 +160,7 @@ class Account extends PureComponent {
   }
   renderTransactionSuccess() {
     if (this.props.transaction) {
+      this.setState({ loading: false });
       return (
         <SuccessfulTransactionModal
           transaction={this.props.transaction}
