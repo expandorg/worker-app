@@ -225,7 +225,7 @@ class Account extends PureComponent {
             </button>
           </div>
           <div className={styles.cell}>
-            *You need at least 500 GEM tokens to withdraw
+            *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
           </div>
         </div>
       </div>
