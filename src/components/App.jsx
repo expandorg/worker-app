@@ -108,6 +108,26 @@ const styles = {
       marginLeft: '25px',
     },
   }),
+  error: css({
+    height: '40px',
+    fontSize: 24,
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    backgroundColor: '#6fffe9',
+  }),
+  closeBtn: css({
+    float: 'right',
+    fontSize: '16px',
+    display: 'inline-block',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+    border: 0,
+    height: '40px',
+    marginRight: '25px',
+    ':focus': {
+      outline: '0px',
+    },
+  }),
 };
 
 function NavLink(props) {
@@ -136,12 +156,17 @@ class App extends PureComponent {
     autoBind(this);
     this.state = {
       sidebar: false,
+      error: true,
     };
   }
 
   componentWillMount() {
     this.props.initWeb3();
     this.props.fetchAuth();
+  }
+
+  closeError() {
+    this.setState({ error: false });
   }
 
   toggleSidebar() {
@@ -178,7 +203,6 @@ class App extends PureComponent {
         className={styles.app}
       >
         {this.renderWarnings()}
-        {this.props.error !== null && <div>{this.props.error}</div>}
         <div
           className={classNames({ [styles.mobileHeader]: true, [styles.sbw]: this.state.sidebar })}
         >
@@ -203,6 +227,15 @@ class App extends PureComponent {
         <div
           className={classNames({ [styles.container]: true, [styles.sbw]: this.state.sidebar })}
         >
+          {this.props.error !== null && this.state.error && (
+            <div className={styles.error}>
+              {this.props.error}
+              <button href="#" className={styles.closeBtn} onClick={this.closeError}>
+                X
+              </button>
+            </div>
+            )
+          }
           <div className={styles.title}>
             <span className={styles.titleText}>{this.props.title}</span>
           </div>
