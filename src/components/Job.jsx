@@ -173,7 +173,7 @@ class Job extends PureComponent {
   }
 
   renderText() {
-    if (this.state.loading) {
+    if (this.state.loading && !this.props.error) {
       return 'Loading';
     }
     if (this.props.error) {
