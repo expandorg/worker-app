@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
-import { FLEX_PANEL, BORDER_R, PADDING, BTN } from '../style-constants';
+import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from '../style-constants';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 
 const styles = {
@@ -105,12 +105,24 @@ const styles = {
     marginLeft: '2px',
     display: 'inline-block',
   }),
+  loading: LOADING,
+  sm: css({
+    maxHeight: '20px',
+    maxWidth: '20px',
+    display: 'inline-block',
+    top: '0%',
+    transform: 'none',
+    verticalAlign: 'middle',
+  }),
 };
 
 class Account extends PureComponent {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      loading: false,
+    };
   }
 
   componentWillMount() {
@@ -121,7 +133,15 @@ class Account extends PureComponent {
     return `0x${this.props.worker.id}`;
   }
 
+  withdraw() {
+    this.setState({ loading: true });
+    this.props.withdrawPayments();
+  }
+
   renderGems() {
+    if (this.state.loading) {
+      return <div className={classNames({ [styles.loading]: true, [styles.sm]: true })} />;
+    }
     if (this.props.worker.balance > 0) {
       return (
         <div className={styles.availableFunds}>
@@ -132,6 +152,12 @@ class Account extends PureComponent {
     return false;
   }
 
+  renderText() {
+    if (this.state.loading) {
+      return "Withdrawing";
+    }
+    return "Withdraw";
+  }
   renderTransactionSuccess() {
     if (this.props.transaction) {
       return (
@@ -169,11 +195,14 @@ class Account extends PureComponent {
           </div>
           <div className={styles.cell}>
             <button
-              className={classNames({ [styles.defaultBtn]: true, [styles.btn]: true })}
-              onClick={this.props.withdrawPayments}
-              disabled={this.props.worker.balance < 1}
+              className={classNames({
+                [styles.defaultBtn]: true,
+                [styles.btn]: true,
+              })}
+              onClick={() => this.withdraw()}
+              disabled={this.props.worker.balance < 1 || this.state.loading}
             >
-              Withdraw
+              {this.renderText()}
               {this.renderGems()}
             </button>
             <button
