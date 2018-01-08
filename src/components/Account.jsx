@@ -154,9 +154,9 @@ class Account extends PureComponent {
 
   renderText() {
     if (this.state.loading) {
-      return "Withdrawing";
+      return 'Withdrawing';
     }
-    return "Withdraw";
+    return 'Withdraw';
   }
   renderTransactionSuccess() {
     if (this.props.transaction) {
