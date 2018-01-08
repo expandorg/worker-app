@@ -168,6 +168,9 @@ class Task extends PureComponent {
   handleAssign(e) {
     e.preventDefault();
     this.props.assignTask(this.props.previousJobId);
+    this.setState({
+      loading: false,
+    });
   }
 
   hasNextTask() {
@@ -183,7 +186,7 @@ class Task extends PureComponent {
   }
 
   renderSubmit() {
-    if (this.state.loading) {
+    if (this.state.loading && !this.props.error) {
       return 'Loading';
     }
     return 'Submit';
@@ -233,7 +236,7 @@ class Task extends PureComponent {
           <button
             className={styles.submit}
             onClick={this.handleSubmit}
-            disabled={this.state.value === null || this.state.loading}
+            disabled={this.state.value === null || (this.state.loading && !this.props.error)}
           >
             {this.renderSubmit()}
           </button>
@@ -256,6 +259,7 @@ Task.defaultProps = {
   previousJobId: null,
   task: null,
   stats: { complete: 0, incomplete: 0 },
+  error: null,
 };
 
 Task.propTypes = {
@@ -269,6 +273,7 @@ Task.propTypes = {
   task: PropTypes.shape(taskPropTypes),
   fetchAuth: PropTypes.func.isRequired,
   stats: PropTypes.shape(statsProps),
+  error: PropTypes.string,
 };
 
 export default Task;

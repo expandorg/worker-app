@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
   previousJobId: state.previousJobId,
   task: state.task,
   stats: state.stats,
+  error: state.error,
 });
 
 const mapDispatchToProps = {
