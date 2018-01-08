@@ -142,10 +142,17 @@ class Account extends PureComponent {
     if (this.state.loading) {
       return <div className={classNames({ [styles.loading]: true, [styles.sm]: true })} />;
     }
-    if (this.props.worker.balance > 0) {
+    if (this.props.worker.balance > 0 && this.props.worker.balance < 500) {
       return (
         <div className={styles.availableFunds}>
-          <span>{this.props.worker.balance} Gem</span>
+          <span>{this.props.worker.balance} GEM*</span>
+        </div>
+      );
+    }
+    if (this.props.worker.balance >= 500) {
+      return (
+        <div className={styles.availableFunds}>
+          <span>{this.props.worker.balance} GEM</span>
         </div>
       );
     }
@@ -201,7 +208,7 @@ class Account extends PureComponent {
                 [styles.btn]: true,
               })}
               onClick={() => this.withdraw()}
-              disabled={this.props.worker.balance < 1 || this.state.loading}
+              disabled={this.props.worker.balance < 500 || this.state.loading}
             >
               {this.renderText()}
               {this.renderGems()}
@@ -216,6 +223,9 @@ class Account extends PureComponent {
             >
               Log Out
             </button>
+          </div>
+          <div className={styles.cell}>
+            *You need at least 500 GEM tokens to withdraw
           </div>
         </div>
       </div>
