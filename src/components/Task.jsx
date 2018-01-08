@@ -42,6 +42,12 @@ const styles = {
     ':hover': {
       backgroundImage: 'linear-gradient(to bottom right,#ff7092,#FF8EA9)',
     },
+    ':disabled': {
+      backgroundColor: '#f2f2f2',
+      ':hover': {
+        backgroundImage: 'none',
+      },
+    },
   }),
   heading: css({
     fontSize: '20px',
@@ -123,6 +129,7 @@ class Task extends PureComponent {
 
     this.state = {
       value: null,
+      loading: false,
       complete,
       incomplete,
     };
@@ -147,11 +154,15 @@ class Task extends PureComponent {
     this.setState({
       value: null,
       incomplete: this.state.incomplete + 1,
+      loading: true,
     });
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({
+      value: e.target.value,
+      loading: false,
+    });
   }
 
   handleAssign(e) {
@@ -169,6 +180,13 @@ class Task extends PureComponent {
       return false;
     }
     return this.props.jobs[previousJobId].availableTasks > 0;
+  }
+
+  renderSubmit() {
+    if (this.state.loading) {
+      return 'Loading';
+    }
+    return 'Submit';
   }
 
   render() {
@@ -215,9 +233,9 @@ class Task extends PureComponent {
           <button
             className={styles.submit}
             onClick={this.handleSubmit}
-            disabled={this.state.value === null}
+            disabled={this.state.value === null || this.state.loading}
           >
-            Submit
+            {this.renderSubmit()}
           </button>
         </form>
         <div className={styles.completed}>
