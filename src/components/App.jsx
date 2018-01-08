@@ -129,7 +129,7 @@ const styles = {
     },
   }),
   alphaMsg: css({
-    display: 'block',
+    display: 'fixed',
     position: 'absolute',
     bottom: '0',
     backgroundColor: '#1c2541',
