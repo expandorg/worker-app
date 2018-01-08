@@ -112,11 +112,11 @@ const styles = {
     marginBottom: PADDING / 2,
   }),
   screenShot: css({
-    maxWidth: '100%',
-    width: 'calc(100% - 50px)',
+    maxWidth: '80%',
+    width: 'calc(80% - 50px)',
     display: 'block',
     margin: 'auto',
-    marginBottom: PADDING * 1.5,
+    marginBottom: PADDING,
   }),
   description: css({
     fontSize: '16px',

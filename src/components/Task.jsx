@@ -225,8 +225,9 @@ class Task extends PureComponent {
         </div>
         <div className={styles.completed}>
           {this.state.incomplete ? this.state.incomplete : 0}
-          <span>Tasks Pending</span>
+          <span>Tasks Pending*</span>
         </div>
+        <span>*Tasks are pending result verification</span>
       </div>
     );
   }

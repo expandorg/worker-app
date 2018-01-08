@@ -28,7 +28,7 @@ const styles = {
   modalContent: css({
     opacity: 1,
     height: '100%',
-    marginTop: 65,
+    marginTop: 32,
     marginLeft: 50,
     marginRight: 50,
     borderRadius: BORDER_R,
