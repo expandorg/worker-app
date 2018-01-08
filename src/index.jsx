@@ -10,6 +10,7 @@ import Login from './containers/Login';
 import Jobs from './containers/Jobs';
 import Account from './containers/Account';
 import Task from './containers/Task';
+import NotFound from './containers/NotFound';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize react-router-redux.
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route path="task" component={Task} />
               <Route path="jobs" component={Jobs} />
               <Route path="account" component={Account} />
+              <Route path="*" component={NotFound} />
             </Route>
           </Route>
         </Router>
