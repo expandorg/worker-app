@@ -159,11 +159,27 @@ class Job extends PureComponent {
 
     this.state = {
       isModalOpen: false,
+      loading: false,
     };
+  }
+
+  agree() {
+    this.setState({ loading: true });
+    this.props.joinJob();
   }
 
   toggleModal() {
     this.setState({ isModalOpen: !this.state.isModalOpen });
+  }
+
+  renderText() {
+    if (this.state.loading) {
+      return 'Loading';
+    }
+    if (this.props.error) {
+      return 'Error';
+    }
+    return 'Agree & Continue';
   }
 
   renderStatus() {
@@ -204,8 +220,12 @@ class Job extends PureComponent {
             <span className={styles.screenShotDescription}>You will see this screen </span>
             <img className={styles.screenShot} src={this.props.job.screenshot} alt="screenshot" />
             <span className={styles.description}>{this.props.job.description}</span>
-            <button className={styles.agreeBtn} onClick={this.props.joinJob}>
-              Agree & Continue
+            <button
+              className={styles.agreeBtn}
+              onClick={() => this.agree()}
+              disabled={this.state.loading || this.props.error}
+            >
+              {this.renderText()}
             </button>
           </Modal>
         }
@@ -237,12 +257,14 @@ class Job extends PureComponent {
 
 Job.defaultProps = {
   assignedJobId: null,
+  error: null,
 };
 
 Job.propTypes = {
   assignedJobId: PropTypes.string,
   joinJob: PropTypes.func.isRequired,
   job: PropTypes.shape(jobPropTypes).isRequired,
+  error: PropTypes.string,
 };
 
 export default Job;

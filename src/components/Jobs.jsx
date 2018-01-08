@@ -53,6 +53,7 @@ class Jobs extends PureComponent {
               assignedJobId={this.props.assignedJobId}
               job={this.props.jobs[id]}
               joinJob={this.getHandleJoin(id)}
+              error={this.props.error}
             />
           ),
         )}
@@ -64,6 +65,7 @@ class Jobs extends PureComponent {
 Jobs.defaultProps = {
   assignedJobId: null,
   jobsretrieved: false,
+  error: null,
 };
 
 Jobs.propTypes = {
@@ -73,6 +75,7 @@ Jobs.propTypes = {
   jobs: PropTypes.objectOf(PropTypes.shape(jobPropTypes)).isRequired,
   setTitle: PropTypes.func.isRequired,
   jobsretrieved: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 export default Jobs;
