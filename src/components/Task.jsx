@@ -104,6 +104,7 @@ const styles = {
     textAlign: 'center',
     paddingTop: '46px',
     paddingBottom: '46px',
+    marginBottom: '25px',
     '> span': {
       fontSize: '16px',
       color: '#3a506b',
