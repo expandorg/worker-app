@@ -130,13 +130,17 @@ const styles = {
   }),
   alphaMsg: css({
     display: 'block',
-    position: 'fixed',
     bottom: '0',
     backgroundColor: '#1c2541',
     color: '#ffffff',
     width: 'calc(100% - 50px)',
+    marginTop: '25px',
     paddingLeft: '25px',
     paddingRight: '25px',
+  }),
+  feedback: css({
+    marginLeft: '15px',
+    color: '#6fffe9',
   }),
 };
 
@@ -253,6 +257,12 @@ class App extends PureComponent {
               This is the Gems Alpha. All tasks are sample tasks, and
               all Gems earned are on the Ropsten test network.
             </span>
+            <a
+              href="https://gemscommunity.typeform.com/to/LdJ9zL"
+              className={styles.feedback}
+            >
+              Feedback?
+            </a>
           </div>
         </div>
       </div>
