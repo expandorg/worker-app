@@ -128,6 +128,16 @@ const styles = {
       outline: '0px',
     },
   }),
+  alphaMsg: css({
+    display: 'block',
+    position: 'absolute',
+    bottom: '0',
+    backgroundColor: '#1c2541',
+    color: '#ffffff',
+    width: 'calc(100% - 50px)',
+    paddingLeft: '25px',
+    paddingRight: '25px',
+  }),
 };
 
 function NavLink(props) {
@@ -240,6 +250,9 @@ class App extends PureComponent {
             <span className={styles.titleText}>{this.props.title}</span>
           </div>
           {this.props.children}
+          <div className={styles.alphaMsg}>
+            <span>This is the Gems Alpha. All tasks are sample tasks, and all Gems earned are on the Ropsten test network</span>
+          </div>
         </div>
       </div>
     );
