@@ -251,7 +251,10 @@ class App extends PureComponent {
           </div>
           {this.props.children}
           <div className={styles.alphaMsg}>
-            <span>This is the Gems Alpha. All tasks are sample tasks, and all Gems earned are on the Ropsten test network</span>
+            <span>
+              This is the Gems Alpha. All tasks are sample tasks, and
+              all Gems earned are on the Ropsten test network.
+            </span>
           </div>
         </div>
       </div>
