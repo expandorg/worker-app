@@ -129,8 +129,8 @@ const styles = {
     },
   }),
   alphaMsg: css({
-    display: 'fixed',
-    position: 'absolute',
+    display: 'block',
+    position: 'fixed',
     bottom: '0',
     backgroundColor: '#1c2541',
     color: '#ffffff',
@@ -209,9 +209,7 @@ class App extends PureComponent {
 
   render() {
     return (
-      <div
-        className={styles.app}
-      >
+      <div className={styles.app}>
         {this.renderWarnings()}
         <div
           className={classNames({ [styles.mobileHeader]: true, [styles.sbw]: this.state.sidebar })}
