@@ -130,13 +130,18 @@ const styles = {
   }),
   alphaMsg: css({
     display: 'block',
+    position: 'relative',
+    top: '-25px',
     bottom: '0',
     backgroundColor: '#1c2541',
     color: '#ffffff',
     width: 'calc(100% - 50px)',
-    marginTop: '25px',
     paddingLeft: '25px',
     paddingRight: '25px',
+    marginLeft: SIDEBAR_W,
+    '@media(max-width: 1150px)': {
+      marginLeft: 0,
+    },
   }),
   feedback: css({
     marginLeft: '15px',
@@ -252,18 +257,18 @@ class App extends PureComponent {
             <span className={styles.titleText}>{this.props.title}</span>
           </div>
           {this.props.children}
-          <div className={styles.alphaMsg}>
-            <span>
-              This is the Gems Alpha. All tasks are sample tasks, and
-              all Gems earned are on the Ropsten test network.
-            </span>
-            <a
-              href="https://gemscommunity.typeform.com/to/LdJ9zL"
-              className={styles.feedback}
-            >
-              Feedback?
-            </a>
-          </div>
+        </div>
+        <div className={styles.alphaMsg}>
+          <span>
+            This is the Gems Alpha. All tasks are sample tasks, and
+            all Gems earned are on the Ropsten test network.
+          </span>
+          <a
+            href="https://gemscommunity.typeform.com/to/LdJ9zL"
+            className={styles.feedback}
+          >
+            Feedback?
+          </a>
         </div>
       </div>
     );
