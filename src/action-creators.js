@@ -147,11 +147,14 @@ export const assignTask = jobId => async (dispatch) => {
   try {
     const res = await apiRequest(`/jobs/${jobId}/assign`, 'POST');
     const data = await res.json();
-
-    dispatch(setTask(data.task));
-    dispatch(setAssignedJobId(data.job.id));
-    dispatch(setPreviousJobId(data.job.id));
-    dispatch(replace('/task'));
+    if (!data) {
+      dispatch(setError('Error retrieving task'));
+    } else {
+      dispatch(setTask(data.task));
+      dispatch(setAssignedJobId(data.job.id));
+      dispatch(setPreviousJobId(data.job.id));
+      dispatch(replace('/task'));
+    }
   } catch (err) {
     dispatch(setError(err.toString()));
   }
