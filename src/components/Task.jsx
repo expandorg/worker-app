@@ -159,10 +159,14 @@ class Task extends PureComponent {
   }
 
   handleChange(e) {
-    this.setState({
-      value: e.target.value,
-      loading: false,
-    });
+    if (!this.state.loading) {
+      this.setState({
+        value: e.target.value,
+        loading: false,
+      });
+    } else {
+      this.setState({ value: e.target.value });
+    }
   }
 
   handleAssign(e) {
