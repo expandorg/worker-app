@@ -161,11 +161,11 @@ class Task extends PureComponent {
   handleChange(e) {
     if (!this.state.loading) {
       this.setState({
-        value: e.target.value,
+        value: e.target.value.trim(),
         loading: false,
       });
     } else {
-      this.setState({ value: e.target.value });
+      this.setState({ value: e.target.value.trim() });
     }
   }
 
@@ -240,7 +240,7 @@ class Task extends PureComponent {
           <button
             className={styles.submit}
             onClick={this.handleSubmit}
-            disabled={this.state.value === null || (this.state.loading && !this.props.error)}
+            disabled={this.state.value === null || this.state.value === '' || (this.state.loading && !this.props.error)}
           >
             {this.renderSubmit()}
           </button>
