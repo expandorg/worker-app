@@ -130,6 +130,7 @@ class Task extends PureComponent {
     this.state = {
       value: null,
       loading: false,
+      gettingTask: false,
       complete,
       incomplete,
     };
@@ -155,6 +156,7 @@ class Task extends PureComponent {
       value: null,
       incomplete: this.state.incomplete + 1,
       loading: true,
+      gettingTask: false,
     });
   }
 
@@ -174,6 +176,7 @@ class Task extends PureComponent {
     this.props.assignTask(this.props.previousJobId);
     this.setState({
       loading: false,
+      gettingTask: true,
     });
   }
 
@@ -187,6 +190,13 @@ class Task extends PureComponent {
       return false;
     }
     return this.props.jobs[previousJobId].availableTasks > 0;
+  }
+
+  renderNext() {
+    if (this.state.gettingTask && !this.props.error) {
+      return 'Loading';
+    }
+    return 'Next task';
   }
 
   renderSubmit() {
@@ -210,8 +220,12 @@ class Task extends PureComponent {
               <div className={styles.heading}>Submission successful!</div>
               {
                 this.hasNextTask() &&
-                <button className={styles.btn} onClick={this.handleAssign}>
-                  Next task
+                <button
+                  className={styles.btn}
+                  onClick={this.handleAssign}
+                  disabled={this.state.gettingTask}
+                >
+                  {this.renderNext()}
                 </button>
               }
               <div className={styles.heading}>
