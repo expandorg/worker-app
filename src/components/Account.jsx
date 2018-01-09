@@ -114,6 +114,9 @@ const styles = {
     transform: 'none',
     verticalAlign: 'middle',
   }),
+  disabled: css({
+    cursor: 'default',
+  }),
 };
 
 class Account extends PureComponent {
@@ -206,9 +209,11 @@ class Account extends PureComponent {
               className={classNames({
                 [styles.defaultBtn]: true,
                 [styles.btn]: true,
+                [styles.disabled]: true,
               })}
               onClick={() => this.withdraw()}
-              disabled={this.props.worker.balance < 500 || this.state.loading}
+              disabled
+              // disabled={this.props.worker.balance < 500 || this.state.loading}
             >
               {this.renderText()}
               {this.renderGems()}
@@ -225,7 +230,10 @@ class Account extends PureComponent {
             </button>
           </div>
           <div className={styles.cell}>
-            *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
+            *Due to high demand, we have disabled GEM withdrawals on the Ropsten test network
+            {/*
+              *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
+            */}
           </div>
         </div>
       </div>
