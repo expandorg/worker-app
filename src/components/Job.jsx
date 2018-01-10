@@ -243,7 +243,7 @@ class Job extends PureComponent {
         />
         <div className={styles.jobInfo}>
           <div className={styles.jobHeading}>{this.props.job.name}</div>
-          <div className={styles.jobRequester}>{this.props.job.companyName}</div>
+          <div className={styles.jobRequester}>This is a sample task.</div>
           {this.renderStatus()}
         </div>
         <div className={styles.reward}>

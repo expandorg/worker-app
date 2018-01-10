@@ -260,8 +260,8 @@ class App extends PureComponent {
         </div>
         <div className={styles.alphaMsg}>
           <span>
-            This is the Gems Alpha. All tasks are sample tasks, and
-            all Gems earned are on the Ropsten test network.
+            This is the Gems Alpha on the Ropsten test network. All tasks are
+            sample tasks. No actual Gems are earned.
           </span>
           <a
             href="https://gemscommunity.typeform.com/to/LdJ9zL"
