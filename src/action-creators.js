@@ -230,3 +230,17 @@ export const withdrawPayments = () => async (dispatch) => {
     dispatch(setError(err.toString()));
   }
 };
+
+export const setEmail = email => async (dispatch) => {
+  try {
+    const res = await apiRequest('/update/email', 'POST', email, false);
+    if (!res.ok) {
+      throw new Error('Error updating email');
+    }
+    const data = await res.json();
+    console.log(data);
+    dispatch(setWorker(data.worker));
+  } catch (err) {
+    dispatch(setError(err.toString()));
+  }
+};
