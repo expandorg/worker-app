@@ -261,7 +261,6 @@ export const resendConfirmEmail = () => async (dispatch) => {
   try {
     const res = await apiRequest('/account/email/confirm/resend');
     if (!res.ok) {
-      console.log(res);
       throw new Error('Error sending email');
     }
     await res.json();

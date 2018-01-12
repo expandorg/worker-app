@@ -104,7 +104,6 @@ class AddEmailModal extends PureComponent {
       this.setState({
         submitError: true,
       });
-      console.log(this.state.submitError);
     }
   }
 
