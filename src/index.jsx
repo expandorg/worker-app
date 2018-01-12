@@ -10,6 +10,7 @@ import Login from './containers/Login';
 import Jobs from './containers/Jobs';
 import Account from './containers/Account';
 import Task from './containers/Task';
+import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route path="task" component={Task} />
               <Route path="jobs" component={Jobs} />
               <Route path="account" component={Account} />
+              <Route path="confirm" component={Confirm} />
               <Route path="*" component={NotFound} />
             </Route>
           </Route>

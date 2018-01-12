@@ -46,5 +46,8 @@
     "start": "NODE_ENV=development webpack-dev-server --port 3000 --progress",
     "build": "npm run clean && NODE_ENV=production webpack --progress",
     "clean": "rimraf build"
+  },
+  "dependencies": {
+    "react-router-props": "^1.0.2"
   }
 }

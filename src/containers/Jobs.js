@@ -6,6 +6,7 @@ const mapStateToProps = state => ({
   assignedJobId: state.assignedJobId,
   jobs: state.jobs,
   jobsretrieved: state.jobsretrieved,
+  worker: state.worker,
   error: state.error,
 });
 
