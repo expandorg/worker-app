@@ -108,6 +108,13 @@ class AddEmailModal extends PureComponent {
     }
   }
 
+  renderError() {
+    if (this.state.submitError) {
+      return 'Invalid Email';
+    }
+    return false;
+  }
+
   renderSubmit() {
     if (this.state.loading && !this.props.error) {
       return 'Loading';
@@ -128,6 +135,7 @@ class AddEmailModal extends PureComponent {
           <span className={styles.description}>
             To complete tasks on Gems you will need to add your email address:
           </span>
+          {this.renderError()}
           <form onSubmit={this.handleSubmit} className={styles.submitForm}>
             <label htmlFor="email">
               <input

@@ -5,7 +5,7 @@ import { css } from 'glamor';
 import Job from '../components/Job';
 import { job as jobPropTypes, worker as workerProps } from '../schemas';
 import { PANEL, LOADING } from '../style-constants';
-import AddEmailModal from '../containers/AddEmailModal';
+import EmailSubmission from './EmailSubmission';
 
 const styles = {
   innerContainer: PANEL,
@@ -31,9 +31,9 @@ class Jobs extends PureComponent {
   }
 
   renderEmailModal() {
-    if (!this.props.worker.email) {
+    if (!this.props.worker.email || !this.props.worker.confirmed) {
       return (
-        <AddEmailModal />
+        <EmailSubmission worker={this.props.worker} />
       );
     }
     return false;
