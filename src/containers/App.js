@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { initWeb3, fetchAuth } from '../action-creators';
+// import { initWeb3, fetchAuth } from '../action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,
@@ -11,8 +11,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  initWeb3,
-  fetchAuth,
+  // initWeb3,
+  // fetchAuth,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

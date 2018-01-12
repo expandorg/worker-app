@@ -20,6 +20,7 @@ const entry = {
     'redux',
     'redux-actions',
     'redux-thunk',
+    'isomorphic-fetch',
   ],
   app: ['babel-polyfill', './index'],
 };

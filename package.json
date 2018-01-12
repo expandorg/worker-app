@@ -7,6 +7,7 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
@@ -46,5 +47,12 @@
     "start": "NODE_ENV=development webpack-dev-server --port 3000 --progress",
     "build": "npm run clean && NODE_ENV=production webpack --progress",
     "clean": "rimraf build"
+  },
+  "dependencies": {
+    "combine-nested-reducers": "^1.0.4",
+    "isomorphic-fetch": "^2.2.1",
+    "recompose": "^0.26.0",
+    "redux-act": "^1.5.1",
+    "redux-saga": "^0.16.0"
   }
 }

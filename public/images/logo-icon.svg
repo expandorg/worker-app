@@ -1,0 +1,28 @@
+
+<svg width="38px" height="42px" viewBox="0 0 38 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Jobs" transform="translate(-26.000000, -19.000000)" fill="#FF7092">
+            <g id="Sidebar">
+                <g id="Logo-+-Mark" transform="translate(24.000000, 15.000000)">
+                    <g id="Logo" transform="translate(0.000000, 4.189944)" stroke-width="1">
+                        <g transform="translate(2.380000, 0.000000)" id="Path">
+                            <polygon opacity="0.3" points="36.4813953 8.61488372 32.8137209 11.3693023 23.6274419 2.18302326"></polygon>
+                            <polygon opacity="0.6" points="18.6802326 0 30.362093 11.6818605 6.99837209 11.6818605"></polygon>
+                            <polygon opacity="0.3" points="13.7330233 2.18302326 4.55162791 11.3693023 0.878581395 8.61488372"></polygon>
+                            <polygon opacity="0.3" points="0 10.3974419 3.51627907 13.0346512 3.51627907 13.0395349 0 25.3416279"></polygon>
+                            <polygon opacity="0.6" points="1.4455814 27.387907 4.97162791 15.0369767 4.977 15.0418605 16.7365116 33.8588372 0.268604651 31.5048837"></polygon>
+                            <polygon opacity="0.3" points="17.7034884 41.8632558 3.95093023 34.0053488 17.7034884 35.9686047"></polygon>
+                            <polygon points="18.6802326 33.2776744 12.3753488 23.1927907 6.40255814 13.6353488 30.957907 13.6353488"></polygon>
+                            <polygon opacity="0.3" points="19.6569767 41.8632558 19.6569767 35.9686047 33.4095349 34.0048605"></polygon>
+                            <polygon opacity="0.6" points="20.6239535 33.8588372 32.3839535 15.0418605 36.3055814 28.7602326 37.0918605 31.5048837"></polygon>
+                            <polygon opacity="0.3" points="37.3604651 25.3416279 33.844186 13.0395349 33.844186 13.0346512 37.3604651 10.3974419"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
