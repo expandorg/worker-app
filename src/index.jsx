@@ -11,7 +11,7 @@ import Jobs from './containers/Jobs';
 import Account from './containers/Account';
 import Task from './containers/Task';
 import NotFound from './containers/NotFound';
-import GCPTask from './components/GCP-Task';
+import GCPTask from './containers/GCP-Task';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize react-router-redux.

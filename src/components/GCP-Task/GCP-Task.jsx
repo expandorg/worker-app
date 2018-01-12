@@ -94,7 +94,17 @@ export default class GCPTask extends PureComponent {
 
     this.state = {
       selected: null,
+      loading: false,
+      gettingTask: false,
     };
+  }
+
+  componentWillMount() {
+    // if (this.props.task === null) {
+    //   this.props.replace('/jobs');
+    //   return;
+    // }
+    this.props.setTitle('Rate GCP Application');
   }
 
   isValidSubmit() {
@@ -111,6 +121,11 @@ export default class GCPTask extends PureComponent {
     e.preventDefault();
 
     this.props.submitTask(this.state.selected);
+    this.setState({
+      seleted: null,
+      loading: true,
+      gettingTask: false,
+    });
   }
 
   render() {
@@ -120,6 +135,10 @@ export default class GCPTask extends PureComponent {
       [styles.submit]: true,
       [styles.activeSubmit]: this.isValidSubmit(),
     });
+
+    if (task === null) {
+      return false;
+    }
 
     return (
       <div className={styles.container}>
@@ -148,11 +167,11 @@ export default class GCPTask extends PureComponent {
             <div className={styles.rating}>
               <form onSubmit={this.handleSubmit}>
                 <Rating
-                  values={['F', 'E', 'D', 'C', 'B', 'A']}
+                  values={[':(', ':|', ':)', ':D', ':O']}
                   selected={this.state.selected}
 
                   lowLabel="Poor quality"
-                  highLabel="Amazing!"
+                  highLabel="Unbelievable!"
 
                   onChange={this.handleOnChange}
                 />
@@ -179,4 +198,5 @@ GCPTask.defaultProps = {
 GCPTask.propTypes = {
   task: PropTypes.shape(gcpTask),
   submitTask: PropTypes.func,
+  setTitle: PropTypes.func.isRequired,
 };
