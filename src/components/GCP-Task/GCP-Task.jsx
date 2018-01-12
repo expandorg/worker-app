@@ -107,6 +107,12 @@ export default class GCPTask extends PureComponent {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.props.submitTask(this.state.selected);
+  }
+
   render() {
     const { task } = this.props;
 
@@ -140,19 +146,23 @@ export default class GCPTask extends PureComponent {
             <span className={`${styles.apostrophe} ${styles.apostropheRight}`}> {'"'} </span>
 
             <div className={styles.rating}>
-              <Rating
-                values={['F', 'E', 'D', 'C', 'B', 'A']}
-                selected={this.state.selected}
+              <form onSubmit={this.handleSubmit}>
+                <Rating
+                  values={['F', 'E', 'D', 'C', 'B', 'A']}
+                  selected={this.state.selected}
 
-                lowLabel="Poor quality"
-                highLabel="Amazing!"
+                  lowLabel="Poor quality"
+                  highLabel="Amazing!"
 
-                onChange={this.handleOnChange}
-              />
+                  onChange={this.handleOnChange}
+                />
 
-              <button className={classes}>Submit</button>
+                <button type="submit" className={classes}>Submit</button>
 
-              <span className={styles.abuse}>Is this submission <b>abuseful?</b> Let us know.</span>
+                <span className={styles.abuse}>
+                  Is this submission <b>abuseful?</b> Let us know.
+                </span>
+              </form>
             </div>
           </div>
         </div>
@@ -163,8 +173,10 @@ export default class GCPTask extends PureComponent {
 
 GCPTask.defaultProps = {
   task: mock.noVisual,
+  submitTask() {},
 };
 
 GCPTask.propTypes = {
   task: PropTypes.shape(gcpTask),
+  submitTask: PropTypes.func,
 };
