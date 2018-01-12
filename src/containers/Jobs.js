@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Jobs from '../components/Jobs';
-import { assignTask, fetchJobs, setTitle } from '../action-creators';
+// import { assignTask, fetchJobs, setTitle } from '../action-creators';
 
 const mapStateToProps = state => ({
   assignedJobId: state.assignedJobId,
@@ -10,9 +10,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  assignTask,
-  fetchJobs,
-  setTitle,
+  // assignTask,
+  // fetchJobs,
+  // setTitle,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Jobs);

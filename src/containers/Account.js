@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Account from '../components/Account';
-import { logout, setTitle, withdrawPayments } from '../action-creators';
+// import { logout, setTitle, withdrawPayments } from '../action-creators';
 
 const mapStateToProps = state => ({
   worker: state.worker,
@@ -8,9 +8,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  logout,
-  setTitle,
-  withdrawPayments,
+  // logout,
+  // setTitle,
+  // withdrawPayments,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account);

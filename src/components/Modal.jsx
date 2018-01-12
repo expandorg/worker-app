@@ -1,96 +1,121 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'auto-bind';
+import classnames from 'classnames';
 import { css } from 'glamor';
-import { SIDEBAR_W, BORDER_R, PADDING } from '../style-constants';
 
-// TODO center modal
 const styles = {
-  modalDialog: css({
+  overlay: css({
     position: 'fixed',
-    overflow: 'scroll',
-    top: '0',
-    right: '0',
-    bottom: '0',
-    left: SIDEBAR_W,
-    background: 'rgba(11, 19, 43, 0.8)',
-    zIndex: '99999',
-    opacity: '1',
-    width: `calc(100% - ${SIDEBAR_W}px)`,
-    '@media(max-width: 1150px)': {
-      width: '100%',
-      left: '0',
-    },
-    '@media(max-width: 660px)': {
-      left: '0',
-      width: '100%',
-    },
-  }),
-  modalContent: css({
-    opacity: 1,
-    height: '100%',
-    marginTop: 32,
-    marginLeft: 50,
-    marginRight: 50,
-    borderRadius: BORDER_R,
-    backgroundColor: '#ffffff',
-    boxShadow: '0 2px 14px 0 rgba(0, 0, 0, 0.1)',
-    '@media(max-width: 660px)': {
-      marginLeft: '0',
-      marginRight: '0',
-    },
-  }),
-  modalHeading: css({
+    top: 0,
+    left: 0,
     width: '100%',
-    height: 80,
-    boxShadow: 'inset 0 -1px 0 0 #f2f2f2',
-    marginBottom: PADDING,
+    height: '100%',
+    zIndex: -1,
+    opacity: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }),
-  headingText: css({
-    display: 'inline-block',
-    width: 'calc(100% - 75px)',
-    marginLeft: '24px',
-    fontSize: '24px',
-    lineHeight: '80px',
+  active: css({
+    backgroundColor: 'rgba(38, 42, 57, 0.8)',
+    zIndex: 3,
+    opacity: 1,
   }),
-  closeBtn: css({
-    textAlign: 'right',
-    display: 'inline-block',
-    cursor: 'pointer',
-    border: 0,
-    ':focus': {
-      outline: '0px',
-    },
+  button: css({
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  }),
+  root: css({
+    backgroundColor: '#fff',
+    borderRadius: 3,
   }),
 };
 
-function Modal(props) {
-  return (
-    <div className={styles.modalDialog}>
-      <div className={styles.modalContent}>
-        <div className={styles.modalHeading}>
-          <div className={styles.headingText}>
-            {props.heading}
-          </div>
-          {props.toggleModal && (
-            <button href="#" className={styles.closeBtn} onClick={props.toggleModal}>
+export default class Modal extends PureComponent {
+  constructor() {
+    super();
+    autoBind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.isActive) {
+      document.addEventListener('click', this.handleClick);
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { isActive } = newProps;
+
+    if (isActive !== this.props.isActive) {
+      if (isActive) {
+        document.addEventListener('click', this.handleClick);
+
+        return;
+      }
+
+      document.removeEventListener('click', this.handleClick);
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClick);
+  }
+
+  handleClick(e) {
+    const { canClose, onClose } = this.props;
+
+    if (!this.modalRef.contains(e.target) && canClose) {
+      onClose();
+    }
+  }
+
+  handleRef(ref) {
+    this.modalRef = ref;
+  }
+
+  render() {
+    const {
+      children,
+      isActive,
+      className,
+      canClose,
+      onClose,
+    } = this.props;
+
+    const classes = classnames({
+      [styles.overlay]: true,
+      [styles.active]: isActive,
+    });
+
+    return (
+      <div ref={this.handleRef} className={classes}>
+        <div className={`${className} ${styles.root}`}>
+          {canClose && (
+            <button href="#" className={styles.button} onClick={onClose}>
               <img src="../images/close-btn.png" alt="Close" />
             </button>
           )}
+
+          {children}
         </div>
-        {props.children}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 Modal.defaultProps = {
-  toggleModal: null,
+  isActive: false,
+  className: '',
+  canClose: true,
+  onClose() {},
 };
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
-  heading: PropTypes.element.isRequired,
-  toggleModal: PropTypes.func,
+  isActive: PropTypes.bool,
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  canClose: PropTypes.bool,
+  onClose: PropTypes.func,
 };
-
-export default Modal;
