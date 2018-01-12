@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
+import { locationShape } from 'react-router-props';
 import Modal from './Modal';
 import { BORDER_R, PADDING } from '../style-constants';
 import { worker as workerProps } from '../schemas';
@@ -81,12 +82,11 @@ class Confirm extends PureComponent {
     if (this.props.worker.confirmed) {
       this.props.replace('/jobs');
     }
-    const code = this.props.location.query.code;
+    const { location } = this.props;
+    const { query } = location;
+    const { code } = query;
     if (code) {
       this.state = {
-        value: null,
-        loading: false,
-        submitError: false,
         value: code,
         loading: true,
       };
@@ -95,7 +95,6 @@ class Confirm extends PureComponent {
       this.state = {
         value: null,
         loading: false,
-        submitError: false,
       };
     }
   }
@@ -129,10 +128,6 @@ class Confirm extends PureComponent {
       this.props.confirmEmail(this.state.value);
       this.setState({
         loading: true,
-      });
-    } else {
-      this.setState({
-        submitError: true,
       });
     }
   }
@@ -177,7 +172,8 @@ class Confirm extends PureComponent {
               {this.renderSubmit()}
             </button>
             <br />
-            Didn't get the email? We can <button className={styles.resend} onClick={this.handleResubmit}>Resend</button>
+            {"Didn't get the email? We can"}
+            <button className={styles.resend} onClick={this.handleResubmit}>Resend</button>
           </form>
         </div>
       </Modal>
@@ -188,6 +184,7 @@ class Confirm extends PureComponent {
 Confirm.defaultProps = {
   error: null,
   worker: null,
+  location: null,
 };
 
 Confirm.propTypes = {
@@ -196,6 +193,7 @@ Confirm.propTypes = {
   resendConfirmEmail: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
   replace: PropTypes.func.isRequired,
+  location: locationShape,
 };
 
 export default Confirm;

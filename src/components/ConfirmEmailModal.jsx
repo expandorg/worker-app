@@ -80,7 +80,6 @@ class ConfirmEmailModal extends PureComponent {
     this.state = {
       value: null,
       loading: false,
-      submitError: false,
     };
   }
 
@@ -107,10 +106,6 @@ class ConfirmEmailModal extends PureComponent {
       this.props.confirmEmail(this.state.value);
       this.setState({
         loading: true,
-      });
-    } else {
-      this.setState({
-        submitError: true,
       });
     }
   }
@@ -155,7 +150,7 @@ class ConfirmEmailModal extends PureComponent {
               {this.renderSubmit()}
             </button>
             <br />
-            <span>Didn't get the email? We can</span>
+            {"Didn't get the email? We can"}
             <button className={styles.resend} onClick={this.handleResubmit}>Resend</button>
           </form>
         </div>
