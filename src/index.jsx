@@ -12,6 +12,7 @@ import Account from './containers/Account';
 import Task from './containers/Task';
 import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
+import GCPTask from './containers/GCP-Task';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize react-router-redux.
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route path="task" component={Task} />
               <Route path="jobs" component={Jobs} />
               <Route path="account" component={Account} />
+              <Router path="gcp-task" component={GCPTask} />
               <Route path="confirm" component={Confirm} />
               <Route path="*" component={NotFound} />
             </Route>
