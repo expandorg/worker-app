@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
 import { css } from 'glamor';
 import Job from '../components/Job';
-import { job as jobPropTypes } from '../schemas';
+import { job as jobPropTypes, worker as workerProps } from '../schemas';
 import { PANEL, LOADING } from '../style-constants';
+import EmailSubmission from './EmailSubmission';
 
 const styles = {
   innerContainer: PANEL,
@@ -29,6 +30,15 @@ class Jobs extends PureComponent {
     return () => this.props.assignTask(jobId);
   }
 
+  renderEmailModal() {
+    if (!this.props.worker.email || !this.props.worker.confirmed) {
+      return (
+        <EmailSubmission worker={this.props.worker} />
+      );
+    }
+    return false;
+  }
+
   render() {
     if (Object.getOwnPropertyNames(this.props.jobs).length <= 0) {
       if (this.props.jobsretrieved) {
@@ -46,6 +56,7 @@ class Jobs extends PureComponent {
     }
     return (
       <div>
+        {this.renderEmailModal()}
         {Object.keys(this.props.jobs).map(
           id => (
             <Job
@@ -66,6 +77,7 @@ Jobs.defaultProps = {
   assignedJobId: null,
   jobsretrieved: false,
   error: null,
+  worker: null,
 };
 
 Jobs.propTypes = {
@@ -75,6 +87,7 @@ Jobs.propTypes = {
   jobs: PropTypes.objectOf(PropTypes.shape(jobPropTypes)).isRequired,
   setTitle: PropTypes.func.isRequired,
   jobsretrieved: PropTypes.bool,
+  worker: PropTypes.shape(workerProps),
   error: PropTypes.string,
 };
 

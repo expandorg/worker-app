@@ -10,6 +10,7 @@ import Login from './containers/Login';
 import Jobs from './containers/Jobs';
 import Account from './containers/Account';
 import Task from './containers/Task';
+import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
 import GCPTask from './containers/GCP-Task';
 
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route path="jobs" component={Jobs} />
               <Route path="account" component={Account} />
               <Router path="gcp-task" component={GCPTask} />
-
+              <Route path="confirm" component={Confirm} />
               <Route path="*" component={NotFound} />
             </Route>
           </Route>

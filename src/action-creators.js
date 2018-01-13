@@ -230,3 +230,41 @@ export const withdrawPayments = () => async (dispatch) => {
     dispatch(setError(err.toString()));
   }
 };
+
+export const setEmail = email => async (dispatch) => {
+  try {
+    const res = await apiRequest('/account/email/update', 'POST', email, false);
+    if (!res.ok) {
+      throw new Error('Error updating email');
+    }
+    const data = await res.json();
+    dispatch(setWorker(data.worker));
+  } catch (err) {
+    dispatch(setError(err.toString()));
+  }
+};
+
+export const confirmEmail = code => async (dispatch) => {
+  try {
+    const res = await apiRequest('/account/email/confirm', 'POST', code, false);
+    if (!res.ok) {
+      throw new Error('Error confirming email');
+    }
+    const data = await res.json();
+    dispatch(setWorker(data.worker));
+  } catch (err) {
+    dispatch(setError(err.toString()));
+  }
+};
+
+export const resendConfirmEmail = () => async (dispatch) => {
+  try {
+    const res = await apiRequest('/account/email/confirm/resend');
+    if (!res.ok) {
+      throw new Error('Error sending email');
+    }
+    await res.json();
+  } catch (err) {
+    dispatch(setError(err.toString()));
+  }
+};
