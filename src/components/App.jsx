@@ -18,6 +18,7 @@ const styles = {
   }),
   sideBar: css({
     width: SIDEBAR_W - PADDING,
+    position: 'fixed',
     paddingLeft: PADDING,
     height: '100%',
     display: 'inline-block',
@@ -85,11 +86,13 @@ const styles = {
   container: css({
     width: `calc(100% - ${SIDEBAR_W}px)`,
     height: '100%',
+    marginLeft: '250px',
     backgroundColor: '#f2f2f2',
     display: 'inline-block',
     verticalAlign: 'top',
     '@media(max-width: 1150px)': {
       width: '100%',
+      marginLeft: '0',
     },
   }),
   sbw: css({
@@ -130,8 +133,7 @@ const styles = {
   }),
   alphaMsg: css({
     display: 'block',
-    position: 'relative',
-    top: '-25px',
+    position: 'fixed',
     bottom: '0',
     backgroundColor: '#1c2541',
     color: '#ffffff',
@@ -191,6 +193,27 @@ class App extends PureComponent {
   toggleSidebar() {
     const currentState = this.state.sidebar;
     this.setState({ sidebar: !currentState });
+  }
+  renderAlphaMsg() {
+    const path = this.props.location.pathname;
+    if (path !== '/login' && path !== "/") {
+      console.log(this.props.location);
+      return (
+        <div className={styles.alphaMsg}>
+          <span>
+            This is the Gems Alpha on the Ropsten test network. All tasks are
+            sample tasks. No actual Gems are earned.
+          </span>
+          <a
+            href="https://gemscommunity.typeform.com/to/LdJ9zL"
+            className={styles.feedback}
+          >
+            Feedback?
+          </a>
+        </div>
+      );
+    }
+    return false;
   }
 
   renderNav() {
@@ -258,18 +281,7 @@ class App extends PureComponent {
           </div>
           {this.props.children}
         </div>
-        <div className={styles.alphaMsg}>
-          <span>
-            This is the Gems Alpha on the Ropsten test network. All tasks are
-            sample tasks. No actual Gems are earned.
-          </span>
-          <a
-            href="https://gemscommunity.typeform.com/to/LdJ9zL"
-            className={styles.feedback}
-          >
-            Feedback?
-          </a>
-        </div>
+        {this.renderAlphaMsg()}
       </div>
     );
   }
