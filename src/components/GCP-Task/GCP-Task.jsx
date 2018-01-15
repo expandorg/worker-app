@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import autoBind from 'auto-bind';
 import { Link } from 'react-router';
 import { css } from 'glamor';
 import Rating from './Rating';
 import Modal from '../Modal';
-import { FLEX_PANEL, PADDING, BTN, BORDER_R } from '../../style-constants';
+import { FLEX_PANEL, PADDING, BORDER_R } from '../../style-constants';
 import { job as jobPropTypes, task as taskPropTypes } from '../../schemas';
 
 const styles = {
@@ -132,21 +131,31 @@ export default class GCPTask extends PureComponent {
     this.state = {
       selected: null,
       loading: false,
-      gettingTask: false
+      gettingTask: false,
     };
   }
 
   componentWillMount() {
-    // if (this.props.task === null) {
-    //   this.props.replace('/jobs');
-    //   return;
-    // }
+    if (this.props.task === null) {
+      this.props.replace('/jobs');
+      return;
+    }
     this.props.setTitle('Rate GCP Application');
   }
 
+  getDescription(json) {
+    if (json.description !== '') {
+      return json.description;
+    }
+    if (json.other !== '') {
+      return json.other;
+    }
+    return '';
+  }
+
   acceptedFile(file) {
-    const ext =  file.split('.').pop();
-    if (ext == "gif" || ext == "jpg" || ext == "jpeg" || ext == "png") {
+    const ext = file.split('.').pop();
+    if (ext === 'gif' || ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
       return true;
     }
     return false;
@@ -159,6 +168,16 @@ export default class GCPTask extends PureComponent {
   handleOnChange(val) {
     this.setState({
       selected: val === this.state.selected ? null : val,
+    });
+  }
+
+  submitSkip(e) {
+    e.preventDefault();
+    this.props.submitTask('-');
+    this.setState({
+      selected: null,
+      loading: true,
+      gettingTask: false,
     });
   }
 
@@ -207,32 +226,18 @@ export default class GCPTask extends PureComponent {
     }
     return 'Submit';
   }
-  getDescription(json) {
-    if (json.description != "") {
-      return json.description;
-    }
-    if (json.other != "") {
-      return json.other;
-    }
-    return "";
-  }
 
   render() {
     const { task } = this.props;
 
-    const classes = classnames({
-      [styles.submit]: true,
-      [styles.activeSubmit]: this.isValidSubmit(),
-    });
-
-    if (this.props.task === null) {
+    if (task === null) {
       return (
         <Modal
           heading={<span>Task Submitted</span>}
           toggleModal={this.toggleModal}
         >
-          {this.props.task !== null && <div>Submitting task...</div>}
-          {this.props.task === null && (
+          {task !== null && <div>Submitting task...</div>}
+          {task === null && (
             <div>
               <div className={styles.heading}>Submission successful!</div>
               {this.handleAssign()}
@@ -255,7 +260,7 @@ export default class GCPTask extends PureComponent {
         </Modal>
       );
     }
-    const json = JSON.parse(this.props.task.description.replace(/(\r\n|\n|\r)/gm,""));
+    const json = JSON.parse(task.description.replace(/(\r\n|\n|\r)/gm, ''));
     return (
       <div className={styles.container}>
         <div>
@@ -265,12 +270,6 @@ export default class GCPTask extends PureComponent {
         </div>
 
         <div className={styles.task}>
-          {json.screenshot && this.acceptedFile(json.screenshot) && (
-            <div className={styles.section}>
-              <img src={json.screenshot} alt={json.description} />
-            </div>
-          )}
-
           <div className={styles.section}>
             <span className={`${styles.apostrophe} ${styles.apostropheLeft}`}> {'"'} </span>
 
@@ -292,8 +291,8 @@ export default class GCPTask extends PureComponent {
                   onChange={this.handleOnChange}
                 />
 
-                <span className={styles.abuse}>
-                  Is this submission <b>abuseful?</b> Let us know.
+                <span className={styles.abuse} onClick={this.submitSkip}>
+                  Is this submission <b>abuseful?</b> or <b>ungradeable?</b> Skip.
                 </span>
               </form>
             </div>
@@ -315,10 +314,8 @@ GCPTask.propTypes = {
   jobs: PropTypes.objectOf(PropTypes.shape(jobPropTypes)).isRequired,
   previousJobId: PropTypes.string,
   replace: PropTypes.func.isRequired,
-  setPreviousJobId: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   submitTask: PropTypes.func.isRequired,
   task: PropTypes.shape(taskPropTypes),
-  fetchAuth: PropTypes.func.isRequired,
   error: PropTypes.string,
 };
