@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { css } from 'glamor';
 import Rating from './Rating';
 import Modal from '../Modal';
-import { FLEX_PANEL } from '../../style-constants';
+import { FLEX_PANEL, PADDING, BTN, BORDER_R } from '../../style-constants';
 import { job as jobPropTypes, task as taskPropTypes } from '../../schemas';
 
 const styles = {
@@ -20,7 +20,8 @@ const styles = {
     flexDirection: 'column',
     flexWrap: 'wrap',
     '> img': {
-      maxHeight: '200px',
+      maxHeight: '400px',
+      maxWidth: '100%',
     },
   }),
 
@@ -91,6 +92,36 @@ const styles = {
     textAlign: 'center',
     cursor: 'pointer',
   }),
+  heading: css({
+    fontSize: '20px',
+    letterSpacing: '-0.3px',
+    textAlign: 'center',
+    color: '#3a506b',
+    display: 'block',
+    marginBottom: PADDING / 2,
+  }),
+  btn: css({
+    width: 205,
+    height: 50,
+    lineHeight: '50px',
+    borderRadius: BORDER_R,
+    backgroundColor: '#6fffe9',
+    display: 'block',
+    margin: 'auto',
+    marginBottom: PADDING,
+    fontSize: '18px',
+    letterSpacing: '-0.7px',
+    textAlign: 'center',
+    border: 0,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    ':focus': {
+      outline: 0,
+    },
+    ':hover': {
+      backgroundImage: 'linear-gradient(to bottom right,#6fffe9,#94FFEF)',
+    },
+  }),
 };
 
 export default class GCPTask extends PureComponent {
@@ -136,14 +167,14 @@ export default class GCPTask extends PureComponent {
 
     this.props.submitTask(this.state.selected);
     this.setState({
-      seleted: null,
+      selected: null,
       loading: true,
       gettingTask: false,
     });
   }
 
-  handleAssign(e) {
-    e.preventDefault();
+  handleAssign() {
+    // e.preventDefault();
     this.props.assignTask(this.props.previousJobId);
     this.setState({
       loading: false,
@@ -176,6 +207,15 @@ export default class GCPTask extends PureComponent {
     }
     return 'Submit';
   }
+  getDescription(json) {
+    if (json.description != "") {
+      return json.description;
+    }
+    if (json.other != "") {
+      return json.other;
+    }
+    return "";
+  }
 
   render() {
     const { task } = this.props;
@@ -195,6 +235,7 @@ export default class GCPTask extends PureComponent {
           {this.props.task === null && (
             <div>
               <div className={styles.heading}>Submission successful!</div>
+              {this.handleAssign()}
               {
                 this.hasNextTask() &&
                 <button
@@ -205,6 +246,7 @@ export default class GCPTask extends PureComponent {
                   {this.renderNext()}
                 </button>
               }
+
               <div className={styles.heading}>
                 <Link to="/jobs">Browse available jobs</Link>
               </div>
@@ -213,10 +255,7 @@ export default class GCPTask extends PureComponent {
         </Modal>
       );
     }
-    console.log(this.props.task.description.replace(/(\r\n|\n|\r)/gm,""));
-
     const json = JSON.parse(this.props.task.description.replace(/(\r\n|\n|\r)/gm,""));
-    console.log(json);
     return (
       <div className={styles.container}>
         <div>
@@ -226,7 +265,7 @@ export default class GCPTask extends PureComponent {
         </div>
 
         <div className={styles.task}>
-          {json.screenshot && this.acceptedFile(json.screenshot) (
+          {json.screenshot && this.acceptedFile(json.screenshot) && (
             <div className={styles.section}>
               <img src={json.screenshot} alt={json.description} />
             </div>
@@ -236,7 +275,7 @@ export default class GCPTask extends PureComponent {
             <span className={`${styles.apostrophe} ${styles.apostropheLeft}`}> {'"'} </span>
 
             <p className={styles.description}>
-              {json.description}
+              {this.getDescription(json)}
             </p>
 
             <span className={`${styles.apostrophe} ${styles.apostropheRight}`}> {'"'} </span>
@@ -252,8 +291,6 @@ export default class GCPTask extends PureComponent {
 
                   onChange={this.handleOnChange}
                 />
-
-                <button type="submit" className={classes}>Submit</button>
 
                 <span className={styles.abuse}>
                   Is this submission <b>abuseful?</b> Let us know.
