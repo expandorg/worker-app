@@ -18,6 +18,7 @@ const styles = {
     justifyContent: 'center',
     flexDirection: 'column',
     flexWrap: 'wrap',
+    width: '100%',
     '> img': {
       maxHeight: '400px',
       maxWidth: '100%',
@@ -28,6 +29,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    width: '100%',
   }),
 
   header: css({
@@ -173,7 +175,7 @@ export default class GCPTask extends PureComponent {
 
   submitSkip(e) {
     e.preventDefault();
-    this.props.submitTask('-');
+    this.props.submitTask('0');
     this.setState({
       selected: null,
       loading: true,
@@ -282,7 +284,7 @@ export default class GCPTask extends PureComponent {
             <div className={styles.rating}>
               <form onSubmit={this.handleSubmit}>
                 <Rating
-                  values={[':(', ':|', ':)', ':D', ':O']}
+                  values={['1', '2', '3', '4', '5']}
                   selected={this.state.selected}
 
                   lowLabel="Poor quality"

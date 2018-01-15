@@ -19,13 +19,16 @@ const styles = {
     borderColor: 'transparent',
     borderRightColor: '#ff7092',
     outline: 'none',
+    '@media(max-width: 800px)': {
+      'padding': 0,
+    },
   }),
   activeCell: css({
     backgroundColor: 'rgba(255, 112, 146, 0.15)',
   }),
 
   root: css({
-    width: '100%',
+    width: 'calc(100% + 30px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -33,6 +36,9 @@ const styles = {
     borderRadius: 3,
 
     '> button:last-child': { borderRight: 'none' },
+    '@media(max-width: 800px)': {
+      'width': '100%',
+    },
   }),
 
   labelSection: css({
@@ -64,10 +70,9 @@ export default function Rating({
           });
 
           const handleClick = () => onChange(val);
-
           return (
             <button key={val} onClick={handleClick} className={classes}>
-              {val}
+              <img src={"../../images/smiley-faces/"+ val +".svg"} />
             </button>
           );
         })}
