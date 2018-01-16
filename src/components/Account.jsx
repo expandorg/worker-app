@@ -181,7 +181,7 @@ class Account extends PureComponent {
   }
 
   render() {
-    const isWithdrawDisabled = this.props.worker.balance < 500 || this.state.loading;
+    const isWithdrawDisabled = true;
     return this.props.worker && (
       <div className={styles.innerContainer}>
         {this.renderTransactionSuccess()}
@@ -230,7 +230,7 @@ class Account extends PureComponent {
             </button>
           </div>
           <div className={styles.cell}>
-            *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
+            *Due to high demand, we have disabled withdrawals for 1/15 - 1/16
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ const styles = {
     borderRightColor: '#ff7092',
     outline: 'none',
     '@media(max-width: 800px)': {
-      'padding': 0,
+      padding: 0,
     },
   }),
   activeCell: css({
@@ -37,7 +37,7 @@ const styles = {
 
     '> button:last-child': { borderRight: 'none' },
     '@media(max-width: 800px)': {
-      'width': '100%',
+      width: '100%',
     },
   }),
 
@@ -72,7 +72,10 @@ export default function Rating({
           const handleClick = () => onChange(val);
           return (
             <button key={val} onClick={handleClick} className={classes}>
-              <img src={"../../images/smiley-faces/"+ val +".svg"} />
+              <img
+                src={`../../images/smiley-faces/${val}.svg`}
+                alt="Rating"
+              />
             </button>
           );
         })}

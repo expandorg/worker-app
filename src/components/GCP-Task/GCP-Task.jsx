@@ -247,7 +247,6 @@ export default class GCPTask extends PureComponent {
                 this.hasNextTask() &&
                 <button
                   className={styles.btn}
-                  onClick={this.handleAssign}
                   disabled={this.state.gettingTask}
                 >
                   {this.renderNext()}
