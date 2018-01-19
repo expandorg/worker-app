@@ -44,7 +44,7 @@ class Jobs extends PureComponent {
       if (this.props.jobsretrieved) {
         return (
           <div className={styles.innerContainer}>
-            There are currently no available jobs. Please check back soon!
+            There are currently no more jobs. Please come back shortly :)
           </div>
         );
       }

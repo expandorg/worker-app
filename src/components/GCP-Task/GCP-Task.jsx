@@ -229,24 +229,36 @@ export default class GCPTask extends PureComponent {
     return 'Submit';
   }
 
+  removeSpecials(str) {
+    var lower = str.toLowerCase();
+    var upper = str.toUpperCase();
+
+    var res = "";
+    for(var i=0; i<lower.length; ++i) {
+        if(lower[i] != upper[i] || lower[i].trim() === ''  || lower[i].trim() == '"' || lower[i].trim() == ":" || lower[i].trim() === ',' || lower[i].trim() == "}" || lower[i].trim() == "{")
+            res += str[i];
+    }
+    return res;
+  }
+
   render() {
     const { task } = this.props;
 
-    if (task === null) {
+    if (task === null || this.state.loading) {
       return (
         <Modal
           heading={<span>Task Submitted</span>}
           toggleModal={this.toggleModal}
         >
-          {task !== null && <div>Submitting task...</div>}
+          {task !== null && <div className={styles.heading}>Submitting task...</div>}
           {task === null && (
             <div>
               <div className={styles.heading}>Submission successful!</div>
-              {this.handleAssign()}
               {
                 this.hasNextTask() &&
                 <button
                   className={styles.btn}
+                  onClick={this.handleAssign}
                   disabled={this.state.gettingTask}
                 >
                   {this.renderNext()}
@@ -261,7 +273,8 @@ export default class GCPTask extends PureComponent {
         </Modal>
       );
     }
-    const json = JSON.parse(task.description.replace(/(\r\n|\n|\r)/gm, ''));
+
+    const json = JSON.parse(this.removeSpecials(task.description).replace(/(\r\n|\n|\r)/gm, '').trim());
     return (
       <div className={styles.container}>
         <div>
