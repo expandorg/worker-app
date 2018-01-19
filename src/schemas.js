@@ -23,3 +23,9 @@ export const stats = {
   complete: PropTypes.number.isRequired,
   incomplete: PropTypes.number.isRequired,
 };
+
+// Represents a simple gems community project task.
+export const gcpTask = {
+  description: PropTypes.string.isRequired,
+  visual: PropTypes.string,
+};

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import { IndexLink, Link } from 'react-router';
+import { locationShape } from 'react-router-props';
 import { task as taskPropTypes } from '../schemas';
 import { SIDEBAR_W, PADDING, BLUE } from '../style-constants';
 import Hamburger from './Hamburger';
@@ -18,6 +19,7 @@ const styles = {
   }),
   sideBar: css({
     width: SIDEBAR_W - PADDING,
+    position: 'fixed',
     paddingLeft: PADDING,
     height: '100%',
     display: 'inline-block',
@@ -85,11 +87,13 @@ const styles = {
   container: css({
     width: `calc(100% - ${SIDEBAR_W}px)`,
     height: '100%',
+    marginLeft: '250px',
     backgroundColor: '#f2f2f2',
     display: 'inline-block',
     verticalAlign: 'top',
     '@media(max-width: 1150px)': {
       width: '100%',
+      marginLeft: '0',
     },
   }),
   sbw: css({
@@ -130,8 +134,7 @@ const styles = {
   }),
   alphaMsg: css({
     display: 'block',
-    position: 'relative',
-    top: '-25px',
+    position: 'fixed',
     bottom: '0',
     backgroundColor: '#1c2541',
     color: '#ffffff',
@@ -191,6 +194,27 @@ class App extends PureComponent {
   toggleSidebar() {
     const currentState = this.state.sidebar;
     this.setState({ sidebar: !currentState });
+  }
+  renderAlphaMsg() {
+    const { location } = this.props;
+    const { pathname } = location;
+    if (pathname !== '/login' && pathname !== '/') {
+      return (
+        <div className={styles.alphaMsg}>
+          <span>
+            This is the Gems Alpha on the Ropsten test network. All tasks are
+            sample tasks. No actual Gems are earned.
+          </span>
+          <a
+            href="https://gemscommunity.typeform.com/to/LdJ9zL"
+            className={styles.feedback}
+          >
+            Feedback?
+          </a>
+        </div>
+      );
+    }
+    return false;
   }
 
   renderNav() {
@@ -258,18 +282,7 @@ class App extends PureComponent {
           </div>
           {this.props.children}
         </div>
-        <div className={styles.alphaMsg}>
-          <span>
-            This is the Gems Alpha on the Ropsten test network. All tasks are
-            sample tasks. No actual Gems are earned.
-          </span>
-          <a
-            href="https://gemscommunity.typeform.com/to/LdJ9zL"
-            className={styles.feedback}
-          >
-            Feedback?
-          </a>
-        </div>
+        {this.renderAlphaMsg()}
       </div>
     );
   }
@@ -280,6 +293,7 @@ App.defaultProps = {
   isAuthorized: null,
   task: null,
   metamask: true,
+  location: null,
 };
 
 App.propTypes = {
@@ -291,6 +305,7 @@ App.propTypes = {
   task: PropTypes.shape(taskPropTypes),
   title: PropTypes.string.isRequired,
   metamask: PropTypes.bool,
+  location: locationShape,
 };
 
 export default App;
