@@ -12,6 +12,9 @@ class EmailSubmission extends PureComponent {
   }
 
   render() {
+    if (this.props.stage === 1) {
+      return <AddEmailModal toggleModal={this.props.toggleModal} />;
+    }
     if (this.props.worker.email) {
       return <ConfirmEmailModal />;
     }
@@ -21,10 +24,14 @@ class EmailSubmission extends PureComponent {
 
 EmailSubmission.defaultProps = {
   worker: null,
+  stage: null,
+  toggleModal: null,
 };
 
 EmailSubmission.propTypes = {
   worker: PropTypes.shape(workerProps),
+  stage: PropTypes.number,
+  toggleModal: PropTypes.func,
 };
 
 

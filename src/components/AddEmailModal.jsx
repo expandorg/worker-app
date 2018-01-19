@@ -124,6 +124,7 @@ class AddEmailModal extends PureComponent {
   render() {
     return (
       <Modal
+        toggleModal={this.props.toggleModal}
         heading={(
           <div>
             <span>Add Email</span>
@@ -173,11 +174,13 @@ class AddEmailModal extends PureComponent {
 
 AddEmailModal.defaultProps = {
   error: null,
+  toggleModal: null,
 };
 
 AddEmailModal.propTypes = {
   error: PropTypes.string,
   setEmail: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func,
 };
 
 export default AddEmailModal;

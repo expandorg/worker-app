@@ -7,6 +7,7 @@ import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from '../style-constants';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
+import EmailSubmission from './EmailSubmission';
 
 const styles = {
   innerContainer: FLEX_PANEL,
@@ -71,6 +72,20 @@ const styles = {
       outline: 0,
     },
   }),
+  emailInput: css({
+    borderRadius: BORDER_R,
+    border: 'solid 1px #e0e0e0',
+    display: 'inline-block',
+    fontSize: 14,
+    textAlign: 'left',
+    color: '#3a506b',
+    padding: '8px 12px',
+    width: 'calc(100% - 394px)',
+    minWidth: '200px',
+    ':focus': {
+      outline: 0,
+    },
+  }),
   copyBtn: css({
     display: 'inline-block',
     fontSize: 13,
@@ -117,6 +132,9 @@ const styles = {
   disabled: css({
     cursor: 'default',
   }),
+  editBtn: css({
+    display: 'inline-block',
+  }),
 };
 
 class Account extends PureComponent {
@@ -125,6 +143,7 @@ class Account extends PureComponent {
     autoBind(this);
     this.state = {
       loading: false,
+      editEmail: false,
     };
   }
 
@@ -139,6 +158,41 @@ class Account extends PureComponent {
   withdraw() {
     this.setState({ loading: true });
     this.props.withdrawPayments();
+  }
+
+  toggleEmailModal() {
+    const currentState = this.state.editEmail;
+    this.setState({ editEmail: !currentState });
+  }
+
+  renderEmail() {
+    const { worker } = this.props;
+    const { email } = worker;
+    if (email) {
+      return (
+        <div className={styles.accountInputContainer}>
+          <span className={styles.address} id="address">{email}</span>
+        </div>
+      );
+    }
+    return (
+      <div className={styles.accountInputContainer}>
+        <span className={styles.address} id="address">No email found</span>
+      </div>
+    );
+  }
+
+  renderEmailEdit() {
+    if (this.state.editEmail) {
+      return (
+        <EmailSubmission
+          stage={1}
+          worker={this.props.worker}
+          toggleModal={this.toggleEmailModal}
+        />
+      );
+    }
+    return false;
   }
 
   renderGems() {
@@ -168,6 +222,7 @@ class Account extends PureComponent {
     }
     return 'Withdraw';
   }
+
   renderTransactionSuccess() {
     if (this.props.transaction) {
       this.setState({ loading: false });
@@ -184,6 +239,7 @@ class Account extends PureComponent {
     const isWithdrawDisabled = this.props.worker.balance < 500 || this.state.loading;
     return this.props.worker && (
       <div className={styles.innerContainer}>
+        {this.renderEmailEdit()}
         {this.renderTransactionSuccess()}
         <div className={styles.table}>
           <span
@@ -204,6 +260,22 @@ class Account extends PureComponent {
                 Copy
               </Clipboard>
             </div>
+          </div>
+          <div className={styles.cell}>
+            <div className={styles.subHeading}>Email Address</div>
+            <div className={styles.emailInput}>
+              {this.renderEmail()}
+            </div>
+            <button
+              className={classNames({
+                [styles.defaultBtn]: true,
+                [styles.btn]: true,
+                [styles.editBtn]: true,
+              })}
+              onClick={() => this.toggleEmailModal()}
+            >
+            Edit
+            </button>
           </div>
           <div className={styles.cell}>
             <button
