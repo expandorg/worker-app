@@ -186,7 +186,6 @@ class Account extends PureComponent {
     if (this.state.editEmail) {
       return (
         <EmailSubmission
-          stage={1}
           worker={this.props.worker}
           toggleModal={this.toggleEmailModal}
         />

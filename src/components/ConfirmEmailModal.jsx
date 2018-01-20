@@ -71,6 +71,10 @@ const styles = {
   resend: css({
     marginLeft: '5px',
   }),
+  backBtn: css({
+    border: 'none',
+    verticalAlign: 'middle',
+  }),
 };
 
 class ConfirmEmailModal extends PureComponent {
@@ -120,8 +124,12 @@ class ConfirmEmailModal extends PureComponent {
   render() {
     return (
       <Modal
+        toggleModal={this.props.toggleModal}
         heading={(
           <div>
+            <button href="#" className={styles.backBtn} onClick={this.props.editEmail}>
+              <img src="../images/back-btn.svg" alt="Back" />
+            </button>
             <span>Confirm Email</span>
           </div>
         )}
@@ -161,12 +169,15 @@ class ConfirmEmailModal extends PureComponent {
 
 ConfirmEmailModal.defaultProps = {
   error: null,
+  toggleModal: null,
 };
 
 ConfirmEmailModal.propTypes = {
   error: PropTypes.string,
   confirmEmail: PropTypes.func.isRequired,
   resendConfirmEmail: PropTypes.func.isRequired,
+  editEmail: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func,
 };
 
 export default ConfirmEmailModal;

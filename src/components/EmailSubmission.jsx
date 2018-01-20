@@ -9,28 +9,33 @@ class EmailSubmission extends PureComponent {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      stage: 0,
+    };
+  }
+
+  editEmail() {
+    this.setState({ stage: 1 });
   }
 
   render() {
-    if (this.props.stage === 1) {
+    if (this.state.stage === 1) {
       return <AddEmailModal toggleModal={this.props.toggleModal} />;
     }
-    if (this.props.worker.email) {
-      return <ConfirmEmailModal />;
+    if (this.props.worker.email && !this.props.worker.confirmed) {
+      return <ConfirmEmailModal editEmail={this.editEmail} toggleModal={this.props.toggleModal} />;
     }
-    return <AddEmailModal />;
+    return <AddEmailModal toggleModal={this.props.toggleModal} />;
   }
 }
 
 EmailSubmission.defaultProps = {
   worker: null,
-  stage: null,
   toggleModal: null,
 };
 
 EmailSubmission.propTypes = {
   worker: PropTypes.shape(workerProps),
-  stage: PropTypes.number,
   toggleModal: PropTypes.func,
 };
 
