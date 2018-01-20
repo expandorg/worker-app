@@ -18,12 +18,34 @@ class EmailSubmission extends PureComponent {
     this.setState({ stage: 1 });
   }
 
+  confirmEmail() {
+    this.setState({ stage: 2 });
+  }
+
+  confirmCode() {
+    this.setState({ stage: 3 });
+  }
+
   render() {
+    if (this.state.stage === 3) {
+      return false;
+    }
     if (this.state.stage === 1) {
-      return <AddEmailModal toggleModal={this.props.toggleModal} />;
+      return (
+        <AddEmailModal
+          toggleModal={this.props.toggleModal}
+          confirmEmail={this.confirmEmail}
+        />
+      );
     }
     if (this.props.worker.email && !this.props.worker.confirmed) {
-      return <ConfirmEmailModal editEmail={this.editEmail} toggleModal={this.props.toggleModal} />;
+      return (
+        <ConfirmEmailModal
+          editEmail={this.editEmail}
+          toggleModal={this.props.toggleModal}
+          submitConfirm={this.confirmCode}
+        />
+      );
     }
     return <AddEmailModal toggleModal={this.props.toggleModal} />;
   }

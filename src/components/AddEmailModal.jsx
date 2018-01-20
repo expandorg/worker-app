@@ -100,6 +100,7 @@ class AddEmailModal extends PureComponent {
       this.setState({
         loading: true,
       });
+      this.props.confirmEmail();
     } else {
       this.setState({
         submitError: true,
@@ -175,12 +176,14 @@ class AddEmailModal extends PureComponent {
 AddEmailModal.defaultProps = {
   error: null,
   toggleModal: null,
+  confirmEmail: null,
 };
 
 AddEmailModal.propTypes = {
   error: PropTypes.string,
   setEmail: PropTypes.func.isRequired,
   toggleModal: PropTypes.func,
+  confirmEmail: PropTypes.func,
 };
 
 export default AddEmailModal;

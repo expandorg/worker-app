@@ -111,6 +111,7 @@ class ConfirmEmailModal extends PureComponent {
       this.setState({
         loading: true,
       });
+      this.props.submitConfirm();
     }
   }
 
@@ -170,6 +171,7 @@ class ConfirmEmailModal extends PureComponent {
 ConfirmEmailModal.defaultProps = {
   error: null,
   toggleModal: null,
+  submitConfirm: null,
 };
 
 ConfirmEmailModal.propTypes = {
@@ -178,6 +180,7 @@ ConfirmEmailModal.propTypes = {
   resendConfirmEmail: PropTypes.func.isRequired,
   editEmail: PropTypes.func.isRequired,
   toggleModal: PropTypes.func,
+  submitConfirm: PropTypes.func,
 };
 
 export default ConfirmEmailModal;
