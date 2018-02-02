@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import { IndexLink, Link } from 'react-router';
-import { task as taskPropTypes } from '../schemas';
 import { SIDEBAR_W, PADDING, BLUE } from '../style-constants';
 import Hamburger from './Hamburger';
 import InstallMetaMaskModal from './InstallMetaMaskModal';
@@ -198,7 +197,7 @@ class App extends PureComponent {
     if (this.props.isAuthorized !== true) {
       links.push(<NavLink key="login" to="/login" label="Log In" />);
     } else {
-      if (this.props.task !== null) {
+      if (this.props.isJoined) {
         links.push(<NavLink key="task" to="/task" label="My Task" />);
       }
       links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
@@ -288,7 +287,7 @@ App.propTypes = {
   fetchAuth: PropTypes.func.isRequired,
   initWeb3: PropTypes.func.isRequired,
   isAuthorized: PropTypes.bool,
-  task: PropTypes.shape(taskPropTypes),
+  isJoined: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   metamask: PropTypes.bool,
 };

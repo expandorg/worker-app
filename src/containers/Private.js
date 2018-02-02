@@ -4,7 +4,7 @@ import Private from '../components/Private';
 
 const mapStateToProps = state => ({
   isAuthorized: state.isAuthorized,
-  previousJobId: state.previousJobId,
+  isJoined: state.isJoined,
 });
 
 const mapDispatchToProps = {

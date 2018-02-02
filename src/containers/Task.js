@@ -1,20 +1,14 @@
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
 import Task from '../components/Task';
-import { assignTask, setPreviousJobId, setTitle, submitTask, fetchAuth } from '../action-creators';
+import { setTitle, submitTask, fetchAuth } from '../action-creators';
 
 const mapStateToProps = state => ({
-  jobs: state.jobs,
-  previousJobId: state.previousJobId,
-  task: state.task,
+  isSubmitting: state.isSubmitting,
   stats: state.stats,
   error: state.error,
 });
 
 const mapDispatchToProps = {
-  assignTask,
-  replace,
-  setPreviousJobId,
   setTitle,
   submitTask,
   fetchAuth,

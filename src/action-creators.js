@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import { replace } from 'react-router-redux';
 import { promisify } from 'bluebird';
 import actions from './action-types';
 import store from './store';
@@ -27,17 +26,9 @@ export const setError = createAction(actions.SET_ERROR);
 
 export const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
 
-export const setAssignedJobId = createAction(actions.SET_ASSIGNED_JOB_ID);
+export const setIsJoined = createAction(actions.SET_IS_JOINED);
 
-export const setJob = createAction(actions.SET_JOB);
-
-export const setJobs = createAction(actions.SET_JOBS);
-
-export const setJobsRetrieved = createAction(actions.SET_JOBS_RETRIEVED);
-
-export const setPreviousJobId = createAction(actions.SET_PREVIOUS_JOB_ID);
-
-export const setTask = createAction(actions.SET_TASK);
+export const setIsSubmitting = createAction(actions.SET_IS_SUBMITTING);
 
 export const setStats = createAction(actions.SET_STATS);
 
@@ -60,12 +51,7 @@ export const logout = () => (dispatch) => {
 
 function setLoggedIn(dispatch, data) {
   dispatch(setWorker(data.worker));
-  dispatch(setTask(data.task));
   dispatch(setStats(data.stats));
-  if (data.job !== null) {
-    dispatch(setAssignedJobId(data.job.id));
-    dispatch(setPreviousJobId(data.job.id));
-  }
   dispatch(setIsAuthorized(true));
 }
 
@@ -89,31 +75,6 @@ export const fetchAuth = () => async (dispatch) => {
     }
 
     setLoggedIn(dispatch, data);
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const fetchJobs = () => async (dispatch) => {
-  try {
-    const res = await apiRequest('/jobs');
-    const data = await res.json();
-    const jobs = data.reduce((result, job) => {
-      result[job.id] = job;
-      return result;
-    }, {});
-
-    dispatch(setJobs(jobs));
-    dispatch(setJobsRetrieved(true));
-
-    const { previousJobId } = store.getState();
-    if (
-      previousJobId !== null
-      && jobs[previousJobId] !== undefined
-      && jobs[previousJobId].availableTasks <= 0
-    ) {
-      dispatch(setPreviousJobId(null));
-    }
   } catch (err) {
     dispatch(setError(err.toString()));
   }
@@ -143,35 +104,12 @@ export const initWeb3 = () => (dispatch) => {
   }
 };
 
-export const assignTask = jobId => async (dispatch) => {
+export const submitTask = submission => async (dispatch) => {
   try {
-    const res = await apiRequest(`/jobs/${jobId}/assign`, 'POST');
-    const data = await res.json();
-    if (!data) {
-      dispatch(setError('Error retrieving task'));
-    } else {
-      dispatch(setTask(data.task));
-      dispatch(setAssignedJobId(data.job.id));
-      dispatch(setPreviousJobId(data.job.id));
-      dispatch(replace('/task'));
-    }
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const submitTask = value => async (dispatch) => {
-  try {
-    const { assignedJobId, task } = store.getState();
-    const res = await apiRequest(`/jobs/${assignedJobId}/tasks/${task.id}/submit`, 'POST', value, false);
+    dispatch(setIsSubmitting(true));
+    const res = await apiRequest('/submit', 'POST', submission, true);
     if (res.ok) {
-      const job = await res.json();
-      dispatch(setJob({
-        jobId: assignedJobId,
-        job,
-      }));
-      dispatch(setTask(null));
-      dispatch(setAssignedJobId(null));
+      dispatch(setIsSubmitting(false));
     } else {
       throw new Error('Submit unsuccessful');
     }
@@ -214,8 +152,6 @@ export const login = () => async (dispatch) => {
     dispatch(setError(err.toString()));
   }
 };
-
-// const unexpectedEventError = new Error('Unexpected event');
 
 export const withdrawPayments = () => async (dispatch) => {
   try {

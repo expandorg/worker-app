@@ -1,19 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
-import { css } from 'glamor';
 import Job from '../components/Job';
-import { job as jobPropTypes, worker as workerProps } from '../schemas';
-import { PANEL, LOADING } from '../style-constants';
+import { worker as workerProps } from '../schemas';
 import EmailSubmission from './EmailSubmission';
-
-const styles = {
-  innerContainer: PANEL,
-  loading: LOADING,
-  fullheight: css({
-    height: '100%',
-  }),
-};
 
 class Jobs extends PureComponent {
   constructor(props) {
@@ -23,14 +13,12 @@ class Jobs extends PureComponent {
 
   componentWillMount() {
     this.props.setTitle('Browse Jobs');
-    this.props.fetchJobs();
-  }
-
-  getHandleJoin(jobId) {
-    return () => this.props.assignTask(jobId);
   }
 
   renderEmailModal() {
+    if (process.env.NODE_ENV !== 'production') {
+      return true;
+    }
     if (!this.props.worker.email || !this.props.worker.confirmed) {
       return (
         <EmailSubmission worker={this.props.worker} />
@@ -40,53 +28,28 @@ class Jobs extends PureComponent {
   }
 
   render() {
-    if (Object.getOwnPropertyNames(this.props.jobs).length <= 0) {
-      if (this.props.jobsretrieved) {
-        return (
-          <div className={styles.innerContainer}>
-            There are currently no available jobs. Please check back soon!
-          </div>
-        );
-      }
-      return (
-        <div className={styles.fullheight}>
-          <div className={styles.loading} />
-        </div>
-      );
-    }
     return (
       <div>
         {this.renderEmailModal()}
-        {Object.keys(this.props.jobs).map(
-          id => (
-            <Job
-              key={id}
-              assignedJobId={this.props.assignedJobId}
-              job={this.props.jobs[id]}
-              joinJob={this.getHandleJoin(id)}
-              error={this.props.error}
-            />
-          ),
-        )}
+        <Job
+          replace={this.props.replace}
+          setIsJoined={this.props.setIsJoined}
+          error={this.props.error}
+        />
       </div>
     );
   }
 }
 
 Jobs.defaultProps = {
-  assignedJobId: null,
-  jobsretrieved: false,
   error: null,
   worker: null,
 };
 
 Jobs.propTypes = {
-  assignedJobId: PropTypes.string,
-  assignTask: PropTypes.func.isRequired,
-  fetchJobs: PropTypes.func.isRequired,
-  jobs: PropTypes.objectOf(PropTypes.shape(jobPropTypes)).isRequired,
+  replace: PropTypes.func.isRequired,
+  setIsJoined: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
-  jobsretrieved: PropTypes.bool,
   worker: PropTypes.shape(workerProps),
   error: PropTypes.string,
 };

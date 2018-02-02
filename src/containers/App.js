@@ -5,7 +5,7 @@ import { initWeb3, fetchAuth } from '../action-creators';
 const mapStateToProps = state => ({
   error: state.error,
   isAuthorized: state.isAuthorized,
-  task: state.task,
+  isJoined: state.isJoined,
   title: state.pageTitle,
   metamask: state.metamask,
 });

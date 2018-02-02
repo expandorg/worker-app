@@ -22,7 +22,7 @@ class Private extends PureComponent {
   }
 
   isEmptyTask() {
-    return this.props.location.pathname === '/task' && this.props.previousJobId === null;
+    return this.props.location.pathname === '/task' && !this.props.isJoined;
   }
 
   checkAuth() {
@@ -46,13 +46,12 @@ class Private extends PureComponent {
 
 Private.defaultProps = {
   isAuthorized: null,
-  previousJobId: null,
 };
 
 Private.propTypes = {
   children: PropTypes.element.isRequired,
   isAuthorized: PropTypes.bool,
-  previousJobId: PropTypes.string,
+  isJoined: PropTypes.bool.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
   replace: PropTypes.func.isRequired,
 };

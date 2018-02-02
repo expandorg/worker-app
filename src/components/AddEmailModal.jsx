@@ -100,7 +100,9 @@ class AddEmailModal extends PureComponent {
       this.setState({
         loading: true,
       });
-      this.props.confirmEmail();
+      if (this.props.confirmEmail !== null) {
+        this.props.confirmEmail();
+      }
     } else {
       this.setState({
         submitError: true,

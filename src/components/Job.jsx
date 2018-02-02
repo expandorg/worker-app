@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { css } from 'glamor';
 import Modal from './Modal';
-import { job as jobPropTypes } from '../schemas';
 import { PADDING, BORDER_R, PANEL } from '../style-constants';
+
+const TITLE = 'Trivia Question and Answer Creation';
+const REQUESTER = 'Stream Live Inc';
+const DESCRIPTION = 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.';
 
 const styles = {
   job: PANEL,
@@ -165,7 +167,9 @@ class Job extends PureComponent {
 
   agree() {
     this.setState({ loading: true });
-    this.props.joinJob();
+    this.props.setIsJoined(true);
+    this.props.replace('/task');
+    // this.props.joinJob();
   }
 
   toggleModal() {
@@ -183,27 +187,12 @@ class Job extends PureComponent {
   }
 
   renderStatus() {
-    // Currently assigned job
-    if (this.props.job.id === this.props.assignedJobId) {
-      return <Link to="/task">Go to assigned task</Link>;
-    }
-
-    // Not currently assigned job
-    if (this.props.assignedJobId !== null) {
-      return '';
-    }
-
-    // No available tasks
-    if (this.props.job.available_tasks === 0) {
-      return <div>No available tasks</div>;
-    }
-
     // Able to join
     return (
       <div>
         <button onClick={this.toggleModal} className={styles.joinBtn}>Join</button>
         <div className={styles.rewardMobile}>
-          <span className={styles.rewardNumber}>{this.props.job.reward}</span>
+          <span className={styles.rewardNumber}>1</span>
           <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
         </div>
         {
@@ -212,14 +201,14 @@ class Job extends PureComponent {
             toggleModal={this.toggleModal}
             heading={(
               <div>
-                <span className={styles.modalHeading}>{this.props.job.name}</span>
-                <span className={styles.modalCompany}>{this.props.job.companyName}</span>
+                <span className={styles.modalHeading}>{TITLE}</span>
+                <span className={styles.modalCompany}>{REQUESTER}</span>
               </div>
             )}
           >
             <span className={styles.screenShotDescription}>You will see this screen </span>
-            <img className={styles.screenShot} src={this.props.job.screenshot} alt="screenshot" />
-            <span className={styles.description}>{this.props.job.description}</span>
+            <img className={styles.screenShot} src="" alt="screenshot" />
+            <span className={styles.description}>{DESCRIPTION}</span>
             <button
               className={styles.agreeBtn}
               onClick={() => this.agree()}
@@ -238,16 +227,16 @@ class Job extends PureComponent {
       <div className={styles.job}>
         <img
           className={styles.jobLogo}
-          src={this.props.job.logo}
-          alt={this.props.job.companyName}
+          src="https://gems.org/images/the-q.jpg"
+          alt={REQUESTER}
         />
         <div className={styles.jobInfo}>
-          <div className={styles.jobHeading}>{this.props.job.name}</div>
-          <div className={styles.jobRequester}>This is a sample task.</div>
+          <div className={styles.jobHeading}>{TITLE}</div>
+          <div className={styles.jobRequester}>{REQUESTER}</div>
           {this.renderStatus()}
         </div>
         <div className={styles.reward}>
-          <span className={styles.rewardNumber}>{this.props.job.reward}</span>
+          <span className={styles.rewardNumber}>1</span>
           <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
         </div>
       </div>
@@ -256,14 +245,12 @@ class Job extends PureComponent {
 }
 
 Job.defaultProps = {
-  assignedJobId: null,
   error: null,
 };
 
 Job.propTypes = {
-  assignedJobId: PropTypes.string,
-  joinJob: PropTypes.func.isRequired,
-  job: PropTypes.shape(jobPropTypes).isRequired,
+  replace: PropTypes.func.isRequired,
+  setIsJoined: PropTypes.func.isRequired,
   error: PropTypes.string,
 };
 

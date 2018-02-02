@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { css } from 'glamor';
 import Modal from './Modal';
-import { job as jobPropTypes, task as taskPropTypes, stats as statsProps } from '../schemas';
+import { stats as statsProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
+
+const TITLE = 'Question writing and fact checking';
+const DESCRIPTION = 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.';
 
 const styles = {
   container: FLEX_PANEL,
@@ -28,12 +31,12 @@ const styles = {
     height: '50px',
     borderRadius: BORDER_R,
     backgroundColor: '#ff7092',
-    display: 'inline-block',
+    display: 'block',
     fontSize: '18px',
     letterSpacing: '-0.7px',
     textAlign: 'center',
     color: '#ffffff',
-    marginLeft: '8px',
+    margin: '0 auto',
     border: '0',
     cursor: 'pointer',
     ':focus': {
@@ -68,6 +71,7 @@ const styles = {
     fontSize: '16px',
     textAlign: 'left',
     paddingLeft: '15px',
+    marginBottom: '15px',
     color: '#b8b8b8',
     '::placeholder': {
       fontSize: '16px',
@@ -101,7 +105,7 @@ const styles = {
     },
   }),
   completed: css({
-    width: '40%',
+    width: '30%',
     display: 'inline-block',
     border: 'solid 1px #f2f2f2',
     borderRadius: '4px',
@@ -124,79 +128,50 @@ class Task extends PureComponent {
     super(props);
     autoBind(this);
 
-    const complete = this.props.stats ? this.props.stats.complete : 0;
-    const incomplete = this.props.stats ? this.props.stats.incomplete : 0;
+    const pending = this.props.stats ? this.props.stats.pending : 0;
+    const accepted = this.props.stats ? this.props.stats.accepted : 0;
+    const rejected = this.props.stats ? this.props.stats.rejected : 0;
 
     this.state = {
-      value: null,
       loading: false,
-      gettingTask: false,
-      complete,
-      incomplete,
+      question: null,
+      correctAnswer: null,
+      incorrectAnswerA: null,
+      incorrectAnswerB: null,
+      submitted: false,
+      pending,
+      accepted,
+      rejected,
     };
   }
 
   componentWillMount() {
-    if (this.props.task === null) {
-      this.props.replace('/jobs');
-      return;
-    }
-    this.props.setTitle('Complete Math Problem');
+    this.props.setTitle(TITLE);
     this.props.fetchAuth();
   }
 
-  toggleModal() {
-    this.props.setPreviousJobId(null);
+  getHandleChange(key) {
+    return (e) => {
+      this.setState({ [key]: e.target.value });
+    };
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.submitTask(this.state.value);
+    this.props.submitTask({
+      question: this.state.question,
+      correctAnswer: this.state.correctAnswer,
+      incorrectAnswerA: this.state.incorrectAnswerA,
+      incorrectAnswerB: this.state.incorrectAnswerB,
+    });
     this.setState({
-      value: null,
+      question: null,
+      correctAnswer: null,
+      incorrectAnswerA: null,
+      incorrectAnswerB: null,
       incomplete: this.state.incomplete + 1,
-      loading: true,
-      gettingTask: false,
+      submitted: true,
     });
-  }
-
-  handleChange(e) {
-    if (!this.state.loading) {
-      this.setState({
-        value: e.target.value.trim(),
-        loading: false,
-      });
-    } else {
-      this.setState({ value: e.target.value.trim() });
-    }
-  }
-
-  handleAssign(e) {
-    e.preventDefault();
-    this.props.assignTask(this.props.previousJobId);
-    this.setState({
-      loading: false,
-      gettingTask: true,
-    });
-  }
-
-  hasNextTask() {
-    const { previousJobId } = this.props;
-    if (previousJobId === null) {
-      return false;
-    }
-    const previousJob = this.props.jobs[previousJobId];
-    if (previousJob === undefined) {
-      return false;
-    }
-    return this.props.jobs[previousJobId].availableTasks > 0;
-  }
-
-  renderNext() {
-    if (this.state.gettingTask && !this.props.error) {
-      return 'Loading';
-    }
-    return 'Next task';
   }
 
   renderSubmit() {
@@ -208,26 +183,23 @@ class Task extends PureComponent {
 
   render() {
     // Task has just been submitted
-    if (this.props.task === null) {
+    if (this.state.submitted) {
       return (
         <Modal
           heading={<span>Task Submitted</span>}
           toggleModal={this.toggleModal}
         >
-          {this.props.task !== null && <div>Submitting task...</div>}
-          {this.props.task === null && (
+          {this.props.isSubmitting && <div>Submitting task...</div>}
+          {this.props.isSubmitting || (
             <div>
               <div className={styles.heading}>Submission successful!</div>
-              {
-                this.hasNextTask() &&
-                <button
-                  className={styles.btn}
-                  onClick={this.handleAssign}
-                  disabled={this.state.gettingTask}
-                >
-                  {this.renderNext()}
-                </button>
-              }
+              <button
+                className={styles.btn}
+                onClick={() => this.setState({ submitted: false })}
+                disabled={this.state.gettingTask}
+              >
+                Next task
+              </button>
               <div className={styles.heading}>
                 <Link to="/jobs">Browse available jobs</Link>
               </div>
@@ -240,15 +212,42 @@ class Task extends PureComponent {
     // Completing task
     return (
       <div className={styles.container}>
-        <div className={styles.task}>{this.props.task.description}</div>
+        <div className={styles.task}>{DESCRIPTION}</div>
         <form onSubmit={this.handleSubmit} className={styles.submitForm}>
-          <label htmlFor="answer">
+          <label htmlFor="question">
             <input
               className={styles.input}
-              onChange={this.handleChange}
-              id="answer"
-              value={this.state.value || ''}
-              placeholder="Answer"
+              onChange={this.getHandleChange('question')}
+              id="question"
+              value={this.state.question || ''}
+              placeholder="Question"
+            />
+          </label>
+          <label htmlFor="correctAnswer">
+            <input
+              className={styles.input}
+              onChange={this.getHandleChange('correctAnswer')}
+              id="correctAnswer"
+              value={this.state.correctAnswer || ''}
+              placeholder="Correct Answer"
+            />
+          </label>
+          <label htmlFor="incorrectAnswerA">
+            <input
+              className={styles.input}
+              onChange={this.getHandleChange('incorrectAnswerA')}
+              id="incorrectAnswerA"
+              value={this.state.incorrectAnswerA || ''}
+              placeholder="Incorrect Answer"
+            />
+          </label>
+          <label htmlFor="incorrectAnswerB">
+            <input
+              className={styles.input}
+              onChange={this.getHandleChange('incorrectAnswerB')}
+              id="incorrectAnswerB"
+              value={this.state.incorrectAnswerB || ''}
+              placeholder="Incorrect Answer"
             />
           </label>
           <button
@@ -260,36 +259,33 @@ class Task extends PureComponent {
           </button>
         </form>
         <div className={styles.completed}>
-          {this.state.complete ? this.state.complete : 0}
-          <span>Tasks Verified</span>
-        </div>
-        <div className={styles.completed}>
-          {this.state.incomplete ? this.state.incomplete : 0}
+          {this.state.pending ? this.state.pending : 0}
           <span>Tasks Pending*</span>
         </div>
-        <span>*Tasks are pending result verification</span>
+        <div className={styles.completed}>
+          {this.state.accepted ? this.state.accepted : 0}
+          <span>Tasks Accepted</span>
+        </div>
+        <div className={styles.completed}>
+          {this.state.rejected ? this.state.rejected : 0}
+          <span>Tasks Rejected</span>
+        </div>
+        <span>*Tasks are pending acceptance</span>
       </div>
     );
   }
 }
 
 Task.defaultProps = {
-  previousJobId: null,
-  task: null,
-  stats: { complete: 0, incomplete: 0 },
+  stats: { pending: 0, accepted: 0, rejected: 0 },
   error: null,
 };
 
 Task.propTypes = {
-  assignTask: PropTypes.func.isRequired,
-  jobs: PropTypes.objectOf(PropTypes.shape(jobPropTypes)).isRequired,
-  previousJobId: PropTypes.string,
-  replace: PropTypes.func.isRequired,
-  setPreviousJobId: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   submitTask: PropTypes.func.isRequired,
-  task: PropTypes.shape(taskPropTypes),
   fetchAuth: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   stats: PropTypes.shape(statsProps),
   error: PropTypes.string,
 };
