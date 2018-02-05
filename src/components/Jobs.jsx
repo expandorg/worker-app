@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
 import Job from '../components/Job';
 import { worker as workerProps } from '../schemas';
+import { PANEL } from '../style-constants';
 import EmailSubmission from './EmailSubmission';
+
+const JOB_DISABLED = false;
+
+const styles = {
+  innerContainer: PANEL,
+};
 
 class Jobs extends PureComponent {
   constructor(props) {
@@ -28,6 +35,13 @@ class Jobs extends PureComponent {
   }
 
   render() {
+    if (JOB_DISABLED) {
+      return (
+        <div className={styles.innerContainer}>
+          There are currently no available jobs. Please check back soon!
+        </div>
+      );
+    }
     return (
       <div>
         {this.renderEmailModal()}
