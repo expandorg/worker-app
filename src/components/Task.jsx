@@ -128,10 +128,6 @@ class Task extends PureComponent {
     super(props);
     autoBind(this);
 
-    const pending = this.props.stats ? this.props.stats.pending : 0;
-    const accepted = this.props.stats ? this.props.stats.accepted : 0;
-    const rejected = this.props.stats ? this.props.stats.rejected : 0;
-
     this.state = {
       loading: false,
       question: null,
@@ -139,9 +135,6 @@ class Task extends PureComponent {
       incorrectAnswerA: null,
       incorrectAnswerB: null,
       submitted: false,
-      pending,
-      accepted,
-      rejected,
     };
   }
 
@@ -265,15 +258,15 @@ class Task extends PureComponent {
           </button>
         </form>
         <div className={styles.completed}>
-          {this.state.pending ? this.state.pending : 0}
+          {this.props.stats.pending || 0}
           <span>Tasks Pending*</span>
         </div>
         <div className={styles.completed}>
-          {this.state.accepted ? this.state.accepted : 0}
+          {this.props.stats.accepted || 0}
           <span>Tasks Accepted</span>
         </div>
         <div className={styles.completed}>
-          {this.state.rejected ? this.state.rejected : 0}
+          {this.props.stats.rejected || 0}
           <span>Tasks Rejected</span>
         </div>
         <span>*Tasks are pending acceptance</span>

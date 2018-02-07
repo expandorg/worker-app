@@ -108,7 +108,10 @@ export const submitTask = submission => async (dispatch) => {
   try {
     dispatch(setIsSubmitting(true));
     const res = await apiRequest('/submit', 'POST', submission, true);
-    if (!res.ok) {
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(setStats(data.stats));
+    } else {
       let errMsg;
       if (res.status < 500) {
         const body = await res.json();

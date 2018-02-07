@@ -207,7 +207,7 @@ class Job extends PureComponent {
             )}
           >
             <span className={styles.screenShotDescription}>You will see this screen </span>
-            <img className={styles.screenShot} src="" alt="screenshot" />
+            <img className={styles.screenShot} src="../images/trivia-screen.png" alt="screenshot" />
             <span className={styles.description}>{DESCRIPTION}</span>
             <button
               className={styles.agreeBtn}
@@ -237,7 +237,7 @@ class Job extends PureComponent {
         </div>
         <div className={styles.reward}>
           <span className={styles.rewardNumber}>1</span>
-          <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
+          <img className={styles.rewardIcon} src="../images/logo.svg" alt="Gems" />
         </div>
       </div>
     );
