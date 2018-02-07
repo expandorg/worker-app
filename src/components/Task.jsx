@@ -156,6 +156,10 @@ class Task extends PureComponent {
     };
   }
 
+  getSubmissionStatus() {
+    return this.props.error || 'Submission successful!';
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.submitTask({
@@ -192,14 +196,16 @@ class Task extends PureComponent {
           {this.props.isSubmitting && <div>Submitting task...</div>}
           {this.props.isSubmitting || (
             <div>
-              <div className={styles.heading}>Submission successful!</div>
-              <button
-                className={styles.btn}
-                onClick={() => this.setState({ submitted: false })}
-                disabled={this.state.gettingTask}
-              >
-                Next task
-              </button>
+              <div className={styles.heading}>{this.getSubmissionStatus()}</div>
+              {this.props.error === null &&
+                <button
+                  className={styles.btn}
+                  onClick={() => this.setState({ submitted: false })}
+                  disabled={this.state.gettingTask}
+                >
+                  Next task
+                </button>
+              }
               <div className={styles.heading}>
                 <Link to="/jobs">Browse available jobs</Link>
               </div>

@@ -193,7 +193,7 @@ class Job extends PureComponent {
         <button onClick={this.toggleModal} className={styles.joinBtn}>Join</button>
         <div className={styles.rewardMobile}>
           <span className={styles.rewardNumber}>1</span>
-          <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
+          <img className={styles.rewardIcon} src="../images/logo.svg" alt="Gems" />
         </div>
         {
           this.state.isModalOpen &&
@@ -227,7 +227,7 @@ class Job extends PureComponent {
       <div className={styles.job}>
         <img
           className={styles.jobLogo}
-          src="https://gems.org/images/the-q.jpg"
+          src="../images/the-q.jpg"
           alt={REQUESTER}
         />
         <div className={styles.jobInfo}>

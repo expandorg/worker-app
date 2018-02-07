@@ -108,14 +108,20 @@ export const submitTask = submission => async (dispatch) => {
   try {
     dispatch(setIsSubmitting(true));
     const res = await apiRequest('/submit', 'POST', submission, true);
-    if (res.ok) {
-      dispatch(setIsSubmitting(false));
-    } else {
-      throw new Error('Submit unsuccessful');
+    if (!res.ok) {
+      let errMsg;
+      if (res.status < 500) {
+        const body = await res.json();
+        errMsg = body.error;
+      } else {
+        errMsg = 'Submit unsuccessful';
+      }
+      throw new Error(errMsg);
     }
   } catch (err) {
     dispatch(setError(err.toString()));
   }
+  dispatch(setIsSubmitting(false));
 };
 
 export const login = () => async (dispatch) => {
