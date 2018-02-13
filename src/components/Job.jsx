@@ -237,7 +237,7 @@ class Job extends PureComponent {
         </div>
         <div className={styles.reward}>
           <span className={styles.rewardNumber}>1</span>
-          <img className={styles.rewardIcon} src="../images/logo.svg" alt="Gems" />
+          <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
         </div>
       </div>
     );

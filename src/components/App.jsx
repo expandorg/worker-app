@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { css } from 'glamor';
 import { IndexLink, Link } from 'react-router';
 import { SIDEBAR_W, PADDING, BLUE } from '../style-constants';
+import { worker as workerProps } from '../schemas';
 import Hamburger from './Hamburger';
 import InstallMetaMaskModal from './InstallMetaMaskModal';
 
@@ -205,6 +206,11 @@ class App extends PureComponent {
     this.props.fetchAuth();
   }
 
+  isFunded() {
+    const { vaultBalance, jobBalance } = this.props.worker;
+    return vaultBalance + jobBalance >= 0.1;
+  }
+
   closeError() {
     this.setState({ error: false });
   }
@@ -219,10 +225,12 @@ class App extends PureComponent {
     if (this.props.isAuthorized !== true) {
       links.push(<NavLink key="login" to="/login" label="Log In" />);
     } else {
-      if (this.props.isJoined) {
-        links.push(<NavLink key="task" to="/task" label="My Task" />);
+      if (this.isFunded()) {
+        if (this.props.isJoined) {
+          links.push(<NavLink key="task" to="/task" label="My Task" />);
+        }
+        links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
       }
-      links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
       links.push(<NavLink key="account" to="/account" label="Account" />);
     }
     return <ul className={styles.nav}>{links}</ul>;
@@ -290,6 +298,7 @@ App.defaultProps = {
   isAuthorized: null,
   task: null,
   metamask: true,
+  worker: null,
 };
 
 App.propTypes = {
@@ -301,6 +310,7 @@ App.propTypes = {
   isJoined: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   metamask: PropTypes.bool,
+  worker: PropTypes.shape(workerProps),
 };
 
 export default App;

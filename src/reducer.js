@@ -2,6 +2,12 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import actions from './action-types';
 
+const defaultStats = {
+  pending: 0,
+  accepted: 0,
+  rejected: 0,
+};
+
 function simpleReducer(defaultValue, actionType) {
   return (state = defaultValue, action) => (action.type === actionType ? action.payload : state);
 }
@@ -11,15 +17,21 @@ const reducer = combineReducers({
   isAuthorized: simpleReducer(null, actions.SET_IS_AUTHORIZED),
   isJoined: simpleReducer(false, actions.SET_IS_JOINED),
   isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
+  gemsInstance: simpleReducer(null, actions.SET_GEMS_INSTANCE),
   pageTitle: simpleReducer('', actions.SET_PAGE_TITLE),
   previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),
   routing: routerReducer,
   web3: simpleReducer(null, actions.SET_WEB3),
   worker: simpleReducer(null, actions.SET_WORKER),
-  stats: simpleReducer(null, actions.SET_STATS),
+  stats: (state = defaultStats, action) => {
+    if (action.type === actions.SET_STATS) {
+      return action.payload || defaultStats;
+    }
+    return state;
+  },
   metamask: simpleReducer(null, actions.SET_METAMASK),
   locked: simpleReducer(null, actions.SET_METAMASK_LOCKED),
-  transaction: simpleReducer(null, actions.SET_TRANSACTION),
+  transactions: simpleReducer(null, actions.SET_TRANSACTIONS),
 });
 
 export default reducer;

@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { promisify } from 'bluebird';
+import GemsToken from 'gems-token';
 import actions from './action-types';
 import store from './store';
 
@@ -24,6 +25,8 @@ function apiRequest(endpoint, method = 'GET', body, isJson = true) {
 
 export const setError = createAction(actions.SET_ERROR);
 
+export const setGemsInstance = createAction(actions.SET_GEMS_INSTANCE);
+
 export const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
 
 export const setIsJoined = createAction(actions.SET_IS_JOINED);
@@ -38,7 +41,7 @@ export const setWeb3 = createAction(actions.SET_WEB3);
 
 export const setWorker = createAction(actions.SET_WORKER);
 
-export const setTransaction = createAction(actions.SET_TRANSACTION);
+export const setTransactions = createAction(actions.SET_TRANSACTIONS);
 
 export const setMetamask = createAction(actions.SET_METAMASK);
 
@@ -53,6 +56,14 @@ function setLoggedIn(dispatch, data) {
   dispatch(setWorker(data.worker));
   dispatch(setStats(data.stats));
   dispatch(setIsAuthorized(true));
+}
+
+function initGemsInstance(web3, dispatch) {
+  const address = web3.eth.accounts[0];
+  const gemsInstance = new GemsToken(web3.currentProvider, address);
+  gemsInstance.init().then(() => {
+    dispatch(setGemsInstance(gemsInstance));
+  });
 }
 
 export const fetchAuth = () => async (dispatch) => {
@@ -90,14 +101,18 @@ export const initWeb3 = () => (dispatch) => {
     }
     dispatch(setWeb3(web3));
     dispatch(setMetamask(true));
+
     if (web3.eth.accounts.length === 0) {
       dispatch(setMetamaskLocked(true));
       const accountInterval = setInterval(() => {
         if (web3.eth.accounts.length > 0) {
           clearInterval(accountInterval);
           dispatch(setMetamaskLocked(false));
+          initGemsInstance(web3, dispatch);
         }
       }, 300);
+    } else {
+      initGemsInstance(web3, dispatch);
     }
   } catch (err) {
     dispatch(setMetamask(false));
@@ -162,6 +177,22 @@ export const login = () => async (dispatch) => {
   }
 };
 
+export const depositGems = numGems => async (dispatch) => {
+  try {
+    const { gemsInstance } = store.getState();
+    await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 10e+18);
+    const res = await apiRequest('/deposit', 'POST', { value: numGems }, true);
+    if (!res.ok) {
+      throw new Error('Error depositing');
+    }
+    const data = await res.json();
+    dispatch(setWorker(data.worker));
+    dispatch(setTransactions(data.tx));
+  } catch (err) {
+    dispatch(setError(err.toString()));
+  }
+};
+
 export const withdrawPayments = () => async (dispatch) => {
   try {
     const res = await apiRequest('/withdraw', 'POST');
@@ -170,7 +201,7 @@ export const withdrawPayments = () => async (dispatch) => {
     }
     const data = await res.json();
     dispatch(setWorker(data.worker));
-    dispatch(setTransaction(data.tx));
+    dispatch(setTransactions(data.tx));
   } catch (err) {
     dispatch(setError(err.toString()));
   }

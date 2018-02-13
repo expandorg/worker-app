@@ -6,6 +6,7 @@ import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import { worker as workerProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from '../style-constants';
+import DepositModal from './DepositModal';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 import EmailSubmission from './EmailSubmission';
 
@@ -144,25 +145,54 @@ class Account extends PureComponent {
     this.state = {
       loading: false,
       editEmail: false,
+      showDepositModal: false,
     };
   }
 
   componentWillMount() {
     this.props.setTitle('Account');
+    if (this.props.transactions) {
+      this.setState({ loading: false });
+    }
   }
 
-  workerAdderss() {
+  getBalance() {
+    return this.props.worker.vaultBalance + this.props.worker.jobBalance;
+  }
+
+  workerAddress() {
     return `0x${this.props.worker.id}`;
   }
 
   withdraw() {
     this.setState({ loading: true });
-    this.props.withdrawPayments();
+    this.props.withdrawPayments()
+      .then(() => {
+        this.setState({
+          loading: false,
+        });
+      });
   }
 
   toggleEmailModal() {
     const currentState = this.state.editEmail;
     this.setState({ editEmail: !currentState });
+  }
+
+  toggleDepositModal() {
+    this.setState({ showDepositModal: !this.state.showDepositModal });
+  }
+
+  renderDepositModal() {
+    if (!this.state.showDepositModal) {
+      return '';
+    }
+    return (
+      <DepositModal
+        toggleModal={this.toggleDepositModal}
+        depositGems={this.props.depositGems}
+      />
+    );
   }
 
   renderEmail() {
@@ -195,24 +225,16 @@ class Account extends PureComponent {
   }
 
   renderGems() {
+    const balance = this.getBalance();
     if (this.state.loading) {
       return <div className={classNames({ [styles.loading]: true, [styles.sm]: true })} />;
     }
-    if (this.props.worker.balance > 0 && this.props.worker.balance < 500) {
-      return (
-        <div className={styles.availableFunds}>
-          <span>{this.props.worker.balance} GEM*</span>
-        </div>
-      );
-    }
-    if (this.props.worker.balance >= 500) {
-      return (
-        <div className={styles.availableFunds}>
-          <span>{this.props.worker.balance} GEM</span>
-        </div>
-      );
-    }
-    return false;
+    const asterisk = balance < 500 ? '*' : '';
+    return (
+      <div className={styles.availableFunds}>
+        <span>{balance} GEM{asterisk}</span>
+      </div>
+    );
   }
 
   renderText() {
@@ -223,11 +245,11 @@ class Account extends PureComponent {
   }
 
   renderTransactionSuccess() {
-    if (this.props.transaction) {
-      this.setState({ loading: false });
+    if (this.props.transactions) {
       return (
         <SuccessfulTransactionModal
-          transaction={this.props.transaction}
+          transactions={this.props.transactions}
+          setTransactions={this.props.setTransactions}
         />
       );
     }
@@ -235,9 +257,14 @@ class Account extends PureComponent {
   }
 
   render() {
-    const isWithdrawDisabled = this.props.worker.balance < 500 || this.state.loading;
-    return this.props.worker && (
+    if (this.props.worker === null) {
+      return '';
+    }
+
+    const isWithdrawDisabled = this.getBalance() < 500 || this.state.loading;
+    return (
       <div className={styles.innerContainer}>
+        {this.renderDepositModal()}
         {this.renderEmailEdit()}
         {this.renderTransactionSuccess()}
         <div className={styles.table}>
@@ -250,11 +277,11 @@ class Account extends PureComponent {
             <div className={styles.subHeading}>Account Address</div>
             <div className={styles.accountInput}>
               <div className={styles.accountInputContainer}>
-                <span className={styles.address} id="address">{this.workerAdderss()}</span>
+                <span className={styles.address} id="address">{this.workerAddress()}</span>
               </div>
               <Clipboard
                 className={styles.copyBtn.toString()}
-                data-clipboard-text={this.workerAdderss()}
+                data-clipboard-text={this.workerAddress()}
               >
                 Copy
               </Clipboard>
@@ -273,7 +300,18 @@ class Account extends PureComponent {
               })}
               onClick={() => this.toggleEmailModal()}
             >
-            Edit
+              Edit
+            </button>
+          </div>
+          <div className={styles.cell}>
+            <button
+              className={classNames({
+                [styles.defaultBtn]: true,
+                [styles.btn]: true,
+              })}
+              onClick={() => this.toggleDepositModal()}
+            >
+              Deposit
             </button>
           </div>
           <div className={styles.cell}>
@@ -311,15 +349,17 @@ class Account extends PureComponent {
 
 Account.defaultProps = {
   worker: null,
-  transaction: null,
+  transactions: null,
 };
 
 Account.propTypes = {
   logout: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
+  setTransactions: PropTypes.func.isRequired,
+  depositGems: PropTypes.func.isRequired,
   withdrawPayments: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
-  transaction: PropTypes.string,
+  transactions: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Account;

@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 
 export const worker = {
   id: PropTypes.string.isRequired,
-  balance: PropTypes.number.isRequired,
+  vaultBalance: PropTypes.number.isRequired,
+  jobBalance: PropTypes.number.isRequired,
 };
 
 export const stats = {

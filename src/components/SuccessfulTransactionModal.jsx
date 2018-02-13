@@ -53,6 +53,10 @@ const styles = {
   }),
 };
 
+function etherScanUrl(tx) {
+  return `https://ropsten.etherscan.io/tx/${tx}`;
+}
+
 class SuccessfulTransactionModal extends PureComponent {
   constructor(props) {
     super(props);
@@ -62,12 +66,33 @@ class SuccessfulTransactionModal extends PureComponent {
     };
   }
 
-  etherScanUrl() {
-    return `https://ropsten.etherscan.io/tx/${this.props.transaction}`;
-  }
-
   toggleModal() {
     this.setState({ isModalOpen: !this.state.isModalOpen });
+    this.props.setTransactions(null);
+  }
+
+  renderTxs() {
+    return this.props.transactions.map(tx => (
+      <div key={tx} className={styles.input}>
+        <div className={styles.inputContainer}>
+          <span className={styles.value} id="input">{tx}</span>
+        </div>
+        <Clipboard
+          className={styles.copyBtn.toString()}
+          data-clipboard-text={tx}
+        >
+          Copy
+        </Clipboard>
+        <br />
+        <br />
+        <a
+          href={etherScanUrl(tx)}
+          target="_blank"
+        >
+          Follow transaction on Etherscan
+        </a>
+      </div>
+    ));
   }
 
   render() {
@@ -83,27 +108,10 @@ class SuccessfulTransactionModal extends PureComponent {
         >
           <div className={styles.container}>
             <span className={styles.description}>
-              Congrats! Your transaction is sent. Save this transaction id for your records:
+              Congrats! Your transaction is sent.
+              Save the following transaction ids for your records:
             </span>
-            <div className={styles.input}>
-              <div className={styles.inputContainer}>
-                <span className={styles.value} id="input">{this.props.transaction}</span>
-              </div>
-              <Clipboard
-                className={styles.copyBtn.toString()}
-                data-clipboard-text={this.props.transaction}
-              >
-                Copy
-              </Clipboard>
-            </div>
-            <br />
-            <br />
-            <a
-              href={this.etherScanUrl()}
-              target="_blank"
-            >
-              Follow transaction on Etherscan
-            </a>
+            {this.renderTxs()}
           </div>
         </Modal>
       );
@@ -113,7 +121,8 @@ class SuccessfulTransactionModal extends PureComponent {
 }
 
 SuccessfulTransactionModal.propTypes = {
-  transaction: PropTypes.string.isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setTransactions: PropTypes.func.isRequired,
 };
 
 export default SuccessfulTransactionModal;

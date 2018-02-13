@@ -276,7 +276,6 @@ class Task extends PureComponent {
 }
 
 Task.defaultProps = {
-  stats: { pending: 0, accepted: 0, rejected: 0 },
   error: null,
 };
 
@@ -285,7 +284,7 @@ Task.propTypes = {
   submitTask: PropTypes.func.isRequired,
   fetchAuth: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  stats: PropTypes.shape(statsProps),
+  stats: PropTypes.shape(statsProps).isRequired,
   error: PropTypes.string,
 };
 

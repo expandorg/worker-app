@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
   isJoined: state.isJoined,
   title: state.pageTitle,
   metamask: state.metamask,
+  worker: state.worker,
 });
 
 const mapDispatchToProps = {
