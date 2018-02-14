@@ -6,6 +6,8 @@ import { login, setTitle } from '../action-creators';
 const mapStateToProps = state => ({
   isAuthorized: state.isAuthorized,
   locked: state.locked,
+  worker: state.worker,
+  stats: state.stats,
 });
 
 const mapDispatchToProps = {

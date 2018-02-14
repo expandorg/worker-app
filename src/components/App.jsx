@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import { IndexLink, Link } from 'react-router';
+import { isWorkerFunded } from '../lib';
 import { SIDEBAR_W, PADDING, BLUE } from '../style-constants';
-import { worker as workerProps } from '../schemas';
+import { worker as workerProps, stats as statsProps } from '../schemas';
 import Hamburger from './Hamburger';
 import InstallMetaMaskModal from './InstallMetaMaskModal';
 
@@ -197,7 +198,6 @@ class App extends PureComponent {
     autoBind(this);
     this.state = {
       sidebar: false,
-      error: true,
     };
   }
 
@@ -206,13 +206,8 @@ class App extends PureComponent {
     this.props.fetchAuth();
   }
 
-  isFunded() {
-    const { vaultBalance, jobBalance } = this.props.worker;
-    return vaultBalance + jobBalance >= 0.1;
-  }
-
   closeError() {
-    this.setState({ error: false });
+    this.props.setError(null);
   }
 
   toggleSidebar() {
@@ -225,7 +220,7 @@ class App extends PureComponent {
     if (this.props.isAuthorized !== true) {
       links.push(<NavLink key="login" to="/login" label="Log In" />);
     } else {
-      if (this.isFunded()) {
+      if (isWorkerFunded(this.props.worker, this.props.stats)) {
         if (this.props.isJoined) {
           links.push(<NavLink key="task" to="/task" label="My Task" />);
         }
@@ -237,12 +232,7 @@ class App extends PureComponent {
   }
 
   renderWarnings() {
-    if (this.props.metamask !== true) {
-      return (
-        <InstallMetaMaskModal />
-      );
-    }
-    return false;
+    return this.props.metamask ? false : <InstallMetaMaskModal />;
   }
 
   render() {
@@ -306,11 +296,13 @@ App.propTypes = {
   error: PropTypes.string,
   fetchAuth: PropTypes.func.isRequired,
   initWeb3: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
   isAuthorized: PropTypes.bool,
   isJoined: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   metamask: PropTypes.bool,
   worker: PropTypes.shape(workerProps),
+  stats: PropTypes.shape(statsProps).isRequired,
 };
 
 export default App;

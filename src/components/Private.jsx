@@ -1,6 +1,8 @@
 import { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
+import { worker as workerProps, stats as statsProps } from '../schemas';
+import { isWorkerFunded } from '../lib';
 
 // TODO: fetch auth even when outside of private routes to render sidebar correctly
 class Private extends PureComponent {
@@ -22,7 +24,7 @@ class Private extends PureComponent {
   }
 
   isEmptyTask() {
-    return this.props.location.pathname === '/task' && !this.props.isJoined;
+    return this.props.location.pathname === '/task' && !this.props.isJoined && isWorkerFunded(this.props.worker, this.props.stats);
   }
 
   checkAuth() {
@@ -46,6 +48,7 @@ class Private extends PureComponent {
 
 Private.defaultProps = {
   isAuthorized: null,
+  worker: null,
 };
 
 Private.propTypes = {
@@ -54,6 +57,8 @@ Private.propTypes = {
   isJoined: PropTypes.bool.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
   replace: PropTypes.func.isRequired,
+  worker: PropTypes.shape(workerProps),
+  stats: PropTypes.shape(statsProps).isRequired,
 };
 
 export default Private;

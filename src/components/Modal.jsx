@@ -84,11 +84,12 @@ function Modal(props) {
 }
 
 Modal.defaultProps = {
+  children: null,
   toggleModal: null,
 };
 
 Modal.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   heading: PropTypes.element.isRequired,
   toggleModal: PropTypes.func,
 };

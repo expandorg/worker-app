@@ -43,6 +43,7 @@ const styles = {
     fontSize: '16px',
     textAlign: 'left',
     paddingLeft: '15px',
+    marginRight: '15px',
     color: '#b8b8b8',
     '::placeholder': {
       fontSize: '16px',
@@ -87,7 +88,7 @@ class DepositModal extends PureComponent {
     autoBind(this);
 
     this.state = {
-      value: 0,
+      value: '',
       loading: false,
     };
   }
@@ -131,8 +132,8 @@ class DepositModal extends PureComponent {
             id="deposit"
             value={this.state.value}
             onChange={this.handleChange}
+            placeholder="Amount of Gems to deposit"
           />
-          GEMS
         </label>
         <button
           type="submit"

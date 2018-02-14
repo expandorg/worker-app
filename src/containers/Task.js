@@ -6,6 +6,7 @@ const mapStateToProps = state => ({
   isSubmitting: state.isSubmitting,
   stats: state.stats,
   error: state.error,
+  worker: state.worker,
 });
 
 const mapDispatchToProps = {

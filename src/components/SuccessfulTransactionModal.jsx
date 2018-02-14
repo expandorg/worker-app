@@ -73,16 +73,18 @@ class SuccessfulTransactionModal extends PureComponent {
 
   renderTxs() {
     return this.props.transactions.map(tx => (
-      <div key={tx} className={styles.input}>
-        <div className={styles.inputContainer}>
-          <span className={styles.value} id="input">{tx}</span>
+      <div>
+        <div key={tx} className={styles.input}>
+          <div className={styles.inputContainer}>
+            <span className={styles.value} id="input">{tx}</span>
+          </div>
+          <Clipboard
+            className={styles.copyBtn.toString()}
+            data-clipboard-text={tx}
+          >
+            Copy
+          </Clipboard>
         </div>
-        <Clipboard
-          className={styles.copyBtn.toString()}
-          data-clipboard-text={tx}
-        >
-          Copy
-        </Clipboard>
         <br />
         <br />
         <a

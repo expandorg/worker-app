@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
-import { worker as workerProps } from '../schemas';
+import Big from 'bignumber.js';
+import { isWorkerFunded } from '../lib';
+import { worker as workerProps, stats as statsProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from '../style-constants';
 import DepositModal from './DepositModal';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
@@ -99,6 +101,9 @@ const styles = {
     padding: 0,
     cursor: 'pointer',
   }),
+  reserved: css({
+    display: 'inline-block',
+  }),
   address: css({
     display: 'block',
     textOverflow: 'ellipsis',
@@ -135,6 +140,10 @@ const styles = {
   }),
   editBtn: css({
     display: 'inline-block',
+    width: '198px',
+  }),
+  prompt: css({
+    textAlign: 'center',
   }),
 };
 
@@ -156,8 +165,14 @@ class Account extends PureComponent {
     }
   }
 
+  getStakedGems() {
+    return Big(this.props.stats.pending).multipliedBy(Big(0.1)).toNumber();
+  }
+
   getBalance() {
-    return this.props.worker.vaultBalance + this.props.worker.jobBalance;
+    const staked = this.getStakedGems();
+    const balance = Big(this.props.worker.vaultBalance + this.props.worker.jobBalance);
+    return balance.minus(staked).toNumber();
   }
 
   workerAddress() {
@@ -181,6 +196,26 @@ class Account extends PureComponent {
 
   toggleDepositModal() {
     this.setState({ showDepositModal: !this.state.showDepositModal });
+  }
+
+  renderDepositPrompt() {
+    if (isWorkerFunded(this.props.worker, this.props.stats)) {
+      return false;
+    }
+    return (
+      <div className={classNames({ [styles.cell]: true, [styles.prompt]: true })}>
+        <p>
+          Before you can complete tasks to earn Gems,
+          you will first have to deposit a small amount.<br />
+          These Gems will not be lost, even if your task submissions are not accepted.
+        </p>
+        <p>
+          For each task you submit, you must reserve 0.1 Gems.<br />
+        Once your tasks are either accepted or rejected,
+          that reserve will be released so that you may complete more tasks.
+        </p>
+      </div>
+    );
   }
 
   renderDepositModal() {
@@ -268,6 +303,7 @@ class Account extends PureComponent {
         {this.renderEmailEdit()}
         {this.renderTransactionSuccess()}
         <div className={styles.table}>
+          {this.renderDepositPrompt()}
           <span
             className={classNames({ [styles.heading]: true, [styles.cell]: true })}
           >
@@ -304,6 +340,10 @@ class Account extends PureComponent {
             </button>
           </div>
           <div className={styles.cell}>
+            <div className={styles.subHeading}>Reserved for Pending Tasks</div>
+            <div className={styles.reserved}>{this.getStakedGems()} GEMS</div>
+          </div>
+          <div className={styles.cell}>
             <button
               className={classNames({
                 [styles.defaultBtn]: true,
@@ -313,8 +353,6 @@ class Account extends PureComponent {
             >
               Deposit
             </button>
-          </div>
-          <div className={styles.cell}>
             <button
               className={classNames({
                 [styles.defaultBtn]: true,
@@ -358,6 +396,7 @@ Account.propTypes = {
   setTransactions: PropTypes.func.isRequired,
   depositGems: PropTypes.func.isRequired,
   withdrawPayments: PropTypes.func.isRequired,
+  stats: PropTypes.shape(statsProps).isRequired,
   worker: PropTypes.shape(workerProps),
   transactions: PropTypes.arrayOf(PropTypes.string),
 };

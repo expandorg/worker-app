@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { css } from 'glamor';
 import Modal from './Modal';
-import { stats as statsProps } from '../schemas';
+import { worker as workerProps, stats as statsProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING } from '../style-constants';
+import { isWorkerFunded } from '../lib';
 
 const TITLE = 'Question writing and fact checking';
 const DESCRIPTION = 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.';
@@ -179,6 +180,7 @@ class Task extends PureComponent {
   }
 
   render() {
+    const isFunded = isWorkerFunded(this.props.worker, this.props.stats);
     // Task has just been submitted
     if (this.state.submitted) {
       return (
@@ -190,14 +192,21 @@ class Task extends PureComponent {
           {this.props.isSubmitting || (
             <div>
               <div className={styles.heading}>{this.getSubmissionStatus()}</div>
-              {this.props.error === null &&
-                <button
-                  className={styles.btn}
-                  onClick={() => this.setState({ submitted: false })}
-                  disabled={this.state.gettingTask}
-                >
-                  Next task
-                </button>
+              {isFunded && (
+                this.props.error === null &&
+                  <button
+                    className={styles.btn}
+                    onClick={() => this.setState({ submitted: false })}
+                    disabled={this.state.gettingTask}
+                  >
+                    Next task
+                  </button>
+              )}
+              {isFunded ||
+                <div>
+                  Your Gems balance is not high enough to submit more tasks.<br />
+                  Please deposit more Gems to submit again.
+                </div>
               }
               <div className={styles.heading}>
                 <Link to="/jobs">Browse available jobs</Link>
@@ -277,6 +286,7 @@ class Task extends PureComponent {
 
 Task.defaultProps = {
   error: null,
+  worker: null,
 };
 
 Task.propTypes = {
@@ -285,6 +295,7 @@ Task.propTypes = {
   fetchAuth: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   stats: PropTypes.shape(statsProps).isRequired,
+  worker: PropTypes.shape(workerProps),
   error: PropTypes.string,
 };
 

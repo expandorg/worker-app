@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { initWeb3, fetchAuth } from '../action-creators';
+import { initWeb3, fetchAuth, setError } from '../action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,
@@ -9,11 +9,13 @@ const mapStateToProps = state => ({
   title: state.pageTitle,
   metamask: state.metamask,
   worker: state.worker,
+  stats: state.stats,
 });
 
 const mapDispatchToProps = {
   initWeb3,
   fetchAuth,
+  setError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

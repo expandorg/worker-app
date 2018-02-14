@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import autoBind from 'auto-bind';
 import Carousel from './Carousel';
 import UnlockMetaMaskModal from './UnlockMetaMaskModal';
+import { worker as workerProps, stats as statsProps } from '../schemas';
+import { isWorkerFunded } from '../lib';
 import { BTN } from '../style-constants';
 
 const styles = {
@@ -81,7 +83,8 @@ class Login extends PureComponent {
 
   checkAuth() {
     if (this.props.isAuthorized) {
-      this.props.replace('/jobs');
+      const redirect = isWorkerFunded(this.props.worker, this.props.stats) ? '/jobs' : '/account';
+      this.props.replace(redirect);
     }
   }
 
@@ -130,6 +133,7 @@ class Login extends PureComponent {
 Login.defaultProps = {
   isAuthorized: null,
   locked: false,
+  worker: null,
 };
 
 Login.propTypes = {
@@ -138,6 +142,8 @@ Login.propTypes = {
   replace: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   locked: PropTypes.bool,
+  worker: PropTypes.shape(workerProps),
+  stats: PropTypes.shape(statsProps).isRequired,
 };
 
 export default Login;
