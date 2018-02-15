@@ -14,7 +14,7 @@ const DESCRIPTION = 'Write a trivia question with three multiple-choice answers.
 const styles = {
   container: FLEX_PANEL,
   task: css({
-    fontSize: '32px',
+    fontSize: '22px',
     textAlign: 'center',
     color: '#3a506b',
     margin: PADDING,
