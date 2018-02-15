@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
 import Job from '../components/Job';
-import { worker as workerProps } from '../schemas';
+import { worker as workerProps, stats as statsProps } from '../schemas';
 import { PANEL } from '../style-constants';
 import EmailSubmission from './EmailSubmission';
 
@@ -49,6 +49,8 @@ class Jobs extends PureComponent {
           replace={this.props.replace}
           setIsJoined={this.props.setIsJoined}
           error={this.props.error}
+          worker={this.props.worker}
+          stats={this.props.stats}
         />
       </div>
     );
@@ -66,6 +68,7 @@ Jobs.propTypes = {
   setTitle: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
   error: PropTypes.string,
+  stats: PropTypes.shape(statsProps).isRequired,
 };
 
 export default Jobs;

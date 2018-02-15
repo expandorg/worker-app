@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <Route component={Private}>
               <Route path="account" component={Account} />
               <Route path="confirm" component={Confirm} />
+              <Route path="jobs" component={Jobs} />
               <Route component={Funded}>
                 <Route path="task" component={Task} />
-                <Route path="jobs" component={Jobs} />
               </Route>
               <Route path="*" component={NotFound} />
             </Route>

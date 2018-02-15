@@ -220,12 +220,10 @@ class App extends PureComponent {
     if (this.props.isAuthorized !== true) {
       links.push(<NavLink key="login" to="/login" label="Log In" />);
     } else {
-      if (isWorkerFunded(this.props.worker, this.props.stats)) {
-        if (this.props.isJoined) {
-          links.push(<NavLink key="task" to="/task" label="My Task" />);
-        }
-        links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
+      if (this.props.isJoined && isWorkerFunded(this.props.worker, this.props.stats)) {
+        links.push(<NavLink key="task" to="/task" label="My Task" />);
       }
+      links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
       links.push(<NavLink key="account" to="/account" label="Account" />);
     }
     return <ul className={styles.nav}>{links}</ul>;

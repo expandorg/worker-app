@@ -5,6 +5,7 @@ import { setTitle, setIsJoined } from '../action-creators';
 
 const mapStateToProps = state => ({
   worker: state.worker,
+  stats: state.stats,
   error: state.error,
 });
 

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import Modal from './Modal';
 import { PADDING, BORDER_R, PANEL } from '../style-constants';
+import { isWorkerFunded } from '../lib';
+import { worker as workerProps, stats as statsProps } from '../schemas';
 
 const TITLE = 'Trivia Question and Answer Creation';
 const REQUESTER = 'Stream Live Inc';
@@ -176,6 +178,13 @@ class Job extends PureComponent {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
+  renderJoinButton() {
+    if (!isWorkerFunded(this.props.worker, this.props.stats)) {
+      return <div>Please deposit Gems to participate</div>;
+    }
+    return <button onClick={this.toggleModal} className={styles.joinBtn}>Join</button>;
+  }
+
   renderText() {
     if (this.state.loading && !this.props.error) {
       return 'Loading';
@@ -190,7 +199,7 @@ class Job extends PureComponent {
     // Able to join
     return (
       <div>
-        <button onClick={this.toggleModal} className={styles.joinBtn}>Join</button>
+        {this.renderJoinButton()}
         <div className={styles.rewardMobile}>
           <span className={styles.rewardNumber}>1</span>
           <img className={styles.rewardIcon} src="../images/logo.svg" alt="Gems" />
@@ -246,12 +255,15 @@ class Job extends PureComponent {
 
 Job.defaultProps = {
   error: null,
+  worker: null,
 };
 
 Job.propTypes = {
   replace: PropTypes.func.isRequired,
   setIsJoined: PropTypes.func.isRequired,
   error: PropTypes.string,
+  worker: PropTypes.shape(workerProps),
+  stats: PropTypes.shape(statsProps).isRequired,
 };
 
 export default Job;
