@@ -2,12 +2,25 @@ import { optimize, DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
 import Dotenv from 'dotenv-webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 
-const envPath = process.env.NODE_ENV === 'production' ? './production.env' : './local.env';
+let envPath;
+switch (process.env.NODE_ENV) {
+  case 'production':
+    envPath = './production.env';
+    break;
+  case 'ropsten':
+    envPath = './ropsten.env';
+    break;
+  default:
+    envPath = 'local.env';
+}
 
 const entry = {
   vendor: [
     'auto-bind',
+    'bignumber.js',
     'bluebird',
+    'classnames',
+    'gems-token',
     'glamor',
     'prop-types',
     'react',
@@ -75,7 +88,7 @@ export default {
   },
   plugins,
   devServer: {
-    contentBase: './public',
+    // contentBase: './public',
     hot: true,
     historyApiFallback: true,
   },

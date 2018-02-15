@@ -73,8 +73,8 @@ class SuccessfulTransactionModal extends PureComponent {
 
   renderTxs() {
     return this.props.transactions.map(tx => (
-      <div>
-        <div key={tx} className={styles.input}>
+      <div key={tx}>
+        <div className={styles.input}>
           <div className={styles.inputContainer}>
             <span className={styles.value} id="input">{tx}</span>
           </div>
