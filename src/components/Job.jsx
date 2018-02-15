@@ -180,7 +180,7 @@ class Job extends PureComponent {
 
   renderJoinButton() {
     if (!isWorkerFunded(this.props.worker, this.props.stats)) {
-      return <div>Please deposit Gems to participate</div>;
+      return <div>Please deposit Gems to participate*</div>;
     }
     return <button onClick={this.toggleModal} className={styles.joinBtn}>Join</button>;
   }

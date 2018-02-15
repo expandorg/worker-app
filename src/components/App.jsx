@@ -10,8 +10,6 @@ import { worker as workerProps, stats as statsProps } from '../schemas';
 import Hamburger from './Hamburger';
 import InstallMetaMaskModal from './InstallMetaMaskModal';
 
-const IS_ROPSTEN = true;
-
 const styles = {
   app: css({
     height: '100%',
@@ -172,26 +170,6 @@ NavLink.propTypes = {
   label: PropTypes.string.isRequired,
 };
 
-function renderAlphaMsg() {
-  if (!IS_ROPSTEN) {
-    return '';
-  }
-  return (
-    <div className={styles.alphaMsg}>
-      <span>
-        This is the Gems Alpha on the Ropsten test network. All tasks are
-        sample tasks. No actual Gems are earned.
-      </span>
-      <a
-        href="https://gemscommunity.typeform.com/to/LdJ9zL"
-        className={styles.feedback}
-      >
-        Feedback?
-      </a>
-    </div>
-  );
-}
-
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -225,6 +203,7 @@ class App extends PureComponent {
       }
       links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
       links.push(<NavLink key="account" to="/account" label="Account" />);
+      links.push(<NavLink key="stats" to="/stats" label="Stats" />);
     }
     return <ul className={styles.nav}>{links}</ul>;
   }
@@ -275,7 +254,6 @@ class App extends PureComponent {
           </div>
           {this.props.children}
         </div>
-        {renderAlphaMsg()}
       </div>
     );
   }

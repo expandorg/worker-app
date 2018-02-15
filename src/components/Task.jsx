@@ -266,19 +266,6 @@ class Task extends PureComponent {
             {this.renderSubmit()}
           </button>
         </form>
-        <div className={styles.completed}>
-          {this.props.stats.pending || 0}
-          <span>Tasks Pending*</span>
-        </div>
-        <div className={styles.completed}>
-          {this.props.stats.accepted || 0}
-          <span>Tasks Accepted</span>
-        </div>
-        <div className={styles.completed}>
-          {this.props.stats.rejected || 0}
-          <span>Tasks Rejected</span>
-        </div>
-        <span>*Tasks are pending acceptance</span>
       </div>
     );
   }

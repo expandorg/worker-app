@@ -10,6 +10,7 @@ import Funded from './containers/Funded';
 import Login from './containers/Login';
 import Jobs from './containers/Jobs';
 import Account from './containers/Account';
+import Stats from './containers/Stats';
 import Task from './containers/Task';
 import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route path="account" component={Account} />
               <Route path="confirm" component={Confirm} />
               <Route path="jobs" component={Jobs} />
+              <Route path="stats" component={Stats} />
               <Route component={Funded}>
                 <Route path="task" component={Task} />
               </Route>

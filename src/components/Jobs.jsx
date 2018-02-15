@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
+import { css } from 'glamor';
+import { isWorkerFunded } from '../lib';
 import Job from '../components/Job';
 import { worker as workerProps, stats as statsProps } from '../schemas';
 import { PANEL } from '../style-constants';
@@ -10,6 +12,18 @@ const JOB_DISABLED = false;
 
 const styles = {
   innerContainer: PANEL,
+  disclaimer: css({
+    margin: '25px',
+    fontSize: '12px',
+    bottom: '0',
+    position: 'fixed',
+    '@media(max-height: 400px)': {
+      position: 'relative',
+    },
+    '@media(max-width: 430px)': {
+      position: 'relative',
+    },
+  }),
 };
 
 class Jobs extends PureComponent {
@@ -34,6 +48,27 @@ class Jobs extends PureComponent {
     return false;
   }
 
+  renderDepositPrompt() {
+    if (isWorkerFunded(this.props.worker, this.props.stats)) {
+      return false;
+    }
+    return (
+      <div className={styles.disclaimer}>
+        <p>
+          *Before you can complete tasks to earn Gems,
+          you will first have to deposit a small amount through the account page.<br />
+          These Gems will not be lost, even if your task submissions are not accepted.
+        </p>
+        <p>
+          For each task you submit, you must reserve 0.1 GEM tokens.<br />
+        Once your tasks are either accepted or rejected,
+          that reserve will be released so that you may complete more tasks.
+        </p>
+      </div>
+    );
+  }
+
+
   render() {
     if (JOB_DISABLED) {
       return (
@@ -52,6 +87,7 @@ class Jobs extends PureComponent {
           worker={this.props.worker}
           stats={this.props.stats}
         />
+        {this.renderDepositPrompt()}
       </div>
     );
   }

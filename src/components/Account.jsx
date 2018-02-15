@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import Big from 'bignumber.js';
-import { isWorkerFunded } from '../lib';
 import { worker as workerProps, stats as statsProps } from '../schemas';
 import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from '../style-constants';
 import DepositModal from './DepositModal';
@@ -198,26 +197,6 @@ class Account extends PureComponent {
     this.setState({ showDepositModal: !this.state.showDepositModal });
   }
 
-  renderDepositPrompt() {
-    if (isWorkerFunded(this.props.worker, this.props.stats)) {
-      return false;
-    }
-    return (
-      <div className={classNames({ [styles.cell]: true, [styles.prompt]: true })}>
-        <p>
-          Before you can complete tasks to earn Gems,
-          you will first have to deposit a small amount.<br />
-          These Gems will not be lost, even if your task submissions are not accepted.
-        </p>
-        <p>
-          For each task you submit, you must reserve 0.1 Gems.<br />
-        Once your tasks are either accepted or rejected,
-          that reserve will be released so that you may complete more tasks.
-        </p>
-      </div>
-    );
-  }
-
   renderDepositModal() {
     if (!this.state.showDepositModal) {
       return '';
@@ -303,7 +282,6 @@ class Account extends PureComponent {
         {this.renderEmailEdit()}
         {this.renderTransactionSuccess()}
         <div className={styles.table}>
-          {this.renderDepositPrompt()}
           <span
             className={classNames({ [styles.heading]: true, [styles.cell]: true })}
           >
