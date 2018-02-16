@@ -159,16 +159,6 @@ class AddEmailModal extends PureComponent {
               {this.renderSubmit()}
             </button>
           </form>
-          <span className={styles.description}>
-            Why do you need my email address?
-            <br />
-            <br />
-            Very soon you will be able to review the GCP applications through Gems.
-            <br />
-            High performers who are accurate and fair will earn their own spot on the whitelist.
-            <br />
-            We will notify you if you received a spot via email
-          </span>
         </div>
       </Modal>
     );
