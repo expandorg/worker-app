@@ -204,6 +204,7 @@ class App extends PureComponent {
       links.push(<NavLink key="jobs" to="/jobs" label="Jobs" />);
       links.push(<NavLink key="account" to="/account" label="Account" />);
       links.push(<NavLink key="stats" to="/stats" label="Stats" />);
+      links.push(<NavLink key="requester" to="/requester" label="Requester" />);
     }
     return <ul className={styles.nav}>{links}</ul>;
   }
