@@ -54,7 +54,7 @@ const styles = {
 };
 
 function etherScanUrl(tx) {
-  return `https://ropsten.etherscan.io/tx/${tx}`;
+  return `https://etherscan.io/tx/${tx}`;
 }
 
 class SuccessfulTransactionModal extends PureComponent {
