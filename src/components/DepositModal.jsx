@@ -6,6 +6,7 @@ import Modal from './Modal';
 import { BORDER_R, PADDING } from '../style-constants';
 
 const MIN_DEPOSIT = 5;
+const MAX_DEPOSIT = 1000;
 
 const styles = {
   container: css({
@@ -99,7 +100,7 @@ class DepositModal extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.value < MIN_DEPOSIT) {
+    if (this.state.value < MIN_DEPOSIT || this.state.value > MAX_DEPOSIT) {
       return;
     }
     this.setState({ loading: true });
@@ -154,7 +155,8 @@ class DepositModal extends PureComponent {
       >
         <div className={styles.container}>
           <span className={styles.description}>
-            In order to submit tasks you will first need to deposit at least 5 Gems.<br />
+            In order to submit tasks you will first need to deposit at least 5 Gems
+            (and at most 1000 Gems).<br />
             You will not lose these Gems even if your tasks are not accepted,
             and you can withdraw them again once your total balance is at least 500 Gems.
           </span>

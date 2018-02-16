@@ -154,6 +154,7 @@ class Account extends PureComponent {
       loading: false,
       editEmail: false,
       showDepositModal: false,
+      hasGems: false,
     };
   }
 
@@ -162,6 +163,14 @@ class Account extends PureComponent {
     if (this.props.transactions) {
       this.setState({ loading: false });
     }
+    this.setState({ hasGems: false });
+    this.props.setGemsBalance(null);
+    this.props.fetchWorkerGemsBalance()
+      .then(() => {
+        if (this.props.gemsBalance >= 5) {
+          this.setState({ hasGems: true });
+        }
+      });
   }
 
   getStakedGems() {
@@ -198,7 +207,7 @@ class Account extends PureComponent {
   }
 
   renderDepositModal() {
-    if (!this.state.showDepositModal) {
+    if (!this.state.showDepositModal || !this.state.hasGems) {
       return '';
     }
     return (
@@ -270,6 +279,23 @@ class Account extends PureComponent {
     return false;
   }
 
+  renderDepositButton() {
+    if (!this.state.hasGems) {
+      return false;
+    }
+    return (
+      <button
+        className={classNames({
+          [styles.defaultBtn]: true,
+          [styles.btn]: true,
+        })}
+        onClick={() => this.toggleDepositModal()}
+      >
+        Deposit
+      </button>
+    );
+  }
+
   render() {
     if (this.props.worker === null) {
       return '';
@@ -322,15 +348,7 @@ class Account extends PureComponent {
             <div className={styles.reserved}>{this.getStakedGems()} GEMS</div>
           </div>
           <div className={styles.cell}>
-            <button
-              className={classNames({
-                [styles.defaultBtn]: true,
-                [styles.btn]: true,
-              })}
-              onClick={() => this.toggleDepositModal()}
-            >
-              Deposit
-            </button>
+            {this.renderDepositButton()}
             <button
               className={classNames({
                 [styles.defaultBtn]: true,
@@ -365,15 +383,19 @@ class Account extends PureComponent {
 
 Account.defaultProps = {
   worker: null,
+  gemsBalance: null,
   transactions: null,
 };
 
 Account.propTypes = {
   logout: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
+  setGemsBalance: PropTypes.func.isRequired,
   setTransactions: PropTypes.func.isRequired,
+  fetchWorkerGemsBalance: PropTypes.func.isRequired,
   depositGems: PropTypes.func.isRequired,
   withdrawPayments: PropTypes.func.isRequired,
+  gemsBalance: PropTypes.number,
   stats: PropTypes.shape(statsProps).isRequired,
   worker: PropTypes.shape(workerProps),
   transactions: PropTypes.arrayOf(PropTypes.string),

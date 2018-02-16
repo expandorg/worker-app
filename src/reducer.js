@@ -23,6 +23,7 @@ const reducer = combineReducers({
   routing: routerReducer,
   web3: simpleReducer(null, actions.SET_WEB3),
   worker: simpleReducer(null, actions.SET_WORKER),
+  gemsBalance: simpleReducer(null, actions.SET_GEMS_BALANCE),
   stats: (state = defaultStats, action) => {
     if (action.type === actions.SET_STATS) {
       return action.payload || defaultStats;

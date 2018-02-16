@@ -1,5 +1,6 @@
 const actions = [
   'SET_ERROR',
+  'SET_GEMS_BALANCE',
   'SET_GEMS_INSTANCE',
   'SET_IS_AUTHORIZED',
   'SET_IS_JOINED',

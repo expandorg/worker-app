@@ -41,6 +41,8 @@ export const setWeb3 = createAction(actions.SET_WEB3);
 
 export const setWorker = createAction(actions.SET_WORKER);
 
+export const setGemsBalance = createAction(actions.SET_GEMS_BALANCE);
+
 export const setTransactions = createAction(actions.SET_TRANSACTIONS);
 
 export const setMetamask = createAction(actions.SET_METAMASK);
@@ -172,6 +174,19 @@ export const login = () => async (dispatch) => {
       const data = await res.json();
       setLoggedIn(dispatch, data);
     }
+  } catch (err) {
+    dispatch(setError(err.toString()));
+  }
+};
+
+export const fetchWorkerGemsBalance = () => async (dispatch) => {
+  try {
+    const res = await apiRequest('/gems', 'GET');
+    if (!res.ok) {
+      throw new Error('Error fetching Gems balance');
+    }
+    const data = await res.json();
+    dispatch(setGemsBalance(data.balance));
   } catch (err) {
     dispatch(setError(err.toString()));
   }
