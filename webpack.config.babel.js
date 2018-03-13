@@ -11,7 +11,7 @@ switch (process.env.NODE_ENV) {
     envPath = './ropsten.env';
     break;
   default:
-    envPath = 'local.env';
+    envPath = './local.env';
 }
 
 const entry = {
