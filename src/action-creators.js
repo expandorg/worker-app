@@ -195,7 +195,7 @@ export const fetchWorkerGemsBalance = () => async (dispatch) => {
 export const depositGems = numGems => async (dispatch) => {
   try {
     const { gemsInstance } = store.getState();
-    await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 10e+18);
+    await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 1e+18);
     const res = await apiRequest('/deposit', 'POST', { value: numGems }, true);
     if (!res.ok) {
       throw new Error('Error depositing');
