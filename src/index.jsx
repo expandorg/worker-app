@@ -15,33 +15,43 @@ import Requester from './containers/Requester';
 import Task from './containers/Task';
 import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
+import MaintenanceMode from './components/MaintenanceMode';
+
+const MAINTENANCE_MODE = false;
+
+function renderApp(history) {
+  if (MAINTENANCE_MODE) {
+    return <MaintenanceMode />;
+  }
+  return (
+    <Provider store={store}>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Login} />
+          <Route path="login" component={Login} />
+          <Route component={Private}>
+            <Route path="account" component={Account} />
+            <Route path="confirm" component={Confirm} />
+            <Route path="jobs" component={Jobs} />
+            <Route path="stats" component={Stats} />
+            <Route path="requester" component={Requester} />
+            <Route component={Funded}>
+              <Route path="task" component={Task} />
+            </Route>
+            <Route path="*" component={NotFound} />
+          </Route>
+        </Route>
+      </Router>
+    </Provider>
+  );
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize react-router-redux.
   const history = syncHistoryWithStore(browserHistory, store);
 
   ReactDOM.render(
-    (
-      <Provider store={store}>
-        <Router history={history}>
-          <Route path="/" component={App}>
-            <IndexRoute component={Login} />
-            <Route path="login" component={Login} />
-            <Route component={Private}>
-              <Route path="account" component={Account} />
-              <Route path="confirm" component={Confirm} />
-              <Route path="jobs" component={Jobs} />
-              <Route path="stats" component={Stats} />
-              <Route path="requester" component={Requester} />
-              <Route component={Funded}>
-                <Route path="task" component={Task} />
-              </Route>
-              <Route path="*" component={NotFound} />
-            </Route>
-          </Route>
-        </Router>
-      </Provider>
-    ),
+    renderApp(history),
     document.getElementById('root'),
   );
 });
