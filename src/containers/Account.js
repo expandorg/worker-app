@@ -6,6 +6,7 @@ const mapStateToProps = state => ({
   stats: state.stats,
   worker: state.worker,
   gemsBalance: state.gemsBalance,
+  depositStage: state.depositStage,
   transactions: state.transactions,
 });
 

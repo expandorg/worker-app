@@ -17,6 +17,7 @@ const reducer = combineReducers({
   isAuthorized: simpleReducer(null, actions.SET_IS_AUTHORIZED),
   isJoined: simpleReducer(false, actions.SET_IS_JOINED),
   isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
+  depositStage: simpleReducer(0, actions.SET_DEPOSIT_STAGE),
   gemsInstance: simpleReducer(null, actions.SET_GEMS_INSTANCE),
   pageTitle: simpleReducer('', actions.SET_PAGE_TITLE),
   previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),

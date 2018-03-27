@@ -24,7 +24,9 @@ const styles = {
     marginBottom: PADDING,
     padding: `${PADDING}px 0`,
     width: '80%',
-    background: '#ffb8c8',
+  }),
+  spinner: css({
+    marginTop: 20,
   }),
   form: css({
     display: 'block',
@@ -90,7 +92,6 @@ class DepositModal extends PureComponent {
 
     this.state = {
       value: '',
-      loading: false,
     };
   }
 
@@ -103,7 +104,6 @@ class DepositModal extends PureComponent {
     if (this.state.value < MIN_DEPOSIT || this.state.value > MAX_DEPOSIT) {
       return;
     }
-    this.setState({ loading: true });
     const value = parseFloat(this.state.value);
     this.props.depositGems(value)
       .then(() => {
@@ -112,12 +112,42 @@ class DepositModal extends PureComponent {
   }
 
   renderLoading() {
-    return (
-      <div className={styles.loading}>
-        Processing transaction:<br />
-        Depositing {this.state.value} Gems
-      </div>
-    );
+    switch (this.props.depositStage) {
+      case 1:
+        return (
+          <div className={styles.loading}>
+            Approving transaction, step 1 of 2<br />
+            This may take some time,<br />
+            PLEASE DO NOT NAVIGATE AWAY<br />
+            Depositing {this.state.value} Gems<br />
+            <img
+              className={styles.spinner}
+              alt="loading..."
+              src="../images/loading-animation.gif"
+              width="100"
+              height="100"
+            />
+          </div>
+        );
+      case 2:
+        return (
+          <div className={styles.loading}>
+            Processing deposit, step 2 of 2<br />
+            This may take some time,<br />
+            PLEASE DO NOT NAVIGATE AWAY<br />
+            Depositing {this.state.value} Gems<br />
+            <img
+              className={styles.spinner}
+              alt="loading..."
+              src="../images/loading-animation.gif"
+              width="100"
+              height="100"
+            />
+          </div>
+        );
+      default:
+        return '';
+    }
   }
 
   renderForm() {
@@ -160,8 +190,8 @@ class DepositModal extends PureComponent {
             You will not lose these Gems even if your tasks are not accepted,
             and you can withdraw them again once your total balance is at least 500 Gems.
           </span>
-          {this.state.loading && this.renderLoading()}
-          {this.state.loading || this.renderForm()}
+          {this.props.depositStage > 0 && this.renderLoading()}
+          {this.props.depositStage === 0 && this.renderForm()}
         </div>
       </Modal>
     );
@@ -171,6 +201,7 @@ class DepositModal extends PureComponent {
 DepositModal.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   depositGems: PropTypes.func.isRequired,
+  depositStage: PropTypes.number.isRequired,
 };
 
 export default DepositModal;

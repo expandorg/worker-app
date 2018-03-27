@@ -33,6 +33,8 @@ export const setIsJoined = createAction(actions.SET_IS_JOINED);
 
 export const setIsSubmitting = createAction(actions.SET_IS_SUBMITTING);
 
+export const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
+
 export const setStats = createAction(actions.SET_STATS);
 
 export const setTitle = createAction(actions.SET_PAGE_TITLE);
@@ -195,12 +197,15 @@ export const fetchWorkerGemsBalance = () => async (dispatch) => {
 export const depositGems = numGems => async (dispatch) => {
   try {
     const { gemsInstance } = store.getState();
+    dispatch(setDepositStage(1));
     await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 1e+18);
+    dispatch(setDepositStage(2));
     const res = await apiRequest('/deposit', 'POST', { value: numGems }, true);
     if (!res.ok) {
       throw new Error('Error depositing');
     }
     const data = await res.json();
+    dispatch(setDepositStage(0));
     dispatch(setWorker(data.worker));
     dispatch(setTransactions(data.tx));
   } catch (err) {

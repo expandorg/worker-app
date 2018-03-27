@@ -5,6 +5,7 @@ const actions = [
   'SET_IS_AUTHORIZED',
   'SET_IS_JOINED',
   'SET_IS_SUBMITTING',
+  'SET_DEPOSIT_STAGE',
   'SET_STATS',
   'SET_PAGE_TITLE',
   'SET_WEB3',

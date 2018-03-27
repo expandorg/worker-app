@@ -214,6 +214,7 @@ class Account extends PureComponent {
       <DepositModal
         toggleModal={this.toggleDepositModal}
         depositGems={this.props.depositGems}
+        depositStage={this.props.depositStage}
       />
     );
   }
@@ -398,6 +399,7 @@ Account.propTypes = {
   gemsBalance: PropTypes.number,
   stats: PropTypes.shape(statsProps).isRequired,
   worker: PropTypes.shape(workerProps),
+  depositStage: PropTypes.number.isRequired,
   transactions: PropTypes.arrayOf(PropTypes.string),
 };
 
