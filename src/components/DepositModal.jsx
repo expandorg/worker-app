@@ -24,6 +24,7 @@ const styles = {
     marginBottom: PADDING,
     padding: `${PADDING}px 0`,
     width: '80%',
+    background: '#f2f2f2',
   }),
   spinner: css({
     marginTop: 20,
