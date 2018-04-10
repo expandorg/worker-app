@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { withRouter } from 'react-router';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -155,10 +156,12 @@ class Account extends PureComponent {
       editEmail: false,
       showDepositModal: false,
       hasGems: false,
+      blockNavigation: false,
     };
   }
 
   componentWillMount() {
+    this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
     this.props.setTitle('Account');
     if (this.props.transactions) {
       this.setState({ loading: false });
@@ -173,6 +176,20 @@ class Account extends PureComponent {
       });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.depositStage === this.props.depositStage) {
+      return;
+    }
+
+    if (nextProps.depositStage > 0) {
+      window.onbeforeunload = () => 'Please do not navigate away while your deposit is being processed (click cancel).';
+      this.setState({ blockNavigation: true });
+    } else {
+      window.onbeforeunload = null;
+      this.setState({ blockNavigation: false });
+    }
+  }
+
   getStakedGems() {
     return Big(this.props.stats.pending).multipliedBy(Big(0.1)).toNumber();
   }
@@ -181,6 +198,10 @@ class Account extends PureComponent {
     const staked = this.getStakedGems();
     const balance = Big(this.props.worker.vaultBalance + this.props.worker.jobBalance);
     return balance.minus(staked).toNumber();
+  }
+
+  routerWillLeave() {
+    return !this.state.blockNavigation;
   }
 
   workerAddress() {
@@ -389,6 +410,12 @@ Account.defaultProps = {
 };
 
 Account.propTypes = {
+  router: PropTypes.shape({
+    setRouteLeaveHook: PropTypes.func.isRequired,
+  }).isRequired,
+  route: PropTypes.shape({
+    path: PropTypes.string.isRequired,
+  }).isRequired,
   logout: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   setGemsBalance: PropTypes.func.isRequired,
@@ -403,4 +430,4 @@ Account.propTypes = {
   transactions: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default Account;
+export default withRouter(Account);
