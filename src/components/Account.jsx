@@ -12,6 +12,8 @@ import DepositModal from './DepositModal';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 import EmailSubmission from './EmailSubmission';
 
+const TRANSACTIONS_DISABLED = true;
+
 const styles = {
   innerContainer: FLEX_PANEL,
   btn: BTN,
@@ -146,6 +148,13 @@ const styles = {
     textAlign: 'center',
   }),
 };
+
+function renderMessage() {
+  if (TRANSACTIONS_DISABLED) {
+    return '*Depositing and withrdrawing Gems is temporarily disabled while we update our system';
+  }
+  return '*Due to high demand, we can only let you withdraw if you have over 500 GEM tokens';
+}
 
 class Account extends PureComponent {
   constructor(props) {
@@ -302,7 +311,7 @@ class Account extends PureComponent {
   }
 
   renderDepositButton() {
-    if (!this.state.hasGems) {
+    if (TRANSACTIONS_DISABLED || !this.state.hasGems) {
       return false;
     }
     return (
@@ -318,12 +327,33 @@ class Account extends PureComponent {
     );
   }
 
+  renderWithdrawButton() {
+    if (TRANSACTIONS_DISABLED) {
+      return false;
+    }
+
+    const isWithdrawDisabled = this.getBalance() < 500 || this.state.loading;
+    return (
+      <button
+        className={classNames({
+          [styles.defaultBtn]: true,
+          [styles.btn]: true,
+          [styles.disabled]: isWithdrawDisabled,
+        })}
+        onClick={() => this.withdraw()}
+        disabled={isWithdrawDisabled}
+      >
+        {this.renderText()}
+        {this.renderGems()}
+      </button>
+    );
+  }
+
   render() {
     if (this.props.worker === null) {
       return '';
     }
 
-    const isWithdrawDisabled = this.getBalance() < 500 || this.state.loading;
     return (
       <div className={styles.innerContainer}>
         {this.renderDepositModal()}
@@ -371,18 +401,7 @@ class Account extends PureComponent {
           </div>
           <div className={styles.cell}>
             {this.renderDepositButton()}
-            <button
-              className={classNames({
-                [styles.defaultBtn]: true,
-                [styles.btn]: true,
-                [styles.disabled]: isWithdrawDisabled,
-              })}
-              onClick={() => this.withdraw()}
-              disabled={isWithdrawDisabled}
-            >
-              {this.renderText()}
-              {this.renderGems()}
-            </button>
+            {this.renderWithdrawButton()}
             <button
               className={classNames({
                   [styles.defaultBtn]: true,
@@ -395,7 +414,7 @@ class Account extends PureComponent {
             </button>
           </div>
           <div className={styles.cell}>
-            *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
+            {renderMessage()}
           </div>
         </div>
       </div>
