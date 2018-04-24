@@ -79,7 +79,7 @@
 .slick-prev:before
 {
   content: '';
-  background: url("images/left-arrow.png") no-repeat center center;
+  background: url("left-arrow.png") no-repeat center center;
   position: absolute;
   top: 0;
   left: 0;
@@ -89,7 +89,7 @@
 [dir='rtl'] .slick-prev:before
 {
   content: '';
-  background: url("images/left-arrow.png") no-repeat center center;
+  background: url("left-arrow.png") no-repeat center center;
   position: absolute;
   top: 0;
   left: 0;
@@ -109,7 +109,7 @@
 .slick-next:before
 {
   content: '';
-  background: url("images/right-arrow.png") no-repeat center center;
+  background: url("right-arrow.png") no-repeat center center;
   position: absolute;
   top: 0;
   left: 0;
@@ -119,7 +119,7 @@
 [dir='rtl'] .slick-next:before
 {
   content: '';
-  background: url("images/right-arrow.png") no-repeat center center;
+  background: url("right-arrow.png") no-repeat center center;
   position: absolute;
   top: 0;
   left: 0;

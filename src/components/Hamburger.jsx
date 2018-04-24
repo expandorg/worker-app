@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
-import '../../public/hamburger.css';
+
+import '../assets/hamburger.css';
 
 class Hamburger extends PureComponent {
   constructor(props) {
