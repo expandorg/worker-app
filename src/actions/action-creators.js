@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import { promisify } from 'bluebird';
 import GemsToken from 'gems-token';
+
 import actions from './action-types';
-import store from './store';
 
 function apiRequest(endpoint, method = 'GET', body, isJson = true) {
   const options = {
@@ -70,7 +70,7 @@ function initGemsInstance(web3, dispatch) {
   });
 }
 
-export const fetchAuth = () => async (dispatch) => {
+export const fetchAuth = () => async (dispatch, getState) => {
   try {
     const res = await apiRequest('/auth');
     if (!res.ok) {
@@ -79,7 +79,7 @@ export const fetchAuth = () => async (dispatch) => {
     }
 
     const data = await res.json();
-    const { web3 } = store.getState();
+    const { web3 } = getState();
     const getAccounts = promisify(web3.eth.getAccounts.bind(web3.eth));
     const accounts = await getAccounts();
 
@@ -146,9 +146,9 @@ export const submitTask = submission => async (dispatch) => {
   dispatch(setIsSubmitting(false));
 };
 
-export const login = () => async (dispatch) => {
+export const login = () => async (dispatch, getState) => {
   try {
-    const { web3 } = store.getState();
+    const { web3 } = getState();
     const address = web3.eth.accounts[0];
     const message = [{
       type: 'address',
@@ -194,9 +194,9 @@ export const fetchWorkerGemsBalance = () => async (dispatch) => {
   }
 };
 
-export const depositGems = numGems => async (dispatch) => {
+export const depositGems = numGems => async (dispatch, getState) => {
   try {
-    const { gemsInstance } = store.getState();
+    const { gemsInstance } = getState();
     dispatch(setDepositStage(1));
     await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 1e+18);
     dispatch(setDepositStage(2));

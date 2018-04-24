@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { initWeb3, fetchAuth, setError } from '../action-creators';
+import { initWeb3, fetchAuth, setError } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,

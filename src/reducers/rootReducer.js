@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import actions from './action-types';
+
+import actions from '../actions/action-types';
 
 const defaultStats = {
   pending: 0,
@@ -12,7 +13,7 @@ function simpleReducer(defaultValue, actionType) {
   return (state = defaultValue, action) => (action.type === actionType ? action.payload : state);
 }
 
-const reducer = combineReducers({
+export default combineReducers({
   error: simpleReducer(null, actions.SET_ERROR),
   isAuthorized: simpleReducer(null, actions.SET_IS_AUTHORIZED),
   isJoined: simpleReducer(false, actions.SET_IS_JOINED),
@@ -35,5 +36,3 @@ const reducer = combineReducers({
   locked: simpleReducer(null, actions.SET_METAMASK_LOCKED),
   transactions: simpleReducer(null, actions.SET_TRANSACTIONS),
 });
-
-export default reducer;

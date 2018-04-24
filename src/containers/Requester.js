@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Requester from '../components/Requester';
-import { setTitle } from '../action-creators';
+import { setTitle } from '../actions/action-creators';
 
 const mapDispatchToProps = {
   setTitle,

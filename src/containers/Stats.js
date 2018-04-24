@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Stats from '../components/Stats';
-import { setTitle } from '../action-creators';
+import { setTitle } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   stats: state.stats,

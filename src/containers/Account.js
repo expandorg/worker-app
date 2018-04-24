@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Account from '../components/Account';
-import { logout, setTitle, setGemsBalance, setTransactions, fetchWorkerGemsBalance, depositGems, withdrawPayments } from '../action-creators';
+import { logout, setTitle, setGemsBalance, setTransactions, fetchWorkerGemsBalance, depositGems, withdrawPayments } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   stats: state.stats,

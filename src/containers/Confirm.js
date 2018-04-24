@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import Confirm from '../components/Confirm';
-import { confirmEmail, resendConfirmEmail } from '../action-creators';
+import { confirmEmail, resendConfirmEmail } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,

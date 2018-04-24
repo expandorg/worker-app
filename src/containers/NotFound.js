@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NotFound from '../components/NotFound';
-import { setTitle } from '../action-creators';
+import { setTitle } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   isAuthorized: state.isAuthorized,
