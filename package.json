@@ -5,7 +5,6 @@
   "dependencies": {
     "auto-bind": "^1.2.0",
     "bignumber.js": "^6.0.0",
-    "bluebird": "^3.5.1",
     "classnames": "^2.2.5",
     "gems-token": "github:gemsorg/gems-token",
     "glamor": "^2.20.40",
@@ -22,7 +21,8 @@
     "react-slick": "^0.16.0",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.0",
-    "redux-thunk": "2.2.0"
+    "redux-thunk": "2.2.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

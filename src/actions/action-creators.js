@@ -1,8 +1,23 @@
 import { createAction } from 'redux-actions';
-import { promisify } from 'bluebird';
 import GemsToken from 'gems-token';
 
 import actions from './action-types';
+
+function promisify(original, ctx) {
+  return function decoated(...args) {
+    return new Promise((resolve, reject) => {
+      args.push((err, ...values) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(values[0]);
+        }
+      });
+      original.call(ctx || this, ...args);
+    });
+  };
+}
+
 
 class Repository {
   web3 = null
@@ -91,7 +106,7 @@ export const fetchAuth = () => async (dispatch) => {
 
     const data = await res.json();
     const { web3 } = repository;
-    const getAccounts = promisify(web3.eth.getAccounts.bind(web3.eth));
+    const getAccounts = promisify(web3.eth.getAccounts, web3.eth);
     const accounts = await getAccounts();
 
     // Ensure account resolved from token matches metamask account
@@ -167,7 +182,7 @@ export const login = () => async (dispatch) => {
       value: address,
     }];
 
-    const sendAsync = promisify(web3.currentProvider.sendAsync.bind(web3.currentProvider));
+    const sendAsync = promisify(web3.currentProvider.sendAsync, web3.currentProvider);
     const result = await sendAsync({
       method: 'eth_signTypedData',
       params: [

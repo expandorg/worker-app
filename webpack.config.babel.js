@@ -16,7 +16,7 @@ export default (env = {}) => {
   const dev = !!env.dev;
   const port = env.port || 3000;
   Reflect.ownKeys(entry).forEach((name) => {
-    entry[name].unshift('babel-polyfill');
+    entry[name].unshift('babel-polyfill', 'whatwg-fetch');
     if (dev) {
       entry[name].unshift(
         `webpack-dev-server/client?http://localhost:${port}`,
