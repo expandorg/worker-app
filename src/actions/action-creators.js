@@ -4,6 +4,21 @@ import GemsToken from 'gems-token';
 
 import actions from './action-types';
 
+class Repository {
+  web3 = null
+  gems = null
+
+  setWeb3 = (web3) => {
+    this.web3 = web3;
+  }
+
+  setGems = (gems) => {
+    this.gems = gems;
+  }
+}
+
+const repository = new Repository();
+
 function apiRequest(endpoint, method = 'GET', body, isJson = true) {
   const options = {
     credentials: 'include',
@@ -25,8 +40,6 @@ function apiRequest(endpoint, method = 'GET', body, isJson = true) {
 
 export const setError = createAction(actions.SET_ERROR);
 
-export const setGemsInstance = createAction(actions.SET_GEMS_INSTANCE);
-
 export const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
 
 export const setIsJoined = createAction(actions.SET_IS_JOINED);
@@ -38,8 +51,6 @@ export const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
 export const setStats = createAction(actions.SET_STATS);
 
 export const setTitle = createAction(actions.SET_PAGE_TITLE);
-
-export const setWeb3 = createAction(actions.SET_WEB3);
 
 export const setWorker = createAction(actions.SET_WORKER);
 
@@ -62,15 +73,15 @@ function setLoggedIn(dispatch, data) {
   dispatch(setIsAuthorized(true));
 }
 
-function initGemsInstance(web3, dispatch) {
+function initGemsInstance(web3) {
   const address = web3.eth.accounts[0];
   const gemsInstance = new GemsToken(web3.currentProvider, address);
   gemsInstance.init().then(() => {
-    dispatch(setGemsInstance(gemsInstance));
+    repository.setGems(gemsInstance);
   });
 }
 
-export const fetchAuth = () => async (dispatch, getState) => {
+export const fetchAuth = () => async (dispatch) => {
   try {
     const res = await apiRequest('/auth');
     if (!res.ok) {
@@ -79,7 +90,7 @@ export const fetchAuth = () => async (dispatch, getState) => {
     }
 
     const data = await res.json();
-    const { web3 } = getState();
+    const { web3 } = repository;
     const getAccounts = promisify(web3.eth.getAccounts.bind(web3.eth));
     const accounts = await getAccounts();
 
@@ -103,7 +114,7 @@ export const initWeb3 = () => (dispatch) => {
     } else {
       throw new Error('MetaMask not loaded');
     }
-    dispatch(setWeb3(web3));
+    repository.setWeb3(web3);
     dispatch(setMetamask(true));
 
     if (web3.eth.accounts.length === 0) {
@@ -112,11 +123,11 @@ export const initWeb3 = () => (dispatch) => {
         if (web3.eth.accounts.length > 0) {
           clearInterval(accountInterval);
           dispatch(setMetamaskLocked(false));
-          initGemsInstance(web3, dispatch);
+          initGemsInstance(web3);
         }
       }, 300);
     } else {
-      initGemsInstance(web3, dispatch);
+      initGemsInstance(web3);
     }
   } catch (err) {
     dispatch(setMetamask(false));
@@ -146,9 +157,9 @@ export const submitTask = submission => async (dispatch) => {
   dispatch(setIsSubmitting(false));
 };
 
-export const login = () => async (dispatch, getState) => {
+export const login = () => async (dispatch) => {
   try {
-    const { web3 } = getState();
+    const { web3 } = repository;
     const address = web3.eth.accounts[0];
     const message = [{
       type: 'address',
@@ -194,9 +205,9 @@ export const fetchWorkerGemsBalance = () => async (dispatch) => {
   }
 };
 
-export const depositGems = numGems => async (dispatch, getState) => {
+export const depositGems = numGems => async (dispatch) => {
   try {
-    const { gemsInstance } = getState();
+    const { gems: gemsInstance } = repository;
     dispatch(setDepositStage(1));
     await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 1e+18);
     dispatch(setDepositStage(2));

@@ -19,11 +19,9 @@ export default combineReducers({
   isJoined: simpleReducer(false, actions.SET_IS_JOINED),
   isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
   depositStage: simpleReducer(0, actions.SET_DEPOSIT_STAGE),
-  gemsInstance: simpleReducer(null, actions.SET_GEMS_INSTANCE),
   pageTitle: simpleReducer('', actions.SET_PAGE_TITLE),
   previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),
   routing: routerReducer,
-  web3: simpleReducer(null, actions.SET_WEB3),
   worker: simpleReducer(null, actions.SET_WORKER),
   gemsBalance: simpleReducer(null, actions.SET_GEMS_BALANCE),
   stats: (state = defaultStats, action) => {
