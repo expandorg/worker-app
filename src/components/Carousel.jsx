@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import Slider from 'react-slick';
-import '../../public/slick-theme.css';
-import '../../public/slick.css';
+
+import '../assets/slick-theme.css';
+import '../assets/slick.css';
 
 class Carousel extends PureComponent {
   constructor(props) {

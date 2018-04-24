@@ -1,22 +1,12 @@
 import path from 'path';
 import webpack from 'webpack';
 
-import Dotenv from 'dotenv-webpack';
+import DotenvWebpackPlugin from 'dotenv-webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 
-class EmptyPlugin { apply = () => {} }
+import { envFilePath } from './config';
 
-let envPath;
-switch (process.env.NODE_ENV) {
-  case 'production':
-    envPath = './production.env';
-    break;
-  case 'ropsten':
-    envPath = './ropsten.env';
-    break;
-  default:
-    envPath = './local.env';
-}
+class EmptyPlugin { apply = () => {} }
 
 const entry = {
   app: ['./index'],
@@ -40,8 +30,7 @@ export default (env = {}) => {
     mode: dev ? 'development' : 'production',
     output: {
       filename: dev ? '[name].js' : '[name]-[chunkhash].js',
-      path: path.join(__dirname, 'build'),
-      publicPath: `${dev ? `http://localhost:${port}` : ''}/`,
+      path: path.join(__dirname, 'public'),
       pathinfo: dev,
       hotUpdateChunkFilename: '[hash].hot-update.js',
     },
@@ -99,9 +88,10 @@ export default (env = {}) => {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
         },
       }),
-      new Dotenv({ path: envPath }),
+      new DotenvWebpackPlugin({ path: envFilePath }),
       new HTMLWebpackPlugin({
-        template: '../public/index.html',
+        filename: 'index.html',
+        template: 'template.html',
       }),
       dev ? new webpack.HotModuleReplacementPlugin() : new EmptyPlugin(),
     ],
@@ -124,11 +114,13 @@ export default (env = {}) => {
     devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
     bail: !dev,
     devServer: {
-      hot: true,
       port,
+      contentBase: './public',
       historyApiFallback: true,
-      // publicPath: `${dev ? `http://localhost:${port}` : ''}/build/`,
-      // contentBase: './public',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      hot: true,
       quiet: false,
       noInfo: false,
       overlay: true,
