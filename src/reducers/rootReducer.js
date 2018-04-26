@@ -19,7 +19,6 @@ export default combineReducers({
   isJoined: simpleReducer(false, actions.SET_IS_JOINED),
   isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
   depositStage: simpleReducer(0, actions.SET_DEPOSIT_STAGE),
-  pageTitle: simpleReducer('', actions.SET_PAGE_TITLE),
   previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),
   routing: routerReducer,
   worker: simpleReducer(null, actions.SET_WORKER),

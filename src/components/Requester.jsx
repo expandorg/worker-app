@@ -1,10 +1,8 @@
-import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { css } from 'glamor';
-import { FLEX_PANEL } from '../style-constants';
+import { FLEX_PANEL } from './common/style-constants';
 
-const TITLE = 'Post a job to Gems';
+import Content from './shared/Content';
 
 const styles = {
   container: FLEX_PANEL,
@@ -15,35 +13,20 @@ const styles = {
   }),
 };
 
-class Requester extends PureComponent {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
-
-  componentWillMount() {
-    this.props.setTitle(TITLE);
-  }
-
-  render() {
-    return (
-      <div className={styles.container}>
-        <span>Have an organization or company that can use Gems?</span>
-        <a
-          className={styles.formLink}
-          href="https://gemscommunity.typeform.com/to/YRcICm"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Please submit this form
-        </a>
-      </div>
-    );
-  }
-}
-
-Requester.propTypes = {
-  setTitle: PropTypes.func.isRequired,
-};
+const Requester = () => (
+  <Content title="Post a job to Gems">
+    <div className={styles.container}>
+      <span>Have an organization or company that can use Gems?</span>
+      <a
+        className={styles.formLink}
+        href="https://gemscommunity.typeform.com/to/YRcICm"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Please submit this form
+      </a>
+    </div>
+  </Content>
+);
 
 export default Requester;

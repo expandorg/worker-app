@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
-import { worker as workerProps, stats as statsProps } from '../schemas';
+import { worker as workerProps, stats as statsProps } from './shared/propTypes';
 import { isWorkerFunded } from '../lib';
 
 class Funded extends PureComponent {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import Jobs from '../components/Jobs';
-import { setTitle, setIsJoined } from '../actions/action-creators';
+import { setIsJoined } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   worker: state.worker,
@@ -11,7 +11,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   replace,
-  setTitle,
   setIsJoined,
 };
 

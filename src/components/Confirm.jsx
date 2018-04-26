@@ -3,9 +3,9 @@ import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import { locationShape } from 'react-router-props';
-import Modal from './Modal';
-import { BORDER_R, PADDING } from '../style-constants';
-import { worker as workerProps } from '../schemas';
+import Modal from './common/Modal';
+import { BORDER_R, PADDING } from './common/style-constants';
+import { worker as workerProps } from './shared/propTypes';
 
 const styles = {
   container: css({

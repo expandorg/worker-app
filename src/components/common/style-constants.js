@@ -21,7 +21,7 @@ export const LOADING = css({
   margin: 'auto',
   height: '150px',
   width: '150px',
-  background: 'url(../images/loading-animation.gif) no-repeat left top',
+  background: 'url(/images/loading-animation.gif) no-repeat left top',
   backgroundSize: 'contain',
   position: 'relative',
   top: '35%',

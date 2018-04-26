@@ -6,11 +6,13 @@ import classNames from 'classnames';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
 import Big from 'bignumber.js';
-import { worker as workerProps, stats as statsProps } from '../schemas';
-import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from '../style-constants';
+import { worker as workerProps, stats as statsProps } from './shared/propTypes';
+import { FLEX_PANEL, BORDER_R, PADDING, BTN, LOADING } from './common/style-constants';
 import DepositModal from './DepositModal';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 import EmailSubmission from './EmailSubmission';
+
+import Content from './shared/Content';
 
 const TRANSACTIONS_DISABLED = true;
 
@@ -171,7 +173,6 @@ class Account extends PureComponent {
 
   componentWillMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
-    this.props.setTitle('Account');
     if (this.props.transactions) {
       this.setState({ loading: false });
     }
@@ -355,69 +356,71 @@ class Account extends PureComponent {
     }
 
     return (
-      <div className={styles.innerContainer}>
-        {this.renderDepositModal()}
-        {this.renderEmailEdit()}
-        {this.renderTransactionSuccess()}
-        <div className={styles.table}>
-          <span
-            className={classNames({ [styles.heading]: true, [styles.cell]: true })}
-          >
-            Your Account
-          </span>
-          <div className={styles.cell}>
-            <div className={styles.subHeading}>Account Address</div>
-            <div className={styles.accountInput}>
-              <div className={styles.accountInputContainer}>
-                <span className={styles.address} id="address">{this.workerAddress()}</span>
-              </div>
-              <Clipboard
-                className={styles.copyBtn.toString()}
-                data-clipboard-text={this.workerAddress()}
-              >
-                Copy
-              </Clipboard>
-            </div>
-          </div>
-          <div className={styles.cell}>
-            <div className={styles.subHeading}>Email Address</div>
-            <div className={styles.emailInput}>
-              {this.renderEmail()}
-            </div>
-            <button
-              className={classNames({
-                [styles.defaultBtn]: true,
-                [styles.btn]: true,
-                [styles.editBtn]: true,
-              })}
-              onClick={() => this.toggleEmailModal()}
+      <Content title="Account" >
+        <div className={styles.innerContainer}>
+          {this.renderDepositModal()}
+          {this.renderEmailEdit()}
+          {this.renderTransactionSuccess()}
+          <div className={styles.table}>
+            <span
+              className={classNames({ [styles.heading]: true, [styles.cell]: true })}
             >
-              Edit
-            </button>
-          </div>
-          <div className={styles.cell}>
-            <div className={styles.subHeading}>Reserved for Pending Tasks</div>
-            <div className={styles.reserved}>{this.getStakedGems()} GEMS</div>
-          </div>
-          <div className={styles.cell}>
-            {this.renderDepositButton()}
-            {this.renderWithdrawButton()}
-            <button
-              className={classNames({
+              Your Account
+            </span>
+            <div className={styles.cell}>
+              <div className={styles.subHeading}>Account Address</div>
+              <div className={styles.accountInput}>
+                <div className={styles.accountInputContainer}>
+                  <span className={styles.address} id="address">{this.workerAddress()}</span>
+                </div>
+                <Clipboard
+                  className={styles.copyBtn.toString()}
+                  data-clipboard-text={this.workerAddress()}
+                >
+                  Copy
+                </Clipboard>
+              </div>
+            </div>
+            <div className={styles.cell}>
+              <div className={styles.subHeading}>Email Address</div>
+              <div className={styles.emailInput}>
+                {this.renderEmail()}
+              </div>
+              <button
+                className={classNames({
                   [styles.defaultBtn]: true,
                   [styles.btn]: true,
-                  [styles.loginBtn]: true,
+                  [styles.editBtn]: true,
                 })}
-              onClick={this.props.logout}
-            >
-              Log Out
-            </button>
-          </div>
-          <div className={styles.cell}>
-            {renderMessage()}
+                onClick={() => this.toggleEmailModal()}
+              >
+                Edit
+              </button>
+            </div>
+            <div className={styles.cell}>
+              <div className={styles.subHeading}>Reserved for Pending Tasks</div>
+              <div className={styles.reserved}>{this.getStakedGems()} GEMS</div>
+            </div>
+            <div className={styles.cell}>
+              {this.renderDepositButton()}
+              {this.renderWithdrawButton()}
+              <button
+                className={classNames({
+                    [styles.defaultBtn]: true,
+                    [styles.btn]: true,
+                    [styles.loginBtn]: true,
+                  })}
+                onClick={this.props.logout}
+              >
+                Log Out
+              </button>
+            </div>
+            <div className={styles.cell}>
+              {renderMessage()}
+            </div>
           </div>
         </div>
-      </div>
+      </Content>
     );
   }
 }
@@ -436,7 +439,6 @@ Account.propTypes = {
     path: PropTypes.string.isRequired,
   }).isRequired,
   logout: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
   setGemsBalance: PropTypes.func.isRequired,
   setTransactions: PropTypes.func.isRequired,
   fetchWorkerGemsBalance: PropTypes.func.isRequired,

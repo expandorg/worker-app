@@ -52,8 +52,6 @@ export const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
 
 export const setStats = createAction(actions.SET_STATS);
 
-export const setTitle = createAction(actions.SET_PAGE_TITLE);
-
 export const setWorker = createAction(actions.SET_WORKER);
 
 export const setGemsBalance = createAction(actions.SET_GEMS_BALANCE);

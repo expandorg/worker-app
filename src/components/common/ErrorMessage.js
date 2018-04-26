@@ -7,7 +7,7 @@ const ErrorMessage = ({ error, onClose }) => (
   <div className={styles.error}>
     {error}
     <button className={styles.closeBtn} onClick={onClose}>
-      X
+      ✕
     </button>
   </div>
 );

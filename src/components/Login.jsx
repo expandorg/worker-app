@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import autoBind from 'auto-bind';
 import Carousel from './Carousel';
-import UnlockMetaMaskModal from './UnlockMetaMaskModal';
-import { worker as workerProps, stats as statsProps } from '../schemas';
+import UnlockMetaMaskModal from './warnings/UnlockMetaMaskModal';
+import { worker as workerProps, stats as statsProps } from './shared/propTypes';
 import { isWorkerFunded } from '../lib';
-import { BTN } from '../style-constants';
+import { BTN } from './common/style-constants';
+
+import Content from './shared/Content';
 
 const styles = {
   btn: BTN,
@@ -69,10 +71,6 @@ class Login extends PureComponent {
     };
   }
 
-  componentWillMount() {
-    this.props.setTitle('Login');
-  }
-
   componentDidMount() {
     this.checkAuth();
   }
@@ -95,37 +93,41 @@ class Login extends PureComponent {
   render() {
     if (this.state.step === 0) {
       return (
-        <div className={styles.container}>
-          <Carousel />
-          <button
-            className={classNames({ [styles.btn]: true, [styles.startBtn]: true })}
-            onClick={this.showLogin}
-          >
-            Start
-          </button>
-        </div>
+        <Content title="Login">
+          <div className={styles.container}>
+            <Carousel />
+            <button
+              className={classNames({ [styles.btn]: true, [styles.startBtn]: true })}
+              onClick={this.showLogin}
+            >
+              Start
+            </button>
+          </div>
+        </Content>
       );
     }
     return (
-      <div className={styles.loginContainer}>
-        {this.props.locked && <UnlockMetaMaskModal />}
-        <img
-          className={styles.screenShot}
-          src="images/login-screenshot.svg"
-          alt="Login Screenshot"
-        />
-        <span className={styles.instructions}>
-          You’ll need to sign in using MetaMask
-          <br />
-          (similar to the above). Click below to log in.
-        </span>
-        <button
-          className={classNames({ [styles.btn]: true, [styles.loginBtn]: true })}
-          onClick={this.props.login}
-        >
-          Log In
-        </button>
-      </div>
+      <Content title="Login">
+        <div className={styles.loginContainer}>
+          {this.props.locked && <UnlockMetaMaskModal />}
+          <img
+            className={styles.screenShot}
+            src="images/login-screenshot.svg"
+            alt="Login Screenshot"
+          />
+          <span className={styles.instructions}>
+            You’ll need to sign in using MetaMask
+            <br />
+            (similar to the above). Click below to log in.
+          </span>
+          <button
+            className={classNames({ [styles.btn]: true, [styles.loginBtn]: true })}
+            onClick={this.props.login}
+          >
+            Log In
+          </button>
+        </div>
+      </Content>
     );
   }
 }
@@ -140,7 +142,6 @@ Login.propTypes = {
   isAuthorized: PropTypes.bool,
   login: PropTypes.func.isRequired,
   replace: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
   locked: PropTypes.bool,
   worker: PropTypes.shape(workerProps),
   stats: PropTypes.shape(statsProps).isRequired,

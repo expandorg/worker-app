@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
-import Modal from './Modal';
-import { BORDER_R, PADDING } from '../style-constants';
+import Modal from './common/Modal';
+import { BORDER_R, PADDING } from './common/style-constants';
 
 const MIN_DEPOSIT = 5;
 const MAX_DEPOSIT = 1000;

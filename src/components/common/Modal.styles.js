@@ -1,9 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { css } from 'glamor';
-import { SIDEBAR_W, BORDER_R, PADDING } from '../style-constants';
+import { SIDEBAR_W, BORDER_R, PADDING } from './style-constants';
 
-// TODO center modal
 const styles = {
   modalDialog: css({
     position: 'fixed',
@@ -62,36 +59,4 @@ const styles = {
     },
   }),
 };
-
-function Modal(props) {
-  return (
-    <div className={styles.modalDialog}>
-      <div className={styles.modalContent}>
-        <div className={styles.modalHeading}>
-          <div className={styles.headingText}>
-            {props.heading}
-          </div>
-          {props.toggleModal && (
-            <button href="#" className={styles.closeBtn} onClick={props.toggleModal}>
-              <img src="../images/close-btn.png" alt="Close" />
-            </button>
-          )}
-        </div>
-        {props.children}
-      </div>
-    </div>
-  );
-}
-
-Modal.defaultProps = {
-  children: null,
-  toggleModal: null,
-};
-
-Modal.propTypes = {
-  children: PropTypes.node,
-  heading: PropTypes.element.isRequired,
-  toggleModal: PropTypes.func,
-};
-
-export default Modal;
+export default styles;

@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
-import { stats as statsProps } from '../schemas';
-import { FLEX_PANEL } from '../style-constants';
+import { stats as statsProps } from './shared/propTypes';
+import { FLEX_PANEL } from './common/style-constants';
 
-const TITLE = 'Submission Stats';
+import Content from './shared/Content';
 
 const styles = {
   container: FLEX_PANEL,
@@ -28,40 +27,27 @@ const styles = {
   }),
 };
 
-class Stats extends PureComponent {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
-
-  componentWillMount() {
-    this.props.setTitle(TITLE);
-  }
-
-  render() {
-    return (
-      <div className={styles.container}>
-        <div className={styles.completed}>
-          {this.props.stats.pending || 0}
-          <span>Tasks Pending*</span>
-        </div>
-        <div className={styles.completed}>
-          {this.props.stats.accepted || 0}
-          <span>Tasks Accepted</span>
-        </div>
-        <div className={styles.completed}>
-          {this.props.stats.rejected || 0}
-          <span>Tasks Rejected</span>
-        </div>
-        <span>*Tasks are pending acceptance</span>
+const Stats = ({ stats }) => (
+  <Content title="Submission Stats">
+    <div className={styles.container}>
+      <div className={styles.completed}>
+        {stats.pending || 0}
+        <span>Tasks Pending*</span>
       </div>
-    );
-  }
-}
-
+      <div className={styles.completed}>
+        {stats.accepted || 0}
+        <span>Tasks Accepted</span>
+      </div>
+      <div className={styles.completed}>
+        {stats.rejected || 0}
+        <span>Tasks Rejected</span>
+      </div>
+      <span>*Tasks are pending acceptance</span>
+    </div>
+  </Content>
+);
 
 Stats.propTypes = {
-  setTitle: PropTypes.func.isRequired,
   stats: PropTypes.shape(statsProps).isRequired,
 };
 

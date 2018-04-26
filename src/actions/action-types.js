@@ -6,7 +6,6 @@ const actions = [
   'SET_IS_SUBMITTING',
   'SET_DEPOSIT_STAGE',
   'SET_STATS',
-  'SET_PAGE_TITLE',
   'SET_WORKER',
   'SET_TRANSACTIONS',
   'SET_METAMASK',

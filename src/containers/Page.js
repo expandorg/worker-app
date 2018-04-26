@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import App from '../components/shared/App';
+import Page from '../components/shared/Page';
 
 import { fetchAuth, setError } from '../actions/action-creators';
 
@@ -18,4 +18,4 @@ const mapDispatchToProps = {
   setError,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

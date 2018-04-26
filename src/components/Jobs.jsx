@@ -4,9 +4,11 @@ import autoBind from 'auto-bind';
 import { css } from 'glamor';
 import { isWorkerFunded } from '../lib';
 import Job from '../components/Job';
-import { worker as workerProps, stats as statsProps } from '../schemas';
-import { PANEL } from '../style-constants';
+import { worker as workerProps, stats as statsProps } from './shared/propTypes';
+import { PANEL } from './common/style-constants';
 import EmailSubmission from './EmailSubmission';
+
+import Content from './shared/Content';
 
 const JOB_DISABLED = false;
 
@@ -30,10 +32,6 @@ class Jobs extends PureComponent {
   constructor(props) {
     super(props);
     autoBind(this);
-  }
-
-  componentWillMount() {
-    this.props.setTitle('Browse Jobs');
   }
 
   renderEmailModal() {
@@ -72,13 +70,15 @@ class Jobs extends PureComponent {
   render() {
     if (JOB_DISABLED) {
       return (
-        <div className={styles.innerContainer}>
-          There are currently no available jobs. Please check back soon!
-        </div>
+        <Content title="Browse Jobs">
+          <div className={styles.innerContainer}>
+            There are currently no available jobs. Please check back soon!
+          </div>
+        </Content>
       );
     }
     return (
-      <div>
+      <Content title="Browse Jobs">
         {this.renderEmailModal()}
         <Job
           replace={this.props.replace}
@@ -88,7 +88,7 @@ class Jobs extends PureComponent {
           stats={this.props.stats}
         />
         {this.renderDepositPrompt()}
-      </div>
+      </Content>
     );
   }
 }
@@ -101,7 +101,6 @@ Jobs.defaultProps = {
 Jobs.propTypes = {
   replace: PropTypes.func.isRequired,
   setIsJoined: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
   error: PropTypes.string,
   stats: PropTypes.shape(statsProps).isRequired,

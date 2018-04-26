@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
-import { worker as workerProps } from '../schemas';
+import { worker as workerProps } from './shared/propTypes';
 import AddEmailModal from '../containers/AddEmailModal';
 import ConfirmEmailModal from '../containers/ConfirmEmailModal';
 

@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
-import Modal from './Modal';
-import { PADDING, BORDER_R, PANEL } from '../style-constants';
+import Modal from './common/Modal';
+import { PADDING, BORDER_R, PANEL } from './common/style-constants';
 import { isWorkerFunded } from '../lib';
-import { worker as workerProps, stats as statsProps } from '../schemas';
+import { worker as workerProps, stats as statsProps } from './shared/propTypes';
 
 const TITLE = 'Trivia Question and Answer Creation';
 const REQUESTER = 'Stream Live Inc';

@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import store from './reducers/store';
 
-import App from './containers/App';
+import Page from './containers/Page';
 import Private from './containers/Private';
 import Funded from './containers/Funded';
 import Login from './containers/Login';
@@ -18,7 +18,8 @@ import Requester from './containers/Requester';
 import Task from './containers/Task';
 import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
-import MaintenanceMode from './components/MaintenanceMode';
+
+import MaintenanceMode from './components/warnings/MaintenanceMode';
 
 import { initWeb3 } from './actions/action-creators';
 
@@ -29,14 +30,14 @@ store.dispatch(initWeb3());
 const history = syncHistoryWithStore(browserHistory, store);
 
 
-const GemsApp = () => {
+const App = () => {
   if (MAINTENANCE_MODE) {
     return <MaintenanceMode />;
   }
   return (
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={App}>
+        <Route path="/" component={Page}>
           <IndexRoute component={Login} />
           <Route path="login" component={Login} />
           <Route component={Private}>
@@ -56,4 +57,4 @@ const GemsApp = () => {
   );
 };
 
-export default hot(module)(GemsApp);
+export default hot(module)(App);

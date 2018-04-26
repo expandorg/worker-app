@@ -3,8 +3,8 @@ import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import Clipboard from 'react-clipboard.js';
-import Modal from './Modal';
-import { BORDER_R, PADDING } from '../style-constants';
+import Modal from './common/Modal';
+import { BORDER_R, PADDING } from './common/style-constants';
 
 const styles = {
   container: css({

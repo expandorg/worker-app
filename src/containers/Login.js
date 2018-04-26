@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import Login from '../components/Login';
-import { login, setTitle } from '../actions/action-creators';
+import { login } from '../actions/action-creators';
 
 const mapStateToProps = state => ({
   isAuthorized: state.isAuthorized,
@@ -13,7 +13,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   login,
   replace,
-  setTitle,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
