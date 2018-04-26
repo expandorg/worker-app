@@ -7,6 +7,7 @@ import InstallMetaMaskModal from '../InstallMetaMaskModal';
 
 import Navigation from './Navigation/Navigation';
 import Hamburger from './Hamburger';
+import ErrorMessage from './ErrorMessage';
 
 import styles from './App.styles';
 
@@ -56,6 +57,7 @@ export default class App extends PureComponent {
       stats,
       children,
       title,
+      error,
     } = this.props;
 
     const { sidebar } = this.state;
@@ -80,14 +82,8 @@ export default class App extends PureComponent {
           />
         </div>
         <div className={cn(styles.container.toString(), { [styles.sbw]: sidebar })}>
-          {this.props.error !== null && this.state.error && (
-            <div className={styles.error}>
-              {this.props.error}
-              <button href="#" className={styles.closeBtn} onClick={this.closeError}>
-                X
-              </button>
-            </div>
-            )
+          {error !== null &&
+            <ErrorMessage error={error} onClose={this.closeError} />
           }
           <div className={styles.title}>
             <span className={styles.titleText}>{title}</span>
