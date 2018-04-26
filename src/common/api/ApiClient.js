@@ -14,6 +14,10 @@ export default class ApiClient {
     this.request.post(`${this.apiUrl}${url}`, payload)
       .then(this.processResponse)
 
+  postForm = (url, payload) =>
+    this.request.postForm(`${this.apiUrl}${url}`, payload)
+      .then(this.processResponse)
+
   processResponse = async (response) => {
     try {
       const json = await response.json();

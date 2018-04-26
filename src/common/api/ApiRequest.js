@@ -2,12 +2,15 @@ import 'whatwg-fetch';
 import { encodeUrlParams } from '../utils';
 
 export default class ApiRequest {
-  getRequestHeaders() {
-    return new Headers({
+  getRequestHeaders(contentType = 'application/json') {
+    const headers = new Headers({
       Accept: 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
-      'Content-Type': 'application/json',
     });
+    if (contentType !== null) {
+      headers.append('Content-Type', contentType);
+    }
+    return headers;
   }
 
   get = (url, query) =>
@@ -25,5 +28,14 @@ export default class ApiRequest {
       cache: 'no-cache',
       headers: this.getRequestHeaders(),
       body: JSON.stringify(payload),
+    })
+
+  postForm = (url, body) =>
+    fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: this.getRequestHeaders(null),
+      body,
     })
 }
