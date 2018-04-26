@@ -5,5 +5,8 @@
     "browser": true,
     "es6": true,
     "jest": true
+  },
+  "rules": {
+    "class-methods-use-this":  ["off"],
   }
 }
