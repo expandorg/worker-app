@@ -14,3 +14,19 @@ export const keyMirror = (object, transformKey = (key => key)) =>
     result[key] = transformKey(key);
     return result;
   }, {});
+
+
+export function promisify(original, ctx) {
+  return function decoated(...args) {
+    return new Promise((resolve, reject) => {
+      args.push((err, ...values) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(values[0]);
+        }
+      });
+      original.call(ctx || this, ...args);
+    });
+  };
+}
