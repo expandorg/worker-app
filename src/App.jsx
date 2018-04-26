@@ -20,9 +20,14 @@ import Confirm from './containers/Confirm';
 import NotFound from './containers/NotFound';
 import MaintenanceMode from './components/MaintenanceMode';
 
+import { initWeb3 } from './actions/action-creators';
+
 const MAINTENANCE_MODE = false;
 
+store.dispatch(initWeb3());
+
 const history = syncHistoryWithStore(browserHistory, store);
+
 
 const GemsApp = () => {
   if (MAINTENANCE_MODE) {

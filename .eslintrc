@@ -8,5 +8,6 @@
   },
   "rules": {
     "class-methods-use-this":  ["off"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }
