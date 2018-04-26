@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
-import InstallMetaMaskModal from '../warnings/InstallMetaMaskModal';
+import InstallMetaMaskModal from './InstallMetaMaskModal';
 
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';

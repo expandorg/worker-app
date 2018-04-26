@@ -1,5 +1,5 @@
 import { css } from 'glamor';
-import { BLUE } from '../common/style-constants';
+import { BLUE } from '../../common/style-constants';
 
 const styles = {
   body: css({

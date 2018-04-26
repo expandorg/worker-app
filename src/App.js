@@ -10,16 +10,16 @@ import store from './reducers/store';
 import Page from './components/Page/PageContainer';
 import Private from './containers/Private';
 import Funded from './containers/Funded';
-import Login from './containers/Login';
+import Login from './components/Login/LoginContainer';
 import Jobs from './containers/Jobs';
 import Account from './components/Account/AccountContainer';
 import Stats from './containers/Stats';
 import Requester from './containers/Requester';
 import Task from './containers/Task';
 import Confirm from './containers/Confirm';
-import NotFound from './containers/NotFound';
+import NotFound from './components/shared/pages/NotFoundContainer';
 
-import MaintenanceMode from './components/warnings/MaintenanceMode';
+import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 
 import { initWeb3 } from './actions/action-creators';
 

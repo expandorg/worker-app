@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NotFound from '../components/NotFound';
+import NotFound from './NotFound';
 
 const mapStateToProps = state => ({
   isAuthorized: state.isAuthorized,

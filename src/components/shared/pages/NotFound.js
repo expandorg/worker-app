@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router';
 
-import { task as taskPropTypes } from './shared/propTypes';
+import { task as taskPropTypes } from '../propTypes';
 
-import { PANEL } from './common/style-constants';
+import { PANEL } from '../../common/style-constants';
 
-import Content from './shared/Content';
+import Content from '../Content';
 
 const styles = {
   container: PANEL,

@@ -5,7 +5,7 @@ import Modal from '../common/Modal';
 
 import styles from './InstallMetaMaskModal.styles';
 
-const InstallMetaMaskModa = () => (
+const InstallMetaMaskModal = () => (
   <Modal heading={<div>Please Install MetaMask</div>}>
     <div className={styles.container}>
       <span className={styles.description}>
@@ -37,4 +37,4 @@ const InstallMetaMaskModa = () => (
   </Modal>
 );
 
-export default InstallMetaMaskModa;
+export default InstallMetaMaskModal;
