@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
+import { worker as workerProps, stats as statsProps, routerProps } from '../shared/propTypes';
 import Content from '../shared/Content';
 
 import Carousel from './Carousel';
@@ -15,20 +15,20 @@ import styles from './Login.styles';
 
 // TODO: redirect after successful login
 export default class Login extends PureComponent {
+  static propTypes = {
+    isAuthorized: PropTypes.bool,
+    login: PropTypes.func.isRequired,
+    router: PropTypes.shape(routerProps).isRequired,
+    locked: PropTypes.bool,
+    worker: PropTypes.shape(workerProps),
+    stats: PropTypes.shape(statsProps).isRequired,
+  }
+
   static defaultProps = {
     isAuthorized: null,
     locked: false,
     worker: null,
-  };
-
-  static propTypes = {
-    isAuthorized: PropTypes.bool,
-    login: PropTypes.func.isRequired,
-    replace: PropTypes.func.isRequired,
-    locked: PropTypes.bool,
-    worker: PropTypes.shape(workerProps),
-    stats: PropTypes.shape(statsProps).isRequired,
-  };
+  }
 
   state = {
     step: 0,
@@ -45,7 +45,7 @@ export default class Login extends PureComponent {
   checkAuth() {
     if (this.props.isAuthorized) {
       const redirect = isWorkerFunded(this.props.worker, this.props.stats) ? '/jobs' : '/account';
-      this.props.replace(redirect);
+      this.props.router.replace(redirect);
     }
   }
 

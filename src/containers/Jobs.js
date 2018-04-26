@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import { withRouter } from 'react-router';
+
 import Jobs from '../components/Jobs';
 import { setIsJoined } from '../actions/action-creators';
 
@@ -10,8 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  replace,
   setIsJoined,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Jobs));

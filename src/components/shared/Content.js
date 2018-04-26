@@ -7,7 +7,7 @@ import styles from './Content.styles';
 
 export default class Content extends PureComponent {
   static propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired,
     title: PropTypes.string.isRequired,
   }
 

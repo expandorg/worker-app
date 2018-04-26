@@ -3,13 +3,14 @@ import React from 'react';
 
 import { Provider } from 'react-redux';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
 
 import store from './reducers/store';
 
 import Page from './components/Page/PageContainer';
-import Private from './containers/Private';
-import Funded from './containers/Funded';
+
+import Private from './components/shared/PrivateContainer';
+import Funded from './components/shared/FundedContainer';
+
 import Login from './components/Login/LoginContainer';
 import Jobs from './containers/Jobs';
 import Account from './components/Account/AccountContainer';
@@ -27,8 +28,6 @@ const MAINTENANCE_MODE = false;
 
 store.dispatch(initWeb3());
 
-const history = syncHistoryWithStore(browserHistory, store);
-
 
 const App = () => {
   if (MAINTENANCE_MODE) {
@@ -36,7 +35,7 @@ const App = () => {
   }
   return (
     <Provider store={store}>
-      <Router history={history}>
+      <Router history={browserHistory}>
         <Route path="/" component={Page}>
           <IndexRoute component={Login} />
           <Route path="login" component={Login} />

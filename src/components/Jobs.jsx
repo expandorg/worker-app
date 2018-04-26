@@ -4,7 +4,7 @@ import autoBind from 'auto-bind';
 import { css } from 'glamor';
 import { isWorkerFunded } from '../lib';
 import Job from '../components/Job';
-import { worker as workerProps, stats as statsProps } from './shared/propTypes';
+import { worker as workerProps, stats as statsProps, routerProps } from './shared/propTypes';
 import { PANEL } from './common/style-constants';
 import EmailSubmission from './EmailSubmission';
 
@@ -81,7 +81,7 @@ class Jobs extends PureComponent {
       <Content title="Browse Jobs">
         {this.renderEmailModal()}
         <Job
-          replace={this.props.replace}
+          replace={this.props.router.replace}
           setIsJoined={this.props.setIsJoined}
           error={this.props.error}
           worker={this.props.worker}
@@ -99,7 +99,7 @@ Jobs.defaultProps = {
 };
 
 Jobs.propTypes = {
-  replace: PropTypes.func.isRequired,
+  router: PropTypes.shape(routerProps).isRequired,
   setIsJoined: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
   error: PropTypes.string,

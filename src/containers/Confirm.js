@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import { withRouter } from 'react-router';
+
 import Confirm from '../components/Confirm';
 import { confirmEmail, resendConfirmEmail } from '../actions/action-creators';
 
@@ -11,7 +12,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   confirmEmail,
   resendConfirmEmail,
-  replace,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Confirm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Confirm));

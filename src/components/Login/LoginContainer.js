@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import { withRouter } from 'react-router';
+
 import Login from './Login';
+
 import { login } from '../../actions/action-creators';
 
 const mapStateToProps = state => ({
@@ -12,7 +14,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   login,
-  replace,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

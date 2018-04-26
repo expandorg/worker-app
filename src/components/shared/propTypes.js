@@ -11,3 +11,8 @@ export const stats = {
   accepted: PropTypes.number.isRequired,
   rejected: PropTypes.number.isRequired,
 };
+
+
+export const routerProps = {
+  replace: PropTypes.func.isRequired,
+};

@@ -5,7 +5,7 @@ import { css } from 'glamor';
 import { locationShape } from 'react-router-props';
 import Modal from './common/Modal';
 import { BORDER_R, PADDING } from './common/style-constants';
-import { worker as workerProps } from './shared/propTypes';
+import { worker as workerProps, routerProps } from './shared/propTypes';
 
 const styles = {
   container: css({
@@ -80,7 +80,7 @@ class Confirm extends PureComponent {
     super(props);
     autoBind(this);
     if (this.props.worker.confirmed) {
-      this.props.replace('/jobs');
+      this.props.router.replace('/jobs');
     }
     const { location } = this.props;
     const { query } = location;
@@ -101,7 +101,7 @@ class Confirm extends PureComponent {
 
   componentDidUpdate() {
     if (this.props.worker.confirmed) {
-      this.props.replace('/jobs');
+      this.props.router.replace('/jobs');
     }
   }
 
@@ -192,7 +192,7 @@ Confirm.propTypes = {
   confirmEmail: PropTypes.func.isRequired,
   resendConfirmEmail: PropTypes.func.isRequired,
   worker: PropTypes.shape(workerProps),
-  replace: PropTypes.func.isRequired,
+  router: PropTypes.shape(routerProps).isRequired,
   location: locationShape,
 };
 

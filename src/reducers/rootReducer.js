@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 
 import actions from '../actions/action-types';
 
@@ -20,7 +19,6 @@ export default combineReducers({
   isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
   depositStage: simpleReducer(0, actions.SET_DEPOSIT_STAGE),
   previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),
-  routing: routerReducer,
   worker: simpleReducer(null, actions.SET_WORKER),
   gemsBalance: simpleReducer(null, actions.SET_GEMS_BALANCE),
   stats: (state = defaultStats, action) => {
