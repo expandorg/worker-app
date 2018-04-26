@@ -10,6 +10,8 @@ import Sidebar from './Sidebar/Sidebar';
 
 import ErrorMessage from '../common/ErrorMessage';
 
+import './Page.css';
+
 import styles from './Page.styles';
 
 export default class Page extends PureComponent {
