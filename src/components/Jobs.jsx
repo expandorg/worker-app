@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'auto-bind';
 import { css } from 'glamor';
-import { isWorkerFunded } from '../lib';
+import { isWorkerFunded } from '../model/worker';
 import Job from '../components/Job';
 import { worker as workerProps, stats as statsProps, routerProps } from './shared/propTypes';
 import { PANEL } from './common/style-constants';

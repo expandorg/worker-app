@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { css } from 'glamor';
 import Modal from './common/Modal';
 import { PADDING, BORDER_R, PANEL } from './common/style-constants';
-import { isWorkerFunded } from '../lib';
+import { isWorkerFunded } from '../model/worker';
 import { worker as workerProps, stats as statsProps } from './shared/propTypes';
 
 const TITLE = 'Trivia Question and Answer Creation';

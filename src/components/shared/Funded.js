@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { worker as workerProps, stats as statsProps, routerProps } from './propTypes';
-import { isWorkerFunded } from '../../lib';
+import { isWorkerFunded } from '../../model/worker';
 
 export default class Funded extends Component {
   static propTypes = {

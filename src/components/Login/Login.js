@@ -8,7 +8,7 @@ import Content from '../shared/Content';
 import Carousel from './Carousel';
 import UnlockMetaMaskModal from './UnlockMetaMaskModal';
 
-import { isWorkerFunded } from '../../lib';
+import { isWorkerFunded } from '../../model/worker';
 
 import styles from './Login.styles';
 

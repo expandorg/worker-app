@@ -5,7 +5,7 @@ import { css } from 'glamor';
 import Modal from './common/Modal';
 import { worker as workerProps, stats as statsProps } from './shared/propTypes';
 import { FLEX_PANEL, BORDER_R, PADDING } from './common/style-constants';
-import { isWorkerFunded } from '../lib';
+import { isWorkerFunded } from '../model/worker';
 
 import Content from './shared/Content';
 

@@ -2,7 +2,7 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { worker as workerProps, stats as statsProps, routerProps } from './propTypes';
-import { isWorkerFunded } from '../../lib';
+import { isWorkerFunded } from '../../model/worker';
 
 // TODO: fetch auth even when outside of private routes to render sidebar correctly
 export default class Private extends PureComponent {
