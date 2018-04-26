@@ -7,12 +7,12 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import store from './reducers/store';
 
-import Page from './containers/Page';
+import Page from './components/Page/PageContainer';
 import Private from './containers/Private';
 import Funded from './containers/Funded';
 import Login from './containers/Login';
 import Jobs from './containers/Jobs';
-import Account from './containers/Account';
+import Account from './components/Account/AccountContainer';
 import Stats from './containers/Stats';
 import Requester from './containers/Requester';
 import Task from './containers/Task';

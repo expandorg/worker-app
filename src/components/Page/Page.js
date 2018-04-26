@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { worker as workerProps, stats as statsProps } from './propTypes';
+import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
 import InstallMetaMaskModal from '../warnings/InstallMetaMaskModal';
 
 import Header from './Header';

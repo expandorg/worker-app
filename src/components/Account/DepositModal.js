@@ -1,106 +1,29 @@
 import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
-import { css } from 'glamor';
-import Modal from './common/Modal';
-import { BORDER_R, PADDING } from './common/style-constants';
+
+import Modal from '../common/Modal';
+
+import styles from './DepositModal.styles';
 
 const MIN_DEPOSIT = 5;
 const MAX_DEPOSIT = 1000;
 
-const styles = {
-  container: css({
-    textAlign: 'center',
-    display: 'block',
-  }),
-  description: css({
-    margin: '5%',
-    display: 'block',
-  }),
-  loading: css({
-    display: 'block',
-    margin: 'auto',
-    textAlign: 'center',
-    marginBottom: PADDING,
-    padding: `${PADDING}px 0`,
-    width: '80%',
-    background: '#f2f2f2',
-  }),
-  spinner: css({
-    marginTop: 20,
-  }),
-  form: css({
-    display: 'block',
-    margin: 'auto',
-    textAlign: 'center',
-    marginBottom: PADDING,
-    width: '80%',
-  }),
-  input: css({
-    width: 'calc(100% - 200px)',
-    minWidth: '200px',
-    height: '50px',
-    borderRadius: '4px',
-    backgroundColor: '#ffffff',
-    border: 'solid 1px #e0e0e0',
-    display: 'inline-block',
-    fontSize: '16px',
-    textAlign: 'left',
-    paddingLeft: '15px',
-    marginRight: '15px',
-    color: '#b8b8b8',
-    '::placeholder': {
-      fontSize: '16px',
-      textAlign: 'left',
-      color: '#b8b8b8',
-    },
-    ':focus': {
-      outline: '0',
-    },
-  }),
-  submit: css({
-    width: '119px',
-    height: '50px',
-    borderRadius: BORDER_R,
-    backgroundColor: '#ff7092',
-    display: 'inline-block',
-    fontSize: '18px',
-    letterSpacing: '-0.7px',
-    textAlign: 'center',
-    color: '#ffffff',
-    marginLeft: '8px',
-    border: '0',
-    cursor: 'pointer',
-    ':focus': {
-      outline: '0',
-    },
-    ':hover': {
-      backgroundImage: 'linear-gradient(to bottom right,#ff7092,#FF8EA9)',
-    },
-    ':disabled': {
-      backgroundColor: '#f2f2f2',
-      ':hover': {
-        backgroundImage: 'none',
-      },
-    },
-  }),
-};
-
-class DepositModal extends PureComponent {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-
-    this.state = {
-      value: '',
-    };
+export default class DepositModal extends PureComponent {
+  static propTypes = {
+    toggleModal: PropTypes.func.isRequired,
+    depositGems: PropTypes.func.isRequired,
+    depositStage: PropTypes.number.isRequired,
   }
 
-  handleChange(e) {
+  state = {
+    value: '',
+  }
+
+  handleChange = (e) => {
     this.setState({ value: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.value < MIN_DEPOSIT || this.state.value > MAX_DEPOSIT) {
       return;
@@ -198,11 +121,3 @@ class DepositModal extends PureComponent {
     );
   }
 }
-
-DepositModal.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
-  depositGems: PropTypes.func.isRequired,
-  depositStage: PropTypes.number.isRequired,
-};
-
-export default DepositModal;

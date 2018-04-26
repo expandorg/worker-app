@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { isWorkerFunded } from '../../../lib';
-import { worker as workerProps, stats as statsProps } from '../propTypes';
+import { worker as workerProps, stats as statsProps } from '../../shared/propTypes';
 
 import NavLink from './NavigationLink';
 

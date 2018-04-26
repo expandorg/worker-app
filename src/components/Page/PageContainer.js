@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Page from '../components/shared/Page';
+import Page from './Page';
 
-import { fetchAuth, setError } from '../actions/action-creators';
+import { fetchAuth, setError } from '../../actions/action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,
