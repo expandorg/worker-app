@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import Stats from '../components/Stats';
+
+import Stats from './Stats';
 
 const mapStateToProps = state => ({
   stats: state.stats,

@@ -12,9 +12,9 @@ import Private from './components/shared/PrivateContainer';
 import Funded from './components/shared/FundedContainer';
 
 import Login from './components/Login/LoginContainer';
-import Jobs from './containers/Jobs';
 import Account from './components/Account/AccountContainer';
-import Stats from './containers/Stats';
+import Jobs from './components/Jobs/JobsContainer';
+import Stats from './components/Stats/StatsContainer';
 import Requester from './containers/Requester';
 import Task from './containers/Task';
 import Confirm from './containers/Confirm';

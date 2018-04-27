@@ -1,31 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'glamor';
-import { stats as statsProps } from './shared/propTypes';
-import { FLEX_PANEL } from './common/style-constants';
+import { stats as statsProps } from '../shared/propTypes';
 
-import Content from './shared/Content';
+import Content from '../shared/Content';
 
-const styles = {
-  container: FLEX_PANEL,
-  completed: css({
-    width: '30%',
-    display: 'inline-block',
-    border: 'solid 1px #f2f2f2',
-    borderRadius: '4px',
-    fontSize: '40px',
-    color: '#ff7092',
-    textAlign: 'center',
-    paddingTop: '46px',
-    paddingBottom: '46px',
-    marginBottom: '25px',
-    '> span': {
-      fontSize: '16px',
-      color: '#3a506b',
-      display: 'block',
-    },
-  }),
-};
+import styles from './Stats.styles';
 
 const Stats = ({ stats }) => (
   <Content title="Submission Stats">
