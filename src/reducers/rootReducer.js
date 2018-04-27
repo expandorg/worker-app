@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 
-import actions from '../actions/action-types';
+import { actions } from '../actions/action-types';
+
+import worker from './workerReducer';
 
 const defaultStats = {
   pending: 0,
@@ -19,7 +21,7 @@ export default combineReducers({
   isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
   depositStage: simpleReducer(0, actions.SET_DEPOSIT_STAGE),
   previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),
-  worker: simpleReducer(null, actions.SET_WORKER),
+  worker,
   gemsBalance: simpleReducer(null, actions.SET_GEMS_BALANCE),
   stats: (state = defaultStats, action) => {
     if (action.type === actions.SET_STATS) {

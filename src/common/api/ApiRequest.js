@@ -5,7 +5,6 @@ export default class ApiRequest {
   getRequestHeaders(contentType = 'application/json') {
     const headers = new Headers({
       Accept: 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
     });
     if (contentType !== null) {
       headers.append('Content-Type', contentType);
@@ -16,6 +15,7 @@ export default class ApiRequest {
   get = (url, query) =>
     fetch(`${url}?${encodeUrlParams(query)}`, {
       method: 'GET',
+      credentials: 'include',
       mode: 'cors',
       cache: 'no-cache',
       headers: this.getRequestHeaders(),
@@ -25,6 +25,7 @@ export default class ApiRequest {
     fetch(url, {
       method: 'POST',
       mode: 'cors',
+      credentials: 'include',
       cache: 'no-cache',
       headers: this.getRequestHeaders(),
       body: JSON.stringify(payload),

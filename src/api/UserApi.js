@@ -8,10 +8,10 @@ export class UserApi extends BaseApi {
     this.post('/login', { address, signature })
 
   setEmail = ({ email }) =>
-    this.post('/account/email/update', email)
+    this.postForm('/account/email/update', email)
 
   confirmEmail = ({ code }) =>
-    this.post('/account/email/confirm', code)
+    this.postForm('/account/email/confirm', code)
 
   resendConfirmEmail = () =>
     this.get('/account/email/confirm/resend')

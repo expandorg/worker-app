@@ -1,10 +1,8 @@
 import { hot } from 'react-hot-loader';
-import React from 'react';
 
+import React from 'react';
 import { Provider } from 'react-redux';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
-
-import store from './reducers/store';
 
 import Page from './components/Page/PageContainer';
 
@@ -21,6 +19,8 @@ import Confirm from './components/Confirm/ConfirmContainer';
 
 import NotFound from './components/shared/pages/NotFoundContainer';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';
+
+import store from './reducers/store';
 
 import { initWeb3 } from './actions/action-creators';
 

@@ -3,8 +3,11 @@ import GemsToken from 'gems-token';
 
 import { promisify } from '../common/utils';
 
-import actions from './action-types';
+import { actions } from './action-types';
 
+import { gemsApi } from '../api/GemsApi';
+import { userApi } from '../api/UserApi';
+import { tasksApi } from '../api/TasksApi';
 
 class Repository {
   web3 = null
@@ -21,46 +24,28 @@ class Repository {
 
 const repository = new Repository();
 
-function apiRequest(endpoint, method = 'GET', body, isJson = true) {
-  const options = {
-    credentials: 'include',
-    mode: 'cors',
-    method,
-  };
-  if (body) {
-    if (isJson) {
-      options.headers = {
-        'content-type': 'application/json',
-      };
-      options.body = JSON.stringify(body);
-    } else {
-      options.body = body;
-    }
-  }
-  return fetch(`${process.env.BACKEND_ADDRESS}${endpoint}`, options);
-}
 
 export const setError = createAction(actions.SET_ERROR);
-
-export const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
-
+export const setGemsBalance = createAction(actions.SET_GEMS_BALANCE);
+export const setTransactions = createAction(actions.SET_TRANSACTIONS);
 export const setIsJoined = createAction(actions.SET_IS_JOINED);
 
-export const setIsSubmitting = createAction(actions.SET_IS_SUBMITTING);
 
-export const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
+const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
 
-export const setStats = createAction(actions.SET_STATS);
+const setIsSubmitting = createAction(actions.SET_IS_SUBMITTING);
 
-export const setWorker = createAction(actions.SET_WORKER);
+const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
 
-export const setGemsBalance = createAction(actions.SET_GEMS_BALANCE);
+const setStats = createAction(actions.SET_STATS);
 
-export const setTransactions = createAction(actions.SET_TRANSACTIONS);
+const setWorker = createAction(actions.SET_WORKER);
 
-export const setMetamask = createAction(actions.SET_METAMASK);
 
-export const setMetamaskLocked = createAction(actions.SET_METAMASK_LOCKED);
+const setMetamask = createAction(actions.SET_METAMASK);
+
+const setMetamaskLocked = createAction(actions.SET_METAMASK_LOCKED);
+
 
 export const logout = () => (dispatch) => {
   document.cookie = `JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.COOKIE_DOMAIN}; path=/;`;
@@ -81,17 +66,18 @@ function initGemsInstance(web3) {
   });
 }
 
+
 export const fetchAuth = () => async (dispatch) => {
   try {
-    const res = await apiRequest('/auth');
-    if (!res.ok) {
+    let data = null;
+    try {
+      data = await userApi.authorize();
+    } catch (e) {
       dispatch(logout());
       return;
     }
-
-    const data = await res.json();
     const { web3 } = repository;
-    const getAccounts = promisify(web3.eth.getAccounts, web3.eth);
+    const getAccounts = promisify(web3.eth.getAccounts.bind(web3.eth));
     const accounts = await getAccounts();
 
     // Ensure account resolved from token matches metamask account
@@ -105,6 +91,7 @@ export const fetchAuth = () => async (dispatch) => {
     dispatch(setError(err.toString()));
   }
 };
+
 
 export const initWeb3 = () => (dispatch) => {
   try {
@@ -137,20 +124,8 @@ export const initWeb3 = () => (dispatch) => {
 export const submitTask = submission => async (dispatch) => {
   try {
     dispatch(setIsSubmitting(true));
-    const res = await apiRequest('/submit', 'POST', submission, true);
-    if (res.ok) {
-      const data = await res.json();
-      dispatch(setStats(data.stats));
-    } else {
-      let errMsg;
-      if (res.status < 500) {
-        const body = await res.json();
-        errMsg = body.error;
-      } else {
-        errMsg = 'Submit unsuccessful';
-      }
-      throw new Error(errMsg);
-    }
+    const data = await tasksApi.submitTask({ submission });
+    dispatch(setStats(data.stats));
   } catch (err) {
     dispatch(setError(err.toString()));
   }
@@ -178,15 +153,9 @@ export const login = () => async (dispatch) => {
     });
 
     const signature = result.result;
-    const res = await apiRequest('/login', 'POST', {
-      address,
-      signature,
-    });
+    const data = await userApi.login({ address, signature });
 
-    if (res.ok) {
-      const data = await res.json();
-      setLoggedIn(dispatch, data);
-    }
+    setLoggedIn(dispatch, data);
   } catch (err) {
     dispatch(setError(err.toString()));
   }
@@ -194,11 +163,7 @@ export const login = () => async (dispatch) => {
 
 export const fetchWorkerGemsBalance = () => async (dispatch) => {
   try {
-    const res = await apiRequest('/gems', 'GET');
-    if (!res.ok) {
-      throw new Error('Error fetching Gems balance');
-    }
-    const data = await res.json();
+    const data = await gemsApi.fetcBalance();
     dispatch(setGemsBalance(data.balance));
   } catch (err) {
     dispatch(setError(err.toString()));
@@ -211,11 +176,8 @@ export const depositGems = numGems => async (dispatch) => {
     dispatch(setDepositStage(1));
     await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 1e+18);
     dispatch(setDepositStage(2));
-    const res = await apiRequest('/deposit', 'POST', { value: numGems }, true);
-    if (!res.ok) {
-      throw new Error('Error depositing');
-    }
-    const data = await res.json();
+
+    const data = await gemsApi.deposit({ value: numGems });
     dispatch(setDepositStage(0));
     dispatch(setWorker(data.worker));
     dispatch(setTransactions(data.tx));
@@ -226,11 +188,7 @@ export const depositGems = numGems => async (dispatch) => {
 
 export const withdrawPayments = () => async (dispatch) => {
   try {
-    const res = await apiRequest('/withdraw', 'POST');
-    if (!res.ok) {
-      throw new Error('Error withdrawing');
-    }
-    const data = await res.json();
+    const data = await gemsApi.withdraw();
     dispatch(setWorker(data.worker));
     dispatch(setTransactions(data.tx));
   } catch (err) {
@@ -240,11 +198,7 @@ export const withdrawPayments = () => async (dispatch) => {
 
 export const setEmail = email => async (dispatch) => {
   try {
-    const res = await apiRequest('/account/email/update', 'POST', email, false);
-    if (!res.ok) {
-      throw new Error('Error updating email');
-    }
-    const data = await res.json();
+    const data = await userApi.setEmail({ email });
     dispatch(setWorker(data.worker));
   } catch (err) {
     dispatch(setError(err.toString()));
@@ -253,11 +207,7 @@ export const setEmail = email => async (dispatch) => {
 
 export const confirmEmail = code => async (dispatch) => {
   try {
-    const res = await apiRequest('/account/email/confirm', 'POST', code, false);
-    if (!res.ok) {
-      throw new Error('Error confirming email');
-    }
-    const data = await res.json();
+    const data = await userApi.confirmEmail({ code });
     dispatch(setWorker(data.worker));
   } catch (err) {
     dispatch(setError(err.toString()));
@@ -266,11 +216,8 @@ export const confirmEmail = code => async (dispatch) => {
 
 export const resendConfirmEmail = () => async (dispatch) => {
   try {
-    const res = await apiRequest('/account/email/confirm/resend');
-    if (!res.ok) {
-      throw new Error('Error sending email');
-    }
-    await res.json();
+    const data = await userApi.resendConfirmEmail();
+    console.log(data);
   } catch (err) {
     dispatch(setError(err.toString()));
   }

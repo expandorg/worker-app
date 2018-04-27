@@ -1,19 +1,18 @@
-const actions = [
-  'SET_ERROR',
-  'SET_GEMS_BALANCE',
-  'SET_IS_AUTHORIZED',
-  'SET_IS_JOINED',
-  'SET_IS_SUBMITTING',
-  'SET_DEPOSIT_STAGE',
-  'SET_STATS',
-  'SET_WORKER',
-  'SET_TRANSACTIONS',
-  'SET_METAMASK',
-  'SET_METAMASK_LOCKED',
-];
+import { keyMirror } from '../common/utils';
 
-export default actions.reduce((prev, cur) => {
-  const next = prev;
-  next[cur] = cur;
-  return next;
-}, {});
+export const createActionTypes = (scope, actionTypes) =>
+  keyMirror(actionTypes, key => `${scope}/${key}`);
+
+export const actions = createActionTypes('common', {
+  SET_ERROR: null,
+  SET_GEMS_BALANCE: null,
+  SET_IS_AUTHORIZED: null,
+  SET_IS_JOINED: null,
+  SET_IS_SUBMITTING: null,
+  SET_DEPOSIT_STAGE: null,
+  SET_STATS: null,
+  SET_WORKER: null,
+  SET_TRANSACTIONS: null,
+  SET_METAMASK: null,
+  SET_METAMASK_LOCKED: null,
+});
