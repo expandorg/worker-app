@@ -5,9 +5,7 @@ import { promisify } from '../common/utils';
 
 import { actions } from './action-types';
 
-import { gemsApi } from '../api/GemsApi';
 import { userApi } from '../api/UserApi';
-import { tasksApi } from '../api/TasksApi';
 
 class Repository {
   web3 = null
@@ -22,25 +20,19 @@ class Repository {
   }
 }
 
-const repository = new Repository();
+export const repository = new Repository();
 
 
 export const setError = createAction(actions.SET_ERROR);
-export const setGemsBalance = createAction(actions.SET_GEMS_BALANCE);
 export const setTransactions = createAction(actions.SET_TRANSACTIONS);
 export const setIsJoined = createAction(actions.SET_IS_JOINED);
 
-
 const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
 
-const setIsSubmitting = createAction(actions.SET_IS_SUBMITTING);
 
-const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
+export const setStats = createAction(actions.SET_STATS);
 
-const setStats = createAction(actions.SET_STATS);
-
-const setWorker = createAction(actions.SET_WORKER);
-
+export const setWorker = createAction(actions.SET_WORKER);
 
 const setMetamask = createAction(actions.SET_METAMASK);
 
@@ -121,17 +113,6 @@ export const initWeb3 = () => (dispatch) => {
   }
 };
 
-export const submitTask = submission => async (dispatch) => {
-  try {
-    dispatch(setIsSubmitting(true));
-    const data = await tasksApi.submitTask({ submission });
-    dispatch(setStats(data.stats));
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-  dispatch(setIsSubmitting(false));
-};
-
 export const login = () => async (dispatch) => {
   try {
     const { web3 } = repository;
@@ -156,68 +137,6 @@ export const login = () => async (dispatch) => {
     const data = await userApi.login({ address, signature });
 
     setLoggedIn(dispatch, data);
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const fetchWorkerGemsBalance = () => async (dispatch) => {
-  try {
-    const data = await gemsApi.fetcBalance();
-    dispatch(setGemsBalance(data.balance));
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const depositGems = numGems => async (dispatch) => {
-  try {
-    const { gems: gemsInstance } = repository;
-    dispatch(setDepositStage(1));
-    await gemsInstance.approve(process.env.VAULT_ADDRESS, numGems * 1e+18);
-    dispatch(setDepositStage(2));
-
-    const data = await gemsApi.deposit({ value: numGems });
-    dispatch(setDepositStage(0));
-    dispatch(setWorker(data.worker));
-    dispatch(setTransactions(data.tx));
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const withdrawPayments = () => async (dispatch) => {
-  try {
-    const data = await gemsApi.withdraw();
-    dispatch(setWorker(data.worker));
-    dispatch(setTransactions(data.tx));
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const setEmail = email => async (dispatch) => {
-  try {
-    const data = await userApi.setEmail({ email });
-    dispatch(setWorker(data.worker));
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const confirmEmail = code => async (dispatch) => {
-  try {
-    const data = await userApi.confirmEmail({ code });
-    dispatch(setWorker(data.worker));
-  } catch (err) {
-    dispatch(setError(err.toString()));
-  }
-};
-
-export const resendConfirmEmail = () => async (dispatch) => {
-  try {
-    const data = await userApi.resendConfirmEmail();
-    console.log(data);
   } catch (err) {
     dispatch(setError(err.toString()));
   }

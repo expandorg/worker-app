@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import Task from './Task';
-import { submitTask, fetchAuth } from '../../actions/action-creators';
+
+import { fetchAuth } from '../../actions/action-creators';
+import { submitTask } from '../../actions/tasks-action-creators';
 
 const mapStateToProps = state => ({
   isSubmitting: state.isSubmitting,

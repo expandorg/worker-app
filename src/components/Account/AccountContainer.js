@@ -5,12 +5,15 @@ import Account from './Account';
 
 import {
   logout,
-  setGemsBalance,
   setTransactions,
+} from '../../actions/action-creators';
+
+import {
   fetchWorkerGemsBalance,
   depositGems,
   withdrawPayments,
-} from '../../actions/action-creators';
+  setGemsBalance,
+} from '../../actions/gems-action-creators';
 
 const mapStateToProps = state => ({
   stats: state.stats,
