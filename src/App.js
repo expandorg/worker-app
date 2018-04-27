@@ -48,8 +48,8 @@ const App = () => {
             <Route component={Funded}>
               <Route path="task" component={Task} />
             </Route>
-            <Route path="*" component={NotFound} />
           </Route>
+          <Route path="*" component={NotFound} />
         </Route>
       </Router>
     </Provider>
