@@ -24,12 +24,10 @@ function Modal({ heading, children, toggleModal }) {
 }
 
 Modal.defaultProps = {
-  children: null,
   toggleModal: null,
 };
 
 Modal.propTypes = {
-  children: PropTypes.node,
   heading: PropTypes.element.isRequired,
   toggleModal: PropTypes.func,
 };
