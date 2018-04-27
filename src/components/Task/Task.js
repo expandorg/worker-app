@@ -1,0 +1,166 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import Modal from '../common/Modal';
+import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
+import { isWorkerFunded } from '../../model/worker';
+
+import Content from '../shared/Content';
+
+import styles from './Task.styles';
+
+const DESCRIPTION = 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.';
+
+export default class Task extends Component {
+  static propTypes = {
+    submitTask: PropTypes.func.isRequired,
+    fetchAuth: PropTypes.func.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
+    stats: PropTypes.shape(statsProps).isRequired,
+    worker: PropTypes.shape(workerProps),
+    error: PropTypes.string,
+  };
+
+  static defaultProps = {
+    error: null,
+    worker: null,
+  };
+
+  state = {
+    loading: false,
+    question: null,
+    correctAnswer: null,
+    incorrectAnswerA: null,
+    incorrectAnswerB: null,
+    submitted: false,
+  }
+
+  componentDidMount() {
+    this.props.fetchAuth();
+  }
+
+  getHandleChange = key => (e) => {
+    this.setState({ [key]: e.target.value });
+  }
+
+  getSubmissionStatus() {
+    return this.props.error || 'Submission successful!';
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.submitTask({
+      question: this.state.question,
+      correctAnswer: this.state.correctAnswer,
+      incorrectAnswerA: this.state.incorrectAnswerA,
+      incorrectAnswerB: this.state.incorrectAnswerB,
+    });
+    this.setState({
+      question: null,
+      correctAnswer: null,
+      incorrectAnswerA: null,
+      incorrectAnswerB: null,
+      incomplete: this.state.incomplete + 1,
+      submitted: true,
+    });
+  }
+
+  renderSubmit() {
+    if (this.state.loading && !this.props.error) {
+      return 'Loading';
+    }
+    return 'Submit';
+  }
+
+  render() {
+    const isFunded = isWorkerFunded(this.props.worker, this.props.stats);
+    // Task has just been submitted
+    if (this.state.submitted) {
+      return (
+        <Modal
+          heading={<span>Task Submitted</span>}
+          toggleModal={this.toggleModal}
+        >
+          {this.props.isSubmitting && <div>Submitting task...</div>}
+          {this.props.isSubmitting || (
+            <div>
+              <div className={styles.heading}>{this.getSubmissionStatus()}</div>
+              {isFunded && (
+                this.props.error === null &&
+                  <button
+                    className={styles.btn}
+                    onClick={() => this.setState({ submitted: false })}
+                    disabled={this.state.gettingTask}
+                  >
+                    Next task
+                  </button>
+              )}
+              {isFunded ||
+                <div>
+                  Your Gems balance is not high enough to submit more tasks.<br />
+                  Please deposit more Gems to submit again.
+                </div>
+              }
+              <div className={styles.heading}>
+                <Link to="/jobs">Browse available jobs</Link>
+              </div>
+            </div>
+          )}
+        </Modal>
+      );
+    }
+
+    return (
+      <Content title="Question writing and fact checking">
+        <div className={styles.container}>
+          <div className={styles.task}>{DESCRIPTION}</div>
+          <form onSubmit={this.handleSubmit} className={styles.submitForm}>
+            <label htmlFor="question">
+              <input
+                className={styles.input}
+                onChange={this.getHandleChange('question')}
+                id="question"
+                value={this.state.question || ''}
+                placeholder="Question"
+              />
+            </label>
+            <label htmlFor="correctAnswer">
+              <input
+                className={styles.input}
+                onChange={this.getHandleChange('correctAnswer')}
+                id="correctAnswer"
+                value={this.state.correctAnswer || ''}
+                placeholder="Correct Answer"
+              />
+            </label>
+            <label htmlFor="incorrectAnswerA">
+              <input
+                className={styles.input}
+                onChange={this.getHandleChange('incorrectAnswerA')}
+                id="incorrectAnswerA"
+                value={this.state.incorrectAnswerA || ''}
+                placeholder="Incorrect Answer"
+              />
+            </label>
+            <label htmlFor="incorrectAnswerB">
+              <input
+                className={styles.input}
+                onChange={this.getHandleChange('incorrectAnswerB')}
+                id="incorrectAnswerB"
+                value={this.state.incorrectAnswerB || ''}
+                placeholder="Incorrect Answer"
+              />
+            </label>
+            <button
+              className={styles.submit}
+              onClick={this.handleSubmit}
+              disabled={this.state.value === null || this.state.value === '' || (this.state.loading && !this.props.error)}
+            >
+              {this.renderSubmit()}
+            </button>
+          </form>
+        </div>
+      </Content>
+    );
+  }
+}
