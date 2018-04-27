@@ -15,11 +15,11 @@ import Login from './components/Login/LoginContainer';
 import Account from './components/Account/AccountContainer';
 import Jobs from './components/Jobs/JobsContainer';
 import Stats from './components/Stats/StatsContainer';
-import Requester from './containers/Requester';
-import Task from './containers/Task';
-import Confirm from './containers/Confirm';
-import NotFound from './components/shared/pages/NotFoundContainer';
+import Requester from './components/Requester/Requester';
+import Task from './components/Task/TaskContainer';
+import Confirm from './components/Confirm/ConfirmContainer';
 
+import NotFound from './components/shared/pages/NotFoundContainer';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 
 import { initWeb3 } from './actions/action-creators';

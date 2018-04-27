@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import ConfirmEmailModal from '../components/ConfirmEmailModal';
-import { confirmEmail, resendConfirmEmail } from '../actions/action-creators';
+import ConfirmEmailModal from './ConfirmEmailModal';
+
+import { confirmEmail, resendConfirmEmail } from '../../../actions/action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,

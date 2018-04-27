@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import AddEmailModal from '../components/AddEmailModal';
-import { setEmail } from '../actions/action-creators';
+import AddEmailModal from './AddEmailModal';
+
+import { setEmail } from '../../../actions/action-creators';
 
 const mapStateToProps = state => ({
   error: state.error,

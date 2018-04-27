@@ -75,7 +75,7 @@ export default class Login extends PureComponent {
           {this.props.locked && <UnlockMetaMaskModal />}
           <img
             className={styles.screenShot}
-            src="images/login-screenshot.svg"
+            src="/images/login-screenshot.svg"
             alt="Login Screenshot"
           />
           <span className={styles.instructions}>

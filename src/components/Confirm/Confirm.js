@@ -1,84 +1,30 @@
-import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'glamor';
 import { locationShape } from 'react-router-props';
-import Modal from './common/Modal';
-import { BORDER_R, PADDING } from './common/style-constants';
-import { worker as workerProps, routerProps } from './shared/propTypes';
+import Modal from '../common/Modal';
 
-const styles = {
-  container: css({
-    textAlign: 'center',
-    display: 'block',
-  }),
-  description: css({
-    margin: '5%',
-    display: 'block',
-  }),
-  input: css({
-    width: 'calc(100% - 200px)',
-    minWidth: '200px',
-    height: '50px',
-    borderRadius: '4px',
-    backgroundColor: '#ffffff',
-    border: 'solid 1px #e0e0e0',
-    display: 'inline-block',
-    fontSize: '16px',
-    textAlign: 'left',
-    paddingLeft: '15px',
-    color: '#b8b8b8',
-    '::placeholder': {
-      fontSize: '16px',
-      textAlign: 'left',
-      color: '#b8b8b8',
-    },
-    ':focus': {
-      outline: '0',
-    },
-  }),
-  submitForm: css({
-    display: 'block',
-    margin: 'auto',
-    textAlign: 'center',
-    marginBottom: PADDING,
-    width: '80%',
-  }),
-  submit: css({
-    width: '119px',
-    height: '50px',
-    borderRadius: BORDER_R,
-    backgroundColor: '#ff7092',
-    display: 'inline-block',
-    fontSize: '18px',
-    letterSpacing: '-0.7px',
-    textAlign: 'center',
-    color: '#ffffff',
-    marginLeft: '8px',
-    border: '0',
-    cursor: 'pointer',
-    ':focus': {
-      outline: '0',
-    },
-    ':hover': {
-      backgroundImage: 'linear-gradient(to bottom right,#ff7092,#FF8EA9)',
-    },
-    ':disabled': {
-      backgroundColor: '#f2f2f2',
-      ':hover': {
-        backgroundImage: 'none',
-      },
-    },
-  }),
-  resend: css({
-    marginLeft: '5px',
-  }),
-};
+import { worker as workerProps, routerProps } from '../shared/propTypes';
 
-class Confirm extends PureComponent {
+import styles from './Confirm.styles';
+
+export default class Confirm extends Component {
+  static propTypes = {
+    error: PropTypes.string,
+    confirmEmail: PropTypes.func.isRequired,
+    resendConfirmEmail: PropTypes.func.isRequired,
+    worker: PropTypes.shape(workerProps),
+    router: PropTypes.shape(routerProps).isRequired,
+    location: locationShape,
+  }
+
+  static defaultProps = {
+    error: null,
+    worker: null,
+    location: null,
+  }
+
   constructor(props) {
     super(props);
-    autoBind(this);
     if (this.props.worker.confirmed) {
       this.props.router.replace('/jobs');
     }
@@ -105,7 +51,7 @@ class Confirm extends PureComponent {
     }
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     if (!this.state.loading) {
       this.setState({
         value: e.target.value.trim(),
@@ -116,12 +62,12 @@ class Confirm extends PureComponent {
     }
   }
 
-  handleResubmit(e) {
+  handleResubmit = (e) => {
     e.preventDefault();
     this.props.resendConfirmEmail();
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const valid = e.target.parentElement.checkValidity();
     if (valid) {
@@ -180,20 +126,3 @@ class Confirm extends PureComponent {
     );
   }
 }
-
-Confirm.defaultProps = {
-  error: null,
-  worker: null,
-  location: null,
-};
-
-Confirm.propTypes = {
-  error: PropTypes.string,
-  confirmEmail: PropTypes.func.isRequired,
-  resendConfirmEmail: PropTypes.func.isRequired,
-  worker: PropTypes.shape(workerProps),
-  router: PropTypes.shape(routerProps).isRequired,
-  location: locationShape,
-};
-
-export default Confirm;

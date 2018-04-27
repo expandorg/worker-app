@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
 import Account from './Account';
 
 import {
@@ -27,4 +29,4 @@ const mapDispatchToProps = {
   withdrawPayments,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Account));

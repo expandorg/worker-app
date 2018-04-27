@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Job from './Job';
-import EmailSubmission from '../EmailSubmission';
+import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
 import { worker as workerProps, stats as statsProps, routerProps } from '../shared/propTypes';
 import Content from '../shared/Content';

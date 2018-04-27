@@ -1,17 +1,8 @@
 import React from 'react';
-import { css } from 'glamor';
-import { FLEX_PANEL } from './common/style-constants';
 
-import Content from './shared/Content';
+import Content from '../shared/Content';
 
-const styles = {
-  container: FLEX_PANEL,
-  formLink: css({
-    width: '100%',
-    textAlign: 'center',
-    margin: '25px',
-  }),
-};
+import styles from './Requester.styles';
 
 const Requester = () => (
   <Content title="Post a job to Gems">

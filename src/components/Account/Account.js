@@ -1,18 +1,17 @@
-import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router';
-import autoBind from 'auto-bind';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cn from 'classnames';
+
 import Clipboard from 'react-clipboard.js';
 import Big from 'bignumber.js';
+
 import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
+import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
 import DepositModal from './DepositModal';
 import SuccessfulTransactionModal from './SuccessfulTransactionModal';
-import EmailSubmission from '../EmailSubmission';
 
 import Content from '../shared/Content';
-
 
 import styles from './Account.styles';
 
@@ -25,17 +24,40 @@ function renderMessage() {
   return '*Due to high demand, we can only let you withdraw if you have over 500 GEM tokens';
 }
 
-class Account extends PureComponent {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-    this.state = {
-      loading: false,
-      editEmail: false,
-      showDepositModal: false,
-      hasGems: false,
-      blockNavigation: false,
-    };
+export default class Account extends Component {
+  static propTypes = {
+    router: PropTypes.shape({
+      setRouteLeaveHook: PropTypes.func.isRequired,
+    }).isRequired,
+    route: PropTypes.shape({
+      path: PropTypes.string.isRequired,
+    }).isRequired,
+    logout: PropTypes.func.isRequired,
+    setGemsBalance: PropTypes.func.isRequired,
+    setTransactions: PropTypes.func.isRequired,
+    fetchWorkerGemsBalance: PropTypes.func.isRequired,
+    depositGems: PropTypes.func.isRequired,
+    withdrawPayments: PropTypes.func.isRequired,
+    gemsBalance: PropTypes.number,
+    stats: PropTypes.shape(statsProps).isRequired,
+    worker: PropTypes.shape(workerProps),
+    depositStage: PropTypes.number.isRequired,
+    transactions: PropTypes.arrayOf(PropTypes.string),
+  };
+
+  static defaultProps = {
+    worker: null,
+    gemsBalance: null,
+    transactions: null,
+  };
+
+
+  state = {
+    loading: false,
+    editEmail: false,
+    showDepositModal: false,
+    hasGems: false,
+    blockNavigation: false,
   }
 
   componentWillMount() {
@@ -67,25 +89,21 @@ class Account extends PureComponent {
     }
   }
 
-  getStakedGems() {
-    return Big(this.props.stats.pending).multipliedBy(Big(0.1)).toNumber();
-  }
+  getStakedGems = () => Big(this.props.stats.pending).multipliedBy(Big(0.1)).toNumber()
 
-  getBalance() {
+  getBalance = () => {
     const staked = this.getStakedGems();
     const balance = Big(this.props.worker.vaultBalance + this.props.worker.jobBalance);
     return balance.minus(staked).toNumber();
   }
 
-  routerWillLeave() {
-    return !this.state.blockNavigation;
-  }
+  routerWillLeave = () => !this.state.blockNavigation
 
   workerAddress() {
     return `0x${this.props.worker.id}`;
   }
 
-  withdraw() {
+  withdraw = () => {
     this.setState({ loading: true });
     this.props.withdrawPayments()
       .then(() => {
@@ -95,12 +113,12 @@ class Account extends PureComponent {
       });
   }
 
-  toggleEmailModal() {
+  toggleEmailModal = () => {
     const currentState = this.state.editEmail;
     this.setState({ editEmail: !currentState });
   }
 
-  toggleDepositModal() {
+  toggleDepositModal = () => {
     this.setState({ showDepositModal: !this.state.showDepositModal });
   }
 
@@ -149,7 +167,7 @@ class Account extends PureComponent {
   renderGems() {
     const balance = this.getBalance();
     if (this.state.loading) {
-      return <div className={classNames({ [styles.loading]: true, [styles.sm]: true })} />;
+      return <div className={cn({ [styles.loading]: true, [styles.sm]: true })} />;
     }
     const asterisk = balance < 500 ? '*' : '';
     return (
@@ -184,7 +202,7 @@ class Account extends PureComponent {
     }
     return (
       <button
-        className={classNames({
+        className={cn({
           [styles.defaultBtn]: true,
           [styles.btn]: true,
         })}
@@ -203,7 +221,7 @@ class Account extends PureComponent {
     const isWithdrawDisabled = this.getBalance() < 500 || this.state.loading;
     return (
       <button
-        className={classNames({
+        className={cn({
           [styles.defaultBtn]: true,
           [styles.btn]: true,
           [styles.disabled]: isWithdrawDisabled,
@@ -230,7 +248,7 @@ class Account extends PureComponent {
           {this.renderTransactionSuccess()}
           <div className={styles.table}>
             <span
-              className={classNames({ [styles.heading]: true, [styles.cell]: true })}
+              className={cn({ [styles.heading]: true, [styles.cell]: true })}
             >
               Your Account
             </span>
@@ -254,7 +272,7 @@ class Account extends PureComponent {
                 {this.renderEmail()}
               </div>
               <button
-                className={classNames({
+                className={cn({
                   [styles.defaultBtn]: true,
                   [styles.btn]: true,
                   [styles.editBtn]: true,
@@ -272,7 +290,7 @@ class Account extends PureComponent {
               {this.renderDepositButton()}
               {this.renderWithdrawButton()}
               <button
-                className={classNames({
+                className={cn({
                     [styles.defaultBtn]: true,
                     [styles.btn]: true,
                     [styles.loginBtn]: true,
@@ -291,31 +309,3 @@ class Account extends PureComponent {
     );
   }
 }
-
-Account.defaultProps = {
-  worker: null,
-  gemsBalance: null,
-  transactions: null,
-};
-
-Account.propTypes = {
-  router: PropTypes.shape({
-    setRouteLeaveHook: PropTypes.func.isRequired,
-  }).isRequired,
-  route: PropTypes.shape({
-    path: PropTypes.string.isRequired,
-  }).isRequired,
-  logout: PropTypes.func.isRequired,
-  setGemsBalance: PropTypes.func.isRequired,
-  setTransactions: PropTypes.func.isRequired,
-  fetchWorkerGemsBalance: PropTypes.func.isRequired,
-  depositGems: PropTypes.func.isRequired,
-  withdrawPayments: PropTypes.func.isRequired,
-  gemsBalance: PropTypes.number,
-  stats: PropTypes.shape(statsProps).isRequired,
-  worker: PropTypes.shape(workerProps),
-  depositStage: PropTypes.number.isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.string),
-};
-
-export default withRouter(Account);

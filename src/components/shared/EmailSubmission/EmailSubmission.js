@@ -1,28 +1,34 @@
 import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
 import PropTypes from 'prop-types';
-import { worker as workerProps } from './shared/propTypes';
-import AddEmailModal from '../containers/AddEmailModal';
-import ConfirmEmailModal from '../containers/ConfirmEmailModal';
 
-class EmailSubmission extends PureComponent {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-    this.state = {
-      stage: 0,
-    };
+import { worker as workerProps } from '../propTypes';
+
+import AddEmailModal from './AddEmailModalContainer';
+import ConfirmEmailModal from './ConfirmEmailModalContainer';
+
+export default class EmailSubmission extends PureComponent {
+  static propTypes = {
+    worker: PropTypes.shape(workerProps),
+    toggleModal: PropTypes.func,
+  };
+
+  static defaultProps = {
+    worker: null,
+    toggleModal: null,
+  };
+
+  state = {
+    stage: 0,
   }
-
-  editEmail() {
+  editEmail = () => {
     this.setState({ stage: 1 });
   }
 
-  confirmEmail() {
+  confirmEmail = () => {
     this.setState({ stage: 2 });
   }
 
-  confirmCode() {
+  confirmCode = () => {
     this.setState({ stage: 3 });
   }
 
@@ -50,16 +56,3 @@ class EmailSubmission extends PureComponent {
     return <AddEmailModal toggleModal={this.props.toggleModal} />;
   }
 }
-
-EmailSubmission.defaultProps = {
-  worker: null,
-  toggleModal: null,
-};
-
-EmailSubmission.propTypes = {
-  worker: PropTypes.shape(workerProps),
-  toggleModal: PropTypes.func,
-};
-
-
-export default EmailSubmission;

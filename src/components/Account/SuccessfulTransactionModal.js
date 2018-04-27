@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Clipboard from 'react-clipboard.js';
 import Modal from '../common/Modal';
@@ -11,16 +10,17 @@ function etherScanUrl(tx) {
   return `https://etherscan.io/tx/${tx}`;
 }
 
-class SuccessfulTransactionModal extends PureComponent {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-    this.state = {
-      isModalOpen: true,
-    };
+export default class SuccessfulTransactionModal extends Component {
+  static propTypes = {
+    transactions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setTransactions: PropTypes.func.isRequired,
   }
 
-  toggleModal() {
+  state = {
+    isModalOpen: true,
+  }
+
+  toggleModal = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen });
     this.props.setTransactions(null);
   }
@@ -52,33 +52,26 @@ class SuccessfulTransactionModal extends PureComponent {
   }
 
   render() {
-    if (this.state.isModalOpen) {
-      return (
-        <Modal
-          toggleModal={this.toggleModal}
-          heading={(
-            <div>
-              <span>Transaction sent</span>
-            </div>
-          )}
-        >
-          <div className={styles.container}>
-            <span className={styles.description}>
-              Congrats! Your transaction is sent.
-              Save the following transaction ids for your records:
-            </span>
-            {this.renderTxs()}
-          </div>
-        </Modal>
-      );
+    if (!this.state.isModalOpen) {
+      return null;
     }
-    return false;
+    return (
+      <Modal
+        toggleModal={this.toggleModal}
+        heading={(
+          <div>
+            <span>Transaction sent</span>
+          </div>
+        )}
+      >
+        <div className={styles.container}>
+          <span className={styles.description}>
+            Congrats! Your transaction is sent.
+            Save the following transaction ids for your records:
+          </span>
+          {this.renderTxs()}
+        </div>
+      </Modal>
+    );
   }
 }
-
-SuccessfulTransactionModal.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setTransactions: PropTypes.func.isRequired,
-};
-
-export default SuccessfulTransactionModal;
