@@ -36,7 +36,7 @@ export const fetchWorkerGemsBalance = () => ({
   payload: null,
 });
 
-const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, gemsApi.fetcBalance);
+const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, gemsApi.fetchBalance);
 
 export const withdrawPayments = () => ({
   type: gemsActionTypes.WITHDRAW,

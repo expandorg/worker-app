@@ -1,7 +1,7 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class GemsApi extends BaseApi {
-  fetcBalance = () =>
+  fetchBalance = () =>
     this.get('/gems')
 
   depost = ({ value }) =>

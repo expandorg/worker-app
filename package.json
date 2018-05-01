@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "auto-bind": "^1.2.0",
     "bignumber.js": "^6.0.0",
     "classnames": "^2.2.5",
     "gems-token": "github:gemsorg/gems-token",
