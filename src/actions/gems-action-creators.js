@@ -1,13 +1,18 @@
-import { createAction } from 'redux-actions';
 
 import { gemsApi } from '../api/GemsApi';
 import { actions } from './action-types';
 
 import { setError, setWorker, setTransactions, repository } from './action-creators';
 
-const setDepositStage = createAction(actions.SET_DEPOSIT_STAGE);
+const setDepositStage = () => ({
+  type: actions.SET_DEPOSIT_STAGE,
+  payload: null,
+});
 
-export const setGemsBalance = createAction(actions.SET_GEMS_BALANCE);
+export const setGemsBalance = () => ({
+  type: actions.SET_GEMS_BALANCE,
+  payload: null,
+});
 
 export const fetchWorkerGemsBalance = () => async (dispatch) => {
   try {

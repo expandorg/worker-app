@@ -3,33 +3,23 @@ import { combineReducers } from 'redux';
 import { actions } from '../actions/action-types';
 
 import worker from './workerReducer';
+import stats from './statsReducer';
 
-const defaultStats = {
-  pending: 0,
-  accepted: 0,
-  rejected: 0,
-};
+import ui from './ui';
 
 function simpleReducer(defaultValue, actionType) {
   return (state = defaultValue, action) => (action.type === actionType ? action.payload : state);
 }
 
 export default combineReducers({
-  error: simpleReducer(null, actions.SET_ERROR),
   isAuthorized: simpleReducer(null, actions.SET_IS_AUTHORIZED),
   isJoined: simpleReducer(false, actions.SET_IS_JOINED),
-  isSubmitting: simpleReducer(false, actions.SET_IS_SUBMITTING),
   depositStage: simpleReducer(0, actions.SET_DEPOSIT_STAGE),
-  previousJobId: simpleReducer(null, actions.SET_PREVIOUS_JOB_ID),
   worker,
+  stats,
   gemsBalance: simpleReducer(null, actions.SET_GEMS_BALANCE),
-  stats: (state = defaultStats, action) => {
-    if (action.type === actions.SET_STATS) {
-      return action.payload || defaultStats;
-    }
-    return state;
-  },
   metamask: simpleReducer(null, actions.SET_METAMASK),
   locked: simpleReducer(null, actions.SET_METAMASK_LOCKED),
   transactions: simpleReducer(null, actions.SET_TRANSACTIONS),
+  ui,
 });

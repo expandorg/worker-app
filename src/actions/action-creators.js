@@ -1,4 +1,3 @@
-import { createAction } from 'redux-actions';
 import GemsToken from 'gems-token';
 
 import { promisify } from '../common/utils';
@@ -22,21 +21,45 @@ class Repository {
 
 export const repository = new Repository();
 
+export const setError = payload => ({
+  type: actions.SET_ERROR,
+  payload,
+});
 
-export const setError = createAction(actions.SET_ERROR);
-export const setTransactions = createAction(actions.SET_TRANSACTIONS);
-export const setIsJoined = createAction(actions.SET_IS_JOINED);
+export const setTransactions = payload => ({
+  type: actions.SET_TRANSACTIONS,
+  payload,
+});
+export const setIsJoined = payload => ({
+  type: actions.SET_IS_JOINED,
+  payload,
+});
 
-const setIsAuthorized = createAction(actions.SET_IS_AUTHORIZED);
+const setIsAuthorized = payload => ({
+  type: actions.SET_IS_AUTHORIZED,
+  payload,
+});
 
 
-export const setStats = createAction(actions.SET_STATS);
+export const setStats = payload => ({
+  type: actions.SET_STATS,
+  payload,
+});
 
-export const setWorker = createAction(actions.SET_WORKER);
+export const setWorker = payload => ({
+  type: actions.SET_WORKER,
+  payload,
+});
 
-const setMetamask = createAction(actions.SET_METAMASK);
+const setMetamask = payload => ({
+  type: actions.SET_METAMASK,
+  payload,
+});
 
-const setMetamaskLocked = createAction(actions.SET_METAMASK_LOCKED);
+const setMetamaskLocked = payload => ({
+  type: actions.SET_METAMASK_LOCKED,
+  payload,
+});
 
 
 export const logout = () => (dispatch) => {
@@ -87,26 +110,25 @@ export const fetchAuth = () => async (dispatch) => {
 
 export const initWeb3 = () => (dispatch) => {
   try {
-    let web3;
-    if (window.web3 !== undefined) {
-      web3 = new Web3(window.web3.currentProvider);
-    } else {
+    if (window.web3 === undefined) {
       throw new Error('MetaMask not loaded');
     }
+    const web3 = new Web3(window.web3.currentProvider);
     repository.setWeb3(web3);
+
     dispatch(setMetamask(true));
 
-    if (web3.eth.accounts.length === 0) {
+    if (web3.eth.accounts.length) {
+      initGemsInstance(web3);
+    } else {
       dispatch(setMetamaskLocked(true));
       const accountInterval = setInterval(() => {
-        if (web3.eth.accounts.length > 0) {
+        if (web3.eth.accounts.length) {
           clearInterval(accountInterval);
           dispatch(setMetamaskLocked(false));
           initGemsInstance(web3);
         }
       }, 300);
-    } else {
-      initGemsInstance(web3);
     }
   } catch (err) {
     dispatch(setMetamask(false));

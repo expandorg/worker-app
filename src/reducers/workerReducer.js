@@ -1,5 +1,11 @@
 import { actions } from '../actions/action-types';
 
 export default function workerReducer(state = null, action) {
-  return action.type === actions.SET_WORKER ? action.payload : state;
+  switch (action.type) {
+    case actions.SET_WORKER:
+      return action.payload;
+    default:
+      break;
+  }
+  return state;
 }
