@@ -1,9 +1,13 @@
-import { actions } from '../actions/action-types';
+import { gemsActionTypes } from '../actions/action-types';
 
-export default function gemsBalanceReducer(state = null, action) {
+const initialState = null;
+
+export default function gemsBalanceReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.SET_GEMS_BALANCE:
-      return action.payload;
+    case gemsActionTypes.FETCH_BALANCE:
+      return initialState;
+    case gemsActionTypes.FETCH_BALANCE_COMPLETE:
+      return action.payload.balance;
     default:
       break;
   }

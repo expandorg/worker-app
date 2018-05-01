@@ -5,10 +5,8 @@ export const createActionTypes = (scope, actionTypes) =>
 
 export const actions = createActionTypes('common', {
   SET_ERROR: null,
-  SET_GEMS_BALANCE: null,
   SET_IS_AUTHORIZED: null,
   SET_IS_JOINED: null,
-  SET_DEPOSIT_STAGE: null,
   SET_STATS: null,
   SET_WORKER: null,
   SET_TRANSACTIONS: null,
@@ -36,4 +34,19 @@ export const tasksActionTypes = createActionTypes('tasks', {
   CREATE: null,
   CREATE_COMPLETE: null,
   CREATE_FAILED: null,
+});
+
+export const gemsActionTypes = createActionTypes('gems', {
+  DEPOSIT: null,
+  DEPOSIT_STAGE: null,
+  DEPOSIT_COMPLETE: null,
+  DEPOSIT_FAILED: null,
+
+  WITHDRAW: null,
+  WITHDRAW_COMPLETE: null,
+  WITHDRAW_FAILED: null,
+
+  FETCH_BALANCE: null,
+  FETCH_BALANCE_COMPLETE: null,
+  FETCH_BALANCE_FAILED: null,
 });

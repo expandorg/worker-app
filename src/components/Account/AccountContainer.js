@@ -8,12 +8,7 @@ import {
   setTransactions,
 } from '../../actions/action-creators';
 
-import {
-  fetchWorkerGemsBalance,
-  depositGems,
-  withdrawPayments,
-  setGemsBalance,
-} from '../../actions/gems-action-creators';
+import { depositGems, fetchWorkerGemsBalance, withdrawPayments } from '../../sagas/gemsSagas';
 
 import { depositStageSelector } from '../../selectors/uiStateSelectors';
 import { statsSelector, workerSelector, balanceSelector, transactionsSelector } from '../../selectors/userSelectors';
@@ -28,7 +23,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   logout,
-  setGemsBalance,
   setTransactions,
   fetchWorkerGemsBalance,
   depositGems,

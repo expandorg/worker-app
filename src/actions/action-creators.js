@@ -6,20 +6,7 @@ import { actions } from './action-types';
 
 import { userApi } from '../api/UserApi';
 
-class Repository {
-  web3 = null
-  gems = null
-
-  setWeb3 = (web3) => {
-    this.web3 = web3;
-  }
-
-  setGems = (gems) => {
-    this.gems = gems;
-  }
-}
-
-export const repository = new Repository();
+import { repository } from './GemsService';
 
 export const setError = payload => ({
   type: actions.SET_ERROR,

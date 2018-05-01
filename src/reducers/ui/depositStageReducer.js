@@ -1,9 +1,14 @@
-import { actions } from '../../actions/action-types';
+import { gemsActionTypes } from '../../actions/action-types';
 
 export default function depositStageReducer(state = 0, action) {
   switch (action.type) {
-    case actions.SET_DEPOSIT_STAGE:
+    case gemsActionTypes.DEPOSIT:
+      return 1;
+    case gemsActionTypes.DEPOSIT_STAGE:
       return action.payload;
+    case gemsActionTypes.DEPOSIT_COMPLETE:
+    case gemsActionTypes.DEPOSIT_FAILED:
+      return 0;
     default:
       break;
   }
