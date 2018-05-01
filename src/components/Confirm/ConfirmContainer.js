@@ -3,9 +3,10 @@ import { withRouter } from 'react-router';
 
 import Confirm from './Confirm';
 import { confirmEmail, resendConfirmEmail } from '../../actions/email-action-creators';
+import { errorSelector } from '../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
-  error: state.error,
+  error: errorSelector(state),
   worker: state.worker,
 });
 

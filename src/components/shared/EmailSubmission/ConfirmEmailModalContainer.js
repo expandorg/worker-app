@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import ConfirmEmailModal from './ConfirmEmailModal';
 
 import { confirmEmail, resendConfirmEmail } from '../../../actions/email-action-creators';
+import { errorSelector } from '../../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
-  error: state.error,
+  error: errorSelector(state),
 });
 
 const mapDispatchToProps = {

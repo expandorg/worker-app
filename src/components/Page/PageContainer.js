@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import Page from './Page';
 
 import { fetchAuth, setError } from '../../actions/action-creators';
+import { errorSelector } from '../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
-  error: state.error,
+  error: errorSelector(state),
   isAuthorized: state.isAuthorized,
   isJoined: state.isJoined,
   title: state.pageTitle,
