@@ -15,12 +15,15 @@ import {
   setGemsBalance,
 } from '../../actions/gems-action-creators';
 
+import { depositStageSelector } from '../../selectors/uiStateSelectors';
+import { statsSelector, workerSelector, balanceSelector, transactionsSelector } from '../../selectors/userSelectors';
+
 const mapStateToProps = state => ({
-  stats: state.stats,
-  worker: state.worker,
-  gemsBalance: state.gemsBalance,
-  depositStage: state.depositStage,
-  transactions: state.transactions,
+  stats: statsSelector(state),
+  worker: workerSelector(state),
+  gemsBalance: balanceSelector(state),
+  depositStage: depositStageSelector(state),
+  transactions: transactionsSelector(state),
 });
 
 const mapDispatchToProps = {

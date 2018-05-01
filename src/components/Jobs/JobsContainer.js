@@ -3,11 +3,13 @@ import { withRouter } from 'react-router';
 
 import Jobs from './Jobs';
 import { setIsJoined } from '../../actions/action-creators';
+
 import { errorSelector } from '../../selectors/uiStateSelectors';
+import { workerSelector, statsSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
-  worker: state.worker,
-  stats: state.stats,
+  worker: workerSelector(state),
+  stats: statsSelector(state),
   error: errorSelector(state),
 });
 

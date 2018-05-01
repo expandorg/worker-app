@@ -3,11 +3,13 @@ import { withRouter } from 'react-router';
 
 import Confirm from './Confirm';
 import { confirmEmail, resendConfirmEmail } from '../../actions/email-action-creators';
+
 import { errorSelector } from '../../selectors/uiStateSelectors';
+import { workerSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
   error: errorSelector(state),
-  worker: state.worker,
+  worker: workerSelector(state),
 });
 
 const mapDispatchToProps = {

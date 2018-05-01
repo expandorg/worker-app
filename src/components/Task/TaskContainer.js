@@ -3,13 +3,13 @@ import Task from './Task';
 
 import { fetchAuth } from '../../actions/action-creators';
 import { submitTask } from '../../sagas/tasksSagas';
-import { taskIsSubmittingSelector, errorSelector } from '../../selectors/uiStateSelectors';
+import { taskIsSubmittingSelector, errorSelector, workerSelector, statsSelector } from '../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
   isSubmitting: taskIsSubmittingSelector(state),
-  stats: state.stats,
   error: errorSelector(state),
-  worker: state.worker,
+  stats: statsSelector(state),
+  worker: workerSelector(state),
 });
 
 const mapDispatchToProps = {

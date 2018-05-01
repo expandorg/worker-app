@@ -18,3 +18,18 @@ export const errorSelector = (
   uiStateSelector,
   state => state.errors
 );
+
+export const depositStageSelector = createSelector(
+  uiStateSelector,
+  state => state.depositStage,
+);
+
+export const metamaskSelector = createSelector(
+  uiStateSelector,
+  state => state.metamask,
+);
+
+export const lockedSelector = createSelector(
+  uiStateSelector,
+  state => state.locked,
+);

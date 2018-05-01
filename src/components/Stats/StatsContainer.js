@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 
+import { statsSelector } from '../../selectors/userSelectors';
+
 import Stats from './Stats';
 
 const mapStateToProps = state => ({
-  stats: state.stats,
+  stats: statsSelector(state),
 });
 
 

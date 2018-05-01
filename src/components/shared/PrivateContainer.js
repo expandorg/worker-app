@@ -3,11 +3,13 @@ import { withRouter } from 'react-router';
 
 import Private from './Private';
 
+import { isAuthorizedSelector, isJoinedSelector, workerSelector, statsSelector } from '../../selectors/userSelectors';
+
 const mapStateToProps = state => ({
-  isAuthorized: state.isAuthorized,
-  isJoined: state.isJoined,
-  worker: state.worker,
-  stats: state.stats,
+  isAuthorized: isAuthorizedSelector(state),
+  isJoined: isJoinedSelector(state),
+  worker: workerSelector(state),
+  stats: statsSelector(state),
 });
 
 

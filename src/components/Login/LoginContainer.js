@@ -5,11 +5,14 @@ import Login from './Login';
 
 import { login } from '../../actions/action-creators';
 
+import { lockedSelector } from '../../selectors/uiStateSelectors';
+import { isAuthorizedSelector, workerSelector, statsSelector } from '../../selectors/userSelectors';
+
 const mapStateToProps = state => ({
-  isAuthorized: state.isAuthorized,
-  locked: state.locked,
-  worker: state.worker,
-  stats: state.stats,
+  isAuthorized: isAuthorizedSelector(state),
+  locked: lockedSelector(state),
+  worker: workerSelector(state),
+  stats: statsSelector(state),
 });
 
 const mapDispatchToProps = {
