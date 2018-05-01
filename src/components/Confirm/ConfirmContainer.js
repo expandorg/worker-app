@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import Confirm from './Confirm';
-import { confirmEmail, resendConfirmEmail } from '../../actions/email-action-creators';
+import { confirmEmail, resendConfirmEmail } from '../../sagas/userSagas';
 
 import { errorSelector } from '../../selectors/uiStateSelectors';
 import { workerSelector } from '../../selectors/userSelectors';

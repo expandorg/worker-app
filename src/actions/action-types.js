@@ -16,6 +16,21 @@ export const actions = createActionTypes('common', {
   SET_METAMASK_LOCKED: null,
 });
 
+export const userActionTypes = createActionTypes('user', {
+
+  SET_EMAIL: null,
+  SET_EMAIL_COMPLETE: null,
+  SET_EMAIL_FAILED: null,
+
+  CONFIRM_EMAIL: null,
+  CONFIRM_EMAIL_COMPLETE: null,
+  CONFIRM_EMAIL_FAILED: null,
+
+  RESEND_CONFIRM_EMAIL: null,
+  RESEND_CONFIRM_EMAIL_COMPLETE: null,
+  RESEND_CONFIRM_EMAIL_FAILED: null,
+});
+
 
 export const tasksActionTypes = createActionTypes('tasks', {
   CREATE: null,
