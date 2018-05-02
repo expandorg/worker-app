@@ -114,7 +114,7 @@ export default class Account extends Component {
   }
 
   renderDepositModal() {
-    if (!this.state.showDepositModal || !this.props.gemsBalance > 0) {
+    if (!this.state.showDepositModal || this.props.gemsBalance <= 5) {
       return '';
     }
     return (
@@ -188,7 +188,7 @@ export default class Account extends Component {
   }
 
   renderDepositButton() {
-    if (TRANSACTIONS_DISABLED || !this.props.gemsBalance > 0) {
+    if (TRANSACTIONS_DISABLED || this.props.gemsBalance <= 5) {
       return false;
     }
     return (
