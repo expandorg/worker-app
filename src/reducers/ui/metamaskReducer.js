@@ -1,9 +1,11 @@
-import { actions } from '../../actions/action-types';
+import { appActionTypes } from '../../actions/action-types';
 
 export default function metamaskReducer(state = null, action) {
   switch (action.type) {
-    case actions.SET_METAMASK:
-      return action.payload;
+    case appActionTypes.INIT_WEB3_COMPLETE:
+      return true;
+    case appActionTypes.INIT_WEB3_FAILED:
+      return false;
     default:
       break;
   }

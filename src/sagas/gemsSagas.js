@@ -4,7 +4,7 @@ import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { gemsActionTypes } from '../actions/action-types';
 
 import { gemsApi } from '../api/GemsApi';
-import { gemsService } from '../actions/GemsService';
+import { gemsService } from '../services/GemsService';
 
 const setDepositStage = () => ({
   type: gemsActionTypes.DEPOSIT_STAGE,

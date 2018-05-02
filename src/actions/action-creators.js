@@ -2,7 +2,7 @@ import { actions } from './action-types';
 
 import { userApi } from '../api/UserApi';
 
-import { gemsService } from './GemsService';
+import { gemsService } from '../services/GemsService';
 
 export const setError = payload => ({
   type: actions.SET_ERROR,
@@ -34,16 +34,6 @@ export const setWorker = payload => ({
   payload,
 });
 
-const setMetamask = payload => ({
-  type: actions.SET_METAMASK,
-  payload,
-});
-
-const setMetamaskLocked = payload => ({
-  type: actions.SET_METAMASK_LOCKED,
-  payload,
-});
-
 
 export const logout = () => (dispatch) => {
   document.cookie = `JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.COOKIE_DOMAIN}; path=/;`;
@@ -71,35 +61,12 @@ export const fetchAuth = () => async (dispatch) => {
       dispatch(logout());
       return;
     }
-
     setLoggedIn(dispatch, data);
   } catch (err) {
     dispatch(setError(err.toString()));
   }
 };
 
-
-export const initWeb3 = () => (dispatch) => {
-  try {
-    gemsService.initWeb3();
-    dispatch(setMetamask(true));
-
-    if (gemsService.getDefaultAccount()) {
-      gemsService.initGemTokens();
-    } else {
-      dispatch(setMetamaskLocked(true));
-      const accountInterval = setInterval(() => {
-        if (gemsService.getDefaultAccount()) {
-          clearInterval(accountInterval);
-          dispatch(setMetamaskLocked(false));
-          gemsService.initGemTokens();
-        }
-      }, 300);
-    }
-  } catch (err) {
-    dispatch(setMetamask(false));
-  }
-};
 
 export const login = () => async (dispatch) => {
   try {
@@ -108,7 +75,6 @@ export const login = () => async (dispatch) => {
     const data = await userApi.login({ address, signature: result });
     setLoggedIn(dispatch, data);
   } catch (err) {
-    console.log(err);
     dispatch(setError(err.toString()));
   }
 };

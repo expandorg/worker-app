@@ -4,15 +4,14 @@ import settings from '../common/settings';
 import { promisify } from '../common/utils';
 
 export class GemsService {
-  initWeb3() {
+  initWeb3 = () => {
     if (window.web3 === undefined) {
       throw new Error('MetaMask not loaded');
     }
     this.web3 = new Web3(window.web3.currentProvider);
   }
 
-  initGemTokens = async () => {
-    const address = this.getDefaultAccount();
+  initGemTokens = async (address) => {
     const instance = new GemsToken(this.web3.currentProvider, address);
     await instance.init();
     this.gems = instance;

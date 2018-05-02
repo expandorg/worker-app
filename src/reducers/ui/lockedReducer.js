@@ -1,9 +1,11 @@
-import { actions } from '../../actions/action-types';
+import { appActionTypes } from '../../actions/action-types';
 
 export default function lockedReducer(state = null, action) {
   switch (action.type) {
-    case actions.SET_METAMASK_LOCKED:
-      return action.payload;
+    case appActionTypes.INIT_GEMS:
+      return true;
+    case appActionTypes.INIT_GEMS_COMPLETE:
+      return false;
     default:
       break;
   }

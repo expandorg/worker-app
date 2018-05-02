@@ -10,8 +10,16 @@ export const actions = createActionTypes('common', {
   SET_STATS: null,
   SET_WORKER: null,
   SET_TRANSACTIONS: null,
-  SET_METAMASK: null,
-  SET_METAMASK_LOCKED: null,
+});
+
+export const appActionTypes = createActionTypes('app', {
+  INIT_WEB3: null,
+  INIT_WEB3_COMPLETE: null,
+  INIT_WEB3_FAILED: null,
+
+  INIT_GEMS: null,
+  INIT_GEMS_COMPLETE: null,
+  INIT_GEMS_FAILED: null,
 });
 
 export const userActionTypes = createActionTypes('user', {
