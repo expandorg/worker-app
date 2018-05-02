@@ -1,12 +1,16 @@
 import { connect } from 'react-redux';
 import Task from './Task';
-import { submitTask, fetchAuth } from '../../actions/action-creators';
+
+import { fetchAuth } from '../../sagas/userSagas';
+import { submitTask } from '../../sagas/tasksSagas';
+
+import { taskIsSubmittingSelector, errorSelector, workerSelector, statsSelector } from '../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
-  isSubmitting: state.isSubmitting,
-  stats: state.stats,
-  error: state.error,
-  worker: state.worker,
+  isSubmitting: taskIsSubmittingSelector(state),
+  error: errorSelector(state),
+  stats: statsSelector(state),
+  worker: workerSelector(state),
 });
 
 const mapDispatchToProps = {

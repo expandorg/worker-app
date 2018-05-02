@@ -22,11 +22,11 @@ import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 
 import store from './reducers/store';
 
-import { initWeb3 } from './actions/action-creators';
+import { init } from './sagas/appSagas';
 
 const MAINTENANCE_MODE = false;
 
-store.dispatch(initWeb3());
+store.dispatch(init());
 
 
 const App = () => {

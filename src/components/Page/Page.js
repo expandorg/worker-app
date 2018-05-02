@@ -19,7 +19,7 @@ export default class Page extends PureComponent {
     children: PropTypes.element.isRequired,
     error: PropTypes.string,
     fetchAuth: PropTypes.func.isRequired,
-    setError: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     isAuthorized: PropTypes.bool,
     isJoined: PropTypes.bool.isRequired,
     metamask: PropTypes.bool,
@@ -43,7 +43,7 @@ export default class Page extends PureComponent {
   }
 
   handleClearError = () => {
-    this.props.setError(null);
+    this.props.clearErrors();
   }
 
   handleToggleSidebar = () => {

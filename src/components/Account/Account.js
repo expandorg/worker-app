@@ -13,6 +13,8 @@ import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 
 import Content from '../shared/Content';
 
+import { isBalanceSufficient } from '../../model/worker';
+
 import styles from './Account.styles';
 
 const TRANSACTIONS_DISABLED = true;
@@ -33,7 +35,6 @@ export default class Account extends Component {
       path: PropTypes.string.isRequired,
     }).isRequired,
     logout: PropTypes.func.isRequired,
-    setGemsBalance: PropTypes.func.isRequired,
     setTransactions: PropTypes.func.isRequired,
     fetchWorkerGemsBalance: PropTypes.func.isRequired,
     depositGems: PropTypes.func.isRequired,
@@ -56,7 +57,6 @@ export default class Account extends Component {
     loading: false,
     editEmail: false,
     showDepositModal: false,
-    hasGems: false,
     blockNavigation: false,
   }
 
@@ -65,14 +65,7 @@ export default class Account extends Component {
     if (this.props.transactions) {
       this.setState({ loading: false });
     }
-    this.setState({ hasGems: false });
-    this.props.setGemsBalance(null);
-    this.props.fetchWorkerGemsBalance()
-      .then(() => {
-        if (this.props.gemsBalance >= 5) {
-          this.setState({ hasGems: true });
-        }
-      });
+    this.props.fetchWorkerGemsBalance();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -123,7 +116,7 @@ export default class Account extends Component {
   }
 
   renderDepositModal() {
-    if (!this.state.showDepositModal || !this.state.hasGems) {
+    if (!this.state.showDepositModal || !isBalanceSufficient(this.props.gemsBalance)) {
       return '';
     }
     return (
@@ -197,7 +190,7 @@ export default class Account extends Component {
   }
 
   renderDepositButton() {
-    if (TRANSACTIONS_DISABLED || !this.state.hasGems) {
+    if (TRANSACTIONS_DISABLED || !isBalanceSufficient(this.props.gemsBalance)) {
       return false;
     }
     return (

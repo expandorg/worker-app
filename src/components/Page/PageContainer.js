@@ -1,21 +1,23 @@
 import { connect } from 'react-redux';
 import Page from './Page';
 
-import { fetchAuth, setError } from '../../actions/action-creators';
+import { clearErrors } from '../../sagas/appSagas';
+import { fetchAuth } from '../../sagas/userSagas';
+import { errorSelector, metamaskSelector } from '../../selectors/uiStateSelectors';
+import { isAuthorizedSelector, isJoinedSelector, workerSelector, statsSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
-  error: state.error,
-  isAuthorized: state.isAuthorized,
-  isJoined: state.isJoined,
-  title: state.pageTitle,
-  metamask: state.metamask,
-  worker: state.worker,
-  stats: state.stats,
+  error: errorSelector(state),
+  isAuthorized: isAuthorizedSelector(state),
+  isJoined: isJoinedSelector(state),
+  metamask: metamaskSelector(state),
+  worker: workerSelector(state),
+  stats: statsSelector(state),
 });
 
 const mapDispatchToProps = {
   fetchAuth,
-  setError,
+  clearErrors,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
