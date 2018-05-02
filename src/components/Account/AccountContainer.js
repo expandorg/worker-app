@@ -3,12 +3,8 @@ import { withRouter } from 'react-router';
 
 import Account from './Account';
 
-import {
-  logout,
-  setTransactions,
-} from '../../actions/action-creators';
-
-import { depositGems, fetchWorkerGemsBalance, withdrawPayments } from '../../sagas/gemsSagas';
+import { logout } from '../../sagas/userSagas';
+import { setTransactions, depositGems, fetchWorkerGemsBalance, withdrawPayments } from '../../sagas/gemsSagas';
 
 import { depositStageSelector } from '../../selectors/uiStateSelectors';
 import { statsSelector, workerSelector, balanceSelector, transactionsSelector } from '../../selectors/userSelectors';

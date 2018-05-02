@@ -1,15 +1,22 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { appActionTypes } from '../actions/action-types';
+import { appActionTypes } from './actionTypes';
 
 import { gemsService } from '../services/GemsService';
 
 export const delay = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
 
+export const clearErrors = payload => ({
+  type: appActionTypes.CLEAR_ERRORS,
+  payload,
+});
+
+
 export const init = () => ({
   type: appActionTypes.INIT_WEB3,
   payload: null,
 });
+
 
 function* handleInitWeb3() {
   try {
@@ -23,16 +30,13 @@ function* handleInitWeb3() {
 function* initGemsInstance() {
   try {
     yield put({ type: appActionTypes.INIT_GEMS, payload: null });
-    let account = null;
     while (true) {
-      account = gemsService.getDefaultAccount();
-      if (account) {
+      if (gemsService.getDefaultAccount()) {
         break;
       }
-      yield call(delay, 3000);
+      yield call(delay, 300);
     }
-    // TODO: async call
-    gemsService.initGemTokens(account);
+    gemsService.initGemTokens();
     yield put({ type: appActionTypes.INIT_GEMS_COMPLETE, payload: null });
   } catch (e) {
     yield put({ type: appActionTypes.INIT_GEMS_FAILED, payload: null });

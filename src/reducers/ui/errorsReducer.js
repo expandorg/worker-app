@@ -1,14 +1,14 @@
 import {
-  actions,
+  appActionTypes,
   tasksActionTypes,
   userActionTypes,
   gemsActionTypes,
-} from '../../actions/action-types';
+} from '../../sagas/actionTypes';
 
 export default function errorsReducer(state = null, action) {
   switch (action.type) {
-    case actions.SET_ERROR:
-      return action.payload;
+    case appActionTypes.CLEAR_ERRORS:
+      return null;
     case tasksActionTypes.CREATE_FAILED:
     case userActionTypes.SET_EMAIL_FAILED:
     case userActionTypes.CONFIRM_EMAIL_FAILED:

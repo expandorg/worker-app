@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { tasksActionTypes } from '../../actions/action-types';
+import { tasksActionTypes } from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 import errors from './errorsReducer';

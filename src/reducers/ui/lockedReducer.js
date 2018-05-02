@@ -1,4 +1,4 @@
-import { appActionTypes } from '../../actions/action-types';
+import { appActionTypes } from '../../sagas/actionTypes';
 
 export default function lockedReducer(state = null, action) {
   switch (action.type) {

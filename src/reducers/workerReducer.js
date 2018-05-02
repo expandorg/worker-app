@@ -1,9 +1,9 @@
-import { actions, userActionTypes, gemsActionTypes } from '../actions/action-types';
+import { userActionTypes, gemsActionTypes } from '../sagas/actionTypes';
 
 export default function workerReducer(state = null, action) {
   switch (action.type) {
-    case actions.SET_WORKER:
-      return action.payload;
+    case userActionTypes.LOGIN_COMPLETE:
+    case userActionTypes.AUTHORIZE_COMPLETE:
     case userActionTypes.SET_EMAIL_COMPLETE:
     case userActionTypes.CONFIRM_EMAIL_COMPLETE:
       return action.payload.worker;

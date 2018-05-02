@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import Jobs from './Jobs';
-import { setIsJoined } from '../../actions/action-creators';
+
+import { setIsJoined } from '../../sagas/tasksSagas';
 
 import { errorSelector } from '../../selectors/uiStateSelectors';
 import { workerSelector, statsSelector } from '../../selectors/userSelectors';

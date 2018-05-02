@@ -1,4 +1,4 @@
-import { gemsActionTypes } from '../actions/action-types';
+import { gemsActionTypes } from '../sagas/actionTypes';
 
 const initialState = null;
 

@@ -11,8 +11,8 @@ export class GemsService {
     this.web3 = new Web3(window.web3.currentProvider);
   }
 
-  initGemTokens = async (address) => {
-    const instance = new GemsToken(this.web3.currentProvider, address);
+  initGemTokens = async () => {
+    const instance = new GemsToken(this.web3.currentProvider, this.getDefaultAccount());
     await instance.init();
     this.gems = instance;
   }
@@ -24,6 +24,13 @@ export class GemsService {
   getDefaultAccount = () =>
     this.web3.eth.accounts[0];
 
+  verifyAccount = async (accountId) => {
+    const accounts = await this.getAccounts();
+    if (`0x${accountId}` !== accounts[0]) {
+      throw new Error('Invalid account');
+    }
+  }
+
   getAccountSingature = async (address) => {
     const message = [{ type: 'address', name: 'address', value: address }];
     return this.signTypedData(address, [message, address]);
@@ -34,7 +41,7 @@ export class GemsService {
     return this.sendAsync(data);
   }
 
-  getAccounts = () => {
+  getAccounts = async () => {
     const call = promisify(this.web3.eth.getAccounts, this.web3.eth);
     return call();
   }

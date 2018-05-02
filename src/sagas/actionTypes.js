@@ -3,15 +3,6 @@ import { keyMirror } from '../common/utils';
 export const createActionTypes = (scope, actionTypes) =>
   keyMirror(actionTypes, key => `${scope}/${key}`);
 
-export const actions = createActionTypes('common', {
-  SET_ERROR: null,
-  SET_IS_AUTHORIZED: null,
-  SET_IS_JOINED: null,
-  SET_STATS: null,
-  SET_WORKER: null,
-  SET_TRANSACTIONS: null,
-});
-
 export const appActionTypes = createActionTypes('app', {
   INIT_WEB3: null,
   INIT_WEB3_COMPLETE: null,
@@ -20,9 +11,22 @@ export const appActionTypes = createActionTypes('app', {
   INIT_GEMS: null,
   INIT_GEMS_COMPLETE: null,
   INIT_GEMS_FAILED: null,
+
+  CLEAR_ERRORS: null,
 });
 
 export const userActionTypes = createActionTypes('user', {
+  LOGIN: null,
+  LOGIN_COMPLETE: null,
+  LOGIN_FAILED: null,
+
+  LOGOUT: null,
+  LOGOUT_COMPLETE: null,
+  LOGOUT_FAILED: null,
+
+  AUTHORIZE: null,
+  AUTHORIZE_COMPLETE: null,
+  AUTHORIZE_FAILED: null,
 
   SET_EMAIL: null,
   SET_EMAIL_COMPLETE: null,
@@ -42,6 +46,8 @@ export const tasksActionTypes = createActionTypes('tasks', {
   CREATE: null,
   CREATE_COMPLETE: null,
   CREATE_FAILED: null,
+
+  JOIN: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {
@@ -57,4 +63,6 @@ export const gemsActionTypes = createActionTypes('gems', {
   FETCH_BALANCE: null,
   FETCH_BALANCE_COMPLETE: null,
   FETCH_BALANCE_FAILED: null,
+
+  SET_TRANSACTIONS: null,
 });

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 
 import Login from './Login';
 
-import { login } from '../../actions/action-creators';
+import { login } from '../../sagas/userSagas';
 
 import { lockedSelector } from '../../selectors/uiStateSelectors';
 import { isAuthorizedSelector, workerSelector, statsSelector } from '../../selectors/userSelectors';

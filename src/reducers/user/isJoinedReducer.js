@@ -1,8 +1,8 @@
-import { actions } from '../../actions/action-types';
+import { tasksActionTypes } from '../../sagas/actionTypes';
 
 export default function isJoinedReducer(state = false, action) {
   switch (action.type) {
-    case actions.SET_IS_JOINED:
+    case tasksActionTypes.JOIN:
       return action.payload;
     default:
       break;

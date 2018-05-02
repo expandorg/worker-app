@@ -1,9 +1,12 @@
-import { actions } from '../../actions/action-types';
+import { userActionTypes } from '../../sagas/actionTypes';
 
 export default function isAuthorizedReducer(state = null, action) {
   switch (action.type) {
-    case actions.SET_IS_AUTHORIZED:
-      return action.payload;
+    case userActionTypes.AUTHORIZE_COMPLETE:
+    case userActionTypes.LOGIN_COMPLETE:
+      return true;
+    case userActionTypes.LOGOUT_COMPLETE:
+      return false;
     default:
       break;
   }

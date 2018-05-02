@@ -1,4 +1,4 @@
-import { gemsActionTypes } from '../../actions/action-types';
+import { gemsActionTypes } from '../../sagas/actionTypes';
 
 export default function depositStageReducer(state = 0, action) {
   switch (action.type) {

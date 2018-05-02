@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import Task from './Task';
 
-import { fetchAuth } from '../../actions/action-creators';
+import { fetchAuth } from '../../sagas/userSagas';
 import { submitTask } from '../../sagas/tasksSagas';
+
 import { taskIsSubmittingSelector, errorSelector, workerSelector, statsSelector } from '../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
