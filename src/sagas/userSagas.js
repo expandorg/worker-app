@@ -6,6 +6,8 @@ import { userActionTypes } from './actionTypes';
 import { userApi } from '../api/UserApi';
 import { gemsService } from '../services/GemsService';
 
+import settings from '../common/settings';
+
 export const login = () => ({
   type: userActionTypes.LOGIN,
   payload: null,
@@ -31,7 +33,7 @@ export const logout = () => ({
 });
 
 function* handleLogout() {
-  document.cookie = `JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.COOKIE_DOMAIN}; path=/;`;
+  document.cookie = `JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${settings.cookieDomain}; path=/;`;
   yield put(({ type: userActionTypes.LOGOUT_COMPLETE, payload: null }));
 }
 
@@ -44,6 +46,8 @@ export const fetchAuth = () => ({
 function* handleAuthorize() {
   try {
     const payload = yield call(userApi.authorize);
+
+    // verify that worked id correspond to metamask account
     yield call(gemsService.verifyAccount, payload.worker.id);
     yield put(({ type: userActionTypes.AUTHORIZE_COMPLETE, payload }));
   } catch (error) {
@@ -80,7 +84,10 @@ const watchResendConfirm = takeEveryApiCall(
 export function* userSagas() {
   yield takeEvery(userActionTypes.LOGIN, handleLogin);
   yield takeEvery(userActionTypes.LOGOUT, handleLogout);
+
   yield takeEvery(userActionTypes.AUTHORIZE, handleAuthorize);
+
+  // logout when authorisation falied
   yield takeEvery(userActionTypes.AUTHORIZE_FAILED, handleLogout);
 
   yield fork(watchSetEmail);

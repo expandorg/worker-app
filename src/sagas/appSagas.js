@@ -30,12 +30,15 @@ function* handleInitWeb3() {
 function* initGemsInstance() {
   try {
     yield put({ type: appActionTypes.INIT_GEMS, payload: null });
+
+    // await, while user login with metamask extension
     while (true) {
       if (gemsService.getDefaultAccount()) {
         break;
       }
       yield call(delay, 300);
     }
+    // init gem token instance with user
     gemsService.initGemTokens();
     yield put({ type: appActionTypes.INIT_GEMS_COMPLETE, payload: null });
   } catch (e) {
@@ -46,5 +49,7 @@ function* initGemsInstance() {
 
 export function* appSagas() {
   yield takeEvery(appActionTypes.INIT_WEB3, handleInitWeb3);
+
+  // try to init gems when metamask is inited
   yield takeEvery(appActionTypes.INIT_WEB3_COMPLETE, initGemsInstance);
 }

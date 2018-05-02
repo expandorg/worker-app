@@ -20,8 +20,11 @@ export const depositGems = value => ({
 
 function* handleDeposit({ payload }) {
   try {
+    // approve depost tx
     yield call(gemsService.approve, payload);
+
     yield put({ type: gemsActionTypes.DEPOSIT_STAGE, payload: 2 });
+
     const result = yield call(gemsApi.deposit, payload);
     yield put({ type: gemsActionTypes.DEPOSIT_COMPLETE, payload: result });
   } catch (error) {

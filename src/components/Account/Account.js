@@ -13,6 +13,8 @@ import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 
 import Content from '../shared/Content';
 
+import { isBalanceSufficient } from '../../model/worker';
+
 import styles from './Account.styles';
 
 const TRANSACTIONS_DISABLED = true;
@@ -114,7 +116,7 @@ export default class Account extends Component {
   }
 
   renderDepositModal() {
-    if (!this.state.showDepositModal || this.props.gemsBalance <= 5) {
+    if (!this.state.showDepositModal || !isBalanceSufficient(this.props.gemsBalance)) {
       return '';
     }
     return (
@@ -188,7 +190,7 @@ export default class Account extends Component {
   }
 
   renderDepositButton() {
-    if (TRANSACTIONS_DISABLED || this.props.gemsBalance <= 5) {
+    if (TRANSACTIONS_DISABLED || !isBalanceSufficient(this.props.gemsBalance)) {
       return false;
     }
     return (
