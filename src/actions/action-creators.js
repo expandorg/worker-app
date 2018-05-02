@@ -1,12 +1,8 @@
-import GemsToken from 'gems-token';
-
-import { promisify } from '../common/utils';
-
 import { actions } from './action-types';
 
 import { userApi } from '../api/UserApi';
 
-import { repository } from './GemsService';
+import { gemsService } from './GemsService';
 
 export const setError = payload => ({
   type: actions.SET_ERROR,
@@ -60,15 +56,6 @@ function setLoggedIn(dispatch, data) {
   dispatch(setIsAuthorized(true));
 }
 
-function initGemsInstance(web3) {
-  const address = web3.eth.accounts[0];
-  const gemsInstance = new GemsToken(web3.currentProvider, address);
-  gemsInstance.init().then(() => {
-    repository.setGems(gemsInstance);
-  });
-}
-
-
 export const fetchAuth = () => async (dispatch) => {
   try {
     let data = null;
@@ -78,10 +65,7 @@ export const fetchAuth = () => async (dispatch) => {
       dispatch(logout());
       return;
     }
-    const { web3 } = repository;
-    const getAccounts = promisify(web3.eth.getAccounts.bind(web3.eth));
-    const accounts = await getAccounts();
-
+    const accounts = await gemsService.getAccounts();
     // Ensure account resolved from token matches metamask account
     if (`0x${data.worker.id}` !== accounts[0]) {
       dispatch(logout());
@@ -97,23 +81,18 @@ export const fetchAuth = () => async (dispatch) => {
 
 export const initWeb3 = () => (dispatch) => {
   try {
-    if (window.web3 === undefined) {
-      throw new Error('MetaMask not loaded');
-    }
-    const web3 = new Web3(window.web3.currentProvider);
-    repository.setWeb3(web3);
-
+    gemsService.initWeb3();
     dispatch(setMetamask(true));
 
-    if (web3.eth.accounts.length) {
-      initGemsInstance(web3);
+    if (gemsService.getDefaultAccount()) {
+      gemsService.initGemTokens();
     } else {
       dispatch(setMetamaskLocked(true));
       const accountInterval = setInterval(() => {
-        if (web3.eth.accounts.length) {
+        if (gemsService.getDefaultAccount()) {
           clearInterval(accountInterval);
           dispatch(setMetamaskLocked(false));
-          initGemsInstance(web3);
+          gemsService.initGemTokens();
         }
       }, 300);
     }
@@ -124,29 +103,12 @@ export const initWeb3 = () => (dispatch) => {
 
 export const login = () => async (dispatch) => {
   try {
-    const { web3 } = repository;
-    const address = web3.eth.accounts[0];
-    const message = [{
-      type: 'address',
-      name: 'address',
-      value: address,
-    }];
-
-    const sendAsync = promisify(web3.currentProvider.sendAsync, web3.currentProvider);
-    const result = await sendAsync({
-      method: 'eth_signTypedData',
-      params: [
-        message,
-        address,
-      ],
-      from: address,
-    });
-
-    const signature = result.result;
-    const data = await userApi.login({ address, signature });
-
+    const address = gemsService.getDefaultAccount();
+    const { result } = await gemsService.getAccountSingature(address);
+    const data = await userApi.login({ address, signature: result });
     setLoggedIn(dispatch, data);
   } catch (err) {
+    console.log(err);
     dispatch(setError(err.toString()));
   }
 };
