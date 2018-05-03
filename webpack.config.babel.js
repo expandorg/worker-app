@@ -3,6 +3,7 @@ import webpack from 'webpack';
 
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import { envFilePath } from './config';
 
@@ -37,7 +38,7 @@ export default (env = {}) => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.js$/,
           exclude: /node_modules/,
           loader: 'eslint-loader',
           enforce: 'pre',
@@ -47,7 +48,7 @@ export default (env = {}) => {
           },
         },
         {
-          test: /\.jsx?$/,
+          test: /\.js$/,
           loader: 'babel-loader',
           options: {
             babelrc: false,
@@ -65,9 +66,38 @@ export default (env = {}) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.css$/,
+          test: /^((?!\.module).)*\.styl$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              'css-loader?sourceMap&importLoaders=2',
+              'postcss-loader?sourceMap',
+              'stylus-loader?paths[]=client',
+            ],
+          }),
           exclude: /node_modules/,
-          loader: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.module\.styl$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${dev ? '[local]__[path][name]__' : ''}[hash:base64:5]`,
+              'postcss-loader?sourceMap',
+              'stylus-loader?paths[]=client',
+            ],
+          }),
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              'css-loader?sourceMap&importLoaders=2',
+              'postcss-loader?sourceMap',
+            ],
+          }),
         },
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
@@ -87,6 +117,11 @@ export default (env = {}) => {
         'process.env': {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
         },
+      }),
+      new ExtractTextPlugin({
+        filename: dev ? '[name].css' : '[name]-[chunkhash].css',
+        allChunks: true,
+        disable: dev,
       }),
       new DotenvWebpackPlugin({ path: envFilePath }),
       new HTMLWebpackPlugin({
