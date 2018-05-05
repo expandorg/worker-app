@@ -4,7 +4,8 @@ import Task from './Task';
 import { fetchAuth } from '../../sagas/userSagas';
 import { submitTask } from '../../sagas/tasksSagas';
 
-import { taskIsSubmittingSelector, errorSelector, workerSelector, statsSelector } from '../../selectors/uiStateSelectors';
+import { taskIsSubmittingSelector, errorSelector } from '../../selectors/uiStateSelectors';
+import { workerSelector, statsSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
   isSubmitting: taskIsSubmittingSelector(state),

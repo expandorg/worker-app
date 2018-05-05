@@ -9,7 +9,7 @@ import Content from '../shared/Content';
 
 import { isWorkerFunded } from '../../model/worker';
 
-import styles from './Jobs.styles';
+import styles from './Jobs.module.styl';
 
 const JOB_DISABLED = false;
 
