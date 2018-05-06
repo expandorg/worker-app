@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { stats as statsProps } from '../shared/propTypes';
+import { statsProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Clipboard from 'react-clipboard.js';
 import Big from 'bignumber.js';
 
-import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
+import { workerProps, statsProps } from '../shared/propTypes';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
 import DepositModal from './DepositModal';
@@ -15,7 +15,7 @@ import Content from '../shared/Content';
 
 import { isBalanceSufficient } from '../../model/worker';
 
-import styles from './Account.styles';
+import styles from './Account.module.styl';
 
 const TRANSACTIONS_DISABLED = true;
 

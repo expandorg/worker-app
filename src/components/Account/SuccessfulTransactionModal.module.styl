@@ -1,0 +1,45 @@
+@import '../common/mixins';
+
+.container
+  text-align: center
+  display: block
+
+.description
+  margin: 3%
+  display: block
+
+.inputContainer
+  display: inline-block
+  width: calc(100% - 62px)
+  vertical-align: middle
+
+.copyBtn
+  display: inline-block
+  font-size: 13
+  text-align: right
+  color: #3a506b
+  text-transform: uppercase
+  border: none
+  background-color: transparent
+  margin-left: PADDING
+  padding: 0
+  cursor: pointer
+
+.input
+  border-radius: BORDER_R
+  border: solid 1px #e0e0e0
+  display: inline-block
+  font-size: 14
+  text-align: left
+  color: #3a506b
+  padding: 8px 12px
+  width: calc(100% - 205px)
+  min-width: 200px
+
+  &:focus
+    outline: 0
+
+.value
+  display: block
+  text-overflow: ellipsis
+  overflow: hidden

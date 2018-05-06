@@ -1,16 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
-import { worker as workerProps, stats as statsProps, routerProps } from '../shared/propTypes';
+import { workerProps, statsProps, routerProps } from '../shared/propTypes';
 import Content from '../shared/Content';
 
-import Carousel from './Carousel';
+import StartLogin from './StartLogin';
 import UnlockMetaMaskModal from './UnlockMetaMaskModal';
 
 import { isWorkerFunded } from '../../model/worker';
 
-import styles from './Login.styles';
+import styles from './Login.module.styl';
 
 
 // TODO: redirect after successful login
@@ -49,30 +48,26 @@ export default class Login extends PureComponent {
     }
   }
 
-  showLogin = () => {
+  handleStartClick = () => {
     this.setState({ step: 1 });
   }
 
   render() {
-    if (this.state.step === 0) {
+    const { locked } = this.props;
+    const { step } = this.state;
+
+    if (step === 0) {
       return (
-        <Content title="Login">
-          <div className={styles.container}>
-            <Carousel />
-            <button
-              className={cn(styles.btn.toString(), styles.startBtn.toString())}
-              onClick={this.showLogin}
-            >
-              Start
-            </button>
-          </div>
-        </Content>
+        <StartLogin onStartClick={this.handleStartClick} />
       );
     }
+
     return (
       <Content title="Login">
-        <div className={styles.loginContainer}>
-          {this.props.locked && <UnlockMetaMaskModal />}
+        <div className={styles.container}>
+          {locked &&
+            <UnlockMetaMaskModal />
+          }
           <img
             className={styles.screenShot}
             src="/images/login-screenshot.svg"
@@ -83,10 +78,7 @@ export default class Login extends PureComponent {
             <br />
             (similar to the above). Click below to log in.
           </span>
-          <button
-            className={cn(styles.btn.toString(), styles.loginBtn.toString())}
-            onClick={this.props.login}
-          >
+          <button className={styles.login} onClick={this.props.login}>
             Log In
           </button>
         </div>

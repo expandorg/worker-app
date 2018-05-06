@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { locationShape } from 'react-router-props';
 import Modal from '../common/Modal';
 
-import { worker as workerProps, routerProps } from '../shared/propTypes';
+import { workerProps, routerProps, locationProps } from '../shared/propTypes';
 
 import styles from './Confirm.styles';
 
@@ -14,7 +13,7 @@ export default class Confirm extends Component {
     resendConfirmEmail: PropTypes.func.isRequired,
     worker: PropTypes.shape(workerProps),
     router: PropTypes.shape(routerProps).isRequired,
-    location: locationShape,
+    location: PropTypes.shape(locationProps),
   }
 
   static defaultProps = {

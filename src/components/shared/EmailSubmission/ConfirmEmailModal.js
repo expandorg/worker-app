@@ -68,7 +68,7 @@ export default class ConfirmEmailModal extends Component {
         heading={(
           <div>
             <button className={styles.backBtn} onClick={this.props.editEmail}>
-              <img src="../images/back-btn.svg" alt="Back" />
+              <img src="/images/back-btn.svg" alt="Back" />
             </button>
             <span>Confirm Email</span>
           </div>

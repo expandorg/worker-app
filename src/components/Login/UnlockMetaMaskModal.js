@@ -2,10 +2,10 @@ import React from 'react';
 
 import Modal from '../common/Modal';
 
-import styles from './UnlockMetaMaskModal.styles';
+import styles from './UnlockMetaMaskModal.module.styl';
 
 const UnlockMetaMaskModal = () => (
-  <Modal heading={(<div>Please Unlock MetaMask</div>)} >
+  <Modal heading="Please Unlock MetaMask">
     <div className={styles.container}>
       <span className={styles.description}>
         Unlock MetaMask. Here is how:

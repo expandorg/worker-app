@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
-export const worker = {
+export const workerProps = {
   id: PropTypes.string.isRequired,
   vaultBalance: PropTypes.number.isRequired,
   jobBalance: PropTypes.number.isRequired,
 };
 
-export const stats = {
+export const statsProps = {
   pending: PropTypes.number.isRequired,
   accepted: PropTypes.number.isRequired,
   rejected: PropTypes.number.isRequired,
@@ -15,4 +15,11 @@ export const stats = {
 
 export const routerProps = {
   replace: PropTypes.func.isRequired,
+};
+
+
+export const locationProps = {
+  pathname: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired,
+  hash: PropTypes.string.isRequired,
 };

@@ -1,0 +1,58 @@
+@import './mixins'
+
+.modalDialog
+  position: fixed
+  overflow: scroll
+  top: 0
+  right: 0
+  bottom: 0
+  left: SIDEBAR_W
+  background: rgba(11 19 43 0.8)
+  z-index: 99999
+  opacity: 1
+  width: 'calc(100% - %s)' % SIDEBAR_W
+
+  @media(max-width: 1150px)
+    width: 100%
+    left: 0
+
+  @media(max-width: 660px)
+    left: 0
+    width: 100%
+
+
+.modalContent
+  opacity: 1
+  height: 100%
+  margin-top: 32
+  margin-left: 50
+  margin-right: 50
+  border-radius: BORDER_R
+  background-color: #ffffff
+  box-shadow: 0 2px 14px 0 rgba(0 0 0 0.1)
+
+  @media(max-width: 660px)
+    margin-left: 0
+    margin-right: 0
+
+
+.modalHeading
+  width: 100%
+  height: 80
+  box-shadow: inset 0 -1px 0 0 #f2f2f2
+  margin-bottom: PADDING
+
+.headingText
+  display: inline-block
+  width: calc(100% - 75px)
+  margin-left: 24px
+  font-size: 24px
+  line-height: 80px
+
+.closeBtn
+  text-align: right
+  display: inline-block
+  cursor: pointer
+  border: 0
+  &:focus
+    outline: 0px

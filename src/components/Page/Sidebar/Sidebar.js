@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { worker as workerProps, stats as statsProps } from '../../shared/propTypes';
+import { workerProps, statsProps } from '../../shared/propTypes';
 
 import Navigation from './Navigation';
 

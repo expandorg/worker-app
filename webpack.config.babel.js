@@ -72,7 +72,7 @@ export default (env = {}) => {
             use: [
               'css-loader?sourceMap&importLoaders=2',
               'postcss-loader?sourceMap',
-              'stylus-loader?paths[]=client',
+              'stylus-loader?paths[]=src',
             ],
           }),
           exclude: /node_modules/,
@@ -84,7 +84,7 @@ export default (env = {}) => {
             use: [
               `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${dev ? '[local]__[path][name]__' : ''}[hash:base64:5]`,
               'postcss-loader?sourceMap',
-              'stylus-loader?paths[]=client',
+              'stylus-loader?paths[]=src',
             ],
           }),
           exclude: /node_modules/,

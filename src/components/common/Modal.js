@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Modal.styles';
+import styles from './Modal.module.styl';
 
 function Modal({ heading, children, toggleModal }) {
   return (

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Clipboard from 'react-clipboard.js';
 import Modal from '../common/Modal';
 
-import styles from './SuccessfulTransactionModal.styles';
-
+import styles from './SuccessfulTransactionModal.module.styl';
 
 function etherScanUrl(tx) {
   return `https://etherscan.io/tx/${tx}`;
@@ -32,19 +31,13 @@ export default class SuccessfulTransactionModal extends Component {
           <div className={styles.inputContainer}>
             <span className={styles.value} id="input">{tx}</span>
           </div>
-          <Clipboard
-            className={styles.copyBtn.toString()}
-            data-clipboard-text={tx}
-          >
+          <Clipboard className={styles.copyBtn.toString()} data-clipboard-text={tx}>
             Copy
           </Clipboard>
         </div>
         <br />
         <br />
-        <a
-          href={etherScanUrl(tx)}
-          target="_blank"
-        >
+        <a href={etherScanUrl(tx)} target="_blank">
           Follow transaction on Etherscan
         </a>
       </div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Modal from '../common/Modal';
 
-import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
+import { workerProps, statsProps } from '../shared/propTypes';
 
 import { isWorkerFunded } from '../../model/worker';
 
@@ -66,7 +66,7 @@ export default class Job extends PureComponent {
         {this.renderJoinButton()}
         <div className={styles.rewardMobile}>
           <span className={styles.rewardNumber}>1</span>
-          <img className={styles.rewardIcon} src="../images/logo.svg" alt="Gems" />
+          <img className={styles.rewardIcon} src="/images/logo.svg" alt="Gems" />
         </div>
         {
           this.state.isModalOpen &&
@@ -80,7 +80,7 @@ export default class Job extends PureComponent {
             )}
           >
             <span className={styles.screenShotDescription}>You will see this screen </span>
-            <img className={styles.screenShot} src="../images/trivia-screen.png" alt="screenshot" />
+            <img className={styles.screenShot} src="/images/trivia-screen.png" alt="screenshot" />
             <span className={styles.description}>{DESCRIPTION}</span>
             <button
               className={styles.agreeBtn}
@@ -100,7 +100,7 @@ export default class Job extends PureComponent {
       <div className={styles.job}>
         <img
           className={styles.jobLogo}
-          src="../images/the-q.jpg"
+          src="/images/the-q.jpg"
           alt={REQUESTER}
         />
         <div className={styles.jobInfo}>

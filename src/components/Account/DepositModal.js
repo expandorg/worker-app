@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Modal from '../common/Modal';
 
-import styles from './DepositModal.styles';
+import styles from './DepositModal.module.styl';
 
 const MIN_DEPOSIT = 5;
 const MAX_DEPOSIT = 1000;
@@ -47,7 +47,7 @@ export default class DepositModal extends PureComponent {
             <img
               className={styles.spinner}
               alt="loading..."
-              src="../images/loading-animation.gif"
+              src="/images/loading-animation.gif"
               width="100"
               height="100"
             />
@@ -63,7 +63,7 @@ export default class DepositModal extends PureComponent {
             <img
               className={styles.spinner}
               alt="loading..."
-              src="../images/loading-animation.gif"
+              src="/images/loading-animation.gif"
               width="100"
               height="100"
             />
@@ -76,10 +76,7 @@ export default class DepositModal extends PureComponent {
 
   renderForm() {
     return (
-      <form
-        className={styles.form}
-        onSubmit={this.handleSubmit}
-      >
+      <form className={styles.form} onSubmit={this.handleSubmit} >
         <label htmlFor="deposit">
           <input
             className={styles.input}
