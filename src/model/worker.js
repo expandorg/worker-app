@@ -16,3 +16,8 @@ export const MIN_BALANCE = 5;
 export function isBalanceSufficient(balance) {
   return balance >= MIN_BALANCE;
 }
+
+
+export function workerAddress(worker) {
+  return `0x${worker.id}`;
+}

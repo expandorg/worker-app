@@ -28,7 +28,7 @@ Modal.defaultProps = {
 };
 
 Modal.propTypes = {
-  heading: PropTypes.element.isRequired,
+  heading: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
   toggleModal: PropTypes.func,
 };
 

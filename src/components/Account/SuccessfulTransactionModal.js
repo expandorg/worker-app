@@ -24,26 +24,6 @@ export default class SuccessfulTransactionModal extends Component {
     this.props.setTransactions(null);
   }
 
-  renderTxs() {
-    return this.props.transactions.map(tx => (
-      <div key={tx}>
-        <div className={styles.input}>
-          <div className={styles.inputContainer}>
-            <span className={styles.value} id="input">{tx}</span>
-          </div>
-          <Clipboard className={styles.copyBtn.toString()} data-clipboard-text={tx}>
-            Copy
-          </Clipboard>
-        </div>
-        <br />
-        <br />
-        <a href={etherScanUrl(tx)} target="_blank">
-          Follow transaction on Etherscan
-        </a>
-      </div>
-    ));
-  }
-
   render() {
     if (!this.state.isModalOpen) {
       return null;
@@ -62,7 +42,23 @@ export default class SuccessfulTransactionModal extends Component {
             Congrats! Your transaction is sent.
             Save the following transaction ids for your records:
           </span>
-          {this.renderTxs()}
+          {this.props.transactions.map(tx => (
+            <div key={tx}>
+              <div className={styles.input}>
+                <div className={styles.inputContainer}>
+                  <span className={styles.value} id="input">{tx}</span>
+                </div>
+                <Clipboard className={styles.copyBtn} data-clipboard-text={tx}>
+                  Copy
+                </Clipboard>
+              </div>
+              <br />
+              <br />
+              <a href={etherScanUrl(tx)} target="_blank">
+                Follow transaction on Etherscan
+              </a>
+            </div>
+          ))}
         </div>
       </Modal>
     );

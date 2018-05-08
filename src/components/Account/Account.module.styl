@@ -1,10 +1,19 @@
 @import '../common/mixins';
 
+defaultBtn()
+  button()
+  min-width: 100px
+  width: calc(25% - 25px)
+  height: 40px
+  margin: 'calc(%s / 2)' % PADDING
+  display: inline-block
+  font-size: 16px
+
+.defaultBtn
+  defaultBtn()
+
 .innerContainer
   flexpanel()
-
-.btn
-  button()
 
 .table
   width: 100%
@@ -32,14 +41,14 @@
   color: #0b132b
   display: block
   text-transform: uppercase
-  margin-bottom: PADDING / 2
-  margin-top: PADDING / 2
+  margin-bottom: 'calc(%s / 2)' % PADDING
+  margin-top: 'calc(%s / 2)' % PADDING
 
 .subHeading
   font-size: 16
   color: #3a506b
   display: inline-block
-  margin-right: PADDING / 2
+  margin-right: 'calc(%s / 2)' % PADDING
   margin-left: 20
 
 .gem
@@ -101,10 +110,11 @@
   overflow: hidden
 
 .defaultBtn
+  button()
   min-width: 100px
   width: calc(25% - 25px)
   height: 40px
-  margin: PADDING / 2
+  margin: 'calc(%s / 2)' % PADDING
   display: inline-block
   font-size: 16px
 

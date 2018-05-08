@@ -13,18 +13,22 @@ import SuccessfulTransactionModal from './SuccessfulTransactionModal';
 
 import Content from '../shared/Content';
 
-import { isBalanceSufficient } from '../../model/worker';
+import { isBalanceSufficient, workerAddress } from '../../model/worker';
 
 import styles from './Account.module.styl';
 
 const TRANSACTIONS_DISABLED = true;
 
-function renderMessage() {
-  if (TRANSACTIONS_DISABLED) {
-    return '*Depositing and withrdrawing Gems is temporarily disabled while we update our system';
-  }
-  return '*Due to high demand, we can only let you withdraw if you have over 500 GEM tokens';
-}
+const Cell = ({ children, title }) => (
+  <div className={styles.cell}>
+    <div className={styles.subHeading}>{title}</div>
+    {children}
+  </div>
+);
+
+Cell.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default class Account extends Component {
   static propTypes = {
@@ -92,10 +96,6 @@ export default class Account extends Component {
 
   routerWillLeave = () => !this.state.blockNavigation
 
-  workerAddress() {
-    return `0x${this.props.worker.id}`;
-  }
-
   withdraw = () => {
     this.setState({ loading: true });
     this.props.withdrawPayments()
@@ -107,60 +107,18 @@ export default class Account extends Component {
   }
 
   toggleEmailModal = () => {
-    const currentState = this.state.editEmail;
-    this.setState({ editEmail: !currentState });
+    this.setState(({ editEmail }) => ({ editEmail: !editEmail }));
   }
 
   toggleDepositModal = () => {
     this.setState({ showDepositModal: !this.state.showDepositModal });
   }
 
-  renderDepositModal() {
-    if (!this.state.showDepositModal || !isBalanceSufficient(this.props.gemsBalance)) {
-      return '';
-    }
-    return (
-      <DepositModal
-        toggleModal={this.toggleDepositModal}
-        depositGems={this.props.depositGems}
-        depositStage={this.props.depositStage}
-      />
-    );
-  }
-
-  renderEmail() {
-    const { worker } = this.props;
-    const { email } = worker;
-    if (email) {
-      return (
-        <div className={styles.accountInputContainer}>
-          <span className={styles.address} id="address">{email}</span>
-        </div>
-      );
-    }
-    return (
-      <div className={styles.accountInputContainer}>
-        <span className={styles.address} id="address">No email found</span>
-      </div>
-    );
-  }
-
-  renderEmailEdit() {
-    if (this.state.editEmail) {
-      return (
-        <EmailSubmission
-          worker={this.props.worker}
-          toggleModal={this.toggleEmailModal}
-        />
-      );
-    }
-    return false;
-  }
 
   renderGems() {
     const balance = this.getBalance();
     if (this.state.loading) {
-      return <div className={cn({ [styles.loading]: true, [styles.sm]: true })} />;
+      return <div className={cn(styles.loading, styles.sm)} />;
     }
     const asterisk = balance < 500 ? '*' : '';
     return (
@@ -170,131 +128,100 @@ export default class Account extends Component {
     );
   }
 
-  renderText() {
-    if (this.state.loading) {
-      return 'Withdrawing';
-    }
-    return 'Withdraw';
-  }
-
-  renderTransactionSuccess() {
-    if (this.props.transactions) {
-      return (
-        <SuccessfulTransactionModal
-          transactions={this.props.transactions}
-          setTransactions={this.props.setTransactions}
-        />
-      );
-    }
-    return false;
-  }
-
-  renderDepositButton() {
-    if (TRANSACTIONS_DISABLED || !isBalanceSufficient(this.props.gemsBalance)) {
-      return false;
-    }
-    return (
-      <button
-        className={cn({
-          [styles.defaultBtn]: true,
-          [styles.btn]: true,
-        })}
-        onClick={() => this.toggleDepositModal()}
-      >
-        Deposit
-      </button>
-    );
-  }
-
-  renderWithdrawButton() {
-    if (TRANSACTIONS_DISABLED) {
-      return false;
-    }
-
-    const isWithdrawDisabled = this.getBalance() < 500 || this.state.loading;
-    return (
-      <button
-        className={cn({
-          [styles.defaultBtn]: true,
-          [styles.btn]: true,
-          [styles.disabled]: isWithdrawDisabled,
-        })}
-        onClick={() => this.withdraw()}
-        disabled={isWithdrawDisabled}
-      >
-        {this.renderText()}
-        {this.renderGems()}
-      </button>
-    );
-  }
-
   render() {
-    if (this.props.worker === null) {
-      return '';
+    const { worker, transactions, gemsBalance } = this.props;
+    if (worker === null) {
+      return null;
     }
-
+    const workerAddr = workerAddress(worker);
+    const { editEmail, showDepositModal, loading } = this.state;
     return (
       <Content title="Account" >
         <div className={styles.innerContainer}>
-          {this.renderDepositModal()}
-          {this.renderEmailEdit()}
-          {this.renderTransactionSuccess()}
+          {showDepositModal && isBalanceSufficient(gemsBalance) &&
+            <DepositModal
+              toggleModal={this.toggleDepositModal}
+              depositGems={this.props.depositGems}
+              depositStage={this.props.depositStage}
+            />
+          }
+          {editEmail &&
+            <EmailSubmission
+              worker={worker}
+              toggleModal={this.toggleEmailModal}
+            />
+          }
+          {transactions &&
+            <SuccessfulTransactionModal
+              transactions={transactions}
+              setTransactions={this.props.setTransactions}
+            />
+          }
           <div className={styles.table}>
-            <span
-              className={cn({ [styles.heading]: true, [styles.cell]: true })}
-            >
+            <span className={cn(styles.heading, styles.cell)}>
               Your Account
             </span>
-            <div className={styles.cell}>
-              <div className={styles.subHeading}>Account Address</div>
+            <Cell title="Account Address">
               <div className={styles.accountInput}>
                 <div className={styles.accountInputContainer}>
-                  <span className={styles.address} id="address">{this.workerAddress()}</span>
+                  <span className={styles.address} id="address">{workerAddr}</span>
                 </div>
-                <Clipboard
-                  className={styles.copyBtn.toString()}
-                  data-clipboard-text={this.workerAddress()}
-                >
+                <Clipboard className={styles.copyBtn} data-clipboard-text={workerAddr}>
                   Copy
                 </Clipboard>
               </div>
-            </div>
-            <div className={styles.cell}>
-              <div className={styles.subHeading}>Email Address</div>
+            </Cell>
+            <Cell title="Email Address">
               <div className={styles.emailInput}>
-                {this.renderEmail()}
+                <div className={styles.accountInputContainer}>
+                  <span className={styles.address} id="address">
+                    {worker.email || 'No email found'}
+                  </span>
+                </div>
               </div>
               <button
-                className={cn({
-                  [styles.defaultBtn]: true,
-                  [styles.btn]: true,
-                  [styles.editBtn]: true,
-                })}
-                onClick={() => this.toggleEmailModal()}
+                className={cn(styles.defaultBtn, styles.editBtn)}
+                onClick={this.toggleEmailModal}
               >
                 Edit
               </button>
-            </div>
+            </Cell>
+            <Cell title="Reserved for Pending Tasks">
+              <div className={styles.reserved}>
+                {this.getStakedGems()} GEMS
+              </div>
+            </Cell>
             <div className={styles.cell}>
-              <div className={styles.subHeading}>Reserved for Pending Tasks</div>
-              <div className={styles.reserved}>{this.getStakedGems()} GEMS</div>
-            </div>
-            <div className={styles.cell}>
-              {this.renderDepositButton()}
-              {this.renderWithdrawButton()}
+              {!TRANSACTIONS_DISABLED && isBalanceSufficient(gemsBalance) &&
+                <button
+                  className={styles.defaultBtn}
+                  onClick={this.toggleDepositModal}
+                >
+                  Deposit
+                </button>
+              }
+              {!TRANSACTIONS_DISABLED &&
+                <button
+                  className={cn(styles.defaultBtn, styles.disabled)}
+                  onClick={() => this.withdraw()}
+                  disabled={this.getBalance() < 500 || loading}
+                >
+                  {loading ? 'Withdrawing' : 'Withdraw'}
+                  {this.renderGems()}
+                </button>
+              }
               <button
-                className={cn({
-                    [styles.defaultBtn]: true,
-                    [styles.btn]: true,
-                    [styles.loginBtn]: true,
-                  })}
+                className={cn(styles.defaultBtn, styles.loginBtn)}
                 onClick={this.props.logout}
               >
                 Log Out
               </button>
             </div>
             <div className={styles.cell}>
-              {renderMessage()}
+              {TRANSACTIONS_DISABLED
+                ? '*Depositing and withrdrawing Gems is temporarily disabled while we update our system'
+                : '*Due to high demand, we can only let you withdraw if you have over 500 GEM tokens'
+              }
             </div>
           </div>
         </div>
