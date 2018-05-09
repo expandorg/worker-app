@@ -6,7 +6,7 @@ import Account from './Account';
 import { logout } from '../../sagas/userSagas';
 import { fetchWorkerGemsBalance, withdrawPayments } from '../../sagas/gemsSagas';
 
-import { depositStageSelector } from '../../selectors/uiStateSelectors';
+import { depositStageSelector, withdrawStateSelector } from '../../selectors/uiStateSelectors';
 import { statsSelector, workerSelector, balanceSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
   worker: workerSelector(state),
   gemsBalance: balanceSelector(state),
   depositStage: depositStageSelector(state),
+  withdrawState: withdrawStateSelector(state),
 });
 
 const mapDispatchToProps = {

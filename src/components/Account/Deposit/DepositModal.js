@@ -16,7 +16,7 @@ const MAX_DEPOSIT = 1000;
 export default class DepositModal extends PureComponent {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
-    depositGemsState: PropTypes.shapeOf(requestStateProps).isRequired,
+    depositGemsState: PropTypes.shape(requestStateProps).isRequired,
     depositGems: PropTypes.func.isRequired,
     depositStage: PropTypes.number.isRequired,
   }

@@ -9,28 +9,34 @@ import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 import DepositModal from './Deposit/DepositContainer';
 import SuccessfulTransaction from './SuccessfulTransaction/Container';
 
+import { RequestStates } from '../../common/app/requestUiState';
+
 import Content from '../shared/Content';
 import Cell from './Cell';
 
 import { isBalanceSufficient, workerAddress, getStakedGems, getBalance } from '../../model/worker';
 import { TRANSACTIONS_DISABLED } from '../../model/consts';
 
-import { workerProps, statsProps, routerProps, routeProps } from '../shared/propTypes';
+import { workerProps, statsProps, routerProps, routeProps, requestStateProps } from '../shared/propTypes';
 
 import styles from './Account.module.styl';
 
-
 export default class Account extends Component {
   static propTypes = {
-    router: PropTypes.shape(routerProps).isRequired,
-    route: PropTypes.shape(routeProps).isRequired,
-    logout: PropTypes.func.isRequired,
-    fetchWorkerGemsBalance: PropTypes.func.isRequired,
-    withdrawPayments: PropTypes.func.isRequired,
-    gemsBalance: PropTypes.number,
     stats: PropTypes.shape(statsProps).isRequired,
     worker: PropTypes.shape(workerProps),
+
     depositStage: PropTypes.number.isRequired,
+    gemsBalance: PropTypes.number,
+
+    router: PropTypes.shape(routerProps).isRequired,
+    route: PropTypes.shape(routeProps).isRequired,
+
+    withdrawState: PropTypes.shape(requestStateProps).isRequired,
+
+    logout: PropTypes.func.isRequired,
+    withdrawPayments: PropTypes.func.isRequired,
+    fetchWorkerGemsBalance: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -40,7 +46,6 @@ export default class Account extends Component {
 
 
   state = {
-    loading: false,
     emailModal: false,
     depositModal: false,
     blockNavigation: false,
@@ -68,13 +73,7 @@ export default class Account extends Component {
 
 
   handleWidthdraw = () => {
-    this.setState({ loading: true });
-    this.props.withdrawPayments()
-      .then(() => {
-        this.setState({
-          loading: false,
-        });
-      });
+    this.props.withdrawPayments();
   }
 
   toggleEmail = () => {
@@ -87,7 +86,7 @@ export default class Account extends Component {
 
   render() {
     const {
-      worker, gemsBalance, stats, logout,
+      worker, gemsBalance, stats, logout, withdrawState,
     } = this.props;
 
     if (!worker) {
@@ -95,11 +94,12 @@ export default class Account extends Component {
     }
 
     const workerAddr = workerAddress(worker);
-    const { emailModal, depositModal, loading } = this.state;
+    const { emailModal, depositModal } = this.state;
 
     const staked = getStakedGems(stats.pending);
     const balance = getBalance(worker, staked);
 
+    const loading = withdrawState.state === RequestStates.Fetching;
     return (
       <Content title="Account" >
         <div className={styles.innerContainer}>

@@ -12,6 +12,7 @@ export default combineReducers({
   errors,
   depositStage,
   depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
+  withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),
   metamask,
   locked,
   createTask: requestUiStateReducer(tasksActionTypes.CREATE),
