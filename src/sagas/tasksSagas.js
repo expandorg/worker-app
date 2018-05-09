@@ -5,9 +5,9 @@ import { tasksActionTypes } from './actionTypes';
 
 import { tasksApi } from '../api/TasksApi';
 
-export const submitTask = payload => ({
+export const submitTask = submission => ({
   type: tasksActionTypes.CREATE,
-  payload,
+  payload: { submission },
 });
 
 const watchCreateRequest = takeEveryApiCall(tasksActionTypes.CREATE, tasksApi.submitTask);
