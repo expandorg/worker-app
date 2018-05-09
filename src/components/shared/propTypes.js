@@ -12,11 +12,14 @@ export const statsProps = {
   rejected: PropTypes.number.isRequired,
 };
 
-
 export const routerProps = {
   replace: PropTypes.func.isRequired,
+  setRouteLeaveHook: PropTypes.func.isRequired,
 };
 
+export const routeProps = {
+  path: PropTypes.string.isRequired,
+};
 
 export const locationProps = {
   pathname: PropTypes.string.isRequired,

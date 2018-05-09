@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Modal.module.styl';
 
-function Modal({ heading, children, toggleModal }) {
+function Modal({ heading, children, onClose }) {
   return (
     <div className={styles.modalDialog}>
       <div className={styles.modalContent}>
@@ -11,8 +11,8 @@ function Modal({ heading, children, toggleModal }) {
           <div className={styles.headingText}>
             {heading}
           </div>
-          {toggleModal && (
-            <button className={styles.closeBtn} onClick={toggleModal}>
+          {onClose && (
+            <button className={styles.closeBtn} onClick={onClose}>
               <img src="/images/close-btn.png" alt="Close" />
             </button>
           )}
@@ -24,12 +24,12 @@ function Modal({ heading, children, toggleModal }) {
 }
 
 Modal.defaultProps = {
-  toggleModal: null,
+  onClose: null,
 };
 
 Modal.propTypes = {
   heading: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
-  toggleModal: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default Modal;

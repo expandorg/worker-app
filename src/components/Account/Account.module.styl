@@ -109,16 +109,8 @@ defaultBtn()
   text-overflow: ellipsis
   overflow: hidden
 
-.defaultBtn
-  button()
-  min-width: 100px
-  width: calc(25% - 25px)
-  height: 40px
-  margin: 'calc(%s / 2)' % PADDING
-  display: inline-block
-  font-size: 16px
-
-.loginBtn
+.logout
+  defaultBtn()
   float: right
   background-color: #ffffff
   border: solid 2px #ff7092
@@ -142,6 +134,7 @@ defaultBtn()
   cursor: default
 
 .editBtn
+  defaultBtn()
   display: inline-block
   width: 198px
 

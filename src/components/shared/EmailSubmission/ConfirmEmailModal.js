@@ -11,13 +11,13 @@ export default class ConfirmEmailModal extends Component {
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
     editEmail: PropTypes.func.isRequired,
-    toggleModal: PropTypes.func,
+    onClose: PropTypes.func,
     submitConfirm: PropTypes.func,
   }
 
   static defaultProps = {
     error: null,
-    toggleModal: null,
+    onClose: null,
     submitConfirm: null,
   }
 
@@ -64,7 +64,7 @@ export default class ConfirmEmailModal extends Component {
   render() {
     return (
       <Modal
-        toggleModal={this.props.toggleModal}
+        onClose={this.props.onClose}
         heading={(
           <div>
             <button className={styles.backBtn} onClick={this.props.editEmail}>

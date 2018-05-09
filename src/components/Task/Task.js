@@ -77,10 +77,7 @@ export default class Task extends Component {
     // Task has just been submitted
     if (this.state.submitted) {
       return (
-        <Modal
-          heading={<span>Task Submitted</span>}
-          toggleModal={this.toggleModal}
-        >
+        <Modal heading="Task Submitted">
           {this.props.isSubmitting && <div>Submitting task...</div>}
           {this.props.isSubmitting || (
             <div>

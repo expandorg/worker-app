@@ -1,102 +1,73 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import Clipboard from 'react-clipboard.js';
-import Big from 'bignumber.js';
 
-import { workerProps, statsProps } from '../shared/propTypes';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
-import DepositModal from './DepositModal';
-import SuccessfulTransactionModal from './SuccessfulTransactionModal';
+import DepositModal from './Deposit/DepositContainer';
+import SuccessfulTransaction from './SuccessfulTransaction/Container';
 
 import Content from '../shared/Content';
+import Cell from './Cell';
 
-import { isBalanceSufficient, workerAddress } from '../../model/worker';
+import { isBalanceSufficient, workerAddress, getStakedGems, getBalance } from '../../model/worker';
+import { TRANSACTIONS_DISABLED } from '../../model/consts';
+
+import { workerProps, statsProps, routerProps, routeProps } from '../shared/propTypes';
 
 import styles from './Account.module.styl';
 
-const TRANSACTIONS_DISABLED = true;
-
-const Cell = ({ children, title }) => (
-  <div className={styles.cell}>
-    <div className={styles.subHeading}>{title}</div>
-    {children}
-  </div>
-);
-
-Cell.propTypes = {
-  title: PropTypes.string.isRequired,
-};
 
 export default class Account extends Component {
   static propTypes = {
-    router: PropTypes.shape({
-      setRouteLeaveHook: PropTypes.func.isRequired,
-    }).isRequired,
-    route: PropTypes.shape({
-      path: PropTypes.string.isRequired,
-    }).isRequired,
+    router: PropTypes.shape(routerProps).isRequired,
+    route: PropTypes.shape(routeProps).isRequired,
     logout: PropTypes.func.isRequired,
-    setTransactions: PropTypes.func.isRequired,
     fetchWorkerGemsBalance: PropTypes.func.isRequired,
-    depositGems: PropTypes.func.isRequired,
     withdrawPayments: PropTypes.func.isRequired,
     gemsBalance: PropTypes.number,
     stats: PropTypes.shape(statsProps).isRequired,
     worker: PropTypes.shape(workerProps),
     depositStage: PropTypes.number.isRequired,
-    transactions: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
     worker: null,
     gemsBalance: null,
-    transactions: null,
   };
 
 
   state = {
     loading: false,
-    editEmail: false,
-    showDepositModal: false,
+    emailModal: false,
+    depositModal: false,
     blockNavigation: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
-    if (this.props.transactions) {
-      this.setState({ loading: false });
-    }
     this.props.fetchWorkerGemsBalance();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.depositStage === this.props.depositStage) {
-      return;
-    }
-
-    if (nextProps.depositStage > 0) {
-      window.onbeforeunload = () => 'Please do not navigate away while your deposit is being processed (click cancel).';
-      this.setState({ blockNavigation: true });
-    } else {
-      window.onbeforeunload = null;
-      this.setState({ blockNavigation: false });
+  componentWillReceiveProps({ depositStage }) {
+    if (depositStage !== this.props.depositStage) {
+      if (depositStage > 0) {
+        window.onbeforeunload = () => 'Please do not navigate away while your deposit is being processed (click cancel).';
+        this.setState({ blockNavigation: true });
+      } else {
+        window.onbeforeunload = null;
+        this.setState({ blockNavigation: false });
+      }
     }
   }
 
-  getStakedGems = () => Big(this.props.stats.pending).multipliedBy(Big(0.1)).toNumber()
+  routerWillLeave = () =>
+    !this.state.blockNavigation
 
-  getBalance = () => {
-    const staked = this.getStakedGems();
-    const balance = Big(this.props.worker.vaultBalance + this.props.worker.jobBalance);
-    return balance.minus(staked).toNumber();
-  }
 
-  routerWillLeave = () => !this.state.blockNavigation
-
-  withdraw = () => {
+  handleWidthdraw = () => {
     this.setState({ loading: true });
     this.props.withdrawPayments()
       .then(() => {
@@ -106,57 +77,39 @@ export default class Account extends Component {
       });
   }
 
-  toggleEmailModal = () => {
-    this.setState(({ editEmail }) => ({ editEmail: !editEmail }));
+  toggleEmail = () => {
+    this.setState(({ emailModal }) => ({ emailModal: !emailModal }));
   }
 
-  toggleDepositModal = () => {
-    this.setState({ showDepositModal: !this.state.showDepositModal });
-  }
-
-
-  renderGems() {
-    const balance = this.getBalance();
-    if (this.state.loading) {
-      return <div className={cn(styles.loading, styles.sm)} />;
-    }
-    const asterisk = balance < 500 ? '*' : '';
-    return (
-      <div className={styles.availableFunds}>
-        <span>{balance} GEM{asterisk}</span>
-      </div>
-    );
+  toggleDeposit = () => {
+    this.setState(({ depositModal }) => ({ depositModal: !depositModal }));
   }
 
   render() {
-    const { worker, transactions, gemsBalance } = this.props;
-    if (worker === null) {
+    const {
+      worker, gemsBalance, stats, logout,
+    } = this.props;
+
+    if (!worker) {
       return null;
     }
+
     const workerAddr = workerAddress(worker);
-    const { editEmail, showDepositModal, loading } = this.state;
+    const { emailModal, depositModal, loading } = this.state;
+
+    const staked = getStakedGems(stats.pending);
+    const balance = getBalance(worker, staked);
+
     return (
       <Content title="Account" >
         <div className={styles.innerContainer}>
-          {showDepositModal && isBalanceSufficient(gemsBalance) &&
-            <DepositModal
-              toggleModal={this.toggleDepositModal}
-              depositGems={this.props.depositGems}
-              depositStage={this.props.depositStage}
-            />
+          {depositModal &&
+            <DepositModal onClose={this.toggleDeposit} />
           }
-          {editEmail &&
-            <EmailSubmission
-              worker={worker}
-              toggleModal={this.toggleEmailModal}
-            />
+          {emailModal &&
+            <EmailSubmission worker={worker} onClose={this.toggleEmail} />
           }
-          {transactions &&
-            <SuccessfulTransactionModal
-              transactions={transactions}
-              setTransactions={this.props.setTransactions}
-            />
-          }
+          <SuccessfulTransaction />
           <div className={styles.table}>
             <span className={cn(styles.heading, styles.cell)}>
               Your Account
@@ -179,41 +132,41 @@ export default class Account extends Component {
                   </span>
                 </div>
               </div>
-              <button
-                className={cn(styles.defaultBtn, styles.editBtn)}
-                onClick={this.toggleEmailModal}
-              >
+              <button className={styles.editBtn} onClick={this.toggleEmail}>
                 Edit
               </button>
             </Cell>
             <Cell title="Reserved for Pending Tasks">
               <div className={styles.reserved}>
-                {this.getStakedGems()} GEMS
+                {staked} GEMS
               </div>
             </Cell>
             <div className={styles.cell}>
-              {!TRANSACTIONS_DISABLED && isBalanceSufficient(gemsBalance) &&
-                <button
-                  className={styles.defaultBtn}
-                  onClick={this.toggleDepositModal}
-                >
-                  Deposit
-                </button>
-              }
               {!TRANSACTIONS_DISABLED &&
-                <button
-                  className={cn(styles.defaultBtn, styles.disabled)}
-                  onClick={() => this.withdraw()}
-                  disabled={this.getBalance() < 500 || loading}
-                >
-                  {loading ? 'Withdrawing' : 'Withdraw'}
-                  {this.renderGems()}
-                </button>
+                <Fragment>
+                  {isBalanceSufficient(gemsBalance) &&
+                    <button className={styles.defaultBtn} onClick={this.toggleDeposit}>
+                      Deposit
+                    </button>
+                  }
+                  <button
+                    onClick={this.handleWidthdraw}
+                    className={cn(styles.defaultBtn, styles.disabled)}
+                    disabled={balance < 500 || loading}
+                  >
+                    {loading ? 'Withdrawing' : 'Withdraw'}
+                    {loading &&
+                      <div className={cn(styles.loading, styles.sm)} />
+                    }
+                    {!loading &&
+                      <div className={styles.availableFunds}>
+                        <span>{balance} GEM{balance < 500 ? '*' : null}</span>
+                      </div>
+                    }
+                  </button>
+                </Fragment>
               }
-              <button
-                className={cn(styles.defaultBtn, styles.loginBtn)}
-                onClick={this.props.logout}
-              >
+              <button className={styles.logout} onClick={logout} >
                 Log Out
               </button>
             </div>

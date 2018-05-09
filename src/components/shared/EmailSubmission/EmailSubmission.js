@@ -9,12 +9,12 @@ import ConfirmEmailModal from './ConfirmEmailModalContainer';
 export default class EmailSubmission extends PureComponent {
   static propTypes = {
     worker: PropTypes.shape(workerProps),
-    toggleModal: PropTypes.func,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
     worker: null,
-    toggleModal: null,
+    onClose: null,
   };
 
   state = {
@@ -39,7 +39,7 @@ export default class EmailSubmission extends PureComponent {
     if (this.state.stage === 1) {
       return (
         <AddEmailModal
-          toggleModal={this.props.toggleModal}
+          onClose={this.props.onClose}
           confirmEmail={this.confirmEmail}
         />
       );
@@ -48,11 +48,11 @@ export default class EmailSubmission extends PureComponent {
       return (
         <ConfirmEmailModal
           editEmail={this.editEmail}
-          toggleModal={this.props.toggleModal}
+          onClose={this.props.onClose}
           submitConfirm={this.confirmCode}
         />
       );
     }
-    return <AddEmailModal toggleModal={this.props.toggleModal} />;
+    return <AddEmailModal onClose={this.props.onClose} />;
   }
 }

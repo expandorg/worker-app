@@ -8,14 +8,14 @@ import styles from './AddEmailModal.styles';
 export default class AddEmailModal extends Component {
   static defaultProps = {
     error: null,
-    toggleModal: null,
+    onClose: null,
     confirmEmail: null,
   }
 
   static propTypes = {
     error: PropTypes.string,
     setEmail: PropTypes.func.isRequired,
-    toggleModal: PropTypes.func,
+    onClose: PropTypes.func,
     confirmEmail: PropTypes.func,
   }
 
@@ -70,14 +70,7 @@ export default class AddEmailModal extends Component {
 
   render() {
     return (
-      <Modal
-        toggleModal={this.props.toggleModal}
-        heading={(
-          <div>
-            <span>Add Email</span>
-          </div>
-        )}
-      >
+      <Modal onClose={this.props.onClose} heading="Add Email" >
         <div className={styles.container}>
           <span className={styles.description}>
             To complete tasks on Gems you will need to add your email address:

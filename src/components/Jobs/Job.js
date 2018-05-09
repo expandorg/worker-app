@@ -71,7 +71,7 @@ export default class Job extends PureComponent {
         {
           this.state.isModalOpen &&
           <Modal
-            toggleModal={this.toggleModal}
+            onClose={this.toggleModal}
             heading={(
               <div>
                 <span className={styles.modalHeading}>{TITLE}</span>
