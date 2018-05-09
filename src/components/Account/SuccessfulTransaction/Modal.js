@@ -9,8 +9,12 @@ import styles from './Modal.module.styl';
 
 export default class SuccessfulTransactionModal extends Component {
   static propTypes = {
-    transactions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    transactions: PropTypes.arrayOf(PropTypes.string),
     setTransactions: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    transactions: null,
   }
 
   handleClose = () => {
