@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 
 import DocumentTitle from 'react-document-title';
 
-import styles from './Content.styles';
+import styles from './Content.module.styl';
 
 export default class Content extends PureComponent {
   static propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired,
     title: PropTypes.string.isRequired,
   }
 
@@ -18,9 +17,7 @@ export default class Content extends PureComponent {
       <DocumentTitle title={`${title} - Gems`}>
         <div>
           <div className={styles.title}>
-            <span className={styles.titleText}>
-              {title}
-            </span>
+            {title}
           </div>
           {children}
         </div>

@@ -1,0 +1,60 @@
+SIDEBAR_W = 250px;
+PADDING = 25px;
+BORDER_R = 4px;
+BLUE = #1c2541;
+PINK = #ff7092;
+GREEN = #6fffe9;
+
+panel()
+  padding: PADDING
+  border-radius: BORDER_R
+  background-color: #ffffff
+  border: solid 1px #f2f2f2
+  display: block
+  margin: PADDING
+
+loading()
+  display: block
+  margin: auto
+  height: 150px
+  width: 150px
+  background: url(/images/loading-animation.gif) no-repeat left top
+  background-size: contain
+  position: relative
+  top: 35%
+  transform: translateY(-50%)
+
+flexpanel()
+  padding: PADDING
+  border-radius: BORDER_R
+  background-color: #ffffff
+  border: solid 1px #f2f2f2
+  margin: PADDING
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: center
+
+button()
+  width: 132px
+  height: 42px
+  border-radius: 4px
+  background-color: PINK
+  font-size: 16px
+  text-align: center
+  display: block
+  margin-left: auto
+  margin-right: auto
+  border: 0
+  cursor: pointer
+
+  &:focus
+    outline: 0px
+
+  &:hover
+    background-image: linear-gradient(to bottom right, #ff7092, #FF8EA9)
+
+  &:disabled
+    background-color: #f2f2f2
+    &:hover
+      background-image: none

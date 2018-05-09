@@ -7,7 +7,7 @@ const MaintenanceMode = () => (
     <h1 className={styles.heading}>
       <img
         className={styles.logo}
-        src="../images/logo.svg"
+        src="/images/logo.svg"
         alt="Gems"
       />
     </h1>

@@ -1,0 +1,142 @@
+@import '../common/uikit/mixins';
+
+defaultBtn()
+  button()
+  min-width: 100px
+  width: calc(25% - 25px)
+  height: 40px
+  margin: 'calc(%s / 2)' % PADDING
+  display: inline-block
+  font-size: 16px
+
+.defaultBtn
+  defaultBtn()
+
+.innerContainer
+  flexpanel()
+
+.table
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: flex-start
+  flex-wrap: wrap
+  flex-direction: column
+  margin: 0 0 3em 0
+  padding: 0
+
+.cell
+  box-sizing: border-box
+  flex-grow: 0 1 auto
+  flex-direction: column
+  width: 100%
+  padding: 0.8em 1.2em
+  overflow: hidden
+  list-style: none
+
+.heading
+  font-size: 16
+  letter-spacing: 0.5
+  opacity: 0.4
+  color: #0b132b
+  display: block
+  text-transform: uppercase
+  margin-bottom: 'calc(%s / 2)' % PADDING
+  margin-top: 'calc(%s / 2)' % PADDING
+
+.subHeading
+  font-size: 16
+  color: #3a506b
+  display: inline-block
+  margin-right: 'calc(%s / 2)' % PADDING
+  margin-left: 20
+
+.gem
+  width: 20px
+  height: 20px
+  margin-left: 10px
+
+.accountInputContainer
+  display: inline-block
+  width: calc(100% - 62px)
+  vertical-align: middle
+
+.accountInput
+  border-radius: BORDER_R
+  border: solid 1px #e0e0e0
+  display: inline-block
+  font-size: 14
+  text-align: left
+  color: #3a506b
+  padding: 8px 12px
+  width: calc(100% - 205px)
+  min-width: 200px
+
+  &:focus
+    outline: 0
+
+.emailInput
+  border-radius: BORDER_R
+  border: solid 1px #e0e0e0
+  display: inline-block
+  font-size: 14
+  text-align: left
+  color: #3a506b
+  padding: 8px 12px
+  width: calc(100% - 394px)
+  min-width: 200px
+
+  &:focus
+    outline: 0
+
+.copyBtn
+  display: inline-block
+  font-size: 13
+  text-align: right
+  color: #3a506b
+  text-transform: uppercase
+  border: none
+  background-color: transparent
+  margin-left: PADDING
+  padding: 0
+  cursor: pointer
+
+.reserved
+  display: inline-block
+
+.address
+  display: block
+  text-overflow: ellipsis
+  overflow: hidden
+
+.logout
+  defaultBtn()
+  float: right
+  background-color: #ffffff
+  border: solid 2px #ff7092
+
+.availableFunds
+  margin-left: 2px
+  display: inline-block
+
+.loading
+  loading()
+
+.sm
+  max-height: 20px
+  max-width: 20px
+  display: inline-block
+  top: 0%
+  transform: none
+  vertical-align: middle
+
+.disabled
+  cursor: default
+
+.editBtn
+  defaultBtn()
+  display: inline-block
+  width: 198px
+
+.prompt
+  text-align: center

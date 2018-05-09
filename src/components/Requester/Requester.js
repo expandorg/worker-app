@@ -2,7 +2,7 @@ import React from 'react';
 
 import Content from '../shared/Content';
 
-import styles from './Requester.styles';
+import styles from './Requester.module.styl';
 
 const Requester = () => (
   <Content title="Post a job to Gems">

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Modal from '../common/Modal';
-import { worker as workerProps, stats as statsProps } from '../shared/propTypes';
+import { workerProps, statsProps } from '../shared/propTypes';
 import { isWorkerFunded } from '../../model/worker';
 
 import Content from '../shared/Content';
@@ -77,10 +77,7 @@ export default class Task extends Component {
     // Task has just been submitted
     if (this.state.submitted) {
       return (
-        <Modal
-          heading={<span>Task Submitted</span>}
-          toggleModal={this.toggleModal}
-        >
+        <Modal heading="Task Submitted">
           {this.props.isSubmitting && <div>Submitting task...</div>}
           {this.props.isSubmitting || (
             <div>

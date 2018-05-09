@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { worker as workerProps } from '../propTypes';
+import { workerProps } from '../propTypes';
 
 import AddEmailModal from './AddEmailModalContainer';
 import ConfirmEmailModal from './ConfirmEmailModalContainer';
@@ -9,22 +9,23 @@ import ConfirmEmailModal from './ConfirmEmailModalContainer';
 export default class EmailSubmission extends PureComponent {
   static propTypes = {
     worker: PropTypes.shape(workerProps),
-    toggleModal: PropTypes.func,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
     worker: null,
-    toggleModal: null,
+    onClose: null,
   };
 
   state = {
     stage: 0,
   }
+
   editEmail = () => {
     this.setState({ stage: 1 });
   }
 
-  confirmEmail = () => {
+  handleConfirm = () => {
     this.setState({ stage: 2 });
   }
 
@@ -33,26 +34,25 @@ export default class EmailSubmission extends PureComponent {
   }
 
   render() {
-    if (this.state.stage === 3) {
-      return false;
+    const { onClose } = this.props;
+    const { stage } = this.state;
+    if (stage === 3) {
+      return null;
     }
-    if (this.state.stage === 1) {
+    if (stage === 1) {
       return (
-        <AddEmailModal
-          toggleModal={this.props.toggleModal}
-          confirmEmail={this.confirmEmail}
-        />
+        <AddEmailModal onClose={this.props.onClose} confirmEmail={this.handleConfirm} />
       );
     }
     if (this.props.worker.email && !this.props.worker.confirmed) {
       return (
         <ConfirmEmailModal
           editEmail={this.editEmail}
-          toggleModal={this.props.toggleModal}
+          onClose={onClose}
           submitConfirm={this.confirmCode}
         />
       );
     }
-    return <AddEmailModal toggleModal={this.props.toggleModal} />;
+    return <AddEmailModal onClose={onClose} />;
   }
 }

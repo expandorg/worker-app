@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Modal.styles';
+import styles from './Modal.module.styl';
 
-function Modal({ heading, children, toggleModal }) {
+function Modal({ heading, children, onClose }) {
   return (
     <div className={styles.modalDialog}>
       <div className={styles.modalContent}>
@@ -11,8 +11,8 @@ function Modal({ heading, children, toggleModal }) {
           <div className={styles.headingText}>
             {heading}
           </div>
-          {toggleModal && (
-            <button className={styles.closeBtn} onClick={toggleModal}>
+          {onClose && (
+            <button className={styles.closeBtn} onClick={onClose}>
               <img src="/images/close-btn.png" alt="Close" />
             </button>
           )}
@@ -24,12 +24,12 @@ function Modal({ heading, children, toggleModal }) {
 }
 
 Modal.defaultProps = {
-  toggleModal: null,
+  onClose: null,
 };
 
 Modal.propTypes = {
-  heading: PropTypes.element.isRequired,
-  toggleModal: PropTypes.func,
+  heading: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+  onClose: PropTypes.func,
 };
 
 export default Modal;
