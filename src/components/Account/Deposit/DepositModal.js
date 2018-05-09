@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import Modal from '../../common/Modal';
 
+import { RequestStates } from '../../../common/app/requestUiState';
+import { requestStateProps } from '../../shared/propTypes';
+
 import Loading from './Loading';
 
 import styles from './DepositModal.module.styl';
@@ -13,6 +16,7 @@ const MAX_DEPOSIT = 1000;
 export default class DepositModal extends PureComponent {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
+    depositGemsState: PropTypes.shapeOf(requestStateProps).isRequired,
     depositGems: PropTypes.func.isRequired,
     depositStage: PropTypes.number.isRequired,
   }
@@ -21,24 +25,29 @@ export default class DepositModal extends PureComponent {
     value: '',
   }
 
+  componentWillReceiveProps({ depositGemsState: depositState }) {
+    const { depositGemsState, onClose } = this.props;
+    if (depositGemsState.state !== RequestStates.Fetched &&
+      depositState.state === RequestStates.Fetched) {
+      onClose();
+    }
+  }
+
   handleChange = (e) => {
     this.setState({ value: e.target.value });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (this.state.value < MIN_DEPOSIT || this.state.value > MAX_DEPOSIT) {
+    const value = parseFloat(this.state.value);
+    if (value < MIN_DEPOSIT || value > MAX_DEPOSIT) {
       return;
     }
-    const value = parseFloat(this.state.value);
-    this.props.depositGems(value)
-      .then(() => {
-        this.props.onClose();
-      });
+    this.props.depositGems(value);
   }
 
   render() {
-    const { depositStage, onClose } = this.props;
+    const { depositStage, depositGemsState, onClose } = this.props;
     const { value } = this.state;
     return (
       <Modal heading="Deposit Gems" onClose={onClose} >
@@ -69,7 +78,7 @@ export default class DepositModal extends PureComponent {
               </button>
             </form>
           }
-          {depositStage > 0 &&
+          {depositGemsState.state === RequestStates.Fetching &&
             <Loading value={value} depositStage={depositStage} />
           }
         </div>

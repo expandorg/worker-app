@@ -26,3 +26,9 @@ export const locationProps = {
   search: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
 };
+
+
+export const requestStateProps = {
+  state: PropTypes.string.isRequired,
+  error: PropTypes.object,
+};

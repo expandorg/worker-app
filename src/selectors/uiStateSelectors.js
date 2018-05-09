@@ -33,3 +33,6 @@ export const lockedSelector = createSelector(
   uiStateSelector,
   state => state.locked,
 );
+
+
+export const depositGemsStateSelector = createSelector(uiStateSelector, state => state.depositGems);
