@@ -20,11 +20,12 @@ export default class EmailSubmission extends PureComponent {
   state = {
     stage: 0,
   }
+
   editEmail = () => {
     this.setState({ stage: 1 });
   }
 
-  confirmEmail = () => {
+  handleConfirm = () => {
     this.setState({ stage: 2 });
   }
 
@@ -33,26 +34,25 @@ export default class EmailSubmission extends PureComponent {
   }
 
   render() {
-    if (this.state.stage === 3) {
-      return false;
+    const { onClose } = this.props;
+    const { stage } = this.state;
+    if (stage === 3) {
+      return null;
     }
-    if (this.state.stage === 1) {
+    if (stage === 1) {
       return (
-        <AddEmailModal
-          onClose={this.props.onClose}
-          confirmEmail={this.confirmEmail}
-        />
+        <AddEmailModal onClose={this.props.onClose} confirmEmail={this.handleConfirm} />
       );
     }
     if (this.props.worker.email && !this.props.worker.confirmed) {
       return (
         <ConfirmEmailModal
           editEmail={this.editEmail}
-          onClose={this.props.onClose}
+          onClose={onClose}
           submitConfirm={this.confirmCode}
         />
       );
     }
-    return <AddEmailModal onClose={this.props.onClose} />;
+    return <AddEmailModal onClose={onClose} />;
   }
 }
