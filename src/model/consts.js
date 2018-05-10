@@ -1,1 +1,2 @@
-export const TRANSACTIONS_DISABLED = true; // eslint-disable-line import/prefer-default-export
+export const TRANSACTIONS_DISABLED = true;
+export const JOB_DISABLED = false;

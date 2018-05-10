@@ -1,0 +1,113 @@
+@import '../common/uikit/mixins';
+
+.container
+  flexpanel()
+
+.task
+  font-size: 22px
+  text-align: center
+  color: #3a506b
+  margin: PADDING
+  display: block
+
+.submitForm
+  display: block
+  margin: auto
+  text-align: center
+  margin-bottom: 25px
+  width: 80%
+
+.submit
+  width: 119px
+  height: 50px
+  border-radius: 4px
+  background-color: #ff7092
+  display: block
+  font-size: 18px
+  letter-spacing: -0.7px
+  text-align: center
+  color: #ffffff
+  margin: 0 auto
+  border: 0
+  cursor: pointer
+  &:focus
+    outline: 0
+
+  &:hover
+    background-image: linear-gradient(to bottom right, #ff7092, #FF8EA9)
+
+  &:disabled
+    background-color: #f2f2f2
+    &:hover
+      background-image: none
+
+
+
+.heading
+  font-size: 20px
+  letter-spacing: -0.3px
+  text-align: center
+  color: #3a506b
+  display: block
+  margin-bottom: 12px
+
+.input
+  width: calc(100% - 200px)
+  min-width: 200px
+  height: 50px
+  border-radius: 4px
+  background-color: #ffffff
+  border: solid 1px #e0e0e0
+  display: inline-block
+  font-size: 16px
+  text-align: left
+  padding-left: 15px
+  margin-bottom: 15px
+  color: #b8b8b8
+
+  &:placeholder
+    font-size: 16px
+    text-align: left
+    color: #b8b8b8
+
+  &:focus
+    outline: 0
+
+
+.btn
+  width: 205
+  height: 50
+  line-height: 50px
+  border-radius: 25px
+  background-color: #6fffe9
+  display: block
+  margin: auto
+  margin-bottom: 25px
+  font-size: 18px
+  letter-spacing: -0.7px
+  text-align: center
+  border: 0
+  cursor: pointer
+  text-decoration: none
+  &:focus
+    outline: 0
+
+  &:hover
+    background-image: linear-gradient(to bottom right#6fffe9#94FFEF)
+
+
+.completed
+  width: 30%
+  display: inline-block
+  border: solid 1px #f2f2f2
+  border-radius: 4px
+  font-size: 40px
+  color: #ff7092
+  text-align: center
+  padding-top: 46px
+  padding-bottom: 46px
+  margin-bottom: 25px
+  > span
+    font-size: 16px
+    color: #3a506b
+    display: block

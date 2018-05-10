@@ -10,9 +10,7 @@ import Sidebar from './Sidebar/Sidebar';
 
 import ErrorMessage from '../common/ErrorMessage';
 
-import './Page.css';
-
-import styles from './Page.styles';
+import styles from './Page.module.styl';
 
 export default class Page extends PureComponent {
   static propTypes = {
@@ -76,7 +74,7 @@ export default class Page extends PureComponent {
           worker={worker}
           stats={stats}
         />
-        <div className={cn(styles.container.toString(), { [styles.sbw]: sidebar })}>
+        <div className={cn(styles.container, { [styles.sbw]: sidebar })}>
           {error !== null &&
             <ErrorMessage error={error} onClose={this.handleClearError} />
           }
