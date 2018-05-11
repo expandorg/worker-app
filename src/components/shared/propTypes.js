@@ -12,6 +12,15 @@ export const statsProps = {
   rejected: PropTypes.number.isRequired,
 };
 
+export const jobProps = {
+  id: PropTypes.number,
+  requester: PropTypes.string,
+  title: PropTypes.string,
+  imageUrl: PropTypes.string,
+  description: PropTypes.string,
+};
+
+
 export const routerProps = {
   replace: PropTypes.func.isRequired,
   setRouteLeaveHook: PropTypes.func.isRequired,
