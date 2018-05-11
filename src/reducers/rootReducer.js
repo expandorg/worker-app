@@ -4,6 +4,7 @@ import worker from './workerReducer';
 import stats from './statsReducer';
 import gemsBalance from './gemsBalanceReducer';
 import transactions from './transactionsReducer';
+import jobs from './jobsReducer';
 
 import isAuthorized from './user/isAuthorizedReducer';
 import isJoined from './user/isJoinedReducer';
@@ -14,6 +15,7 @@ export default combineReducers({
   worker,
   stats,
   gemsBalance,
+  jobs,
   transactions,
   user: combineReducers({
     isAuthorized,

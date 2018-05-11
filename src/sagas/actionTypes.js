@@ -50,6 +50,12 @@ export const tasksActionTypes = createActionTypes('tasks', {
   JOIN: null,
 });
 
+export const jobsActionTypes = createActionTypes('jobs', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+});
+
 export const gemsActionTypes = createActionTypes('gems', {
   DEPOSIT: null,
   DEPOSIT_STAGE: null,

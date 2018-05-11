@@ -9,33 +9,33 @@ import ConfirmModal from './ConfirmModal';
 import Disabled from './Disabled';
 import DepositPrompt from './DepositPrompt';
 
-import { workerProps, statsProps, routerProps } from '../shared/propTypes';
-import { JOB_DISABLED } from '../../model/consts';
+import { workerProps, statsProps, routerProps, jobProps } from '../shared/propTypes';
 import { isWorkerFunded } from '../../model/worker';
 
-const jobs = [{
-  id: 0,
-  title: 'Trivia Question and Answer Creation',
-  requester: 'Stream Live Inc',
-  imageUrl: '/images/trivia-screen.png',
-  description: 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.',
-}];
+import { JOB_DISABLED } from '../../model/consts';
 
 
 export default class Jobs extends Component {
   static propTypes = {
-    router: PropTypes.shape(routerProps).isRequired,
-    setIsJoined: PropTypes.func.isRequired,
+    jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     worker: PropTypes.shape(workerProps),
     stats: PropTypes.shape(statsProps).isRequired,
+    router: PropTypes.shape(routerProps).isRequired,
+    setIsJoined: PropTypes.func.isRequired,
+    fetchJobs: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
+    jobs: [],
     worker: null,
   }
 
-  state ={
+  state = {
     selected: null,
+  }
+
+  componentDidMount() {
+    this.props.fetchJobs();
   }
 
   handleSelect = (job) => {
@@ -51,7 +51,7 @@ export default class Jobs extends Component {
   }
 
   render() {
-    const { stats, worker } = this.props;
+    const { stats, worker, jobs } = this.props;
     const { selected } = this.state;
 
     if (JOB_DISABLED) {
