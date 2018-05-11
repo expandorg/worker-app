@@ -72,9 +72,7 @@ export default class Jobs extends Component {
             onJoin={this.handleSelect}
           />
         ))}
-        {!isFunded &&
-          <DepositPrompt />
-        }
+        <DepositPrompt visible={!isFunded} />
         {selected &&
           <ConfirmModal
             job={selected}
