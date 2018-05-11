@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Modal from '../../common/Modal';
 
-import styles from './AddEmailModal.styles';
+import styles from './AddEmailModal.module.styl';
 
 export default class AddEmailModal extends Component {
   static defaultProps = {

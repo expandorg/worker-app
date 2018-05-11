@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import Hamburger from '../common/Hamburger';
 
-import styles from './Header.styles';
+import styles from './Header.module.styl';
 
 export default class Header extends PureComponent {
   static propTypes = {
@@ -15,11 +15,11 @@ export default class Header extends PureComponent {
   render() {
     const { collapsed, onToggle } = this.props;
     return (
-      <div className={cn(styles.mobileHeader.toString(), { [styles.sbw]: collapsed })} >
+      <div className={cn(styles.header, { [styles.sbw]: collapsed })} >
         <Hamburger onClick={onToggle} />
-        <div className={styles.mobileLogoContainer}>
+        <div className={styles.container}>
           <img
-            className={styles.mobileLogo}
+            className={styles.logo}
             src="/images/mobile-logo.png"
             alt="Gems"
           />

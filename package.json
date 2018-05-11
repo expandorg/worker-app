@@ -6,7 +6,6 @@
     "bignumber.js": "^6.0.0",
     "classnames": "^2.2.5",
     "gems-token": "github:gemsorg/gems-token",
-    "glamor": "^2.20.40",
     "jquery": "^3.2.1",
     "prop-types": "^15.6.1",
     "react": "16.2.0",

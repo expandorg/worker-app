@@ -1,0 +1,26 @@
+@import '../common/uikit/mixins';
+
+.header
+  display: none
+  width: 100%
+  height: 68px
+  background-color: #1c2541
+
+  @media(max-width: 1150px)
+    display: block
+    z-index: 3
+
+.container
+  display: inline-block
+  width: calc(95% - 99px)
+  vertical-align: middle
+
+.logo
+  height: 30px
+  width: 30px
+  text-align: center
+  margin: auto
+  display: block
+
+.sbw
+  margin-left: SIDEBAR_W

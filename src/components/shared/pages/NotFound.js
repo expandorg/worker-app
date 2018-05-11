@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router';
-
-import { task as taskPropTypes } from '../propTypes';
-
-import { PANEL } from '../../common/style-constants';
 
 import Content from '../Content';
 
-const styles = {
-  container: PANEL,
-};
+import { task as taskPropTypes } from '../propTypes';
+
+import styles from './NotFound.module.styl';
 
 const NotFound = ({ isAuthorized, task }) => (
   <Content title="Page Not Found">

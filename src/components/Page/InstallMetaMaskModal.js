@@ -1,9 +1,8 @@
 import React from 'react';
-import cn from 'classnames';
 
 import Modal from '../common/Modal';
 
-import styles from './InstallMetaMaskModal.styles';
+import styles from './InstallMetaMaskModal.module.styl';
 
 const InstallMetaMaskModal = () => (
   <Modal heading={<div>Please Install MetaMask</div>}>
@@ -26,7 +25,7 @@ const InstallMetaMaskModal = () => (
       </div>
       <br />
       <a
-        className={cn(styles.btn.toString(), styles.installBtn.toString())}
+        className={styles.install}
         href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
         rel="noopener noreferrer"
         target="_blank"

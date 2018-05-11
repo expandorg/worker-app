@@ -4,7 +4,7 @@ import Modal from '../common/Modal';
 
 import { workerProps, routerProps, locationProps } from '../shared/propTypes';
 
-import styles from './Confirm.styles';
+import styles from './Confirm.module.styl';
 
 export default class Confirm extends Component {
   static propTypes = {

@@ -1,0 +1,67 @@
+.container
+  text-align: center
+  display: block
+
+.description
+  margin: 5%
+  display: block
+
+.input
+  width: calc(100% - 200px)
+  min-width: 200px
+  height: 50px
+  border-radius: 4px
+  background-color: #ffffff
+  border: solid 1px #e0e0e0
+  display: inline-block
+  font-size: 16px
+  text-align: left
+  padding-left: 15px
+  color: #b8b8b8
+
+  &::placeholder
+    font-size: 16px
+    text-align: left
+    color: #b8b8b8
+
+  &:focus
+    outline: 0
+
+.submitForm
+  display: block
+  margin: auto
+  text-align: center
+  margin-bottom: PADDING
+  width: 80%
+
+.submit
+  width: 119px
+  height: 50px
+  border-radius: BORDER_R
+  background-color: #ff7092
+  display: inline-block
+  font-size: 18px
+  letter-spacing: -0.7px
+  text-align: center
+  color: #ffffff
+  margin-left: 8px
+  border: 0
+  cursor: pointer
+
+  &:focus
+    outline: 0
+
+  &:hover
+    background-image: linear-gradient(to bottom right, #ff7092, #FF8EA9)
+
+  &:disabled
+    background-color: #f2f2f2
+    &:hover
+      background-image: none
+
+.resend
+  margin-left: 5px
+
+.backBtn
+  border: none
+  vertical-align: middle
