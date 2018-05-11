@@ -1,11 +1,12 @@
-@import '../../common/uikit/mixins';
+@import '../../common/uikit/colors';
+@import '../../common/uikit/layout';
 
 .sideBar
-  width: 'calc(%s - %s)' % (SIDEBAR_W PADDING)
-  padding-left: PADDING
+  width: 'calc(%s - 25px)' % s-sidebar-width
+  padding-left: 25px
   height: 100%
   display: inline-block
-  background: BLUE
+  background: color-blue
 
   @media(max-width: 1150px)
     display: none

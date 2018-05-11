@@ -86,13 +86,7 @@ export default class Confirm extends Component {
 
   render() {
     return (
-      <Modal
-        heading={(
-          <div>
-            <span>Confirm Email</span>
-          </div>
-        )}
-      >
+      <Modal heading="Confirm Email">
         <div className={styles.container}>
           <span className={styles.description}>
             Enter the confirmation code that was sent to your email

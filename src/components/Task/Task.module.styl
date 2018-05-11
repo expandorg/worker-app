@@ -1,4 +1,5 @@
-@import '../common/uikit/mixins';
+@import '../common/uikit/components';
+@import '../common/uikit/colors';
 
 .container
   flexpanel()
@@ -6,8 +7,8 @@
 .task
   font-size: 22px
   text-align: center
-  color: #3a506b
-  margin: PADDING
+  color: color-text-1
+  margin: 25px
   display: block
 
 .submitForm
@@ -21,12 +22,12 @@
   width: 119px
   height: 50px
   border-radius: 4px
-  background-color: #ff7092
+  background-color: color-pink
   display: block
   font-size: 18px
   letter-spacing: -0.7px
   text-align: center
-  color: #ffffff
+  color: color-white
   margin: 0 auto
   border: 0
   cursor: pointer
@@ -34,10 +35,10 @@
     outline: 0
 
   &:hover
-    background-image: linear-gradient(to bottom right, #ff7092, #FF8EA9)
+    background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
 
   &:disabled
-    background-color: #f2f2f2
+    background-color: color-grey
     &:hover
       background-image: none
 
@@ -47,7 +48,7 @@
   font-size: 20px
   letter-spacing: -0.3px
   text-align: center
-  color: #3a506b
+  color: color-text-1
   display: block
   margin-bottom: 12px
 
@@ -56,19 +57,19 @@
   min-width: 200px
   height: 50px
   border-radius: 4px
-  background-color: #ffffff
-  border: solid 1px #e0e0e0
+  background-color: color-white
+  border: solid 1px color-border-grey
   display: inline-block
   font-size: 16px
   text-align: left
   padding-left: 15px
   margin-bottom: 15px
-  color: #b8b8b8
+  color: color-text-gray-1
 
   &:placeholder
     font-size: 16px
     text-align: left
-    color: #b8b8b8
+    color: color-text-gray-1
 
   &:focus
     outline: 0
@@ -79,7 +80,7 @@
   height: 50
   line-height: 50px
   border-radius: 25px
-  background-color: #6fffe9
+  background-color: color-aqua
   display: block
   margin: auto
   margin-bottom: 25px
@@ -93,21 +94,21 @@
     outline: 0
 
   &:hover
-    background-image: linear-gradient(to bottom right#6fffe9#94FFEF)
+    background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)
 
 
 .completed
   width: 30%
   display: inline-block
-  border: solid 1px #f2f2f2
+  border: solid 1px color-grey
   border-radius: 4px
   font-size: 40px
-  color: #ff7092
+  color: color-pink
   text-align: center
   padding-top: 46px
   padding-bottom: 46px
   margin-bottom: 25px
   > span
     font-size: 16px
-    color: #3a506b
+    color: color-text-1
     display: block

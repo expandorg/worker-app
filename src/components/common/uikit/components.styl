@@ -1,17 +1,12 @@
-SIDEBAR_W = 250px;
-PADDING = 25px;
-BORDER_R = 4px;
-BLUE = #1c2541;
-PINK = #ff7092;
-GREEN = #6fffe9;
+@import './colors';
 
 panel()
-  padding: PADDING
-  border-radius: BORDER_R
-  background-color: #ffffff
-  border: solid 1px #f2f2f2
+  padding: 25px
+  border-radius: 4px
+  background-color: color-white
+  border: solid 1px color-grey
   display: block
-  margin: PADDING
+  margin: 25px
 
 loading()
   display: block
@@ -25,11 +20,12 @@ loading()
   transform: translateY(-50%)
 
 flexpanel()
-  padding: PADDING
-  border-radius: BORDER_R
-  background-color: #ffffff
-  border: solid 1px #f2f2f2
-  margin: PADDING
+  padding: 25px
+  margin: 25px
+
+  border-radius: 4px
+  background-color: color-white
+  border: solid 1px color-grey
   display: flex
   flex-wrap: wrap
   align-items: center
@@ -39,7 +35,7 @@ button()
   width: 132px
   height: 42px
   border-radius: 4px
-  background-color: PINK
+  background-color: color-pink
   font-size: 16px
   text-align: center
   display: block
@@ -52,9 +48,9 @@ button()
     outline: 0px
 
   &:hover
-    background-image: linear-gradient(to bottom right, #ff7092, #FF8EA9)
+    background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
 
   &:disabled
-    background-color: #f2f2f2
+    background-color: color-grey
     &:hover
       background-image: none

@@ -1,4 +1,4 @@
-@import '../common/uikit/mixins';
+@import '../common/uikit/colors';
 
 .company
   font-size: 14px
@@ -11,7 +11,7 @@
   font-size: 20px
   letter-spacing: -0.3px
   text-align: center
-  color: #3a506b
+  color: color-text-1
   display: block
   margin-bottom: 12px
 
@@ -20,27 +20,27 @@
   width: calc(80% - 50px)
   display: block
   margin: auto
-  margin-bottom: PADDING
+  margin-bottom: 25px
 
 .description
   font-size: 16px
   letter-spacing: -0.2px
   text-align: center
-  color: #3a506b
+  color: color-text-1
   display: block
   width: 100%
   margin: auto
-  margin-bottom: PADDING
+  margin-bottom: 25px
 
 .agree
   width: 205px
   height: 50px
   line-height: 50px
-  border-radius: BORDER_R
-  background-color: #6fffe9
+  border-radius: 4px
+  background-color: color-aqua
   display: block
   margin: auto
-  margin-bottom: PADDING
+  margin-bottom: 25px
   font-size: 18px
   letter-spacing: -0.7px
   text-align: center
@@ -52,4 +52,4 @@
     outline: 0
 
   &:hover
-    background-image: linear-gradient(to bottom right#6fffe9#94FFEF)
+    background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)

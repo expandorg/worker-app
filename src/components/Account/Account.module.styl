@@ -1,11 +1,12 @@
-@import '../common/uikit/mixins';
+@import '../common/uikit/components';
+@import '../common/uikit/colors';
 
 defaultBtn()
   button()
   min-width: 100px
   width: calc(25% - 25px)
   height: 40px
-  margin: 'calc(%s / 2)' % PADDING
+  margin: 12px
   display: inline-block
   font-size: 16px
 
@@ -41,14 +42,14 @@ defaultBtn()
   color: #0b132b
   display: block
   text-transform: uppercase
-  margin-bottom: 'calc(%s / 2)' % PADDING
-  margin-top: 'calc(%s / 2)' % PADDING
+  margin-bottom: 12px
+  margin-top: 12px
 
 .subHeading
   font-size: 16
-  color: #3a506b
+  color: color-text-1
   display: inline-block
-  margin-right: 'calc(%s / 2)' % PADDING
+  margin-right: 12px
   margin-left: 20
 
 .gem
@@ -62,12 +63,12 @@ defaultBtn()
   vertical-align: middle
 
 .accountInput
-  border-radius: BORDER_R
-  border: solid 1px #e0e0e0
+  border-radius: 4px
+  border: solid 1px color-border-grey
   display: inline-block
   font-size: 14
   text-align: left
-  color: #3a506b
+  color: color-text-1
   padding: 8px 12px
   width: calc(100% - 205px)
   min-width: 200px
@@ -76,12 +77,12 @@ defaultBtn()
     outline: 0
 
 .emailInput
-  border-radius: BORDER_R
-  border: solid 1px #e0e0e0
+  border-radius: 4px
+  border: solid 1px color-border-grey
   display: inline-block
   font-size: 14
   text-align: left
-  color: #3a506b
+  color: color-text-1
   padding: 8px 12px
   width: calc(100% - 394px)
   min-width: 200px
@@ -93,11 +94,11 @@ defaultBtn()
   display: inline-block
   font-size: 13
   text-align: right
-  color: #3a506b
+  color: color-text-1
   text-transform: uppercase
   border: none
   background-color: transparent
-  margin-left: PADDING
+  margin-left: 25px
   padding: 0
   cursor: pointer
 
@@ -112,8 +113,8 @@ defaultBtn()
 .logout
   defaultBtn()
   float: right
-  background-color: #ffffff
-  border: solid 2px #ff7092
+  background-color: color-white
+  border: solid 2px color-pink
 
 .availableFunds
   margin-left: 2px
