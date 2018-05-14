@@ -2,8 +2,8 @@
 @import '../../common/uikit/layout';
 
 .sideBar
-  width: 'calc(%s - 25px)' % s-sidebar-width
-  padding-left: 25px
+  box-sizing: border-box;
+  width: s-sidebar-width
   height: 100%
   display: inline-block
   background: color-blue
@@ -11,7 +11,7 @@
   @media(max-width: 1150px)
     display: none
 
-    > img
+    .logo
       display: none
 
 .ib
@@ -23,6 +23,8 @@
   z-index: 2
 
 .logo
+  margin-left: 25px;
   margin-top: 10px
+
   width: 119px
   height: 50px

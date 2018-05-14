@@ -33,7 +33,11 @@ export default class Sidebar extends Component {
 
     return (
       <div className={cn(styles.sideBar, { [styles.ib]: visible })} >
-        <img className={styles.logo} src="/images/logo.svg" alt="Gems" />
+        <img
+          className={styles.logo}
+          src="/images/logo.svg"
+          alt="Gems"
+        />
         <Navigation
           isAuthorized={isAuthorized}
           isJoined={isJoined}
