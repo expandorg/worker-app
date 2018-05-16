@@ -1,12 +1,13 @@
+@import '../common/uikit/layout';
 @import '../common/uikit/components';
 @import '../common/uikit/colors';
 
 defaultBtn()
   button()
   min-width: 100px
-  width: calc(25% - 25px)
+  width: 'calc(25% - %s)' % s-margin-big
   height: 40px
-  margin: 12px
+  margin: s-margin-medium
   display: inline-block
   font-size: 16px
 
@@ -42,15 +43,15 @@ defaultBtn()
   color: #0b132b
   display: block
   text-transform: uppercase
-  margin-bottom: 12px
-  margin-top: 12px
+  margin-bottom: s-margin-medium
+  margin-top: s-margin-medium
 
 .subHeading
   font-size: 16px
   color: color-text-1
   display: inline-block
-  margin-right: 12px
-  margin-left: 20
+  margin-right: s-margin-medium
+  margin-left: 20px
 
 .gem
   width: 20px
@@ -69,7 +70,7 @@ defaultBtn()
   font-size: 14px
   text-align: left
   color: color-text-1
-  padding: 8px 12px
+  padding: 8px s-padding-medium
   width: calc(100% - 205px)
   min-width: 200px
 
@@ -83,7 +84,7 @@ defaultBtn()
   font-size: 14px
   text-align: left
   color: color-text-1
-  padding: 8px 12px
+  padding: 8px s-padding-medium
   width: calc(100% - 394px)
   min-width: 200px
 
@@ -98,7 +99,7 @@ defaultBtn()
   text-transform: uppercase
   border: none
   background-color: transparent
-  margin-left: 25px
+  margin-left: s-margin-big;
   padding: 0
   cursor: pointer
 
