@@ -6,7 +6,7 @@ import { workerProps, statsProps } from '../../shared/propTypes';
 
 import NavLink from './NavigationLink';
 
-import styles from './Navigation.styles';
+import styles from './Navigation.module.styl';
 
 const Navigation = ({
   isAuthorized, isJoined, worker, stats,

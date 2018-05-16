@@ -1,5 +1,6 @@
 @import './uikit/layout'
 @import './uikit/colors'
+@import './uikit/layout'
 
 .modalDialog
   position: fixed
@@ -7,11 +8,11 @@
   top: 0
   right: 0
   bottom: 0
-  left: SIDEBAR_W
+  left: s-sidebar-width
   background: rgba(11, 19, 43, 0.8)
   z-index: 99999
   opacity: 1
-  width: 'calc(100% - %s)' % SIDEBAR_W
+  width: 'calc(100% - %s)' % s-sidebar-width
 
   @media(max-width: 1150px)
     width: 100%
@@ -28,8 +29,8 @@
   margin-top: 32px
   margin-left: 50px
   margin-right: 50px
-  border-radius: BORDER_R
-  background-color: #ffffff
+  border-radius: 4px
+  background-color: color-white
   box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.1)
 
   @media(max-width: 660px)
@@ -40,8 +41,8 @@
 .modalHeading
   width: 100%
   height: 80px
-  box-shadow: inset 0 -1px 0 0 #f2f2f2
-  margin-bottom: PADDING
+  box-shadow: inset 0 -1px 0 0 color-grey
+  margin-bottom: s-margin-big
 
 .headingText
   display: inline-block

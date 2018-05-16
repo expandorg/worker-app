@@ -1,11 +1,13 @@
-@import '../common/uikit/mixins';
+@import '../common/uikit/layout';
+@import '../common/uikit/components';
+@import '../common/uikit/colors';
 
 defaultBtn()
   button()
   min-width: 100px
-  width: calc(25% - 25px)
+  width: 'calc(25% - %s)' % s-margin-big
   height: 40px
-  margin: 'calc(%s / 2)' % PADDING
+  margin: s-margin-medium
   display: inline-block
   font-size: 16px
 
@@ -35,21 +37,21 @@ defaultBtn()
   list-style: none
 
 .heading
-  font-size: 16
+  font-size: 16px
   letter-spacing: 0.5
   opacity: 0.4
   color: #0b132b
   display: block
   text-transform: uppercase
-  margin-bottom: 'calc(%s / 2)' % PADDING
-  margin-top: 'calc(%s / 2)' % PADDING
+  margin-bottom: s-margin-medium
+  margin-top: s-margin-medium
 
 .subHeading
-  font-size: 16
-  color: #3a506b
+  font-size: 16px
+  color: color-text-1
   display: inline-block
-  margin-right: 'calc(%s / 2)' % PADDING
-  margin-left: 20
+  margin-right: s-margin-medium
+  margin-left: 20px
 
 .gem
   width: 20px
@@ -62,13 +64,13 @@ defaultBtn()
   vertical-align: middle
 
 .accountInput
-  border-radius: BORDER_R
-  border: solid 1px #e0e0e0
+  border-radius: 4px
+  border: solid 1px color-border-grey
   display: inline-block
-  font-size: 14
+  font-size: 14px
   text-align: left
-  color: #3a506b
-  padding: 8px 12px
+  color: color-text-1
+  padding: 8px s-padding-medium
   width: calc(100% - 205px)
   min-width: 200px
 
@@ -76,13 +78,13 @@ defaultBtn()
     outline: 0
 
 .emailInput
-  border-radius: BORDER_R
-  border: solid 1px #e0e0e0
+  border-radius: 4px
+  border: solid 1px color-border-grey
   display: inline-block
-  font-size: 14
+  font-size: 14px
   text-align: left
-  color: #3a506b
-  padding: 8px 12px
+  color: color-text-1
+  padding: 8px s-padding-medium
   width: calc(100% - 394px)
   min-width: 200px
 
@@ -91,13 +93,13 @@ defaultBtn()
 
 .copyBtn
   display: inline-block
-  font-size: 13
+  font-size: 13px
   text-align: right
-  color: #3a506b
+  color: color-text-1
   text-transform: uppercase
   border: none
   background-color: transparent
-  margin-left: PADDING
+  margin-left: s-margin-big;
   padding: 0
   cursor: pointer
 
@@ -112,8 +114,8 @@ defaultBtn()
 .logout
   defaultBtn()
   float: right
-  background-color: #ffffff
-  border: solid 2px #ff7092
+  background-color: color-white
+  border: solid 2px color-pink
 
 .availableFunds
   margin-left: 2px

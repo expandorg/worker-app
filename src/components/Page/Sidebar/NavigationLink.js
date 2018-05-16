@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IndexLink, Link } from 'react-router';
 
-import styles from './NavigationLink.styles';
+import styles from './NavigationLink.module.styl';
 
 const NavigationLink = ({ to, label }) => {
   const NavComponent = to === '/' ? IndexLink : Link;
@@ -11,7 +11,7 @@ const NavigationLink = ({ to, label }) => {
       <NavComponent
         to={to}
         className={styles.link}
-        activeClassName={styles.active.toString()}
+        activeClassName={styles.active}
       >
         {label}
       </NavComponent>

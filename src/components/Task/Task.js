@@ -7,9 +7,7 @@ import { isWorkerFunded } from '../../model/worker';
 
 import Content from '../shared/Content';
 
-import styles from './Task.styles';
-
-const DESCRIPTION = 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.';
+import styles from './Task.module.styl';
 
 export default class Task extends Component {
   static propTypes = {
@@ -60,26 +58,24 @@ export default class Task extends Component {
       correctAnswer: null,
       incorrectAnswerA: null,
       incorrectAnswerB: null,
-      incomplete: this.state.incomplete + 1,
       submitted: true,
     });
   }
 
-  renderSubmit() {
-    if (this.state.loading && !this.props.error) {
-      return 'Loading';
-    }
-    return 'Submit';
-  }
-
   render() {
-    const isFunded = isWorkerFunded(this.props.worker, this.props.stats);
-    // Task has just been submitted
+    const {
+      worker, stats, error, isSubmitting,
+    } = this.props;
+    const { loading } = this.state;
+    const isFunded = isWorkerFunded(worker, stats);
+
     if (this.state.submitted) {
       return (
         <Modal heading="Task Submitted">
-          {this.props.isSubmitting && <div>Submitting task...</div>}
-          {this.props.isSubmitting || (
+          {isSubmitting &&
+            <div>Submitting task...</div>
+          }
+          {!isSubmitting && (
             <div>
               <div className={styles.heading}>{this.getSubmissionStatus()}</div>
               {isFunded && (
@@ -110,7 +106,10 @@ export default class Task extends Component {
     return (
       <Content title="Question writing and fact checking">
         <div className={styles.container}>
-          <div className={styles.task}>{DESCRIPTION}</div>
+          <div className={styles.task}>
+            Write a trivia question with three multiple-choice answers.
+            One answer should be correct and fact-checked, and two answers should be incorrect.
+          </div>
           <form onSubmit={this.handleSubmit} className={styles.submitForm}>
             <label htmlFor="question">
               <input
@@ -153,7 +152,7 @@ export default class Task extends Component {
               onClick={this.handleSubmit}
               disabled={this.state.value === null || this.state.value === '' || (this.state.loading && !this.props.error)}
             >
-              {this.renderSubmit()}
+              {loading && !error ? 'Loading' : 'Submit'}
             </button>
           </form>
         </div>

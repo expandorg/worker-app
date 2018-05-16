@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Modal from '../../common/Modal';
 
-import styles from './ConfirmEmailModal.styles';
+import styles from './ConfirmEmailModal.module.styl';
 
 export default class ConfirmEmailModal extends Component {
   static propTypes = {

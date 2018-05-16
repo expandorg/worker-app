@@ -3,19 +3,20 @@ import { withRouter } from 'react-router';
 
 import Jobs from './Jobs';
 
+import { fetchJobs } from '../../sagas/jobsSagas';
 import { setIsJoined } from '../../sagas/tasksSagas';
 
-import { errorSelector } from '../../selectors/uiStateSelectors';
 import { workerSelector, statsSelector } from '../../selectors/userSelectors';
+import { jobsSelector } from '../../selectors/jobsSelectors';
 
 const mapStateToProps = state => ({
+  jobs: jobsSelector(state),
   worker: workerSelector(state),
   stats: statsSelector(state),
-  error: errorSelector(state),
 });
 
 const mapDispatchToProps = {
-  setIsJoined,
+  setIsJoined, fetchJobs,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Jobs));

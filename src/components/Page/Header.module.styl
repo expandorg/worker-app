@@ -1,0 +1,27 @@
+@import '../common/uikit/layout';
+@import '../common/uikit/colors';
+
+.header
+  display: none
+  width: 100%
+  height: 68px
+  background-color: color-blue
+
+  @media(max-width: 1150px)
+    display: block
+    z-index: 3
+
+.container
+  display: inline-block
+  width: calc(95% - 99px)
+  vertical-align: middle
+
+.logo
+  height: 30px
+  width: 30px
+  text-align: center
+  margin: auto
+  display: block
+
+.sbw
+  margin-left: s-sidebar-width

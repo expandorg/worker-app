@@ -2,17 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { workerProps, statsProps } from '../shared/propTypes';
 import InstallMetaMaskModal from './InstallMetaMaskModal';
 
 import Header from './Header';
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from './Sidebar/SidebarContainer';
 
 import ErrorMessage from '../common/ErrorMessage';
 
-import './Page.css';
-
-import styles from './Page.styles';
+import styles from './Page.module.styl';
 
 export default class Page extends PureComponent {
   static propTypes = {
@@ -20,18 +17,12 @@ export default class Page extends PureComponent {
     error: PropTypes.string,
     fetchAuth: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    isAuthorized: PropTypes.bool,
-    isJoined: PropTypes.bool.isRequired,
     metamask: PropTypes.bool,
-    worker: PropTypes.shape(workerProps),
-    stats: PropTypes.shape(statsProps).isRequired,
   }
 
   static defaultProps = {
     error: null,
-    isAuthorized: null,
     metamask: true,
-    worker: null,
   }
 
   state = {
@@ -53,10 +44,6 @@ export default class Page extends PureComponent {
   render() {
     const {
       metamask,
-      isAuthorized,
-      isJoined,
-      worker,
-      stats,
       children,
       error,
     } = this.props;
@@ -69,14 +56,8 @@ export default class Page extends PureComponent {
           collapsed={sidebar}
           onToggle={this.handleToggleSidebar}
         />
-        <Sidebar
-          visible={sidebar}
-          isAuthorized={isAuthorized}
-          isJoined={isJoined}
-          worker={worker}
-          stats={stats}
-        />
-        <div className={cn(styles.container.toString(), { [styles.sbw]: sidebar })}>
+        <Sidebar visible={sidebar} />
+        <div className={cn(styles.container, { [styles.sbw]: sidebar })}>
           {error !== null &&
             <ErrorMessage error={error} onClose={this.handleClearError} />
           }

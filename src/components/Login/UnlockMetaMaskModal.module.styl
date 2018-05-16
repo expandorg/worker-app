@@ -1,4 +1,4 @@
-@import '../common/uikit/mixins'
+@import '../common/uikit/layout';
 
 .container
   text-align: center
@@ -12,7 +12,7 @@
   padding-bottom: 7.5px
   max-width: 80%
   width: calc(100% - 50px)
-  margin-bottom: PADDING * 1.5
+  margin-bottom: 'calc(%s * 1.5)' % s-margin-big
   margin: auto
   text-align: center
   display: block

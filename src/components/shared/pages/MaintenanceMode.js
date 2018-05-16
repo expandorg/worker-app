@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './MaintenanceMode.styles';
+import styles from './MaintenanceMode.module.styl';
 
 const MaintenanceMode = () => (
   <div className={styles.body}>
