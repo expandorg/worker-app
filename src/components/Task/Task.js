@@ -58,7 +58,6 @@ export default class Task extends Component {
       correctAnswer: null,
       incorrectAnswerA: null,
       incorrectAnswerB: null,
-      incomplete: this.state.incomplete + 1,
       submitted: true,
     });
   }

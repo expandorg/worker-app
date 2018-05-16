@@ -11,7 +11,7 @@ const NavigationLink = ({ to, label }) => {
       <NavComponent
         to={to}
         className={styles.link}
-        activeClassName={styles.active.toString()}
+        activeClassName={styles.active}
       >
         {label}
       </NavComponent>
