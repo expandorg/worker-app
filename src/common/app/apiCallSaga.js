@@ -1,8 +1,12 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { validate } from '../validation';
 
 export const apiCallSaga = (actionType, asyncCall) => {
   function* request({ payload, meta }) {
     try {
+      if (meta && meta.validation) {
+        validate(payload, meta.validation);
+      }
       const result = yield call(asyncCall, payload);
       yield put({ type: `${actionType}_COMPLETE`, payload: result, meta });
     } catch (error) {
