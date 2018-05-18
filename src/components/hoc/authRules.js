@@ -7,8 +7,11 @@ import { isWorkerFunded } from '../../model/worker';
 
 import authContainer from './authContainer';
 
-const notAuthenticatedPredicat = ({ user }) => {
+const notAuthenticatedPredicat = ({ user, stats }) => {
   if (user) {
+    if (isWorkerFunded(user, stats)) {
+      return <Redirect to="/jobs" />;
+    }
     return <Redirect to="/account" />;
   }
   return true;
