@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -6,7 +6,7 @@ import Hamburger from '../common/Hamburger';
 
 import styles from './Header.module.styl';
 
-export default class Header extends PureComponent {
+export default class Header extends Component {
   static propTypes = {
     collapsed: PropTypes.bool.isRequired,
     onToggle: PropTypes.func.isRequired,

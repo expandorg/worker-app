@@ -9,7 +9,7 @@ import ConfirmModal from './ConfirmModal';
 import Disabled from './Disabled';
 import DepositPrompt from './DepositPrompt';
 
-import { workerProps, statsProps, routerProps, jobProps } from '../shared/propTypes';
+import { workerProps, statsProps, historyProps, jobProps } from '../shared/propTypes';
 import { isWorkerFunded } from '../../model/worker';
 
 import { JOB_DISABLED } from '../../model/consts';
@@ -20,7 +20,7 @@ export default class Jobs extends Component {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     worker: PropTypes.shape(workerProps),
     stats: PropTypes.shape(statsProps).isRequired,
-    router: PropTypes.shape(routerProps).isRequired,
+    history: PropTypes.shape(historyProps).isRequired,
     setIsJoined: PropTypes.func.isRequired,
     fetchJobs: PropTypes.func.isRequired,
   }
@@ -47,7 +47,7 @@ export default class Jobs extends Component {
 
   handleConfirm = () => {
     this.props.setIsJoined(true);
-    this.props.router.replace('/task');
+    this.props.history.replace('/task');
   }
 
   render() {

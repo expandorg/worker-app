@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import NotFound from './NotFound';
 
-import { isAuthorizedSelector } from '../../../selectors/userSelectors';
+import { loggedInSelector } from '../../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
-  isAuthorized: isAuthorizedSelector(state),
+  isAuthorized: loggedInSelector(state),
   task: state.task,
 });
 

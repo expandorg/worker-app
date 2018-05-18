@@ -16,7 +16,6 @@ const middleware = ((middlewares) => {
   return applyMiddleware(...middlewares);
 })([sagaMiddleware]);
 
-
 const store = createStore(rootReducer, window.initialState || {}, middleware);
 
 sagaMiddleware.run(sagas);

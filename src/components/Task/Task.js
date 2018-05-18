@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Modal from '../common/Modal';
 import { workerProps, statsProps } from '../shared/propTypes';
 import { isWorkerFunded } from '../../model/worker';
@@ -12,7 +12,6 @@ import styles from './Task.module.styl';
 export default class Task extends Component {
   static propTypes = {
     submitTask: PropTypes.func.isRequired,
-    fetchAuth: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
     stats: PropTypes.shape(statsProps).isRequired,
     worker: PropTypes.shape(workerProps),
@@ -31,10 +30,6 @@ export default class Task extends Component {
     incorrectAnswerA: null,
     incorrectAnswerB: null,
     submitted: false,
-  }
-
-  componentDidMount() {
-    this.props.fetchAuth();
   }
 
   getHandleChange = key => (e) => {

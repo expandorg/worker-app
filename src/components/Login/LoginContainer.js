@@ -1,22 +1,13 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import Login from './Login';
 
-import { login } from '../../sagas/userSagas';
+import { loginMetamask } from '../../sagas/authSagas';
 
-import { lockedSelector } from '../../selectors/uiStateSelectors';
-import { isAuthorizedSelector, workerSelector, statsSelector } from '../../selectors/userSelectors';
-
-const mapStateToProps = state => ({
-  isAuthorized: isAuthorizedSelector(state),
-  locked: lockedSelector(state),
-  worker: workerSelector(state),
-  stats: statsSelector(state),
-});
+import { notAuthenticated } from '../hoc/authRules';
 
 const mapDispatchToProps = {
-  login,
+  loginMetamask,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
+export default notAuthenticated(connect(null, mapDispatchToProps)(Login));

@@ -20,14 +20,8 @@ export const jobProps = {
   description: PropTypes.string,
 };
 
-
-export const routerProps = {
+export const historyProps = {
   replace: PropTypes.func.isRequired,
-  setRouteLeaveHook: PropTypes.func.isRequired,
-};
-
-export const routeProps = {
-  path: PropTypes.string.isRequired,
 };
 
 export const locationProps = {
@@ -40,4 +34,8 @@ export const locationProps = {
 export const requestStateProps = {
   state: PropTypes.string.isRequired,
   error: PropTypes.object,
+};
+
+export const userProps = {
+  email: PropTypes.string.isRequired,
 };

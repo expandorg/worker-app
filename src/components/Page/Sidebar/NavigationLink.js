@@ -1,23 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IndexLink, Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 import styles from './NavigationLink.module.styl';
 
-const NavigationLink = ({ to, label }) => {
-  const NavComponent = to === '/' ? IndexLink : Link;
-  return (
-    <li>
-      <NavComponent
-        to={to}
-        className={styles.link}
-        activeClassName={styles.active}
-      >
-        {label}
-      </NavComponent>
-    </li>
-  );
-};
+const NavigationLink = ({ to, label }) => (
+  <li>
+    <NavLink exact to={to} className={styles.link} activeClassName={styles.active} >
+      {label}
+    </NavLink>
+  </li>
+);
 
 NavigationLink.propTypes = {
   to: PropTypes.string.isRequired,

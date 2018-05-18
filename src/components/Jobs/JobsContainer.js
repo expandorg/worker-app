@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import Jobs from './Jobs';
+
+import { authenticated } from '../hoc/authRules';
 
 import { fetchJobs } from '../../sagas/jobsSagas';
 import { setIsJoined } from '../../sagas/tasksSagas';
 
-import { workerSelector, statsSelector } from '../../selectors/userSelectors';
+import { userSelector, statsSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 
 const mapStateToProps = state => ({
   jobs: jobsSelector(state),
-  worker: workerSelector(state),
+  worker: userSelector(state),
   stats: statsSelector(state),
 });
 
@@ -19,4 +20,4 @@ const mapDispatchToProps = {
   setIsJoined, fetchJobs,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Jobs));
+export default authenticated(connect(mapStateToProps, mapDispatchToProps)(Jobs));

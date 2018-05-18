@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
 
-import { isAuthorizedSelector, isJoinedSelector, workerSelector, statsSelector } from '../../../selectors/userSelectors';
+import { loggedInSelector, isJoinedSelector, userSelector, statsSelector } from '../../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
-  isAuthorized: isAuthorizedSelector(state),
+  isAuthorized: loggedInSelector(state),
   isJoined: isJoinedSelector(state),
-  worker: workerSelector(state),
+  worker: userSelector(state),
   stats: statsSelector(state),
 });
 

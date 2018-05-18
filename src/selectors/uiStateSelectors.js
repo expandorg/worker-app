@@ -37,3 +37,6 @@ export const lockedSelector = createSelector(
 export const depositGemsStateSelector = createSelector(uiStateSelector, state => state.depositGems);
 
 export const withdrawStateSelector = createSelector(uiStateSelector, state => state.withdraw);
+
+
+export const authStateSelector = createSelector(uiStateSelector, state => state.auth);

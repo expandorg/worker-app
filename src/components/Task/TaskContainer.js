@@ -1,22 +1,21 @@
 import { connect } from 'react-redux';
 import Task from './Task';
 
-import { fetchAuth } from '../../sagas/userSagas';
 import { submitTask } from '../../sagas/tasksSagas';
+import { authenticatedFunded } from '../hoc/authRules';
 
 import { taskIsSubmittingSelector, errorSelector } from '../../selectors/uiStateSelectors';
-import { workerSelector, statsSelector } from '../../selectors/userSelectors';
+import { userSelector, statsSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
   isSubmitting: taskIsSubmittingSelector(state),
   error: errorSelector(state),
   stats: statsSelector(state),
-  worker: workerSelector(state),
+  worker: userSelector(state),
 });
 
 const mapDispatchToProps = {
   submitTask,
-  fetchAuth,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Task);
+export default authenticatedFunded(connect(mapStateToProps, mapDispatchToProps)(Task));

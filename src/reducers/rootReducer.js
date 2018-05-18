@@ -1,25 +1,21 @@
 import { combineReducers } from 'redux';
 
-import worker from './workerReducer';
+import user from './userReducer';
 import stats from './statsReducer';
 import gemsBalance from './gemsBalanceReducer';
 import transactions from './transactionsReducer';
 import jobs from './jobsReducer';
 
-import isAuthorized from './user/isAuthorizedReducer';
-import isJoined from './user/isJoinedReducer';
+import isJoined from './isJoinedReducer';
 
 import ui from './ui';
 
 export default combineReducers({
-  worker,
+  user,
   stats,
   gemsBalance,
   jobs,
   transactions,
-  user: combineReducers({
-    isAuthorized,
-    isJoined,
-  }),
+  isJoined,
   ui,
 });

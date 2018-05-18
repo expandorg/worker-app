@@ -1,0 +1,40 @@
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+
+import { RequestStates } from '../../common/app/requestUiState';
+
+import { isWorkerFunded } from '../../model/worker';
+
+import authContainer from './authContainer';
+
+const notAuthenticatedPredicat = ({ user }) => {
+  if (user) {
+    return <Redirect to="/account" />;
+  }
+  return true;
+};
+
+export const notAuthenticated = authContainer(notAuthenticatedPredicat);
+
+const authenticatedPredicat = ({ user, authState }) => {
+  if (!user) {
+    if (authState.state === RequestStates.FetchError) {
+      return <Redirect to="/" />;
+    }
+    return null; // loading state
+  }
+  return true;
+};
+
+export const authenticated = authContainer(authenticatedPredicat);
+
+export const authenticatedFunded = authContainer((props) => {
+  const result = authenticatedPredicat(props);
+  if (result !== true) {
+    return result;
+  }
+  if (!isWorkerFunded(props.user, props.stats)) {
+    return <Redirect to="/account" />;
+  }
+  return true;
+});

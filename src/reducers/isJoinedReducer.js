@@ -1,4 +1,4 @@
-import { tasksActionTypes } from '../../sagas/actionTypes';
+import { tasksActionTypes } from '../sagas/actionTypes';
 
 export default function isJoinedReducer(state = false, action) {
   switch (action.type) {

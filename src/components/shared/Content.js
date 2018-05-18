@@ -7,18 +7,23 @@ import styles from './Content.module.styl';
 
 export default class Content extends PureComponent {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
+  }
+
+  static defaultProps = {
+    title: null,
   }
 
   render() {
     const { children, title } = this.props;
-
     return (
       <DocumentTitle title={`${title} - Gems`}>
-        <div>
-          <div className={styles.title}>
-            {title}
-          </div>
+        <div className={styles.container}>
+          {title &&
+            <div className={styles.title}>
+              {title}
+            </div>
+          }
           {children}
         </div>
       </DocumentTitle>

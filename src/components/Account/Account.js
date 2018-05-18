@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { Prompt } from 'react-router-dom';
+
+
 import Clipboard from 'react-clipboard.js';
 
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
@@ -17,7 +20,7 @@ import Cell from './Cell';
 import { isBalanceSufficient, workerAddress, getStakedGems, getBalance } from '../../model/worker';
 import { TRANSACTIONS_DISABLED } from '../../model/consts';
 
-import { workerProps, statsProps, routerProps, routeProps, requestStateProps } from '../shared/propTypes';
+import { workerProps, statsProps, requestStateProps } from '../shared/propTypes';
 
 import styles from './Account.module.styl';
 
@@ -28,9 +31,6 @@ export default class Account extends Component {
 
     depositStage: PropTypes.number.isRequired,
     gemsBalance: PropTypes.number,
-
-    router: PropTypes.shape(routerProps).isRequired,
-    route: PropTypes.shape(routeProps).isRequired,
 
     withdrawState: PropTypes.shape(requestStateProps).isRequired,
 
@@ -48,28 +48,11 @@ export default class Account extends Component {
   state = {
     emailModal: false,
     depositModal: false,
-    blockNavigation: false,
   }
 
   componentDidMount() {
-    this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
     this.props.fetchWorkerGemsBalance();
   }
-
-  componentWillReceiveProps({ depositStage }) {
-    if (depositStage !== this.props.depositStage) {
-      if (depositStage > 0) {
-        window.onbeforeunload = () => 'Please do not navigate away while your deposit is being processed (click cancel).';
-        this.setState({ blockNavigation: true });
-      } else {
-        window.onbeforeunload = null;
-        this.setState({ blockNavigation: false });
-      }
-    }
-  }
-
-  routerWillLeave = () =>
-    !this.state.blockNavigation
 
 
   handleWidthdraw = () => {
@@ -86,7 +69,7 @@ export default class Account extends Component {
 
   render() {
     const {
-      worker, gemsBalance, stats, logout, withdrawState,
+      worker, gemsBalance, stats, logout, withdrawState, depositStage,
     } = this.props;
 
     if (!worker) {
@@ -102,6 +85,10 @@ export default class Account extends Component {
     const loading = withdrawState.state === RequestStates.Fetching;
     return (
       <Content title="Account" >
+        <Prompt
+          when={depositStage > 0}
+          message={() => 'Please do not navigate away while your deposit is being processed (click cancel).'}
+        />
         <div className={styles.innerContainer}>
           {depositModal &&
             <DepositModal onClose={this.toggleDeposit} />
