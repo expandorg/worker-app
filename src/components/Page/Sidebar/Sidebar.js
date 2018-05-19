@@ -2,48 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { workerProps, statsProps } from '../../shared/propTypes';
-
 import Navigation from './Navigation';
 
 import styles from './Sidebar.module.styl';
 
 export default class Sidebar extends Component {
   static propTypes = {
-    isAuthorized: PropTypes.bool,
-    isJoined: PropTypes.bool.isRequired,
     visible: PropTypes.bool.isRequired,
-    worker: PropTypes.shape(workerProps),
-    stats: PropTypes.shape(statsProps).isRequired,
-  }
-
-  static defaultProps = {
-    isAuthorized: null,
-    worker: null,
   }
 
   render() {
-    const {
-      isAuthorized,
-      isJoined,
-      worker,
-      stats,
-      visible,
-    } = this.props;
-
+    const { visible } = this.props;
     return (
-      <div className={cn(styles.sideBar, { [styles.ib]: visible })} >
-        <img
-          className={styles.logo}
-          src="/images/logo.svg"
-          alt="Gems"
-        />
-        <Navigation
-          isAuthorized={isAuthorized}
-          isJoined={isJoined}
-          worker={worker}
-          stats={stats}
-        />
+      <div className={cn(styles.container, { [styles.visible]: visible })} >
+        <img className={styles.logo} src="/images/logo.svg" alt="Gems" />
+        <Navigation />
       </div>
     );
   }

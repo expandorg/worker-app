@@ -6,7 +6,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AppPage from './components/Page/AppPage';
 
-import Login from './components/Login/LoginContainer';
+import Welcome from './components/Welcome/Welcome';
+import Auth from './components/Auth/Auth';
 import Account from './components/Account/AccountContainer';
 import Jobs from './components/Jobs/JobsContainer';
 import Stats from './components/Stats/StatsContainer';
@@ -34,13 +35,15 @@ const App = () => {
       <BrowserRouter>
         <AppPage>
           <Switch>
-            <Route path="/" exact component={Login} />
+            <Route path="/" exact component={Welcome} />
+            <Route path="/login" component={Auth} />
             <Route path="/account" component={Account} />
-            <Route path="/confirm" component={Confirm} />
+            <Route path="/confirm" component={Confirm} />≥≥
             <Route path="/jobs" component={Jobs} />
             <Route path="/stats" component={Stats} />
             <Route path="/requester" component={Requester} />
             <Route path="/task" component={Task} />
+
             <Route component={NotFound} />
           </Switch>
         </AppPage>

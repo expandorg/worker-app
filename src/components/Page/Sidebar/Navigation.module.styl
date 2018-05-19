@@ -1,8 +1,22 @@
-@import '../../common/uikit/layout';
+@import 'components/common/uikit/layout';
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
-.nav
+.container
+  margin-top: 10px;
   padding: 0 0 0 s-padding-big;
-  list-style: none
-  font-family: 'Poppins'
-  font-size: 18px
-  font-weight: 400
+  font(font-preset[menu])
+
+.link
+  display: block
+  height: 40px
+  text-decoration: none
+  color: color-white
+  opacity: 0.6
+  cursor: pointer
+
+  &:hover
+    opacity: 0.9
+
+.active
+  opacity: 1

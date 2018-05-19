@@ -1,5 +1,38 @@
 @import './colors';
+@import './font';
 @import './layout';
+
+button(size = 'medium', theme = 'pink')
+  text-align: center;
+
+  border: 0
+  text-decoration: none;
+  outline: 0
+  cursor: pointer;
+
+  if size == 'medium'
+    font(font-preset[menu], false, false, 40px)
+    height: 40px
+    border-radius: 4px
+
+  if size == 'large'
+    font(font-preset[menu], false, false, 50px)
+    height: 50px
+    border-radius: 4px
+
+  if theme == 'pink'
+    color: color-white
+    background-color: color-pink
+    &:hover
+      background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
+
+  if theme == 'blue'
+    color: color-white
+    background-color: color-blue
+    &:hover
+      background-image: linear-gradient(to bottom right, color-blue, lighten(color-blue, 10%))
+
+
 
 panel()
   padding: s-margin-big
@@ -34,26 +67,27 @@ flexpanel()
   border: solid 1px color-grey
 
 
-button()
+btn()
   width: 132px
   height: 42px
   border-radius: 4px
   background-color: color-pink
+
   font-size: 16px
   text-align: center
   display: block
   margin-left: auto
   margin-right: auto
-  border: 0
-  cursor: pointer
 
-  &:focus
-    outline: 0px
+  cursor: pointer
+  border: 0
+  outline: 0
 
   &:hover
     background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
 
   &:disabled
     background-color: color-grey
+
     &:hover
       background-image: none

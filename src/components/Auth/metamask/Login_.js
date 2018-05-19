@@ -23,6 +23,7 @@ export default class Login extends Component {
 
   render() {
     const { step } = this.state;
+    // return null;
 
     if (step === 0) {
       return (
@@ -39,8 +40,7 @@ export default class Login extends Component {
             alt="Login Screenshot"
           />
           <span className={styles.instructions}>
-            You’ll need to sign in using MetaMask
-            <br />
+            You’ll need to sign in using MetaMask<br />
             (similar to the above). Click below to log in.
           </span>
           <button className={styles.login} onClick={this.props.loginMetamask}>

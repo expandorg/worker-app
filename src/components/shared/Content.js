@@ -1,32 +1,23 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import DocumentTitle from 'react-document-title';
 
 import styles from './Content.module.styl';
 
-export default class Content extends PureComponent {
-  static propTypes = {
-    title: PropTypes.string,
-  }
+const Content = ({ children, title }) => (
+  <DocumentTitle title={`${title} - Gems`}>
+    <div className={styles.container}>
+      <div className={styles.title}>
+        {title}
+      </div>
+      {children}
+    </div>
+  </DocumentTitle>
+);
 
-  static defaultProps = {
-    title: null,
-  }
+Content.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
-  render() {
-    const { children, title } = this.props;
-    return (
-      <DocumentTitle title={`${title} - Gems`}>
-        <div className={styles.container}>
-          {title &&
-            <div className={styles.title}>
-              {title}
-            </div>
-          }
-          {children}
-        </div>
-      </DocumentTitle>
-    );
-  }
-}
+export default Content;

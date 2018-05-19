@@ -15,15 +15,13 @@ export default class Header extends Component {
   render() {
     const { collapsed, onToggle } = this.props;
     return (
-      <div className={cn(styles.header, { [styles.sbw]: collapsed })} >
-        <Hamburger onClick={onToggle} />
-        <div className={styles.container}>
-          <img
-            className={styles.logo}
-            src="/images/mobile-logo.png"
-            alt="Gems"
-          />
-        </div>
+      <div className={styles.container} >
+        <Hamburger
+          className={cn(styles.toggle, { [styles.opened]: collapsed })}
+          active={collapsed}
+          onToggle={onToggle}
+        />
+        <img src="/images/mobile-logo.png" className={styles.logo} alt="Gems" />
       </div>
     );
   }

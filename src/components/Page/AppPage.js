@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import Header from './Header';
-import Sidebar from './Sidebar/SidebarContainer';
+import Sidebar from './Sidebar/Sidebar';
 
-import ErrorMessage from '../shared/ErrorMessage';
+import ErrorMessage from './ErrorMessage';
 
 import styles from './AppPage.module.styl';
 
 export default class AppPage extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired,
-  }
-
   state = {
     sidebar: false,
   }
 
-  handleToggleSidebar = () => {
+  handleToggle = () => {
     this.setState(({ sidebar }) => ({ sidebar: !sidebar }));
   }
 
@@ -27,10 +21,10 @@ export default class AppPage extends Component {
     const { sidebar } = this.state;
 
     return (
-      <div className={styles.app}>
-        <Header collapsed={sidebar} onToggle={this.handleToggleSidebar} />
+      <div className={styles.container}>
+        <Header collapsed={sidebar} onToggle={this.handleToggle} />
         <Sidebar visible={sidebar} />
-        <div className={cn(styles.container, { [styles.sbw]: sidebar })}>
+        <div className={styles.content}>
           <ErrorMessage />
           {children}
         </div>
