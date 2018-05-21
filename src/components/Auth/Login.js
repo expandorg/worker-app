@@ -6,9 +6,9 @@ import AuthForm from './AuthForm';
 
 import { notAuthenticated } from '../hoc/authRules';
 
-import styles from './Auth.module.styl';
+import styles from './styles.module.styl';
 
-class Auth extends Component {
+class Login extends Component {
   render() {
     return (
       <DocumentTitle title="Login">
@@ -22,4 +22,4 @@ class Auth extends Component {
   }
 }
 
-export default notAuthenticated(Auth);
+export default notAuthenticated(Login);

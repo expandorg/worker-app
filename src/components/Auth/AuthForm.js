@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
+import { historyProps } from '../shared/propTypes';
 
 import MetamaskLogin from './metamask/MatamaskLogin';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
+
+import LoginForm from './email/LoginForm';
+import SignupForm from './email/SignupForm';
+
 
 import styles from './AuthForm.module.styl';
 
-export default class AuthForm extends Component {
-  state = {
+class AuthForm extends Component {
+  static propTypes = {
+    signup: PropTypes.bool,
+    history: PropTypes.shape(historyProps).isRequired,
+  }
+
+  static defaultProps = {
     signup: false,
   }
 
+
   handleToggle = () => {
-    this.setState(({ signup }) => ({ signup: !signup }));
+    const { signup, history } = this.props;
+    history.push(signup ? '/login' : '/signup');
   }
 
   render() {
-    const { signup } = this.state;
+    const { signup } = this.props;
     return (
       <div className={styles.container}>
         <h2 className={styles.header}>
@@ -33,3 +46,5 @@ export default class AuthForm extends Component {
     );
   }
 }
+
+export default withRouter(AuthForm);

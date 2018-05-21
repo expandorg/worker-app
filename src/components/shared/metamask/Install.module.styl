@@ -1,0 +1,35 @@
+@import 'common/uikit/components';
+@import 'common/uikit/colors';
+@import 'common/uikit/font';
+@import 'common/uikit/layout';
+
+.container
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0 (2 * s-padding-big) (2 * s-padding-big)
+
+  @media(max-width: 660px)
+    padding-left: s-padding-medium
+    padding-right: s-padding-medium
+
+.video
+  margin-top: s-margin-big
+  width: 100%;
+
+.iframe
+  min-height: 330px
+  max-width: 600px
+  width: 100%;
+  margin: s-margin-medium auto 0 auto;
+
+
+.description
+  font(font-preset[menu])
+  color: color-text-1
+  text-align: center;
+  margin-top: s-margin-big
+
+.install
+  button('large', 'pink')
+  padding: 0 s-padding-medium
+  margin-top: s-margin-big

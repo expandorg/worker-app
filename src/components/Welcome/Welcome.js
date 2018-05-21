@@ -5,9 +5,11 @@ import DocumentTitle from 'react-document-title';
 
 import Slider from '../common/Slider/Slider';
 
+import { notAuthenticated } from '../hoc/authRules';
+
 import styles from './Welcome.module.styl';
 
-export default class Welcome extends Component {
+class Welcome extends Component {
   render() {
     return (
       <DocumentTitle title="Welcome">
@@ -47,3 +49,5 @@ export default class Welcome extends Component {
     );
   }
 }
+
+export default notAuthenticated(Welcome);

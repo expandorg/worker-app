@@ -22,6 +22,7 @@ export const jobProps = {
 
 export const historyProps = {
   replace: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
 };
 
 export const locationProps = {

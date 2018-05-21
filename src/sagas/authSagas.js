@@ -6,6 +6,8 @@ import { gemsService } from '../services/GemsService';
 
 import { authApi } from '../api/AuthApi';
 
+import { loginValidation, signupValidation } from '../model/user';
+
 import { userSelector } from '../selectors/userSelectors';
 
 export const getCurrentUser = () => ({
@@ -16,9 +18,10 @@ export const getCurrentUser = () => ({
 const watchGetCurrent = takeEveryApiCall(authActionTypes.GET_CURRENT, authApi.getCurrentUser);
 
 
-export const login = (username, password) => ({
+export const login = (email, password) => ({
   type: authActionTypes.LOGIN,
-  payload: { username, password },
+  payload: { email, password },
+  meta: { validation: loginValidation },
 });
 
 const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
@@ -41,10 +44,10 @@ function* handleLoginMetamask() {
   }
 }
 
-
 export const signupUser = form => ({
   type: authActionTypes.SIGNUP,
   payload: form,
+  meta: { validation: signupValidation },
 });
 
 const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser);
@@ -53,6 +56,7 @@ export const logout = () => ({
   type: authActionTypes.LOGOUT,
   payload: null,
 });
+
 
 const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
 

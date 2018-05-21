@@ -1,11 +1,10 @@
-/* eslint import/prefer-default-export: 0 */
-import Big from 'bignumber.js';
+import BigNumber from 'bignumber.js/bignumber';
 
-const stake = Big(0.1);
+const stake = new BigNumber(0.1);
 
 export function isWorkerFunded(worker, stats) {
-  const totalBalance = Big(worker.vaultBalance).plus(Big(worker.jobBalance));
-  const pendingPayouts = stake.multipliedBy(Big(stats.pending));
+  const totalBalance = new BigNumber(worker.vaultBalance).plus(new BigNumber(worker.jobBalance));
+  const pendingPayouts = stake.multipliedBy(new BigNumber(stats.pending));
   const availableBalance = totalBalance.minus(pendingPayouts);
   return availableBalance.isGreaterThanOrEqualTo(stake);
 }
@@ -22,10 +21,10 @@ export function workerAddress(worker) {
 }
 
 export const getStakedGems = pending =>
-  Big(pending).multipliedBy(Big(0.1)).toNumber();
+  new BigNumber(pending).multipliedBy(new BigNumber(0.1)).toNumber();
 
 
 export const getBalance = (worker, staked) => {
-  const balance = Big(worker.vaultBalance + worker.jobBalance);
+  const balance = new BigNumber(worker.vaultBalance + worker.jobBalance);
   return balance.minus(staked).toNumber();
 };

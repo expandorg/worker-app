@@ -37,16 +37,16 @@ export default (env = {}) => {
     },
     module: {
       rules: [
-        // {
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   loader: 'eslint-loader',
-        //   enforce: 'pre',
-        //   options: {
-        //     configFile: './.eslintrc',
-        //     emitError: !dev,
-        //   },
-        // },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          options: {
+            configFile: './.eslintrc',
+            emitError: !dev,
+          },
+        },
         {
           test: /\.js$/,
           loader: 'babel-loader',

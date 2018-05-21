@@ -7,7 +7,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AppPage from './components/Page/AppPage';
 
 import Welcome from './components/Welcome/Welcome';
-import Auth from './components/Auth/Auth';
+
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+
 import Account from './components/Account/AccountContainer';
 import Jobs from './components/Jobs/JobsContainer';
 import Stats from './components/Stats/StatsContainer';
@@ -36,7 +39,9 @@ const App = () => {
         <AppPage>
           <Switch>
             <Route path="/" exact component={Welcome} />
-            <Route path="/login" component={Auth} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+
             <Route path="/account" component={Account} />
             <Route path="/confirm" component={Confirm} />≥≥
             <Route path="/jobs" component={Jobs} />
