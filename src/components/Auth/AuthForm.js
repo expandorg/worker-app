@@ -33,7 +33,7 @@ class AuthForm extends Component {
     return (
       <div className={styles.container}>
         <h2 className={styles.header}>
-          Login to Gems.org
+          {!signup ? 'Login' : 'Signup'} to Gems
         </h2>
         <div className={styles.inner}>
           <MetamaskLogin />

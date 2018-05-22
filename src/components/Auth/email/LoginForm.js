@@ -58,7 +58,6 @@ class LoginForm extends Component {
   render() {
     const { onToggle, loginState } = this.props;
     const { email, password, error } = this.state;
-
     const isFetching = loginState.state === RequestStates.Fetching;
 
     return (
@@ -67,13 +66,9 @@ class LoginForm extends Component {
           Login with email
         </h2>
         <form className={styles.form} onSubmit={this.handleSubmit}>
-          {error &&
-            <span className={styles.error}>
-              {error.message}
-            </span>
-          }
           <input
             className={styles.input}
+            type="email"
             required
             placeholder="Email address"
             value={email}
@@ -87,6 +82,11 @@ class LoginForm extends Component {
             value={password}
             onChange={evt => this.handleChangeField('password', evt)}
           />
+          {error &&
+            <div className={styles.error}>
+              {error}
+            </div>
+          }
           <button type="submit" className={styles.submit}>
             {isFetching ? 'Signing in...' : 'Sign in'}
           </button>

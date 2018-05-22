@@ -34,7 +34,7 @@ export const locationProps = {
 
 export const requestStateProps = {
   state: PropTypes.string.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
 export const userProps = {

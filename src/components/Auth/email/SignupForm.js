@@ -67,13 +67,9 @@ class SignupForm extends Component {
           Signup with email
         </h2>
         <form className={styles.form} onSubmit={this.handleSubmit}>
-          {error &&
-            <span className={styles.error}>
-              {error.message}
-            </span>
-          }
           <input
             className={styles.input}
+            type="email"
             required
             placeholder="Email address"
             value={email}
@@ -87,6 +83,11 @@ class SignupForm extends Component {
             value={password}
             onChange={evt => this.handleChangeField('password', evt)}
           />
+          {error &&
+            <div className={styles.error}>
+              {error.message}
+            </div>
+          }
           <button type="submit" className={styles.submit}>
             {isFetching ? 'Signing up...' : 'Sign up'}
           </button>
