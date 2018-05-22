@@ -1,12 +1,14 @@
 import { fork } from 'redux-saga/effects';
-import { appSagas } from './appSagas';
 import { userSagas } from './userSagas';
 import { gemsSagas } from './gemsSagas';
 import { tasksSagas } from './tasksSagas';
 import { jobsSagas } from './jobsSagas';
+import { authSagas } from './authSagas';
+import { web3Sagas } from './web3Sagas';
 
 export default function* sagas() {
-  yield fork(appSagas);
+  yield fork(authSagas);
+  yield fork(web3Sagas);
   yield fork(userSagas);
   yield fork(tasksSagas);
   yield fork(jobsSagas);

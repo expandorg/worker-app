@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Modal from '../common/Modal';
-import { workerProps, statsProps } from '../shared/propTypes';
-import { isWorkerFunded } from '../../model/worker';
 
 import Content from '../shared/Content';
 
@@ -12,16 +10,13 @@ import styles from './Task.module.styl';
 export default class Task extends Component {
   static propTypes = {
     submitTask: PropTypes.func.isRequired,
-    fetchAuth: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
-    stats: PropTypes.shape(statsProps).isRequired,
-    worker: PropTypes.shape(workerProps),
+    isFunded: PropTypes.bool.isRequired,
     error: PropTypes.string,
   };
 
   static defaultProps = {
     error: null,
-    worker: null,
   };
 
   state = {
@@ -31,10 +26,6 @@ export default class Task extends Component {
     incorrectAnswerA: null,
     incorrectAnswerB: null,
     submitted: false,
-  }
-
-  componentDidMount() {
-    this.props.fetchAuth();
   }
 
   getHandleChange = key => (e) => {
@@ -63,11 +54,8 @@ export default class Task extends Component {
   }
 
   render() {
-    const {
-      worker, stats, error, isSubmitting,
-    } = this.props;
+    const { isFunded, error, isSubmitting } = this.props;
     const { loading } = this.state;
-    const isFunded = isWorkerFunded(worker, stats);
 
     if (this.state.submitted) {
       return (

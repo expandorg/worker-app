@@ -1,5 +1,5 @@
 
-import { tasksActionTypes, userActionTypes } from '../sagas/actionTypes';
+import { tasksActionTypes, authActionTypes } from '../sagas/actionTypes';
 
 const initialStats = {
   pending: 0,
@@ -9,8 +9,10 @@ const initialStats = {
 
 export default function statsReducer(state = initialStats, action) {
   switch (action.type) {
-    case userActionTypes.LOGIN_COMPLETE:
-    case userActionTypes.AUTHORIZE_COMPLETE:
+    case authActionTypes.GET_CURRENT_COMPLETE:
+    case authActionTypes.LOGIN_COMPLETE:
+    case authActionTypes.LOGIN_METAMASK_COMPLETE:
+    case authActionTypes.SIGNUP_COMPLETE:
     case tasksActionTypes.CREATE_COMPLETE:
       return action.payload.stats || initialStats;
     default:

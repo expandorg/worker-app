@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -6,7 +6,7 @@ import Hamburger from '../common/Hamburger';
 
 import styles from './Header.module.styl';
 
-export default class Header extends PureComponent {
+export default class Header extends Component {
   static propTypes = {
     collapsed: PropTypes.bool.isRequired,
     onToggle: PropTypes.func.isRequired,
@@ -15,15 +15,13 @@ export default class Header extends PureComponent {
   render() {
     const { collapsed, onToggle } = this.props;
     return (
-      <div className={cn(styles.header, { [styles.sbw]: collapsed })} >
-        <Hamburger onClick={onToggle} />
-        <div className={styles.container}>
-          <img
-            className={styles.logo}
-            src="/images/mobile-logo.png"
-            alt="Gems"
-          />
-        </div>
+      <div className={styles.container} >
+        <Hamburger
+          className={cn(styles.toggle, { [styles.opened]: collapsed })}
+          active={collapsed}
+          onToggle={onToggle}
+        />
+        <img src="/images/mobile-logo.png" className={styles.logo} alt="Gems" />
       </div>
     );
   }

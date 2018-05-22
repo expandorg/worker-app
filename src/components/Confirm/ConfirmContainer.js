@@ -1,15 +1,17 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import Confirm from './Confirm';
+
+import { authenticated } from '../hoc/authRules';
+
 import { confirmEmail, resendConfirmEmail } from '../../sagas/userSagas';
 
 import { errorSelector } from '../../selectors/uiStateSelectors';
-import { workerSelector } from '../../selectors/userSelectors';
+import { userSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
   error: errorSelector(state),
-  worker: workerSelector(state),
+  worker: userSelector(state),
 });
 
 const mapDispatchToProps = {
@@ -17,4 +19,4 @@ const mapDispatchToProps = {
   resendConfirmEmail,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Confirm));
+export default authenticated(connect(mapStateToProps, mapDispatchToProps)(Confirm));

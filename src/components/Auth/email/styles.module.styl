@@ -1,0 +1,74 @@
+@import 'common/uikit/font'
+@import 'common/uikit/colors'
+@import 'common/uikit/components'
+
+.container
+  box-sizing: border-box;
+  padding-top: 13px;
+
+
+.title
+  font(font-preset[caption], 400)
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: color-text-1
+
+.form
+  box-sizing: border-box;
+  padding-top: 5px;
+
+.error
+  margin-top: 10px;
+  color: color-pink
+  font(font-preset[body])
+
+.input
+  box-sizing: border-box
+  display: inline-block
+
+  padding: 0 10px 0 19px
+
+  width: 100%
+  height: 57px
+  font(font-preset[menu], false, false, 57px)
+
+  color: color-text-1
+  background-color: color-white
+
+  border-radius: 4px;
+  border: solid 1px rgba(58, 80, 107, 0.3);
+  outline: 0
+
+  margin-top: 8px
+
+  &::placeholder
+    color: lighten(color-text-1, 40%)
+
+.submit
+  button('large', 'pink')
+  width: 100%
+  margin-top: 24px;
+
+.footer
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+.forgot
+  text-align: center;
+  font(font-preset[normal])
+  letter-spacing: -0.2px;
+  color: color-text-1
+  margin-top: 13px;
+
+  outline: none
+  cursor: pointer;
+
+.toggle
+  margin-top: 23px;
+  font(font-preset[normal])
+  letter-spacing: -0.2px;
+  color: color-pink
+  outline: none
+  cursor: pointer;

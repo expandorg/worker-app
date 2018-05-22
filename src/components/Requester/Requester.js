@@ -2,6 +2,8 @@ import React from 'react';
 
 import Content from '../shared/Content';
 
+import { authenticated } from '../hoc/authRules';
+
 import styles from './Requester.module.styl';
 
 const Requester = () => (
@@ -20,4 +22,4 @@ const Requester = () => (
   </Content>
 );
 
-export default Requester;
+export default authenticated(Requester);

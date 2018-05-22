@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
-import { tasksActionTypes, gemsActionTypes } from '../../sagas/actionTypes';
+import { tasksActionTypes, gemsActionTypes, authActionTypes } from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 
 import errors from './errorsReducer';
 import depositStage from './depositStageReducer';
-import metamask from './metamaskReducer';
-import locked from './lockedReducer';
 
 export default combineReducers({
-  errors,
-  depositStage,
+  auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
+  login: requestUiStateReducer(authActionTypes.LOGIN),
+  signup: requestUiStateReducer(authActionTypes.SIGNUP),
+
   depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),
-  metamask,
-  locked,
   createTask: requestUiStateReducer(tasksActionTypes.CREATE),
+  errors,
+  depositStage,
 });

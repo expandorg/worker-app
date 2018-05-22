@@ -1,31 +1,25 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-import './Hamburger.css';
+import styles from './Hamburger.module.styl';
 
-export default class Hamburger extends PureComponent {
+export default class Hamburger extends Component {
   static propTypes = {
-    onClick: PropTypes.func.isRequired,
-  }
-
-  state = {
-    active: false,
-  }
-
-  handleClick = () => {
-    this.setState(({ active }) => ({ active: !active }));
-    this.props.onClick();
+    className: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    onToggle: PropTypes.func.isRequired,
   }
 
   render() {
-    const { active } = this.state;
+    const { active, onToggle, className } = this.props;
     return (
       <button
         data-collapse
-        className={active ? 'toggle -active' : 'toggle'}
-        onClick={this.handleClick}
+        className={cn(styles.toggle, { [styles.active]: active }, className)}
+        onClick={onToggle}
       >
-        <span className="icon" />
+        <span className={styles.icon} />
       </button>
     );
   }

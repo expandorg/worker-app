@@ -1,0 +1,33 @@
+@import 'common/uikit/components';
+@import 'common/uikit/colors';
+@import 'common/uikit/font';
+@import 'common/uikit/layout';
+
+.container
+  box-sizing: border-box;
+  padding: 45px (2 * s-padding-big) 25px
+  text-align: center;
+
+.screenshot
+  margin: 0 auto;
+
+  width: 100%
+  height: 500px;
+
+  background-position:center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-image: url(./login-screenshot.svg);
+
+.info
+  margin-top: 11px;
+
+.instructions
+  font(font-preset[subheader])
+  color: #3A506B
+
+.login
+  button('large', 'pink')
+  padding: 0 s-padding-big
+  margin-top: s-margin-big

@@ -10,4 +10,8 @@ export default class ApiError extends Error {
     this.responseStatus = responseStatus;
     this.httpStatus = httpStatus;
   }
+
+  static validation(message) {
+    return new ApiError(message, 400);
+  }
 }

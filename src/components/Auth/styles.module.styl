@@ -1,0 +1,25 @@
+@import 'common/uikit/layout'
+@import 'common/uikit/colors'
+
+.container
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box
+
+  @media(max-width: 685px)
+    align-items: stretch;
+    min-height: 'calc(100vh - %s)' % s-header-height
+
+.panel
+  margin-top: 50px;
+  box-sizing: border-box;
+  background-color: color-white
+  display: flex;
+  justify-content: center;
+
+  width: 685px;
+  padding-top: 55px;
+
+  @media(max-width: 685px)
+    margin-top: 0
+    width: 100%

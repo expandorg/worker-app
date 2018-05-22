@@ -19,18 +19,19 @@ export default class ApiClient {
       .then(this.processResponse)
 
   processResponse = async (response) => {
+    let json = null;
     try {
-      const json = await response.json();
-
-      if (json.error) {
-        throw new ApiError(json.error, response.status);
-      }
-      if (response.status < 200 || response.status >= 400) {
-        throw new ApiError(json, response.status);
-      }
-      return json;
+      json = await response.json();
     } catch (e) {
       throw new ApiError(e, 500);
     }
+
+    if (json.error) {
+      throw new ApiError(json.error, response.status);
+    }
+    if (response.status < 200 || response.status >= 400) {
+      throw new ApiError(json, response.status);
+    }
+    return json;
   }
 }

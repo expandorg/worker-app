@@ -20,7 +20,7 @@ export const requestUiStateReducer = actionType =>
       case `${actionType}_COMPLETE`: {
         return { ...initialState, state: RequestStates.Fetched }; }
       case `${actionType}_FAILED`: {
-        return { state: RequestStates.FetchError, error: action.payload };
+        return { state: RequestStates.FetchError, error: action.payload.responseStatus };
       }
       default:
         break;

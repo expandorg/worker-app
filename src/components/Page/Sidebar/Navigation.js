@@ -1,47 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { isWorkerFunded } from '../../../model/worker';
-import { workerProps, statsProps } from '../../shared/propTypes';
+import { connect } from 'react-redux';
+import { NavLink, withRouter } from 'react-router-dom';
 
-import NavLink from './NavigationLink';
+import { loggedInSelector, isJoinedSelector, isFundedSelector } from '../../../selectors/userSelectors';
 
 import styles from './Navigation.module.styl';
 
-const Navigation = ({
-  isAuthorized, isJoined, worker, stats,
-}) => {
-  if (!isAuthorized) {
+const mapStateToProps = state => ({
+  isLoggedIn: loggedInSelector(state),
+  isJoined: isJoinedSelector(state),
+  isFunded: isFundedSelector(state),
+});
+
+
+class Navigation extends Component {
+  static propTypes = {
+    isLoggedIn: PropTypes.bool,
+    isJoined: PropTypes.bool.isRequired,
+    isFunded: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    isLoggedIn: false,
+  };
+
+  render() {
+    const { isLoggedIn, isJoined, isFunded } = this.props;
+
+    if (!isLoggedIn) {
+      return null;
+    }
     return (
-      <ul className={styles.nav}>
-        <NavLink to="/login" label="Log In" />
-      </ul>
+      <div className={styles.container}>
+        {isFunded && isJoined &&
+          <NavLink to="/task" className={styles.link} activeClassName={styles.active}>
+            My Task
+          </NavLink>
+        }
+        <NavLink to="/jobs" className={styles.link} activeClassName={styles.active}>
+          Jobs
+        </NavLink>
+        <NavLink to="/account" className={styles.link} activeClassName={styles.active}>
+          Account
+        </NavLink>
+        <NavLink to="/stats" className={styles.link} activeClassName={styles.active}>
+          Stats
+        </NavLink>
+        <NavLink to="/requester" className={styles.link} activeClassName={styles.active}>
+          Requester
+        </NavLink>
+      </div>
     );
   }
-  return (
-    <ul className={styles.nav}>
-      {isJoined && isWorkerFunded(worker, stats) &&
-        <NavLink to="/task" label="My Task" />
-      }
-      <NavLink to="/jobs" label="Jobs" />
-      <NavLink to="/account" label="Account" />
-      <NavLink to="/stats" label="Stats" />
-      <NavLink to="/requester" label="Requester" />
-    </ul>
-  );
-};
-
-Navigation.propTypes = {
-  isAuthorized: PropTypes.bool,
-  isJoined: PropTypes.bool.isRequired,
-  worker: PropTypes.shape(workerProps),
-  stats: PropTypes.shape(statsProps).isRequired,
-};
-
-Navigation.defaultProps = {
-  isAuthorized: null,
-  worker: null,
-};
+}
 
 
-export default Navigation;
+export default withRouter(connect(mapStateToProps)(Navigation));

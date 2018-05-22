@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../common/Modal';
 
-import { workerProps, routerProps, locationProps } from '../shared/propTypes';
+import { workerProps, historyProps, locationProps } from '../shared/propTypes';
 
 import styles from './Confirm.module.styl';
 
@@ -12,7 +12,7 @@ export default class Confirm extends Component {
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
     worker: PropTypes.shape(workerProps),
-    router: PropTypes.shape(routerProps).isRequired,
+    history: PropTypes.shape(historyProps).isRequired,
     location: PropTypes.shape(locationProps),
   }
 
@@ -25,7 +25,7 @@ export default class Confirm extends Component {
   constructor(props) {
     super(props);
     if (this.props.worker.confirmed) {
-      this.props.router.replace('/jobs');
+      this.props.history.replace('/jobs');
     }
     const { location } = this.props;
     const { query } = location;
@@ -46,7 +46,7 @@ export default class Confirm extends Component {
 
   componentDidUpdate() {
     if (this.props.worker.confirmed) {
-      this.props.router.replace('/jobs');
+      this.props.history.replace('/jobs');
     }
   }
 

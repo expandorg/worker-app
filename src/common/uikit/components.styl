@@ -1,0 +1,68 @@
+@import './colors';
+@import './font';
+@import './layout';
+
+button(size = 'medium', theme = 'pink')
+  text-align: center;
+
+  border: 0
+  text-decoration: none;
+  outline: 0
+  cursor: pointer;
+  display: inline-block;
+
+  if size == 'medium'
+    font(font-preset[menu], false, false, 40px)
+    height: 40px
+    border-radius: 4px
+
+  if size == 'large'
+    font(font-preset[menu], false, false, 50px)
+    height: 50px
+    border-radius: 4px
+
+  if theme == 'pink'
+    color: color-white
+    background-color: color-pink
+    &:hover
+      background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
+
+  if theme == 'blue'
+    color: color-white
+    background-color: color-blue
+    &:hover
+      background-image: linear-gradient(to bottom right, color-blue, lighten(color-blue, 10%))
+
+
+
+panel()
+  padding: s-margin-big
+  border-radius: 4px
+  background-color: color-white
+  border: solid 1px color-grey
+  display: block
+  margin: s-margin-big
+
+loading()
+  display: block
+  margin: auto
+  height: 150px
+  width: 150px
+  background: url(/images/loading-animation.gif) no-repeat left top
+  background-size: contain
+  position: relative
+  top: 35%
+  transform: translateY(-50%)
+
+flexpanel()
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: center
+
+  padding: s-padding-big
+  margin: s-margin-big
+
+  border-radius: 4px
+  background-color: color-white
+  border: solid 1px color-grey
