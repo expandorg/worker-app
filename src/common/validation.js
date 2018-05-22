@@ -1,7 +1,10 @@
+import isEmail from 'validator/lib/isEmail';
+
 import ApiError from './api/ApiError';
 
 export const rules = {
   isNotEmpty: str => str !== '',
+  isEmail: value => (typeof value === 'undefined') || isEmail(value),
 };
 
 
