@@ -38,5 +38,5 @@ export const requestStateProps = {
 };
 
 export const userProps = {
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
 };
