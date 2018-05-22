@@ -17,7 +17,8 @@ export const isFundedSelector = createSelector(
   (user, stats) => (user ? isFunded(user, stats) : false),
 );
 
-export const isJoinedSelector = state => state.isJoined;
+
+export const isJoinedSelector = () => false;
 
 
 export const gemBalanceSelector = state => state.gemsBalance;
