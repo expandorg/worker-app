@@ -3,13 +3,11 @@ import { Redirect } from 'react-router-dom';
 
 import { RequestStates } from '../../common/app/requestUiState';
 
-import { isWorkerFunded } from '../../model/worker';
-
 import authContainer from './authContainer';
 
-const notAuthenticatedPredicat = ({ user, stats }) => {
+const notAuthenticatedPredicat = ({ user, isFunded }) => {
   if (user) {
-    if (isWorkerFunded(user, stats)) {
+    if (isFunded) {
       return <Redirect to="/jobs" />;
     }
     return <Redirect to="/account" />;
@@ -36,7 +34,7 @@ export const authenticatedFunded = authContainer((props) => {
   if (result !== true) {
     return result;
   }
-  if (!isWorkerFunded(props.user, props.stats)) {
+  if (!props.isFunded) {
     return <Redirect to="/account" />;
   }
   return true;

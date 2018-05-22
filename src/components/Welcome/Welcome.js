@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
+
+import LoginDialog from '../Auth/LoginDialog';
 
 import Slider from '../common/Slider/Slider';
 
@@ -10,7 +11,15 @@ import { notAuthenticated } from '../hoc/authRules';
 import styles from './Welcome.module.styl';
 
 class Welcome extends Component {
+  state = {
+    opened: false,
+  }
+  handleToggle = () => {
+    this.setState(({ opened }) => ({ opened: !opened }));
+  }
+
   render() {
+    const { opened } = this.state;
     return (
       <DocumentTitle title="Welcome">
         <div className={styles.container}>
@@ -39,11 +48,14 @@ class Welcome extends Component {
               </Slider>
             </div>
             <div className={styles.actions}>
-              <Link className={styles.start} to="/login">
+              <button className={styles.start} onClick={this.handleToggle}>
                 Start
-              </Link>
+              </button>
             </div>
           </div>
+          {opened &&
+            <LoginDialog onHide={this.handleToggle} />
+          }
         </div>
       </DocumentTitle>
     );

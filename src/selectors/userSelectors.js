@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+import { isFunded } from '../model/worker';
+
 export const userSelector = state => state.user;
 
 export const loggedInSelector = createSelector(
@@ -7,9 +9,16 @@ export const loggedInSelector = createSelector(
   user => !!user,
 );
 
+export const statsSelector = state => state.stats;
+
+export const isFundedSelector = createSelector(
+  userSelector,
+  statsSelector,
+  (user, stats) => (user ? isFunded(user, stats) : false),
+);
+
 export const isJoinedSelector = state => state.isJoined;
 
-export const statsSelector = state => state.stats;
 
 export const gemBalanceSelector = state => state.gemsBalance;
 

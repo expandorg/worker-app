@@ -44,7 +44,7 @@ function* handleLoginMetamask() {
   }
 }
 
-export const signupUser = form => ({
+export const signup = form => ({
   type: authActionTypes.SIGNUP,
   payload: form,
   meta: { validation: signupValidation },

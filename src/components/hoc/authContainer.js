@@ -4,14 +4,14 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import { connect } from 'react-redux';
 
-import { userSelector, statsSelector } from '../../selectors/userSelectors';
+import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { authStateSelector } from '../../selectors/uiStateSelectors';
 
-import { requestStateProps, userProps, statsProps } from '../shared/propTypes';
+import { requestStateProps, userProps } from '../shared/propTypes';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
-  stats: statsSelector(state),
+  isFunded: isFundedSelector(state),
   authState: authStateSelector(state),
 });
 
@@ -20,7 +20,7 @@ export default function authContainer(authCallback) {
     class AuthWrapper extends Component {
       static propTypes = {
         user: PropTypes.shape(userProps),
-        stats: PropTypes.shape(statsProps).isRequired,
+        isFunded: PropTypes.bool.isRequired,
         authState: PropTypes.shape(requestStateProps).isRequired,
       }
 
@@ -29,7 +29,7 @@ export default function authContainer(authCallback) {
       }
 
       render() {
-        const { user, stats, ...rest } = this.props;
+        const { user, isFunded, ...rest } = this.props;
         const checkResult = authCallback(this.props);
         if (checkResult !== true) {
           return checkResult;

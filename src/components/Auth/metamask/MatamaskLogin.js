@@ -35,7 +35,6 @@ class MatamaskLogin extends Component {
   }
 
   handleClick = () => {
-    this.setState({ metamaskDialog: true });
     if (this.props.metamaskState !== MetamaskState.Authorized) {
       this.setState({ metamaskDialog: true });
     } else {

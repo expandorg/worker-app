@@ -3,13 +3,30 @@
 @import 'common/uikit/colors';
 
 defaultBtn()
-  btn()
+  border-radius: 4px
+  background-color: color-pink
+
+  font-size: 16px
+  text-align: center
+
   min-width: 100px
   width: 'calc(25% - %s)' % s-margin-big
   height: 40px
   margin: s-margin-medium
   display: inline-block
-  font-size: 16px
+
+  cursor: pointer
+  border: 0
+  outline: 0
+
+  &:hover
+    background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
+
+  &:disabled
+    background-color: color-grey
+
+    &:hover
+      background-image: none
 
 .defaultBtn
   defaultBtn()

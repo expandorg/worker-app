@@ -12,7 +12,8 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
 import Account from './components/Account/AccountContainer';
-import Jobs from './components/Jobs/JobsContainer';
+import Jobs from './components/Jobs/Jobs';
+
 import Stats from './components/Stats/StatsContainer';
 import Requester from './components/Requester/Requester';
 import Task from './components/Task/TaskContainer';

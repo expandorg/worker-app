@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import Content from '../shared/Content';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
@@ -9,17 +11,34 @@ import ConfirmModal from './ConfirmModal';
 import Disabled from './Disabled';
 import DepositPrompt from './DepositPrompt';
 
-import { workerProps, statsProps, historyProps, jobProps } from '../shared/propTypes';
-import { isWorkerFunded } from '../../model/worker';
+import { workerProps, historyProps, jobProps } from '../shared/propTypes';
+import { authenticated } from '../hoc/authRules';
+
+import { fetchJobs } from '../../sagas/jobsSagas';
+import { setIsJoined } from '../../sagas/tasksSagas';
+
+import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
+import { jobsSelector } from '../../selectors/jobsSelectors';
 
 import { JOB_DISABLED } from '../../model/consts';
 
 
-export default class Jobs extends Component {
+const mapStateToProps = state => ({
+  worker: userSelector(state),
+  isFunded: isFundedSelector(state),
+  jobs: jobsSelector(state),
+});
+
+const mapDispatchToProps = {
+  setIsJoined, fetchJobs,
+};
+
+
+class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     worker: PropTypes.shape(workerProps),
-    stats: PropTypes.shape(statsProps).isRequired,
+    isFunded: PropTypes.bool.isRequired,
     history: PropTypes.shape(historyProps).isRequired,
     setIsJoined: PropTypes.func.isRequired,
     fetchJobs: PropTypes.func.isRequired,
@@ -51,19 +70,15 @@ export default class Jobs extends Component {
   }
 
   render() {
-    const { stats, worker, jobs } = this.props;
+    const { isFunded, worker, jobs } = this.props;
     const { selected } = this.state;
 
     if (JOB_DISABLED) {
       return <Disabled />;
     }
     const confirmedEmail = (worker.email && worker.confirmed) || process.env.NODE_ENV !== 'production';
-    const isFunded = isWorkerFunded(worker, stats);
     return (
       <Content title="Browse Jobs">
-        {!confirmedEmail &&
-          <EmailSubmission worker={worker} />
-        }
         {jobs.map(job => (
           <Job
             key={job.id}
@@ -80,7 +95,12 @@ export default class Jobs extends Component {
             onConfirm={this.handleConfirm}
           />
         }
+        {!confirmedEmail &&
+          <EmailSubmission worker={worker} />
+        }
       </Content>
     );
   }
 }
+
+export default authenticated(connect(mapStateToProps, mapDispatchToProps)(Jobs));

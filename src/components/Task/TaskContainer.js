@@ -5,13 +5,12 @@ import { submitTask } from '../../sagas/tasksSagas';
 import { authenticatedFunded } from '../hoc/authRules';
 
 import { taskIsSubmittingSelector, errorSelector } from '../../selectors/uiStateSelectors';
-import { userSelector, statsSelector } from '../../selectors/userSelectors';
+import { isFundedSelector } from '../../selectors/userSelectors';
 
 const mapStateToProps = state => ({
   isSubmitting: taskIsSubmittingSelector(state),
+  isFunded: isFundedSelector(state),
   error: errorSelector(state),
-  stats: statsSelector(state),
-  worker: userSelector(state),
 });
 
 const mapDispatchToProps = {

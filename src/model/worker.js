@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js/bignumber';
 
 const stake = new BigNumber(0.1);
 
-export function isWorkerFunded(worker, stats) {
+export function isFunded(worker, stats) {
   const totalBalance = new BigNumber(worker.vaultBalance).plus(new BigNumber(worker.jobBalance));
   const pendingPayouts = stake.multipliedBy(new BigNumber(stats.pending));
   const availableBalance = totalBalance.minus(pendingPayouts);
