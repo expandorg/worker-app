@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { normalize } from 'normalizr';
 import { validate } from '../validation';
 
 export const apiCallSaga = (actionType, asyncCall) => {
@@ -7,7 +8,12 @@ export const apiCallSaga = (actionType, asyncCall) => {
       if (meta && meta.validation) {
         validate(payload, meta.validation);
       }
-      const result = yield call(asyncCall, payload);
+      let result = yield call(asyncCall, payload);
+
+      if (meta && meta.schema) {
+        result = normalize(result, meta.schema);
+      }
+
       yield put({ type: `${actionType}_COMPLETE`, payload: result, meta });
     } catch (error) {
       yield put({ type: `${actionType}_FAILED`, payload: error, meta });

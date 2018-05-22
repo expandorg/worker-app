@@ -12,6 +12,8 @@ export const loginStateSelector = createSelector(uiStateSelector, state => state
 export const signupStateSelector = createSelector(uiStateSelector, state => state.signup);
 
 
+export const assignJobStateSelector = createSelector(uiStateSelector, state => state.assignJob);
+
 export const createTaskStateSelector = createSelector(uiStateSelector, state => state.createTask);
 
 export const taskIsSubmittingSelector = createSelector(

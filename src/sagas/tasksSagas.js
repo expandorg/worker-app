@@ -12,11 +12,6 @@ export const submitTask = submission => ({
 
 const watchCreateRequest = takeEveryApiCall(tasksActionTypes.CREATE, tasksApi.submitTask);
 
-export const setIsJoined = payload => ({
-  type: tasksActionTypes.JOIN,
-  payload,
-});
-
 
 export function* tasksSagas() {
   yield fork(watchCreateRequest);

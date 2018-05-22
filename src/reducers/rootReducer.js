@@ -4,11 +4,11 @@ import user from './userReducer';
 import stats from './statsReducer';
 import gemsBalance from './gemsBalanceReducer';
 import transactions from './transactionsReducer';
-import jobs from './jobsReducer';
+
+import jobsList from './jobs/jobsListReducer';
+import jobEntities from './jobs/jobEntitiesReducer';
 
 import metamask from './web3/metamaskReducer';
-
-import isJoined from './isJoinedReducer';
 
 import ui from './ui';
 
@@ -16,9 +16,11 @@ export default combineReducers({
   user,
   stats,
   gemsBalance,
-  jobs,
+  jobs: combineReducers({
+    entities: jobEntities,
+    list: jobsList,
+  }),
   transactions,
-  isJoined,
   ui,
   web3: combineReducers({
     metamask,

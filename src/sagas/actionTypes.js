@@ -59,14 +59,16 @@ export const tasksActionTypes = createActionTypes('tasks', {
   CREATE: null,
   CREATE_COMPLETE: null,
   CREATE_FAILED: null,
-
-  JOIN: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {
   FETCH: null,
   FETCH_COMPLETE: null,
   FETCH_FAILED: null,
+
+  ASSIGN: null,
+  ASSIGN_COMPLETE: null,
+  ASSIGN_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

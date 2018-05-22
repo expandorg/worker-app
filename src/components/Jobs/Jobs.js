@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { RequestStates } from '../../common/app/requestUiState';
+
+import { workerProps, jobProps, requestStateProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
@@ -11,42 +16,43 @@ import ConfirmModal from './ConfirmModal';
 import Disabled from './Disabled';
 import DepositPrompt from './DepositPrompt';
 
-import { workerProps, historyProps, jobProps } from '../shared/propTypes';
 import { authenticated } from '../hoc/authRules';
 
-import { fetchJobs } from '../../sagas/jobsSagas';
-import { setIsJoined } from '../../sagas/tasksSagas';
+import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
+import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 
 import { JOB_DISABLED } from '../../model/consts';
 
+import styles from './Jobs.module.styl';
 
 const mapStateToProps = state => ({
-  worker: userSelector(state),
+  user: userSelector(state),
   isFunded: isFundedSelector(state),
+  assignState: assignJobStateSelector(state),
   jobs: jobsSelector(state),
 });
 
-const mapDispatchToProps = {
-  setIsJoined, fetchJobs,
-};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchJobs, assignJob }, dispatch);
 
 
 class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
-    worker: PropTypes.shape(workerProps),
+    user: PropTypes.shape(workerProps),
     isFunded: PropTypes.bool.isRequired,
-    history: PropTypes.shape(historyProps).isRequired,
-    setIsJoined: PropTypes.func.isRequired,
+    assignState: PropTypes.shape(requestStateProps).isRequired,
+
     fetchJobs: PropTypes.func.isRequired,
+    assignJob: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     jobs: [],
-    worker: null,
+    user: null,
   }
 
   state = {
@@ -60,33 +66,38 @@ class Jobs extends Component {
   handleSelect = (job) => {
     this.setState({ selected: job });
   }
+
   handleCancel = () => {
     this.setState({ selected: null });
   }
 
-  handleConfirm = () => {
-    this.props.setIsJoined(true);
-    this.props.history.replace('/task');
+  handleConfirm = (job) => {
+    if (this.props.assignState.state !== RequestStates.Fetching) {
+      this.props.assignJob(job.id);
+    }
   }
 
   render() {
-    const { isFunded, worker, jobs } = this.props;
+    const { isFunded, user, jobs } = this.props;
     const { selected } = this.state;
 
     if (JOB_DISABLED) {
       return <Disabled />;
     }
-    const confirmedEmail = (worker.email && worker.confirmed) || process.env.NODE_ENV !== 'production';
+
+    const confirmedEmail = (user.email && user.confirmed) || process.env.NODE_ENV !== 'production';
     return (
       <Content title="Browse Jobs">
-        {jobs.map(job => (
-          <Job
-            key={job.id}
-            job={job}
-            isFunded={isFunded}
-            onJoin={this.handleSelect}
-          />
-        ))}
+        <div className={styles.list}>
+          {jobs.map(job => (
+            <Job
+              key={job.id}
+              job={job}
+              isFunded={isFunded}
+              onJoin={this.handleSelect}
+            />
+          ))}
+        </div>
         <DepositPrompt visible={!isFunded} />
         {selected &&
           <ConfirmModal
@@ -96,7 +107,7 @@ class Jobs extends Component {
           />
         }
         {!confirmedEmail &&
-          <EmailSubmission worker={worker} />
+          <EmailSubmission worker={user} />
         }
       </Content>
     );
