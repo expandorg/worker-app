@@ -1,6 +1,9 @@
 {
-  "extends": "gemsorg",
   "parser": "babel-eslint",
+  "extends": [
+    "gemsorg",
+    "plugin:flowtype/recommended"
+  ],
   "env": {
     "browser": true,
     "es6": true,
@@ -11,5 +14,9 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": ["off"],
     "react/prop-types": [2, { "ignore": ['children'] }]
-  }
+  },
+  plugins: [
+    "react",
+    "flowtype"
+  ]
 }
