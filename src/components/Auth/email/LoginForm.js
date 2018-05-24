@@ -84,7 +84,7 @@ class LoginForm extends Component {
           />
           {error &&
             <div className={styles.error}>
-              {error}
+              {error.toString()}
             </div>
           }
           <button type="submit" className={styles.submit}>

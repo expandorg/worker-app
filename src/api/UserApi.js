@@ -1,6 +1,9 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class UserApi extends BaseApi {
+  fetchBalance = user =>
+    this.get(`/users/${user.id}/gems`)
+
   setEmail = ({ email }) =>
     this.postForm('/account/email/update', email)
 

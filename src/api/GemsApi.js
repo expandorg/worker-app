@@ -1,9 +1,6 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class GemsApi extends BaseApi {
-  fetchBalance = () =>
-    this.get('/gems')
-
   depost = ({ value }) =>
     this.post('/depost', { value });
 

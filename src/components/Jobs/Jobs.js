@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { RequestStates } from '../../common/app/requestUiState';
 
-import { workerProps, jobProps, requestStateProps } from '../shared/propTypes';
+import { userProps, jobProps, requestStateProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch =>
 class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
-    user: PropTypes.shape(workerProps),
+    user: PropTypes.shape(userProps),
     isFunded: PropTypes.bool.isRequired,
     assignState: PropTypes.shape(requestStateProps).isRequired,
 

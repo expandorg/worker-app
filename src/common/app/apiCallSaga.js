@@ -1,9 +1,21 @@
+// @flow
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { validate } from '../validation';
 
-export const apiCallSaga = (actionType, asyncCall) => {
-  function* request({ payload, meta }) {
+export type ReduxAction = {
+  type: string,
+  payload: any,
+  meta: ?{
+    validation?: Object,
+    schema?: Object,
+    params?: Object
+  },
+  [key: string]: any
+}
+
+export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) => {
+  function* request({ payload, meta }: ReduxAction): Iterable<any> {
     try {
       if (meta && meta.validation) {
         validate(payload, meta.validation);
@@ -22,9 +34,9 @@ export const apiCallSaga = (actionType, asyncCall) => {
   return request;
 };
 
-export const takeEveryApiCall = (actionType, asyncCall) => {
+export const takeEveryApiCall = (actionType: string, asyncCall: () => Promise<any>) => {
   const request = apiCallSaga(actionType, asyncCall);
-  function* watchGenerator() {
+  function* watchGenerator(): Iterable<any> {
     yield takeEvery(actionType, request);
   }
   return watchGenerator;
