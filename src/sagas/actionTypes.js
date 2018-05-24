@@ -34,6 +34,10 @@ export const authActionTypes = createActionTypes('auth', {
   SIGNUP_COMPLETE: null,
   SIGNUP_FAILED: null,
 
+  SIGNUP_METAMASK: null,
+  SIGNUP_METAMASK_COMPLETE: null,
+  SIGNUP_METAMASK_FAILED: null,
+
   LOGOUT: null,
   LOGOUT_COMPLETE: null,
   LOGOUT_FAILED: null,
