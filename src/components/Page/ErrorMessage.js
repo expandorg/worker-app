@@ -31,7 +31,7 @@ class ErrorMessage extends Component {
     }
     return (
       <div className={styles.error}>
-        {this.props.error}
+        {this.props.error.responseStatus}
         <button className={styles.close} onClick={this.props.clearErrors}>
           ✕
         </button>

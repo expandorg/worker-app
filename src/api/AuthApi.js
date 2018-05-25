@@ -5,16 +5,19 @@ export class AuthApi extends BaseApi {
     this.get('/auth')
 
   loginUser = ({ email, password }) =>
-    this.post('/login', { email, password })
+    this.post('/login/email', { email, password })
 
   loginMetamask = ({ address, signature }) =>
-    this.post('/login', { address, signature })
+    this.post('/login/address', { address, signature })
 
   signupUser = ({ email, password }) =>
-    this.post('/register', { email, password })
+    this.post('/register/email', { email, password })
+
+  signupMetamask = ({ email, password }) =>
+    this.post('/register/address', { email, password })
 
   logout = () =>
-    this.post('/logout')
+    this.get('/logout')
 }
 
 export const authApi = new AuthApi();

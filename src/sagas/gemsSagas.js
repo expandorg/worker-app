@@ -4,6 +4,7 @@ import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { gemsActionTypes } from './actionTypes';
 
 import { gemsApi } from '../api/GemsApi';
+import { userApi } from '../api/UserApi';
 import { gemsService } from '../services/GemsService';
 
 
@@ -32,12 +33,12 @@ function* handleDeposit({ payload }) {
   }
 }
 
-export const fetchWorkerGemsBalance = () => ({
+export const fetchGemsBalance = user => ({
   type: gemsActionTypes.FETCH_BALANCE,
-  payload: null,
+  payload: user,
 });
 
-const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, gemsApi.fetchBalance);
+const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, userApi.fetchBalance);
 
 export const withdrawPayments = () => ({
   type: gemsActionTypes.WITHDRAW,

@@ -34,6 +34,10 @@ export const authActionTypes = createActionTypes('auth', {
   SIGNUP_COMPLETE: null,
   SIGNUP_FAILED: null,
 
+  SIGNUP_METAMASK: null,
+  SIGNUP_METAMASK_COMPLETE: null,
+  SIGNUP_METAMASK_FAILED: null,
+
   LOGOUT: null,
   LOGOUT_COMPLETE: null,
   LOGOUT_FAILED: null,
@@ -59,14 +63,16 @@ export const tasksActionTypes = createActionTypes('tasks', {
   CREATE: null,
   CREATE_COMPLETE: null,
   CREATE_FAILED: null,
-
-  JOIN: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {
   FETCH: null,
   FETCH_COMPLETE: null,
   FETCH_FAILED: null,
+
+  ASSIGN: null,
+  ASSIGN_COMPLETE: null,
+  ASSIGN_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

@@ -4,7 +4,6 @@ import cn from 'classnames';
 
 import { Prompt } from 'react-router-dom';
 
-
 import Clipboard from 'react-clipboard.js';
 
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
@@ -17,17 +16,17 @@ import { RequestStates } from '../../common/app/requestUiState';
 import Content from '../shared/Content';
 import Cell from './Cell';
 
-import { isBalanceSufficient, workerAddress, getStakedGems, getBalance } from '../../model/worker';
+import { isBalanceSufficient, getStakedGems, getBalance } from '../../model/worker';
+import { userAddress } from '../../model/user';
 import { TRANSACTIONS_DISABLED } from '../../model/consts';
 
-import { workerProps, statsProps, requestStateProps } from '../shared/propTypes';
+import { userProps, requestStateProps } from '../shared/propTypes';
 
 import styles from './Account.module.styl';
 
 export default class Account extends Component {
   static propTypes = {
-    stats: PropTypes.shape(statsProps).isRequired,
-    worker: PropTypes.shape(workerProps),
+    user: PropTypes.shape(userProps),
 
     depositStage: PropTypes.number.isRequired,
     gemsBalance: PropTypes.number,
@@ -36,11 +35,11 @@ export default class Account extends Component {
 
     logout: PropTypes.func.isRequired,
     withdrawPayments: PropTypes.func.isRequired,
-    fetchWorkerGemsBalance: PropTypes.func.isRequired,
+    fetchGemsBalance: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    worker: null,
+    user: null,
     gemsBalance: null,
   };
 
@@ -51,7 +50,10 @@ export default class Account extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchWorkerGemsBalance();
+    const { user } = this.props;
+    if (user && user.address && user.address.Valid) {
+      this.props.fetchGemsBalance(user);
+    }
   }
 
 
@@ -69,18 +71,18 @@ export default class Account extends Component {
 
   render() {
     const {
-      worker, gemsBalance, stats, logout, withdrawState, depositStage,
+      user, gemsBalance, logout, withdrawState, depositStage,
     } = this.props;
 
-    if (!worker) {
+    if (!user) {
       return null;
     }
 
-    const workerAddr = workerAddress(worker);
+    const address = userAddress(user);
     const { emailModal, depositModal } = this.state;
 
-    const staked = getStakedGems(stats.pending);
-    const balance = getBalance(worker, staked);
+    const staked = getStakedGems(user.stats.pending);
+    const balance = getBalance(user, staked);
 
     const loading = withdrawState.state === RequestStates.Fetching;
     return (
@@ -94,7 +96,7 @@ export default class Account extends Component {
             <DepositModal onClose={this.toggleDeposit} />
           }
           {emailModal &&
-            <EmailSubmission worker={worker} onClose={this.toggleEmail} />
+            <EmailSubmission worker={user} onClose={this.toggleEmail} />
           }
           <SuccessfulTransaction />
           <div className={styles.table}>
@@ -104,9 +106,9 @@ export default class Account extends Component {
             <Cell title="Account Address">
               <div className={styles.accountInput}>
                 <div className={styles.accountInputContainer}>
-                  <span className={styles.address} id="address">{workerAddr}</span>
+                  <span className={styles.address} id="address">{address}</span>
                 </div>
-                <Clipboard className={styles.copyBtn} data-clipboard-text={workerAddr}>
+                <Clipboard className={styles.copyBtn} data-clipboard-text={address}>
                   Copy
                 </Clipboard>
               </div>
@@ -115,7 +117,7 @@ export default class Account extends Component {
               <div className={styles.emailInput}>
                 <div className={styles.accountInputContainer}>
                   <span className={styles.address} id="address">
-                    {worker.email || 'No email found'}
+                    {user.email || 'No email found'}
                   </span>
                 </div>
               </div>

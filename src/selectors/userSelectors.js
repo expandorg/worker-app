@@ -9,15 +9,13 @@ export const loggedInSelector = createSelector(
   user => !!user,
 );
 
-export const statsSelector = state => state.stats;
-
 export const isFundedSelector = createSelector(
   userSelector,
-  statsSelector,
-  (user, stats) => (user ? isFunded(user, stats) : false),
+  user => (user ? isFunded(user) : false),
 );
 
-export const isJoinedSelector = state => state.isJoined;
+
+export const isJoinedSelector = () => false;
 
 
 export const gemBalanceSelector = state => state.gemsBalance;

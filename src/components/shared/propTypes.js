@@ -1,23 +1,44 @@
 import PropTypes from 'prop-types';
 
-export const workerProps = {
-  id: PropTypes.string.isRequired,
-  vaultBalance: PropTypes.number.isRequired,
-  jobBalance: PropTypes.number.isRequired,
-};
-
-export const statsProps = {
-  pending: PropTypes.number.isRequired,
-  accepted: PropTypes.number.isRequired,
-  rejected: PropTypes.number.isRequired,
+export const userProps = {
+  id: PropTypes.number.isRequired,
+  email: PropTypes.string,
+  isRequester: PropTypes.bool.isRequired,
+  score: PropTypes.number,
+  address: PropTypes.shape({
+    String: PropTypes.string,
+    Valid: PropTypes.bool.isRequired,
+  }),
+  gems: PropTypes.shape({
+    balance: PropTypes.number,
+    reserved: PropTypes.number,
+    owned: PropTypes.number,
+  }),
+  stats: PropTypes.shape({
+    pending: PropTypes.number.isRequired,
+    accepted: PropTypes.number.isRequired,
+    rejected: PropTypes.number.isRequired,
+  }),
 };
 
 export const jobProps = {
   id: PropTypes.number,
-  requester: PropTypes.string,
-  title: PropTypes.string,
-  imageUrl: PropTypes.string,
+  name: PropTypes.string,
   description: PropTypes.string,
+  screenshot: PropTypes.string,
+  logo: PropTypes.string,
+  form: PropTypes.string,
+  requesterId: PropTypes.number,
+  isActive: PropTypes.bool,
+  logic: PropTypes.shape({
+    funding: PropTypes.shape({
+      reward: PropTypes.number,
+    }),
+  }),
+  gems: PropTypes.shape({
+    balance: PropTypes.number,
+    reserved: PropTypes.number,
+  }),
 };
 
 export const historyProps = {
@@ -35,8 +56,4 @@ export const locationProps = {
 export const requestStateProps = {
   state: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-};
-
-export const userProps = {
-  email: PropTypes.string,
 };

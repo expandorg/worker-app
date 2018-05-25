@@ -13,7 +13,6 @@ export default function errorsReducer(state = null, action) {
     case userActionTypes.SET_EMAIL_FAILED:
     case userActionTypes.CONFIRM_EMAIL_FAILED:
     case userActionTypes.RESEND_CONFIRM_EMAIL_FAILED:
-    case gemsActionTypes.FETCH_BALANCE_FAILED:
     case gemsActionTypes.WITHDRAW_FAILED:
       return (action.payload || '').toString();
     default:

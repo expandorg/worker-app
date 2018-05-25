@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
-import { tasksActionTypes, gemsActionTypes, authActionTypes } from '../../sagas/actionTypes';
+import {
+  tasksActionTypes,
+  gemsActionTypes,
+  authActionTypes,
+  jobsActionTypes,
+} from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 
@@ -10,6 +15,8 @@ export default combineReducers({
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
   login: requestUiStateReducer(authActionTypes.LOGIN),
   signup: requestUiStateReducer(authActionTypes.SIGNUP),
+
+  assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN),
 
   depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),

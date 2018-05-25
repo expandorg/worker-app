@@ -12,14 +12,17 @@ export default class ApiRequest {
     return headers;
   }
 
-  get = (url, query) =>
-    fetch(`${url}?${encodeUrlParams(query)}`, {
+  get = (url, query) => {
+    const params = encodeUrlParams(query);
+    return fetch(`${url}${params && `?${params}`}`, {
       method: 'GET',
       credentials: 'include',
       mode: 'cors',
       cache: 'no-cache',
       headers: this.getRequestHeaders(),
-    })
+    });
+  }
+
 
   post = (url, payload) =>
     fetch(url, {

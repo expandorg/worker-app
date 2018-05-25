@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../common/Modal';
 
-import { workerProps, historyProps, locationProps } from '../shared/propTypes';
+import { userProps, historyProps, locationProps } from '../shared/propTypes';
 
 import styles from './Confirm.module.styl';
 
@@ -11,7 +11,7 @@ export default class Confirm extends Component {
     error: PropTypes.string,
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
-    worker: PropTypes.shape(workerProps),
+    worker: PropTypes.shape(userProps),
     history: PropTypes.shape(historyProps).isRequired,
     location: PropTypes.shape(locationProps),
   }

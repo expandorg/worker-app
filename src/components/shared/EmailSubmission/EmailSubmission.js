@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { workerProps } from '../propTypes';
+import { userProps } from '../propTypes';
 
 import AddEmailModal from './AddEmailModalContainer';
 import ConfirmEmailModal from './ConfirmEmailModalContainer';
 
 export default class EmailSubmission extends PureComponent {
   static propTypes = {
-    worker: PropTypes.shape(workerProps),
+    worker: PropTypes.shape(userProps),
     onClose: PropTypes.func,
   };
 
