@@ -12,16 +12,16 @@ export const setEmail = email => ({
 
 const watchSetEmail = takeEveryApiCall(userActionTypes.SET_EMAIL, userApi.setEmail);
 
-export const confirmEmail = code => ({
+export const confirmEmail = (user, code) => ({
   type: userActionTypes.CONFIRM_EMAIL,
-  payload: { code },
+  payload: { userId: user.id, code },
 });
 
 const watchConfirmEmail = takeEveryApiCall(userActionTypes.CONFIRM_EMAIL, userApi.confirmEmail);
 
-export const resendConfirmEmail = () => ({
+export const resendConfirmEmail = user => ({
   type: userActionTypes.RESEND_CONFIRM_EMAIL,
-  payload: null,
+  payload: { userId: user.id },
 });
 
 const watchResendConfirm = takeEveryApiCall(

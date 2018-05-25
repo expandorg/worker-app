@@ -35,7 +35,7 @@ export default class Confirm extends Component {
         value: code,
         loading: true,
       };
-      this.props.confirmEmail(code);
+      this.props.confirmEmail(this.props.worker, code);
     } else {
       this.state = {
         value: null,
@@ -63,14 +63,14 @@ export default class Confirm extends Component {
 
   handleResubmit = (e) => {
     e.preventDefault();
-    this.props.resendConfirmEmail();
+    this.props.resendConfirmEmail(this.props.worker);
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const valid = e.target.parentElement.checkValidity();
     if (valid) {
-      this.props.confirmEmail(this.state.value);
+      this.props.confirmEmail(this.props.worker, this.state.value);
       this.setState({
         loading: true,
       });

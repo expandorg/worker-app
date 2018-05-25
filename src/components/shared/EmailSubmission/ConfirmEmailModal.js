@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { userProps } from '../propTypes';
+
 import Modal from '../../common/Modal';
 
 import styles from './ConfirmEmailModal.module.styl';
 
 export default class ConfirmEmailModal extends Component {
   static propTypes = {
+    user: PropTypes.shape(userProps).isRequired,
     error: PropTypes.string,
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
@@ -39,14 +42,14 @@ export default class ConfirmEmailModal extends Component {
 
   handleResubmit = (e) => {
     e.preventDefault();
-    this.props.resendConfirmEmail();
+    this.props.resendConfirmEmail(this.props.user);
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const valid = e.target.parentElement.checkValidity();
     if (valid) {
-      this.props.confirmEmail(this.state.value);
+      this.props.confirmEmail(this.props.user, this.state.value);
       this.setState({
         loading: true,
       });
