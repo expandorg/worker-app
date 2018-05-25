@@ -23,10 +23,22 @@ export const userProps = {
 
 export const jobProps = {
   id: PropTypes.number,
-  requester: PropTypes.string,
-  title: PropTypes.string,
-  imageUrl: PropTypes.string,
+  name: PropTypes.string,
   description: PropTypes.string,
+  screenshot: PropTypes.string,
+  logo: PropTypes.string,
+  form: PropTypes.string,
+  requesterId: PropTypes.number,
+  isActive: PropTypes.bool,
+  logic: PropTypes.shape({
+    funding: PropTypes.shape({
+      reward: PropTypes.number,
+    }),
+  }),
+  gems: PropTypes.shape({
+    balance: PropTypes.number,
+    reserved: PropTypes.number,
+  }),
 };
 
 export const historyProps = {

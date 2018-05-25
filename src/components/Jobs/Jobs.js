@@ -4,25 +4,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates } from '../../common/app/requestUiState';
-
-import { userProps, jobProps, requestStateProps } from '../shared/propTypes';
+import { userProps, jobProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
 import Job from './Job/Job';
-import ConfirmModal from './ConfirmModal';
+import AssignDialog from './AssignDialog';
 import Disabled from './Disabled';
 import DepositPrompt from './DepositPrompt';
 
 import { authenticated } from '../hoc/authRules';
 
-import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
+import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
-import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 
 import { JOB_DISABLED } from '../../model/consts';
 
@@ -31,23 +28,18 @@ import styles from './Jobs.module.styl';
 const mapStateToProps = state => ({
   user: userSelector(state),
   isFunded: isFundedSelector(state),
-  assignState: assignJobStateSelector(state),
   jobs: jobsSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchJobs, assignJob }, dispatch);
-
+  bindActionCreators({ fetchJobs }, dispatch);
 
 class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps),
     isFunded: PropTypes.bool.isRequired,
-    assignState: PropTypes.shape(requestStateProps).isRequired,
-
     fetchJobs: PropTypes.func.isRequired,
-    assignJob: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -71,12 +63,6 @@ class Jobs extends Component {
     this.setState({ selected: null });
   }
 
-  handleConfirm = (job) => {
-    if (this.props.assignState.state !== RequestStates.Fetching) {
-      this.props.assignJob(job.id);
-    }
-  }
-
   render() {
     const { isFunded, user, jobs } = this.props;
     const { selected } = this.state;
@@ -93,22 +79,18 @@ class Jobs extends Component {
             <Job
               key={job.id}
               job={job}
-              isFunded={isFunded}
+              isFunded //= {isFunded}
               onJoin={this.handleSelect}
             />
           ))}
         </div>
-        <DepositPrompt visible={!isFunded} />
         {selected &&
-          <ConfirmModal
-            job={selected}
-            onClose={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
+          <AssignDialog job={selected} onHide={this.handleCancel} onAssign={this.handleAssign} />
         }
         {!confirmedEmail &&
           <EmailSubmission worker={user} />
         }
+        <DepositPrompt visible={!isFunded} />
       </Content>
     );
   }

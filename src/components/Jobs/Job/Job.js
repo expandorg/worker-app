@@ -19,13 +19,12 @@ export default class Job extends Component {
 
   render() {
     const { isFunded, job } = this.props;
-
     return (
       <div className={styles.job}>
-        <img className={styles.logo} src="/images/the-q.jpg" alt={job.requester} />
+        <img className={styles.logo} src={job.logo} alt={job.requester} />
         <div className={styles.info}>
           <div className={styles.heading}>
-            {job.title}
+            {job.name}
           </div>
           <div className={styles.requester}>
             {job.requester}
@@ -36,14 +35,14 @@ export default class Job extends Component {
               : <div>Please deposit Gems to participate*</div>
             }
             <div className={styles.rewardMobile}>
-              <span className={styles.rewardNumber}>1</span>
+              <span className={styles.rewardNumber}>{job.logic.funding.reward}</span>
               <img className={styles.rewardIcon} src="/images/logo.svg" alt="Gems" />
             </div>
           </div>
         </div>
         <div className={styles.reward}>
-          <span className={styles.rewardNumber}>1</span>
-          <img className={styles.rewardIcon} src="https://gems.org/images/logo.svg" alt="Gems" />
+          <span className={styles.rewardNumber}>{job.logic.funding.reward}</span>
+          <img className={styles.rewardIcon} src="/images/logo.svg" alt="Gems" />
         </div>
       </div>
     );

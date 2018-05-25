@@ -16,7 +16,7 @@ const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch)
 
 
 export const assignJob = jobId => ({
-  type: jobsActionTypes.FETCH,
+  type: jobsActionTypes.ASSIGN,
   payload: { jobId },
 });
 
