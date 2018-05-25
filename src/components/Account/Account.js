@@ -16,7 +16,8 @@ import { RequestStates } from '../../common/app/requestUiState';
 import Content from '../shared/Content';
 import Cell from './Cell';
 
-import { isBalanceSufficient, workerAddress, getStakedGems, getBalance } from '../../model/worker';
+import { isBalanceSufficient, getStakedGems, getBalance } from '../../model/worker';
+import { userAddress } from '../../model/user';
 import { TRANSACTIONS_DISABLED } from '../../model/consts';
 
 import { userProps, requestStateProps } from '../shared/propTypes';
@@ -49,7 +50,10 @@ export default class Account extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchGemsBalance(this.props.user);
+    const { user } = this.props;
+    if (user && user.address && user.address.Valid) {
+      this.props.fetchGemsBalance(user);
+    }
   }
 
 
@@ -74,7 +78,7 @@ export default class Account extends Component {
       return null;
     }
 
-    const workerAddr = workerAddress(user);
+    const address = userAddress(user);
     const { emailModal, depositModal } = this.state;
 
     const staked = getStakedGems(user.stats.pending);
@@ -102,9 +106,9 @@ export default class Account extends Component {
             <Cell title="Account Address">
               <div className={styles.accountInput}>
                 <div className={styles.accountInputContainer}>
-                  <span className={styles.address} id="address">{workerAddr}</span>
+                  <span className={styles.address} id="address">{address}</span>
                 </div>
-                <Clipboard className={styles.copyBtn} data-clipboard-text={workerAddr}>
+                <Clipboard className={styles.copyBtn} data-clipboard-text={address}>
                   Copy
                 </Clipboard>
               </div>

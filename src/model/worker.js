@@ -16,10 +16,6 @@ export function isBalanceSufficient(balance) {
 }
 
 
-export function workerAddress(worker) {
-  return `0x${worker.id}`;
-}
-
 export const getStakedGems = pending =>
   new BigNumber(pending).multipliedBy(new BigNumber(0.1)).toNumber();
 

@@ -19,3 +19,6 @@ export const signupValidation = {
     [rules.isNotEmpty, 'Password can not be empty'],
   ],
 };
+
+
+export const userAddress = user => `0x${user.id}`;
