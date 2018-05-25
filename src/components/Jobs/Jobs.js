@@ -79,7 +79,7 @@ class Jobs extends Component {
             <Job
               key={job.id}
               job={job}
-              isFunded //= {isFunded}
+              isFunded={isFunded}
               onJoin={this.handleSelect}
             />
           ))}
