@@ -9,7 +9,7 @@ import { jobSchema } from '../model/schemas';
 export const fetchJobs = () => ({
   type: jobsActionTypes.FETCH,
   payload: null,
-  meta: { schema: [jobSchema] },
+  meta: { schema: { jobs: [jobSchema] } },
 });
 
 const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch);
