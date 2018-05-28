@@ -11,7 +11,7 @@ import { loginMetamask } from '../../../sagas/authSagas';
 
 import { MetamaskState } from '../../../model/enums';
 
-import styles from './MatamaskLogin.module.styl';
+import styles from './styles.module.styl';
 
 const mapStateToProps = state => ({
   metamaskState: metamaskStateSelector(state),

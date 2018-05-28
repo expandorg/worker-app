@@ -1,0 +1,49 @@
+@import 'common/uikit/layout';
+@import 'common/uikit/colors';
+@import 'common/uikit/font';
+@import 'common/uikit/components';
+
+.container
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+.content
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-grow: 1
+  box-sizing: border-box;
+
+  font(font-preset[normal], false, false, 40px)
+  height: 40px
+
+  padding: 0 s-padding-medium
+
+  border: solid 1px color-border-grey
+  border-radius: 4px
+  color: color-text-1
+
+.address
+  flex-grow: 1
+  text-overflow: ellipsis
+  overflow: hidden
+
+.copy
+  box-sizing: border-box;
+  padding: 0
+  margin-left: s-margin-big;
+
+  font(font-preset[body])
+  text-transform: uppercase
+  border: none
+
+  color: color-text-1
+  background-color: transparent
+  cursor: pointer
+
+.assign
+  button('medium', 'blue')
+  width: 150px
+  margin-left: 20px;

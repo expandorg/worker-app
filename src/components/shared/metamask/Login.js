@@ -5,11 +5,12 @@ import styles from './Login.module.styl';
 
 export default class Login extends Component {
   static propTypes = {
+    action: PropTypes.string.isRequired,
     onLogin: PropTypes.func.isRequired,
   }
 
   render() {
-    const { onLogin } = this.props;
+    const { onLogin, action } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.screenshot} />
@@ -19,7 +20,7 @@ export default class Login extends Component {
             (similar to the above). Click below to log in.
           </div>
           <button className={styles.login} onClick={onLogin}>
-            Sign in
+            {action}
           </button>
         </div>
       </div>

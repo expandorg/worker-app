@@ -21,4 +21,4 @@ export const signupValidation = {
 };
 
 
-export const userAddress = user => `0x${user.id}`;
+export const userAddress = user => (user.address ? `0x${user.address}` : '');

@@ -11,7 +11,7 @@ import Welcome from './components/Welcome/Welcome';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
-import Account from './components/Account/AccountContainer';
+import Account from './components/Account/Account';
 import Jobs from './components/Jobs/Jobs';
 
 import Stats from './components/Stats/StatsContainer';

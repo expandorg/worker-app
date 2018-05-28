@@ -3,6 +3,7 @@
 @import './layout';
 
 button(size = 'medium', theme = 'pink')
+  box-sizing: border-box;
   text-align: center;
 
   border: 0
@@ -12,12 +13,12 @@ button(size = 'medium', theme = 'pink')
   display: inline-block;
 
   if size == 'medium'
-    font(font-preset[menu], false, false, 40px)
+    font(font-preset[menu], false, false, 38px)
     height: 40px
     border-radius: 4px
 
   if size == 'large'
-    font(font-preset[menu], false, false, 50px)
+    font(font-preset[menu], false, false, 48px)
     height: 50px
     border-radius: 4px
 
@@ -27,6 +28,20 @@ button(size = 'medium', theme = 'pink')
     &:hover
       background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
 
+    &:disabled
+      background-color: color-grey
+
+      &:hover
+        background-image: none
+
+  if theme == 'white'
+    color: color-pink
+    background-color: color-white
+    border: 2px solid color-pink
+
+    &:disabled
+      background-color: color-grey
+
   if theme == 'blue'
     color: color-white
     background-color: color-blue
@@ -34,14 +49,6 @@ button(size = 'medium', theme = 'pink')
       background-image: linear-gradient(to bottom right, color-blue, lighten(color-blue, 10%))
 
 
-
-panel()
-  padding: s-margin-big
-  border-radius: 4px
-  background-color: color-white
-  border: solid 1px color-grey
-  display: block
-  margin: s-margin-big
 
 loading()
   display: block
@@ -53,16 +60,3 @@ loading()
   position: relative
   top: 35%
   transform: translateY(-50%)
-
-flexpanel()
-  display: flex
-  flex-wrap: wrap
-  align-items: center
-  justify-content: center
-
-  padding: s-padding-big
-  margin: s-margin-big
-
-  border-radius: 4px
-  background-color: color-white
-  border: solid 1px color-grey

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { historyProps } from '../shared/propTypes';
 
 import MetamaskLogin from './metamask/MatamaskLogin';
+import MatamaskSignup from './metamask/MatamaskSignup';
 
 import LoginForm from './email/LoginForm';
 import SignupForm from './email/SignupForm';
@@ -36,7 +37,10 @@ class AuthForm extends Component {
           {!signup ? 'Login' : 'Signup'} to Gems
         </h2>
         <div className={styles.inner}>
-          <MetamaskLogin />
+          {signup
+            ? <MatamaskSignup />
+            : <MetamaskLogin />
+          }
           {signup
             ? <SignupForm onToggle={this.handleToggle} />
             : <LoginForm onToggle={this.handleToggle} />

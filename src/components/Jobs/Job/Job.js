@@ -20,7 +20,7 @@ export default class Job extends Component {
   render() {
     const { isFunded, job } = this.props;
     return (
-      <div className={styles.job}>
+      <div className={styles.container}>
         <img className={styles.logo} src={job.logo} alt={job.requester} />
         <div className={styles.info}>
           <div className={styles.heading}>

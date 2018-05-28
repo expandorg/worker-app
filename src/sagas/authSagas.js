@@ -27,6 +27,22 @@ export const login = (email, password) => ({
 const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
 
 
+export const signup = form => ({
+  type: authActionTypes.SIGNUP,
+  payload: form,
+  meta: { validation: signupValidation },
+});
+
+const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser);
+
+export const logout = () => ({
+  type: authActionTypes.LOGOUT,
+  payload: null,
+});
+
+const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
+
+
 export const loginMetamask = () => ({
   type: authActionTypes.LOGIN_METAMASK,
   payload: null,
@@ -44,21 +60,24 @@ function* handleLoginMetamask() {
   }
 }
 
-export const signup = form => ({
-  type: authActionTypes.SIGNUP,
-  payload: form,
-  meta: { validation: signupValidation },
-});
 
-const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser);
-
-export const logout = () => ({
-  type: authActionTypes.LOGOUT,
+export const signupMetamask = () => ({
+  type: authActionTypes.SIGNUP_METAMASK,
   payload: null,
 });
 
+function* handleSignupMetamask() {
+  try {
+    const address = gemsService.getDefaultAccount();
+    const { result: signature } = yield call(gemsService.getAccountSingature, address);
+    const payload = yield call(authApi.signupMetamask, { address, signature });
 
-const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
+    yield put(({ type: authActionTypes.SIGNUP_METAMASK_COMPLETE, payload }));
+  } catch (error) {
+    yield put(({ type: authActionTypes.SIGNUP_METAMASK_FAILED, payload: error }));
+  }
+}
+
 
 function* watchAppInit() {
   yield takeEvery(appActionTypes.INIT, function* handleAuth() {
@@ -84,6 +103,7 @@ function* watchAppInit() {
 
 export function* authSagas() {
   yield takeEvery(authActionTypes.LOGIN_METAMASK, handleLoginMetamask);
+  yield takeEvery(authActionTypes.SIGNUP_METAMASK, handleSignupMetamask);
 
   yield fork(watchAppInit);
   yield fork(watchGetCurrent);

@@ -17,12 +17,19 @@ const headers = {
 export default class MetamaskPromt extends Component {
   static propTypes = {
     metamaskState: PropTypes.string.isRequired,
+    action: PropTypes.string,
     onLogin: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   }
 
+  static defaultProps = {
+    action: 'Sign in',
+  }
+
   render() {
-    const { metamaskState, onLogin, onHide } = this.props;
+    const {
+      metamaskState, onLogin, onHide, action,
+    } = this.props;
     const title = headers[metamaskState];
     return (
       <Dialog onHide={onHide} visible contentLabel="matamask">
@@ -38,7 +45,7 @@ export default class MetamaskPromt extends Component {
           <Unlock />
         }
         {metamaskState === MetamaskState.Authorized &&
-          <Login onLogin={onLogin} />
+          <Login onLogin={onLogin} action={action} />
         }
       </Dialog>
     );

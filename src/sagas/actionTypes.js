@@ -45,6 +45,10 @@ export const authActionTypes = createActionTypes('auth', {
 
 
 export const userActionTypes = createActionTypes('user', {
+  ASSIGN_ADDRESS: null,
+  ASSIGN_ADDRESS_COMPLETE: null,
+  ASSIGN_ADDRESS_FAILED: null,
+
   SET_EMAIL: null,
   SET_EMAIL_COMPLETE: null,
   SET_EMAIL_FAILED: null,

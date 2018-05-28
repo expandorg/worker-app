@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Clipboard from 'react-clipboard.js';
 
-import styles from './Modal.module.styl';
+import styles from './SuccessfulTransaction.module.styl';
 
 const Transaction = ({ tx }) => (
   <div>

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Content from '../Content';
+import Panel from '../Panel';
 
 import { task as taskPropTypes } from '../propTypes';
 
-import styles from './NotFound.module.styl';
-
 const NotFound = ({ isAuthorized, task }) => (
   <Content title="Page Not Found">
-    <div className={styles.container}>
+    <Panel>
       {!isAuthorized &&
         <Link to="/login">Log in to get started</Link>
       }
@@ -20,7 +19,7 @@ const NotFound = ({ isAuthorized, task }) => (
       {isAuthorized && task === null &&
         <Link to="/jobs">Browse available jobs</Link>
       }
-    </div>
+    </Panel>
   </Content>
 );
 

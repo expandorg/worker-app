@@ -13,8 +13,8 @@ export class AuthApi extends BaseApi {
   signupUser = ({ email, password }) =>
     this.post('/register/email', { email, password })
 
-  signupMetamask = ({ email, password }) =>
-    this.post('/register/address', { email, password })
+  signupMetamask = ({ address, signature }) =>
+    this.post('/register/address', { address, signature })
 
   logout = () =>
     this.get('/logout')

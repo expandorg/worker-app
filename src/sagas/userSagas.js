@@ -1,8 +1,9 @@
-import { fork } from 'redux-saga/effects';
+import { takeEvery, fork, call, put } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { userActionTypes } from './actionTypes';
 
+import { gemsService } from '../services/GemsService';
 import { userApi } from '../api/UserApi';
 
 export const setEmail = email => ({
@@ -29,7 +30,28 @@ const watchResendConfirm = takeEveryApiCall(
   userApi.resendConfirmEmail,
 );
 
+
+export const assignAddress = user => ({
+  type: userActionTypes.ASSIGN_ADDRESS,
+  payload: user,
+});
+
+function* handleAssignAddress({ payload: user }) {
+  try {
+    const address = gemsService.getDefaultAccount();
+    const { result: signature } = yield call(gemsService.getAccountSingature, address);
+    const payload = yield call(userApi.assignAddress, { user, address, signature });
+
+    yield put(({ type: userActionTypes.ASSIGN_ADDRESS_COMPLETE, payload }));
+  } catch (error) {
+    yield put(({ type: userActionTypes.ASSIGN_ADDRESS_FAILED, payload: error }));
+  }
+}
+
+
 export function* userSagas() {
+  yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
+
   yield fork(watchSetEmail);
   yield fork(watchConfirmEmail);
   yield fork(watchResendConfirm);

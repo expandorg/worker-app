@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Modal from '../common/Modal';
 
 import Content from '../shared/Content';
+import Panel from '../shared/Panel';
 
 import styles from './Task.module.styl';
 
@@ -93,7 +94,7 @@ export default class Task extends Component {
 
     return (
       <Content title="Question writing and fact checking">
-        <div className={styles.container}>
+        <Panel className={styles.container}>
           <div className={styles.task}>
             Write a trivia question with three multiple-choice answers.
             One answer should be correct and fact-checked, and two answers should be incorrect.
@@ -143,7 +144,7 @@ export default class Task extends Component {
               {loading && !error ? 'Loading' : 'Submit'}
             </button>
           </form>
-        </div>
+        </Panel>
       </Content>
     );
   }
