@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { userProps } from '../propTypes';
@@ -6,7 +6,7 @@ import { userProps } from '../propTypes';
 import AddEmailModal from './AddEmailModalContainer';
 import ConfirmEmailModal from './ConfirmEmailModalContainer';
 
-export default class EmailSubmission extends PureComponent {
+export default class EmailSubmission extends Component {
   static propTypes = {
     worker: PropTypes.shape(userProps),
     onClose: PropTypes.func,

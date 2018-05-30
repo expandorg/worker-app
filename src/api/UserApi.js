@@ -1,8 +1,8 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class UserApi extends BaseApi {
-  assignAddress = ({ user, address, signature }) =>
-    this.post(`/users/${user.id}/address`, { address, signature })
+  assignAddress = ({ userId, address, signature }) =>
+    this.post(`/users/${userId}/address`, { address, signature })
 
   fetchBalance = user =>
     this.get(`/users/${user.id}/gems`)

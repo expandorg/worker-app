@@ -3,6 +3,7 @@ import {
   tasksActionTypes,
   gemsActionTypes,
   authActionTypes,
+  userActionTypes,
   jobsActionTypes,
 } from '../../sagas/actionTypes';
 
@@ -15,6 +16,8 @@ export default combineReducers({
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
   login: requestUiStateReducer(authActionTypes.LOGIN),
   signup: requestUiStateReducer(authActionTypes.SIGNUP),
+  assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
+
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN),
 

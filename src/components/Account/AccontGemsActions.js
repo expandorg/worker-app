@@ -52,7 +52,7 @@ class AccontGemsActions extends Component {
 
   componentDidMount() {
     const { user } = this.props;
-    if (user.address && user.address.Valid) {
+    if (user.address && user.addressConfirmed) {
       this.props.fetchGemsBalance(user);
     }
   }

@@ -21,7 +21,6 @@ export default class ApiClient {
   processResponse = async (response) => {
     const text = await response.text();
     let json = null;
-
     try {
       json = text.length ? JSON.parse(text) : null;
     } catch (e) {

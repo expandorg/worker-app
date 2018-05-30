@@ -31,16 +31,20 @@ const watchResendConfirm = takeEveryApiCall(
 );
 
 
-export const assignAddress = user => ({
+export const assignAddress = (user, address = null) => ({
   type: userActionTypes.ASSIGN_ADDRESS,
-  payload: user,
+  payload: { user, address },
 });
 
-function* handleAssignAddress({ payload: user }) {
+function* handleAssignAddress({ payload: { user, address } }) {
   try {
-    const address = gemsService.getDefaultAccount();
-    const { result: signature } = yield call(gemsService.getAccountSingature, address);
-    const payload = yield call(userApi.assignAddress, { user, address, signature });
+    let params = { userId: user.id, address };
+    if (!address) {
+      const defaultAccount = gemsService.getDefaultAccount();
+      const { result: signature } = yield call(gemsService.getAccountSingature, defaultAccount);
+      params = { ...params, address: defaultAccount, signature };
+    }
+    const payload = yield call(userApi.assignAddress, params);
 
     yield put(({ type: userActionTypes.ASSIGN_ADDRESS_COMPLETE, payload }));
   } catch (error) {

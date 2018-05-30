@@ -1,0 +1,45 @@
+@import 'common/uikit/layout';
+@import 'common/uikit/colors';
+@import 'common/uikit/font';
+@import 'common/uikit/components';
+
+.container
+  box-sizing: border-box;
+  padding: 0 (2 * s-padding-big) (2 * s-padding-big)
+
+  @media(max-width: 660px)
+    width: 100%;
+    padding: 0 10px
+
+.form
+  box-sizing: border-box;
+  padding-top: 50px;
+  padding-bottom: 40px;
+  width: 480px;
+
+  @media(max-width: 660px)
+    width: 100%;
+
+.address
+  input()
+  width: 100%;
+
+.actions
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+.save
+  button('medium', 'pink')
+  width: 150px
+
+.assign
+  button('medium', 'blue')
+  width: 150px
+  margin-left: 20px;
+
+.error
+  margin-top: 10px;
+  color: color-pink
+  font(font-preset[body])
