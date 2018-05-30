@@ -37,18 +37,22 @@ const mapDispatchToProps = dispatch =>
 class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
-    user: PropTypes.shape(userProps),
+    user: PropTypes.shape(userProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
     fetchJobs: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     jobs: [],
-    user: null,
   }
 
-  state = {
-    selected: null,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selected: null,
+      emailDialog: !props.user.emailConfirmed,
+    };
   }
 
   componentDidMount() {
@@ -56,6 +60,9 @@ class Jobs extends Component {
   }
 
   handleSelect = (job) => {
+    if (this.props.user.emailConfirmed) {
+      this.setState({ emailDialog: true });
+    }
     this.setState({ selected: job });
   }
 
@@ -65,13 +72,12 @@ class Jobs extends Component {
 
   render() {
     const { isFunded, user, jobs } = this.props;
-    const { selected } = this.state;
+    const { selected, emailDialog } = this.state;
 
     if (JOB_DISABLED) {
       return <Disabled />;
     }
 
-    const confirmedEmail = (user.email && user.confirmed) || process.env.NODE_ENV !== 'production';
     return (
       <Content title="Browse Jobs">
         <div className={styles.list}>
@@ -87,8 +93,11 @@ class Jobs extends Component {
         {selected &&
           <AssignDialog job={selected} onHide={this.handleCancel} onAssign={this.handleAssign} />
         }
-        {!confirmedEmail &&
-          <EmailSubmission worker={user} />
+        {emailDialog &&
+          <EmailSubmission
+            worker={user}
+            onClose={() => this.setState({ emailDialog: false })}
+          />
         }
         <DepositPrompt visible={!isFunded} />
       </Content>
