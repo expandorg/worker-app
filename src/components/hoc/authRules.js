@@ -19,7 +19,7 @@ export const notAuthenticated = authContainer(notAuthenticatedPredicat);
 
 const authenticatedPredicat = ({ user, authState }) => {
   if (!user) {
-    if (authState.state === RequestStates.FetchError) {
+    if (authState.state === RequestStates.FetchError || authState.state === RequestStates.Fetched) {
       return <Redirect to="/" />;
     }
     return null; // loading state
