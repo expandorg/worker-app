@@ -36,13 +36,13 @@ export default class Job extends Component {
             }
             <div className={styles.rewardMobile}>
               <span className={styles.rewardNumber}>{job.logic.funding.reward}</span>
-              <img className={styles.rewardIcon} src="/images/logo.svg" alt="Gems" />
+              <img className={styles.rewardIcon} src="/images/logo_icon.svg" alt="Gems" />
             </div>
           </div>
         </div>
         <div className={styles.reward}>
           <span className={styles.rewardNumber}>{job.logic.funding.reward}</span>
-          <img className={styles.rewardIcon} src="/images/logo.svg" alt="Gems" />
+          <img className={styles.rewardIcon} src="/images/logo_icon.svg" alt="Gems" />
         </div>
       </div>
     );
