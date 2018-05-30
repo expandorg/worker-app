@@ -9,6 +9,11 @@
   align-items: center;
   justify-content: space-between;
 
+  @media(max-width: 660px)
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
 .content
   display: flex;
   justify-content: space-between;
@@ -49,3 +54,9 @@
   button('medium', 'pink')
   width: 150px
   margin-left: 20px;
+
+
+  @media(max-width: 660px)
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0;

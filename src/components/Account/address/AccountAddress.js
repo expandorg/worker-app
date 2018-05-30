@@ -37,7 +37,9 @@ class AccountAddress extends Component {
       <Field title="Account Address">
         <div className={styles.container}>
           <div className={styles.content}>
-            <div className={styles.address} id="address">{user.address}</div>
+            <div className={styles.address}>
+              <span className={styles.text} id="address">{user.address}</span>
+            </div>
             <Clipboard className={styles.copy} data-clipboard-text={user.address}>
               Copy
             </Clipboard>
