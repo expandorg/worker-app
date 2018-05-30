@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Clipboard from 'react-clipboard.js';
 
-import Field from './Field';
+import Field from '../Field';
 import EditAddressDialoig from './EditAddressDialoig';
 
-import { metamaskStateSelector } from '../../selectors/web3Selectors';
+import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 
-import { userProps } from '../shared/propTypes';
+import { userProps } from '../../shared/propTypes';
 
 import styles from './AccountAddress.module.styl';
 

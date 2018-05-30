@@ -9,7 +9,7 @@ import Panel from '../shared/Panel';
 
 import Field from './Field';
 
-import AccountAddress from './AccountAddress';
+import AccountAddress from './address/AccountAddress';
 import AccountEmail from './AccountEmail';
 import ReservedGems from './ReservedGems';
 import AccontGemsActions from './AccontGemsActions';

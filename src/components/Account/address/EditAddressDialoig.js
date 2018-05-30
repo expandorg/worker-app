@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Dialog, { DialogHeadline } from '../common/Dialog';
-import MetamaskPromt from '../shared/metamask/MetamaskPromt';
+import Dialog, { DialogHeadline } from '../../common/Dialog';
+import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 
-import { metamaskStateSelector } from '../../selectors/web3Selectors';
-import { assignAddressStateSelector } from '../../selectors/uiStateSelectors';
-import { assignAddress } from '../../sagas/userSagas';
+import { metamaskStateSelector } from '../../../selectors/web3Selectors';
+import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
+import { assignAddress } from '../../../sagas/userSagas';
 
-import { userProps, requestStateProps } from '../shared/propTypes';
-import { MetamaskState } from '../../model/enums';
-import { RequestStates } from '../../common/app/requestUiState';
+import { userProps, requestStateProps } from '../../shared/propTypes';
+import { MetamaskState } from '../../../model/enums';
+import { RequestStates } from '../../../common/app/requestUiState';
 
 import styles from './EditAddressDialoig.module.styl';
 
