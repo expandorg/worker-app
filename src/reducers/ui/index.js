@@ -16,6 +16,10 @@ export default combineReducers({
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
   login: requestUiStateReducer(authActionTypes.LOGIN),
   signup: requestUiStateReducer(authActionTypes.SIGNUP),
+
+  loginMetamask: requestUiStateReducer(authActionTypes.LOGIN_METAMASK),
+  signupMetamask: requestUiStateReducer(authActionTypes.SIGNUP_METAMASK),
+
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
 
 

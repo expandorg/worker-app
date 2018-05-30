@@ -6,11 +6,16 @@ import styles from './Login.module.styl';
 export default class Login extends Component {
   static propTypes = {
     action: PropTypes.string.isRequired,
+    error: PropTypes.string,
     onLogin: PropTypes.func.isRequired,
   }
 
+  static defaultProps = {
+    error: null,
+  }
+
   render() {
-    const { onLogin, action } = this.props;
+    const { onLogin, action, error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.screenshot} />
@@ -22,6 +27,11 @@ export default class Login extends Component {
           <button className={styles.login} onClick={onLogin}>
             {action}
           </button>
+          {error &&
+            <div className={styles.error}>
+              {error.toString()}
+            </div>
+          }
         </div>
       </div>
     );

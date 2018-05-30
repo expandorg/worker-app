@@ -7,14 +7,17 @@ import { bindActionCreators } from 'redux';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import { metamaskStateSelector } from '../../../selectors/web3Selectors';
+import { signupMetamaskStateSelector } from '../../../selectors/uiStateSelectors';
 import { signupMetamask } from '../../../sagas/authSagas';
 
+import { requestStateProps } from '../../shared/propTypes';
 import { MetamaskState } from '../../../model/enums';
 
 import styles from './styles.module.styl';
 
 const mapStateToProps = state => ({
   metamaskState: metamaskStateSelector(state),
+  signupState: signupMetamaskStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -23,11 +26,20 @@ const mapDispatchToProps = dispatch =>
 class MatamaskLogin extends Component {
   static propTypes = {
     metamaskState: PropTypes.string.isRequired,
+    signupState: PropTypes.shape(requestStateProps).isRequired,
     signupMetamask: PropTypes.func.isRequired,
   }
 
   state = {
     metamaskDialog: false,
+    error: null,
+  }
+
+  componentWillReceiveProps({ signupState: nextState }) {
+    const { signupState } = this.props;
+    if (nextState.error && nextState.error !== signupState.error) {
+      this.setState({ error: nextState.error });
+    }
   }
 
   handleHide = () => {
@@ -44,7 +56,7 @@ class MatamaskLogin extends Component {
 
   render() {
     const { metamaskState } = this.props;
-    const { metamaskDialog } = this.state;
+    const { metamaskDialog, error } = this.state;
     return (
       <div className={styles.container}>
         <button className={styles.login} onClick={this.handleClick}>
@@ -56,7 +68,13 @@ class MatamaskLogin extends Component {
             onLogin={this.props.signupMetamask}
             onHide={this.handleHide}
             action="Sign up"
+            error={error}
           />
+        }
+        {error &&
+          <div className={styles.error}>
+            {error.toString()}
+          </div>
         }
       </div>
     );

@@ -11,6 +11,17 @@ export const loginStateSelector = createSelector(uiStateSelector, state => state
 
 export const signupStateSelector = createSelector(uiStateSelector, state => state.signup);
 
+export const loginMetamaskStateSelector = createSelector(
+  uiStateSelector,
+  state => state.loginMetamask,
+);
+
+export const signupMetamaskStateSelector = createSelector(
+  uiStateSelector,
+  state => state.signupMetamask,
+);
+
+
 export const assignAddressStateSelector = createSelector(
   uiStateSelector,
   state => state.assignAddress,
