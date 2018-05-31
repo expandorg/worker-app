@@ -90,35 +90,39 @@ class EditAddressDialoig extends Component {
         <div className={styles.container}>
           <div className={styles.form}>
             <div className={styles.field}>
+              <button className={styles.assign} onClick={this.handleAssignClick}>
+                <ins className={styles.fox} /> Use Metamask Address
+              </button>
+              {metamaskDialog &&
+                <MetamaskPromt
+                  metamaskState={metamaskState}
+                  action="Assign address"
+                  onLogin={this.props.assignAddress}
+                  onHide={this.handleHide}
+                />
+              }
+            </div>
+            <h2 className={styles.title}>
+              Or enter adress manually
+            </h2>
+            <div className={styles.field}>
               <input
                 className={styles.address}
                 type="text"
+                placeholder="Ethereum address"
                 value={address}
                 onChange={({ target }) => this.setState({ address: target.value })}
               />
+              <button className={styles.save} onClick={this.handleSaveClick}>
+                Save
+              </button>
               {error &&
                 <div className={styles.error}>
                   {error.toString()}
                 </div>
               }
             </div>
-            <div className={styles.actions}>
-              <button className={styles.save} onClick={this.handleSaveClick}>
-                Save
-              </button>
-              <button className={styles.assign} onClick={this.handleAssignClick}>
-                Assign
-              </button>
-            </div>
           </div>
-          {metamaskDialog &&
-            <MetamaskPromt
-              metamaskState={metamaskState}
-              action="Assign address"
-              onLogin={this.props.assignAddress}
-              onHide={this.handleHide}
-            />
-          }
         </div>
       </Dialog>
     );
