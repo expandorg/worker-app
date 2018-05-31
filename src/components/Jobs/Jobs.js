@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps } from '../shared/propTypes';
+import { userProps, jobProps, assignmentsProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
@@ -20,6 +20,7 @@ import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
+import { assignmentsStateSelector } from '../../selectors/tasksSelector';
 
 import { JOB_DISABLED } from '../../model/consts';
 
@@ -29,6 +30,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
   isFunded: isFundedSelector(state),
   jobs: jobsSelector(state),
+  assignments: assignmentsStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -39,6 +41,7 @@ class Jobs extends Component {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
+    assignments: PropTypes.shape(assignmentsProps).isRequired,
     fetchJobs: PropTypes.func.isRequired,
   }
 
@@ -72,7 +75,9 @@ class Jobs extends Component {
   }
 
   render() {
-    const { isFunded, user, jobs } = this.props;
+    const {
+      isFunded, user, jobs, assignments,
+    } = this.props;
     const { selected, emailDialog } = this.state;
 
     if (JOB_DISABLED) {
@@ -86,6 +91,7 @@ class Jobs extends Component {
             <Job
               key={job.id}
               job={job}
+              isJoined={!!assignments[job.id]}
               isFunded={isFunded}
               onJoin={this.handleSelect}
             />

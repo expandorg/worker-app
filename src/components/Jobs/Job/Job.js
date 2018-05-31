@@ -8,6 +8,7 @@ import styles from './Job.module.styl';
 export default class Job extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
+    isJoined: PropTypes.bool.isRequired,
     isFunded: PropTypes.bool.isRequired,
     onJoin: PropTypes.func.isRequired,
   };
@@ -18,7 +19,7 @@ export default class Job extends Component {
   }
 
   render() {
-    const { isFunded, job } = this.props;
+    const { isFunded, isJoined, job } = this.props;
     return (
       <div className={styles.container}>
         <img className={styles.logo} src={job.logo} alt={job.requester} />
@@ -30,9 +31,17 @@ export default class Job extends Component {
             {job.requester}
           </div>
           <div>
-            {isFunded
-              ? <button onClick={this.handleJoin} className={styles.join}>Join</button>
-              : <div>Please deposit Gems to participate*</div>
+            {}
+            {isFunded && !isJoined &&
+              <button onClick={this.handleJoin} className={styles.join}>
+                Join
+              </button>
+            }
+            {isJoined &&
+              <div>You already joined this task*</div>
+            }
+            {!isJoined && !isFunded &&
+              <div>Please deposit Gems to participate*</div>
             }
             <div className={styles.rewardMobile}>
               <span className={styles.rewardNumber}>{job.logic.funding.reward}</span>

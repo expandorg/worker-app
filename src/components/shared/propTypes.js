@@ -61,3 +61,8 @@ export const requestStateProps = {
   state: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
+
+
+export const assignmentsProps = {
+  // Dictionary
+};

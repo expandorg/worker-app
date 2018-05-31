@@ -4,37 +4,36 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { loggedInSelector, isJoinedSelector, isFundedSelector } from '../../../selectors/userSelectors';
+import { loggedInSelector, isFundedSelector } from '../../../selectors/userSelectors';
+import { assignmentsStateSelector } from '../../../selectors/tasksSelector';
+import { assignmentsProps } from '../../shared/propTypes';
 
 import styles from './Navigation.module.styl';
 
 const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
-  isJoined: isJoinedSelector(state),
+  assignments: assignmentsStateSelector(state),
   isFunded: isFundedSelector(state),
 });
 
 
 class Navigation extends Component {
   static propTypes = {
-    isLoggedIn: PropTypes.bool,
-    isJoined: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    assignments: PropTypes.shape(assignmentsProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
   };
 
-  static defaultProps = {
-    isLoggedIn: false,
-  };
 
   render() {
-    const { isLoggedIn, isJoined, isFunded } = this.props;
-
+    const { isLoggedIn, assignments, isFunded } = this.props;
     if (!isLoggedIn) {
       return null;
     }
+    const assignmentIds = Reflect.ownKeys(assignments);
     return (
       <div className={styles.container}>
-        {isFunded && isJoined &&
+        {isFunded && assignmentIds.length &&
           <NavLink to="/task" className={styles.link} activeClassName={styles.active}>
             My Task
           </NavLink>

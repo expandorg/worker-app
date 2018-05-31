@@ -15,9 +15,6 @@ export const isFundedSelector = createSelector(
 );
 
 
-export const isJoinedSelector = () => false;
-
-
 export const gemBalanceSelector = state => state.gemsBalance;
 
 export const transactionsSelector = state => state.transactions;
