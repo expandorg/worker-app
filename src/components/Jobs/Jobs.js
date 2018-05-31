@@ -60,10 +60,11 @@ class Jobs extends Component {
   }
 
   handleSelect = (job) => {
-    if (this.props.user.emailConfirmed) {
+    if (!this.props.user.emailConfirmed) {
       this.setState({ emailDialog: true });
+    } else {
+      this.setState({ selected: job });
     }
-    this.setState({ selected: job });
   }
 
   handleCancel = () => {
