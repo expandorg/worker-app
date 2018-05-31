@@ -2,18 +2,22 @@ import PropTypes from 'prop-types';
 
 export const userProps = {
   id: PropTypes.number.isRequired,
+
   email: PropTypes.string,
+  emailConfirmed: PropTypes.bool,
+
+  address: PropTypes.string,
+  addressConfirmed: PropTypes.bool,
+
   isRequester: PropTypes.bool.isRequired,
   score: PropTypes.number,
-  address: PropTypes.shape({
-    String: PropTypes.string,
-    Valid: PropTypes.bool.isRequired,
-  }),
+
   gems: PropTypes.shape({
     balance: PropTypes.number,
     reserved: PropTypes.number,
     owned: PropTypes.number,
   }),
+
   stats: PropTypes.shape({
     pending: PropTypes.number.isRequired,
     accepted: PropTypes.number.isRequired,
