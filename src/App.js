@@ -48,7 +48,7 @@ const App = () => {
             <Route path="/jobs" component={Jobs} />
             <Route path="/stats" component={Stats} />
             <Route path="/requester" component={Requester} />
-            <Route path="/task" component={Task} />
+            <Route path="/tasks/:id" component={Task} />
 
             <Route component={NotFound} />
           </Switch>
