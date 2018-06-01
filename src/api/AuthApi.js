@@ -17,7 +17,7 @@ export class AuthApi extends BaseApi {
     this.post('/register/address', { address, signature })
 
   logout = () =>
-    this.get('/logout')
+    this.post('/logout')
 }
 
 export const authApi = new AuthApi();
