@@ -12,13 +12,18 @@ export const initialState = {
   error: null,
 };
 
-export const requestUiStateReducer = actionType =>
+export const requestUiStateReducer = (actionType, preservePayload = false) =>
   (state = initialState, action) => {
     switch (action.type) {
       case actionType:
         return { ...initialState, state: RequestStates.Fetching };
       case `${actionType}_COMPLETE`: {
-        return { ...initialState, state: RequestStates.Fetched }; }
+        return {
+          ...initialState,
+          state: RequestStates.Fetched,
+          payload: preservePayload ? action.payload : undefined,
+        };
+      }
       case `${actionType}_FAILED`: {
         return { state: RequestStates.FetchError, error: action.payload.responseStatus };
       }

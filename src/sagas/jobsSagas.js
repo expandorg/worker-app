@@ -4,7 +4,7 @@ import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { jobsActionTypes } from './actionTypes';
 
 import { jobsApi } from '../api/JobsApi';
-import { jobSchema } from '../model/schemas';
+import { jobSchema, taskSchema, assignmentSchema } from '../model/schemas';
 
 export const fetchJobs = () => ({
   type: jobsActionTypes.FETCH,
@@ -18,6 +18,7 @@ const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch)
 export const assignJob = jobId => ({
   type: jobsActionTypes.ASSIGN,
   payload: { jobId },
+  meta: { schema: { task: taskSchema, assignments: [assignmentSchema] } },
 });
 
 const watchAssignRequest = takeEveryApiCall(jobsActionTypes.ASSIGN, jobsApi.assign);

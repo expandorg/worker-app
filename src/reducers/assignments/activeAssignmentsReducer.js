@@ -1,18 +1,18 @@
 import { authActionTypes, jobsActionTypes } from '../../sagas/actionTypes';
 
-const initialState = {};
+const initialState = [];
 
-export default function taskAssignmentsReducer(state = initialState, action) {
+export default function activeAssignmentsReducer(state = initialState, action) {
   switch (action.type) {
     case authActionTypes.GET_CURRENT_COMPLETE:
     case authActionTypes.LOGIN_COMPLETE:
     case authActionTypes.LOGIN_METAMASK_COMPLETE:
     case authActionTypes.SIGNUP_METAMASK_COMPLETE:
     case authActionTypes.SIGNUP_COMPLETE:
-      return action.payload.assignments || initialState;
+      return action.payload.result.assignments || initialState;
 
     case jobsActionTypes.ASSIGN_COMPLETE:
-      return action.payload.assignments;
+      return action.payload.result.assignments;
 
     case authActionTypes.GET_CURRENT_FAILED:
     case authActionTypes.LOGIN_FAILED:

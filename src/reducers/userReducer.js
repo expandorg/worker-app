@@ -9,7 +9,7 @@ export default function userReducer(state = initialState, action) {
     case authActionTypes.SIGNUP_COMPLETE:
     case authActionTypes.LOGIN_METAMASK_COMPLETE:
     case authActionTypes.SIGNUP_METAMASK_COMPLETE:
-      return action.payload.user;
+      return action.payload.result.user;
 
     case authActionTypes.LOGOUT_COMPLETE:
     case authActionTypes.GET_CURRENT_FAILED:
@@ -19,7 +19,7 @@ export default function userReducer(state = initialState, action) {
       return action.payload.user;
 
     case jobsActionTypes.ASSIGN_COMPLETE:
-      return action.payload.user;
+      return action.payload.result.user;
     default:
       break;
   }

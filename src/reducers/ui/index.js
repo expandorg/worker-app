@@ -23,7 +23,7 @@ export default combineReducers({
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
 
 
-  assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN),
+  assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
   depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),

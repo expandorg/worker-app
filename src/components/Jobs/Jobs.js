@@ -20,7 +20,7 @@ import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
-import { assignmentsStateSelector } from '../../selectors/tasksSelector';
+import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 
 import { JOB_DISABLED } from '../../model/consts';
 
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
   isFunded: isFundedSelector(state),
   jobs: jobsSelector(state),
-  assignments: assignmentsStateSelector(state),
+  assignments: assignmentsSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -41,7 +41,7 @@ class Jobs extends Component {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
-    assignments: PropTypes.shape(assignmentsProps).isRequired,
+    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentsProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
   }
 
@@ -91,7 +91,7 @@ class Jobs extends Component {
             <Job
               key={job.id}
               job={job}
-              isJoined={!!assignments[job.id]}
+              isJoined={!!assignments.find(a => a.jobId === job.id)}
               isFunded={isFunded}
               onJoin={this.handleSelect}
             />

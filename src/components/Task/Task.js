@@ -77,7 +77,7 @@ export default class Task extends Component {
                     Next task
                   </button>
               )}
-              {isFunded ||
+              {!isFunded &&
                 <div>
                   Your Gems balance is not high enough to submit more tasks.<br />
                   Please deposit more Gems to submit again.

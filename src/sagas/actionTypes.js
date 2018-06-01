@@ -62,13 +62,6 @@ export const userActionTypes = createActionTypes('user', {
   RESEND_CONFIRM_EMAIL_FAILED: null,
 });
 
-
-export const tasksActionTypes = createActionTypes('tasks', {
-  CREATE: null,
-  CREATE_COMPLETE: null,
-  CREATE_FAILED: null,
-});
-
 export const jobsActionTypes = createActionTypes('jobs', {
   FETCH: null,
   FETCH_COMPLETE: null,
@@ -77,6 +70,16 @@ export const jobsActionTypes = createActionTypes('jobs', {
   ASSIGN: null,
   ASSIGN_COMPLETE: null,
   ASSIGN_FAILED: null,
+});
+
+export const tasksActionTypes = createActionTypes('tasks', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+
+  CREATE: null,
+  CREATE_COMPLETE: null,
+  CREATE_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

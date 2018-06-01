@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import Dialog, { DialogHeadline } from '../common/Dialog';
 
 import { RequestStates } from '../../common/app/requestUiState';
 
-import { jobProps, requestStateProps } from '../shared/propTypes';
+import { jobProps, requestStateProps, historyProps } from '../shared/propTypes';
 
 import { assignJob } from '../../sagas/jobsSagas';
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
@@ -26,6 +27,7 @@ const mapDispatchToProps = dispatch =>
 class AssignDialog extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
+    history: PropTypes.shape(historyProps).isRequired,
     onHide: PropTypes.func.isRequired,
     assignState: PropTypes.shape(requestStateProps).isRequired,
     assignJob: PropTypes.func.isRequired,
@@ -34,8 +36,7 @@ class AssignDialog extends Component {
   componentWillReceiveProps({ assignState: next }) {
     const { assignState } = this.props;
     if (assignState.state === RequestStates.Fetching && next.state === RequestStates.Fetched) {
-      this.props.onHide();
-      // this.props.history.push('/tasks');
+      this.props.history.push(`/tasks/${next.payload.result.task}`);
     }
   }
 
@@ -83,4 +84,4 @@ class AssignDialog extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssignDialog);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AssignDialog));

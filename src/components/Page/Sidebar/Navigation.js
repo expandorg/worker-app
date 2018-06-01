@@ -5,21 +5,21 @@ import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { loggedInSelector } from '../../../selectors/userSelectors';
-import { assignmentsStateSelector } from '../../../selectors/tasksSelector';
+import { assignmentsSelector } from '../../../selectors/assignmentsSelectors';
 import { assignmentsProps } from '../../shared/propTypes';
 
 import styles from './Navigation.module.styl';
 
 const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
-  assignments: assignmentsStateSelector(state),
+  assignments: assignmentsSelector(state),
 });
 
 
 class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    assignments: PropTypes.arrayOf(assignmentsProps).isRequired,
+    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentsProps)).isRequired,
   };
 
 

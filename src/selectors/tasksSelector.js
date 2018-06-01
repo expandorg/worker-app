@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
 
-export const tasksStateSelector = state => state.tasks;
+export const tasksEntitiesSelector = state => state.tasks.entities;
 
-export const assignmentsStateSelector = createSelector(
-  tasksStateSelector,
-  state => state.assignments,
+export const makeTaskSelector = () => createSelector(
+  tasksEntitiesSelector,
+  (state, props) => props.id,
+  (entities, id) => entities[id] || null,
 );

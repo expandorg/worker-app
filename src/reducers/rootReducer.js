@@ -7,8 +7,10 @@ import transactions from './transactionsReducer';
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
 
+import activeAssignments from './assignments/activeAssignmentsReducer';
+import assignmentsEntities from './assignments/assignmentsEntitiesReducer';
+
 import tasksEntities from './tasks/tasksEntitiesReducer';
-import taskAssignments from './tasks/taskAssignmentsReducer';
 
 import metamask from './web3/metamaskReducer';
 
@@ -23,7 +25,10 @@ export default combineReducers({
   }),
   tasks: combineReducers({
     entities: tasksEntities,
-    assignments: taskAssignments,
+  }),
+  assignments: combineReducers({
+    active: activeAssignments,
+    entities: assignmentsEntities,
   }),
   transactions,
   ui,
