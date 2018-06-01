@@ -4,6 +4,6 @@ export const tasksEntitiesSelector = state => state.tasks.entities;
 
 export const makeTaskSelector = () => createSelector(
   tasksEntitiesSelector,
-  (state, props) => props.id,
+  (state, id) => id,
   (entities, id) => entities[id] || null,
 );

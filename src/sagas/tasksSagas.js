@@ -3,7 +3,7 @@ import { fork } from 'redux-saga/effects';
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { tasksActionTypes } from './actionTypes';
 
-import { taskSchema } from '../model/schemas';
+import { taskSchema, assignmentSchema } from '../model/schemas';
 
 import { tasksApi } from '../api/TasksApi';
 
@@ -15,9 +15,10 @@ export const fetchTask = taskId => ({
 
 const watchFetchRequest = takeEveryApiCall(tasksActionTypes.FETCH, tasksApi.fetch);
 
-export const submitTask = submission => ({
+export const submitTask = (taskId, form) => ({
   type: tasksActionTypes.SUBMIT,
-  payload: { submission },
+  payload: { taskId, response: JSON.stringify(form) },
+  meta: { schema: { assignments: [assignmentSchema] } },
 });
 
 const watchCreateRequest = takeEveryApiCall(tasksActionTypes.SUBMIT, tasksApi.submitTask);

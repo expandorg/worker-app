@@ -4,8 +4,8 @@ export class TasksApi extends BaseApi {
   fetch = ({ taskId }) =>
     this.get(`/tasks/${taskId}`)
 
-  submitTask = ({ submission }) =>
-    this.post('/submit', submission)
+  submitTask = ({ taskId, response }) =>
+    this.post(`/tasks/${taskId}/submit`, { response })
 }
 
 export const tasksApi = new TasksApi();

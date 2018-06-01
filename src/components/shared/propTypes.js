@@ -45,6 +45,11 @@ export const jobProps = {
   }),
 };
 
+
+export const taskProps = {
+  id: PropTypes.number,
+};
+
 export const historyProps = {
   replace: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,

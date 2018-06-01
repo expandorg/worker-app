@@ -48,13 +48,20 @@ button(size = 'medium', theme = 'pink')
     &:hover
       background-image: linear-gradient(to bottom right, color-blue, lighten(color-blue, 10%))
 
+  if theme == 'aqua'
+    color: color-text-1
+    background-color: color-aqua
+    &:hover
+      background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)
+
+
 
 
 input()
   box-sizing: border-box
   display: inline-block
 
-  font(font-preset[normal], false, false, 40px)
+  font(font-preset[normal], false, false, auto)
   height: 40px;
   padding: 0 17px 0 10px
 

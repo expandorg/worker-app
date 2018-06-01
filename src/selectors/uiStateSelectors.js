@@ -27,7 +27,7 @@ export const assignAddressStateSelector = createSelector(
 
 export const assignJobStateSelector = createSelector(uiStateSelector, state => state.assignJob);
 
-export const createTaskStateSelector = createSelector(uiStateSelector, state => state.createTask);
+export const submitTaskStateSelector = createSelector(uiStateSelector, state => state.submitTask);
 
 export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
 

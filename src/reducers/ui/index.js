@@ -27,6 +27,6 @@ export default combineReducers({
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
-  createTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
+  submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
   depositStage,
 });
