@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    assignments: PropTypes.shape(assignmentsProps).isRequired,
+    assignments: PropTypes.arrayOf(assignmentsProps).isRequired,
   };
 
 
@@ -28,11 +28,10 @@ class Navigation extends Component {
     if (!isLoggedIn) {
       return null;
     }
-    const assignmentIds = Reflect.ownKeys(assignments);
     return (
       <div className={styles.container}>
-        {assignmentIds.length !== 0 &&
-          <NavLink to={`/tasks/${assignments[assignmentIds[0]].taskId}`} className={styles.link} activeClassName={styles.active}>
+        {assignments.length > 0 &&
+          <NavLink to={`/tasks/${assignments[0].taskId}`} className={styles.link} activeClassName={styles.active}>
             My Task
           </NavLink>
         }
