@@ -77,9 +77,9 @@ export const tasksActionTypes = createActionTypes('tasks', {
   FETCH_COMPLETE: null,
   FETCH_FAILED: null,
 
-  CREATE: null,
-  CREATE_COMPLETE: null,
-  CREATE_FAILED: null,
+  SUBMIT: null,
+  SUBMIT_COMPLETE: null,
+  SUBMIT_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

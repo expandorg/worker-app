@@ -16,11 +16,11 @@ export const fetchTask = taskId => ({
 const watchFetchRequest = takeEveryApiCall(tasksActionTypes.FETCH, tasksApi.fetch);
 
 export const submitTask = submission => ({
-  type: tasksActionTypes.CREATE,
+  type: tasksActionTypes.SUBMIT,
   payload: { submission },
 });
 
-const watchCreateRequest = takeEveryApiCall(tasksActionTypes.CREATE, tasksApi.submitTask);
+const watchCreateRequest = takeEveryApiCall(tasksActionTypes.SUBMIT, tasksApi.submitTask);
 
 
 export function* tasksSagas() {

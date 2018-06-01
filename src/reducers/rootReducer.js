@@ -20,8 +20,8 @@ export default combineReducers({
   user,
   gemsBalance,
   jobs: combineReducers({
-    entities: jobEntities,
     list: jobsList,
+    entities: jobEntities,
   }),
   tasks: combineReducers({
     entities: tasksEntities,

@@ -2,10 +2,8 @@ import { connect } from 'react-redux';
 import AddEmailModal from './AddEmailModal';
 
 import { setEmail } from '../../../sagas/userSagas';
-import { errorSelector } from '../../../selectors/uiStateSelectors';
 
-const mapStateToProps = state => ({
-  error: errorSelector(state),
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = {

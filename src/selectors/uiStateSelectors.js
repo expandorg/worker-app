@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect';
 
-import { RequestStates } from '../common/app/requestUiState';
-
 export const uiStateSelector = state => state.ui;
 
 
@@ -30,13 +28,6 @@ export const assignAddressStateSelector = createSelector(
 export const assignJobStateSelector = createSelector(uiStateSelector, state => state.assignJob);
 
 export const createTaskStateSelector = createSelector(uiStateSelector, state => state.createTask);
-
-export const taskIsSubmittingSelector = createSelector(
-  createTaskStateSelector,
-  state => state.state === RequestStates.Fetching,
-);
-
-export const errorSelector = createSelector(uiStateSelector, state => state.errors);
 
 export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
 

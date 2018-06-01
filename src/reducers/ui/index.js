@@ -9,7 +9,6 @@ import {
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 
-import errors from './errorsReducer';
 import depositStage from './depositStageReducer';
 
 export default combineReducers({
@@ -23,11 +22,11 @@ export default combineReducers({
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
 
 
-  assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
-
   depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),
-  createTask: requestUiStateReducer(tasksActionTypes.CREATE),
-  errors,
+
+  assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
+
+  createTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
   depositStage,
 });

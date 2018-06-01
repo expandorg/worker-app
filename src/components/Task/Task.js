@@ -11,13 +11,14 @@ import styles from './Task.module.styl';
 export default class Task extends Component {
   static propTypes = {
     submitTask: PropTypes.func.isRequired,
-    isSubmitting: PropTypes.bool.isRequired,
+    isSubmitting: PropTypes.bool,
     isFunded: PropTypes.bool.isRequired,
     error: PropTypes.string,
   };
 
   static defaultProps = {
     error: null,
+    isSubmitting: false,
   };
 
   state = {

@@ -31,22 +31,23 @@ export default (env = {}) => {
     mode: dev ? 'development' : 'production',
     output: {
       filename: dev ? '[name].js' : '[name]-[chunkhash].js',
+      publicPath: '/',
       path: path.join(__dirname, 'public'),
       pathinfo: dev,
       hotUpdateChunkFilename: '[hash].hot-update.js',
     },
     module: {
       rules: [
-        // {
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   loader: 'eslint-loader',
-        //   enforce: 'pre',
-        //   options: {
-        //     configFile: './.eslintrc',
-        //     emitError: !dev,
-        //   },
-        // },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          options: {
+            configFile: './.eslintrc',
+            emitError: !dev,
+          },
+        },
         {
           test: /\.js$/,
           loader: 'babel-loader',

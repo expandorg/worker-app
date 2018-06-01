@@ -8,7 +8,6 @@ import styles from './Confirm.module.styl';
 
 export default class Confirm extends Component {
   static propTypes = {
-    error: PropTypes.string,
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
     worker: PropTypes.shape(userProps),
@@ -17,7 +16,6 @@ export default class Confirm extends Component {
   }
 
   static defaultProps = {
-    error: null,
     worker: null,
     location: null,
   }
@@ -78,7 +76,7 @@ export default class Confirm extends Component {
   }
 
   renderSubmit() {
-    if (this.state.loading && !this.props.error) {
+    if (this.state.loading) {
       return 'Loading';
     }
     return 'Submit';
@@ -106,7 +104,7 @@ export default class Confirm extends Component {
               type="submit"
               className={styles.submit}
               onClick={this.handleSubmit}
-              disabled={this.state.value === null || this.state.value === '' || (this.state.loading && !this.props.error)}
+              disabled={this.state.value === null || this.state.value === '' || (this.state.loading)}
             >
               {this.renderSubmit()}
             </button>
