@@ -7,7 +7,7 @@ export const createActionTypes = (scope: string, actionTypes: Object) =>
 
 export const appActionTypes = createActionTypes('app', {
   INIT: null,
-  CLEAR_ERRORS: null,
+  REFRESH: null,
 });
 
 export const web3ActionTypes = createActionTypes('web3', {

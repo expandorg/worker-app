@@ -13,6 +13,7 @@ import depositStage from './depositStageReducer';
 
 export default combineReducers({
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
+
   login: requestUiStateReducer(authActionTypes.LOGIN),
   signup: requestUiStateReducer(authActionTypes.SIGNUP),
 

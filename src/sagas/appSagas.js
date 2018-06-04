@@ -1,8 +1,8 @@
 import { appActionTypes } from './actionTypes';
 
-export const clearErrors = payload => ({
-  type: appActionTypes.CLEAR_ERRORS,
-  payload,
+export const refresh = () => ({
+  type: appActionTypes.REFRESH,
+  payload: null,
 });
 
 export const init = () => ({

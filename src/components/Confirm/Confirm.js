@@ -14,10 +14,7 @@ import ConfirmEmailForm from '../shared/email/ConfirmEmailForm';
 import { authenticated } from '../hoc/authRules';
 
 import { userSelector } from '../../selectors/userSelectors';
-import {
-  userProps,
-  locationProps,
-} from '../shared/propTypes';
+import { userProps, locationProps } from '../shared/propTypes';
 
 import styles from './Confirm.module.styl';
 
@@ -39,9 +36,6 @@ class Confirm extends Component {
     };
   }
 
-  handleComplete = () => {
-  }
-
   render() {
     const { user } = this.props;
     const { code } = this.state;
@@ -54,7 +48,7 @@ class Confirm extends Component {
           <div className={styles.description}>
             Enter the confirmation code that was sent to your email
           </div>
-          <ConfirmEmailForm code={code} user={user} onComplete={this.handleComplete} />
+          <ConfirmEmailForm code={code} user={user} />
         </Panel>
       </Content>
     );

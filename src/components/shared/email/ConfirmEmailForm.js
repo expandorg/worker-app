@@ -30,11 +30,12 @@ class ConfirmEmailForm extends Component {
     resendState: PropTypes.shape(requestStateProps).isRequired,
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
-    onComplete: PropTypes.func.isRequired,
+    onComplete: PropTypes.func,
   };
 
   static defaultProps = {
     code: null,
+    onComplete: Function.prototype,
   }
 
   constructor(props) {
