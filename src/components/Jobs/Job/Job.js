@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import { jobProps } from '../../shared/propTypes';
+import { jobProps, assignmentProps } from '../../shared/propTypes';
 
 import styles from './Job.module.styl';
 
 export default class Job extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
-    isJoined: PropTypes.bool.isRequired,
+    assignment: PropTypes.shape(assignmentProps),
     isFunded: PropTypes.bool.isRequired,
     onJoin: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    assignment: null,
+  }
 
   handleJoin = () => {
     const { onJoin, job } = this.props;
@@ -19,7 +24,8 @@ export default class Job extends Component {
   }
 
   render() {
-    const { isFunded, isJoined, job } = this.props;
+    const { isFunded, assignment, job } = this.props;
+    const isJoined = !!assignment;
     return (
       <div className={styles.container}>
         <img className={styles.logo} src={job.logo} alt={job.requester} />
@@ -38,7 +44,7 @@ export default class Job extends Component {
               </button>
             }
             {isJoined &&
-              <div>You already joined this task*</div>
+              <Link className={styles.link} to={`/tasks/${assignment.taskId}`}>You have already joined this task</Link>
             }
             {!isJoined && !isFunded &&
               <div>Please deposit Gems to participate*</div>

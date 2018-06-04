@@ -91,7 +91,7 @@ class Jobs extends Component {
             <Job
               key={job.id}
               job={job}
-              isJoined={!!assignments.find(a => a.jobId === job.id)}
+              assignment={assignments.find(a => a.jobId === job.id)}
               isFunded={isFunded}
               onJoin={this.handleSelect}
             />

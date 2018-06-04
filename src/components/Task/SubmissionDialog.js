@@ -31,7 +31,7 @@ export default class SubmissionDialog extends Component {
             </div>
           }
           <div className={styles.heading}>
-            <Link to="/jobs">Browse available jobs</Link>
+            <Link to="/jobs" className={styles.browse}>Browse available jobs</Link>
           </div>
         </div>
       </Dialog>
