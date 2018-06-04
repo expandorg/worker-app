@@ -17,7 +17,7 @@ import Jobs from './components/Jobs/Jobs';
 import Stats from './components/Stats/StatsContainer';
 import Requester from './components/Requester/Requester';
 import Task from './components/Task/Task';
-import Confirm from './components/Confirm/ConfirmContainer';
+import Confirm from './components/Confirm/Confirm';
 
 import NotFound from './components/shared/pages/NotFound';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';

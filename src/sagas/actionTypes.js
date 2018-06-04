@@ -1,6 +1,8 @@
+
+// @flow
 import { keyMirror } from '../common/utils';
 
-export const createActionTypes = (scope, actionTypes) =>
+export const createActionTypes = (scope: string, actionTypes: Object) =>
   keyMirror(actionTypes, key => `${scope}/${key}`);
 
 export const appActionTypes = createActionTypes('app', {
@@ -49,9 +51,9 @@ export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS_COMPLETE: null,
   ASSIGN_ADDRESS_FAILED: null,
 
-  SET_EMAIL: null,
-  SET_EMAIL_COMPLETE: null,
-  SET_EMAIL_FAILED: null,
+  EDIT_EMAIL: null,
+  EDIT_EMAIL_COMPLETE: null,
+  EDIT_EMAIL_FAILED: null,
 
   CONFIRM_EMAIL: null,
   CONFIRM_EMAIL_COMPLETE: null,

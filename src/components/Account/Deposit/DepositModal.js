@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import Modal from '../../common/Modal';
+import Dialog, { DialogHeadline } from '../../common/Dialog';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 import { requestStateProps } from '../../shared/propTypes';
@@ -50,7 +50,10 @@ export default class DepositModal extends PureComponent {
     const { depositStage, depositGemsState, onClose } = this.props;
     const { value } = this.state;
     return (
-      <Modal heading="Deposit Gems" onClose={onClose} >
+      <Dialog contentLabel="deposit" onHide={onClose} >
+        <DialogHeadline>
+          Deposit Gems
+        </DialogHeadline>
         <div className={styles.container}>
           <span className={styles.description}>
             In order to submit tasks you will first need to deposit at least 5 Gems
@@ -82,7 +85,7 @@ export default class DepositModal extends PureComponent {
             <Loading value={value} depositStage={depositStage} />
           }
         </div>
-      </Modal>
+      </Dialog>
     );
   }
 }

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 
 import Clipboard from 'react-clipboard.js';
 
+import EditEmailDialog from '../shared/email/EditEmailDialog';
 
 import Field from './Field';
-
-import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
 
 import { userProps } from '../shared/propTypes';
 
@@ -33,17 +32,21 @@ export default class AccountEmail extends Component {
       <Field title="Email Address">
         <div className={styles.container}>
           <div className={styles.content}>
-            <div className={styles.address} id="address">{user.email || 'No email found'}</div>
-            <Clipboard className={styles.copy} data-clipboard-text={user.email}>
-              Copy
-            </Clipboard>
+            <div className={styles.address} id="address">
+              {user.email || 'No email found'}
+            </div>
+            {user.email &&
+              <Clipboard className={styles.copy} data-clipboard-text={user.email}>
+                Copy
+              </Clipboard>
+            }
           </div>
           <button className={styles.edit} onClick={this.handleEdit}>
             Edit
           </button>
         </div>
         {edit &&
-          <EmailSubmission worker={user} onClose={this.handleEdit} />
+          <EditEmailDialog user={user} onHide={this.handleEdit} />
         }
       </Field>
     );

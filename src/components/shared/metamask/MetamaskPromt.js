@@ -5,7 +5,7 @@ import Dialog, { DialogHeadline } from '../../common/Dialog';
 
 import Install from './Install';
 import Unlock from './Unlock';
-import Login from './Login';
+import Form from './Form';
 
 import { MetamaskState } from '../../../model/enums';
 
@@ -47,7 +47,7 @@ export default class MetamaskPromt extends Component {
           <Unlock />
         }
         {metamaskState === MetamaskState.Authorized &&
-          <Login onLogin={onLogin} action={action} error={error} />
+          <Form onLogin={onLogin} action={action} error={error} />
         }
       </Dialog>
     );

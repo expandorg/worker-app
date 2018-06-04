@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { userProps, jobProps, assignmentsProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
-import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
+import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
 
 import Job from './Job/Job';
 import AssignDialog from './AssignDialog';
@@ -101,10 +101,7 @@ class Jobs extends Component {
           <AssignDialog job={selected} onHide={this.handleCancel} onAssign={this.handleAssign} />
         }
         {emailDialog &&
-          <EmailSubmission
-            worker={user}
-            onClose={() => this.setState({ emailDialog: false })}
-          />
+          <ConfirmEmailDialog user={user} onHide={() => this.setState({ emailDialog: false })} />
         }
         <DepositPrompt visible={!isFunded} />
       </Content>

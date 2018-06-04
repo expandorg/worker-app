@@ -6,12 +6,12 @@ import { userActionTypes } from './actionTypes';
 import { gemsService } from '../services/GemsService';
 import { userApi } from '../api/UserApi';
 
-export const setEmail = email => ({
-  type: userActionTypes.SET_EMAIL,
-  payload: { email },
+export const editEmail = (user, email) => ({
+  type: userActionTypes.EDIT_EMAIL,
+  payload: { userId: user.id, email },
 });
 
-const watchSetEmail = takeEveryApiCall(userActionTypes.SET_EMAIL, userApi.setEmail);
+const watchEditEmail = takeEveryApiCall(userActionTypes.EDIT_EMAIL, userApi.editEmail);
 
 export const confirmEmail = (user, code) => ({
   type: userActionTypes.CONFIRM_EMAIL,
@@ -56,7 +56,7 @@ function* handleAssignAddress({ payload: { user, address } }) {
 export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
 
-  yield fork(watchSetEmail);
+  yield fork(watchEditEmail);
   yield fork(watchConfirmEmail);
   yield fork(watchResendConfirm);
 }

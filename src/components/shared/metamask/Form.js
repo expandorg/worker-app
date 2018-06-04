@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Login.module.styl';
+import styles from './Form.module.styl';
 
-export default class Login extends Component {
+export default class Form extends Component {
   static propTypes = {
     action: PropTypes.string.isRequired,
     error: PropTypes.string,

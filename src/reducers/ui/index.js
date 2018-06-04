@@ -20,7 +20,9 @@ export default combineReducers({
   signupMetamask: requestUiStateReducer(authActionTypes.SIGNUP_METAMASK),
 
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
-
+  editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
+  confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
+  resendConfirmEmail: requestUiStateReducer(userActionTypes.RESEND_CONFIRM_EMAIL),
 
   depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),

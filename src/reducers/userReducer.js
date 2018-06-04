@@ -16,6 +16,8 @@ export default function userReducer(state = initialState, action) {
       return initialState;
 
     case userActionTypes.ASSIGN_ADDRESS_COMPLETE:
+    case userActionTypes.CONFIRM_EMAIL_COMPLETE:
+    case userActionTypes.EDIT_EMAIL_COMPLETE:
       return action.payload.user;
 
     case jobsActionTypes.ASSIGN_COMPLETE:

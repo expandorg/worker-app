@@ -7,8 +7,8 @@ export class UserApi extends BaseApi {
   fetchBalance = user =>
     this.get(`/users/${user.id}/gems`)
 
-  setEmail = ({ email }) =>
-    this.postForm('/account/email/update', email)
+  editEmail = ({ userId, email }) =>
+    this.post(`/users/${userId}/email`, { email })
 
   confirmEmail = ({ code, userId }) =>
     this.post('/confirm', { code, userId })

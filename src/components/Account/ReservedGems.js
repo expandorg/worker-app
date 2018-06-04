@@ -15,11 +15,10 @@ export default class ReservedGems extends Component {
   }
 
   render() {
-    const staked = getStakedGems(this.props.user.stats.pending);
     return (
       <Field title="Reserved for Pending Tasks">
         <div className={styles.reserved}>
-          {staked} GEMS
+          {getStakedGems(this.props.user.stats.pending)} GEMS
         </div>
       </Field>
     );
