@@ -1,4 +1,4 @@
-import { authActionTypes, userActionTypes, jobsActionTypes } from '../sagas/actionTypes';
+import { authActionTypes, userActionTypes, jobsActionTypes, tasksActionTypes } from '../sagas/actionTypes';
 
 const initialState = null;
 
@@ -22,6 +22,10 @@ export default function userReducer(state = initialState, action) {
 
     case jobsActionTypes.ASSIGN_COMPLETE:
       return action.payload.result.user;
+
+    case tasksActionTypes.SUBMIT_COMPLETE:
+      return action.payload.result.user;
+
     default:
       break;
   }
