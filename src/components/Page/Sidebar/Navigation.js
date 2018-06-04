@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -31,9 +31,16 @@ class Navigation extends Component {
     return (
       <div className={styles.container}>
         {assignments.length > 0 &&
-          <NavLink to={`/tasks/${assignments[0].taskId}`} className={styles.link} activeClassName={styles.active}>
-            My Task
-          </NavLink>
+          <Fragment>
+            <span className={styles.link}>
+              My Tasks
+            </span>
+            {assignments.map(ast => (
+              <NavLink to={`/tasks/${ast.taskId}`} className={styles.task} activeClassName={styles.activeTask}>
+                Task #{ast.taskId}
+              </NavLink>),
+            )}
+          </Fragment>
         }
         <NavLink to="/jobs" className={styles.link} activeClassName={styles.active}>
           Jobs

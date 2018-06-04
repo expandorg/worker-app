@@ -54,7 +54,7 @@ class Jobs extends Component {
 
     this.state = {
       selected: null,
-      emailDialog: !props.user.emailConfirmed,
+      emailDialog: false,
     };
   }
 
