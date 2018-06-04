@@ -20,7 +20,8 @@ export const getStakedGems = pending =>
   new BigNumber(pending).multipliedBy(new BigNumber(0.1)).toNumber();
 
 
-export const getBalance = (user, staked) => {
+export const getBalance = (user) => {
+  const staked = getStakedGems(user.stats.pending);
   const balance = new BigNumber(user.gems.balance + user.gems.reserved);
   return balance.minus(staked).toNumber();
 };

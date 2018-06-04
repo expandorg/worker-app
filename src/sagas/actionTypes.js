@@ -1,11 +1,13 @@
+
+// @flow
 import { keyMirror } from '../common/utils';
 
-export const createActionTypes = (scope, actionTypes) =>
+export const createActionTypes = (scope: string, actionTypes: Object) =>
   keyMirror(actionTypes, key => `${scope}/${key}`);
 
 export const appActionTypes = createActionTypes('app', {
   INIT: null,
-  CLEAR_ERRORS: null,
+  REFRESH: null,
 });
 
 export const web3ActionTypes = createActionTypes('web3', {
@@ -45,9 +47,13 @@ export const authActionTypes = createActionTypes('auth', {
 
 
 export const userActionTypes = createActionTypes('user', {
-  SET_EMAIL: null,
-  SET_EMAIL_COMPLETE: null,
-  SET_EMAIL_FAILED: null,
+  ASSIGN_ADDRESS: null,
+  ASSIGN_ADDRESS_COMPLETE: null,
+  ASSIGN_ADDRESS_FAILED: null,
+
+  EDIT_EMAIL: null,
+  EDIT_EMAIL_COMPLETE: null,
+  EDIT_EMAIL_FAILED: null,
 
   CONFIRM_EMAIL: null,
   CONFIRM_EMAIL_COMPLETE: null,
@@ -58,13 +64,6 @@ export const userActionTypes = createActionTypes('user', {
   RESEND_CONFIRM_EMAIL_FAILED: null,
 });
 
-
-export const tasksActionTypes = createActionTypes('tasks', {
-  CREATE: null,
-  CREATE_COMPLETE: null,
-  CREATE_FAILED: null,
-});
-
 export const jobsActionTypes = createActionTypes('jobs', {
   FETCH: null,
   FETCH_COMPLETE: null,
@@ -73,6 +72,16 @@ export const jobsActionTypes = createActionTypes('jobs', {
   ASSIGN: null,
   ASSIGN_COMPLETE: null,
   ASSIGN_FAILED: null,
+});
+
+export const tasksActionTypes = createActionTypes('tasks', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+
+  SUBMIT: null,
+  SUBMIT_COMPLETE: null,
+  SUBMIT_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

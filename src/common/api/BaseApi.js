@@ -16,9 +16,6 @@ export default class BaseApi {
   post = (...args) =>
     this.client.post(...args)
 
-  postForm = (...args) =>
-    this.client.postForm(...args)
-
   success = data =>
     Promise.resolve(data)
 }

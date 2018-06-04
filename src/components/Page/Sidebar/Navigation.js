@@ -1,43 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { loggedInSelector, isJoinedSelector, isFundedSelector } from '../../../selectors/userSelectors';
+import { loggedInSelector } from '../../../selectors/userSelectors';
+import { assignmentsSelector } from '../../../selectors/assignmentsSelectors';
+import { assignmentsProps } from '../../shared/propTypes';
 
 import styles from './Navigation.module.styl';
 
 const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
-  isJoined: isJoinedSelector(state),
-  isFunded: isFundedSelector(state),
+  assignments: assignmentsSelector(state),
 });
 
 
 class Navigation extends Component {
   static propTypes = {
-    isLoggedIn: PropTypes.bool,
-    isJoined: PropTypes.bool.isRequired,
-    isFunded: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentsProps)).isRequired,
   };
 
-  static defaultProps = {
-    isLoggedIn: false,
-  };
 
   render() {
-    const { isLoggedIn, isJoined, isFunded } = this.props;
-
+    const { isLoggedIn, assignments } = this.props;
     if (!isLoggedIn) {
       return null;
     }
     return (
       <div className={styles.container}>
-        {isFunded && isJoined &&
-          <NavLink to="/task" className={styles.link} activeClassName={styles.active}>
-            My Task
-          </NavLink>
+        {assignments.length > 0 &&
+          <Fragment>
+            <span className={styles.link}>
+              My Tasks
+            </span>
+            {assignments.map(ast => (
+              <NavLink to={`/tasks/${ast.taskId}`} className={styles.task} activeClassName={styles.activeTask}>
+                Task #{ast.taskId}
+              </NavLink>),
+            )}
+          </Fragment>
         }
         <NavLink to="/jobs" className={styles.link} activeClassName={styles.active}>
           Jobs

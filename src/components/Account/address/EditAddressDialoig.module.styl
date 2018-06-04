@@ -1,0 +1,66 @@
+@import 'common/uikit/layout';
+@import 'common/uikit/colors';
+@import 'common/uikit/font';
+@import 'common/uikit/components';
+
+.container
+  box-sizing: border-box;
+  padding: 0 (2 * s-padding-big) (2 * s-padding-big)
+
+  @media(max-width: 660px)
+    width: 100%;
+    padding: 0 10px
+
+.form
+  box-sizing: border-box;
+  width: 480px;
+  padding-bottom: 20px;
+
+  @media(max-width: 660px)
+    width: 100%;
+
+
+.title
+  margin-top: 15px;
+  font(font-preset[caption], 400)
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: color-text-1
+
+.field
+  margin-top: 15px;
+
+.assign
+  button('large', 'blue')
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+.fox
+  margin-right: 15px
+  width: 27px
+  height: 27px
+
+  background-position:center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-image: url(../../Auth/metamask/metamask.png);
+
+.error
+  margin-top: 10px;
+  color: color-pink
+  font(font-preset[body])
+
+
+.address
+  input()
+  width: 100%;
+
+.save
+  button('medium', 'pink')
+  margin-top: 10px;
+  width: 100%;

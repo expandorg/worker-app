@@ -85,7 +85,7 @@ class SignupForm extends Component {
           />
           {error &&
             <div className={styles.error}>
-              {error.message}
+              {error.toString()}
             </div>
           }
           <button type="submit" className={styles.submit}>

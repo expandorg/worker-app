@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Content from '../shared/Content';
+import Panel from '../shared/Panel';
 
 import { authenticated } from '../hoc/authRules';
 
@@ -8,7 +9,7 @@ import styles from './Requester.module.styl';
 
 const Requester = () => (
   <Content title="Post a job to Gems">
-    <div className={styles.container}>
+    <Panel className={styles.container}>
       <span>Have an organization or company that can use Gems?</span>
       <a
         className={styles.formLink}
@@ -18,7 +19,7 @@ const Requester = () => (
       >
         Please submit this form
       </a>
-    </div>
+    </Panel>
   </Content>
 );
 

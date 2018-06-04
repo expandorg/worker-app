@@ -31,6 +31,7 @@ export default (env = {}) => {
     mode: dev ? 'development' : 'production',
     output: {
       filename: dev ? '[name].js' : '[name]-[chunkhash].js',
+      publicPath: '/',
       path: path.join(__dirname, 'public'),
       pathinfo: dev,
       hotUpdateChunkFilename: '[hash].hot-update.js',

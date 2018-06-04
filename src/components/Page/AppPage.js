@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
 
-import ErrorMessage from './ErrorMessage';
-
 import styles from './AppPage.module.styl';
 
 export default class AppPage extends Component {
@@ -25,7 +23,6 @@ export default class AppPage extends Component {
         <Header collapsed={sidebar} onToggle={this.handleToggle} />
         <Sidebar visible={sidebar} />
         <div className={styles.content}>
-          <ErrorMessage />
           {children}
         </div>
       </div>

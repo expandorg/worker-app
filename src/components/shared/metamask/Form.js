@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Login.module.styl';
+import styles from './Form.module.styl';
 
-export default class Login extends Component {
+export default class Form extends Component {
   static propTypes = {
+    action: PropTypes.string.isRequired,
+    error: PropTypes.string,
     onLogin: PropTypes.func.isRequired,
   }
 
+  static defaultProps = {
+    error: null,
+  }
+
   render() {
-    const { onLogin } = this.props;
+    const { onLogin, action, error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.screenshot} />
@@ -19,8 +25,13 @@ export default class Login extends Component {
             (similar to the above). Click below to log in.
           </div>
           <button className={styles.login} onClick={onLogin}>
-            Sign in
+            {action}
           </button>
+          {error &&
+            <div className={styles.error}>
+              {error.toString()}
+            </div>
+          }
         </div>
       </div>
     );

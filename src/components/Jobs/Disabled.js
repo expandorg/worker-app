@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Content from '../shared/Content';
-
-import styles from './Disabled.module.styl';
+import Panel from '../shared/Panel';
 
 const Disabled = () => (
   <Content title="Browse Jobs">
-    <div className={styles.container}>
+    <Panel>
       There are currently no available jobs. Please check back soon!
-    </div>
+    </Panel>
   </Content>
 );
 

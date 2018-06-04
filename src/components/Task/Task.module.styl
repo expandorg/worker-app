@@ -3,113 +3,12 @@
 @import 'common/uikit/layout';
 
 .container
-  flexpanel()
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
 .task
-  font-size: 22px
+  font(font-preset[title], false, 22px)
   text-align: center
-  color: color-text-1
   margin: s-margin-big
-  display: block
-
-.submitForm
-  display: block
-  margin: auto
-  text-align: center
-  margin-bottom: s-margin-big
-  width: 80%
-
-.submit
-  width: 119px
-  height: 50px
-  border-radius: 4px
-  background-color: color-pink
-  display: block
-  font-size: 18px
-  letter-spacing: -0.7px
-  text-align: center
-  color: color-white
-  margin: 0 auto
-  border: 0
-  cursor: pointer
-  &:focus
-    outline: 0
-
-  &:hover
-    background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
-
-  &:disabled
-    background-color: color-grey
-    &:hover
-      background-image: none
-
-
-
-.heading
-  font-size: 20px
-  letter-spacing: -0.3px
-  text-align: center
   color: color-text-1
-  display: block
-  margin-bottom: s-margin-medium
-
-.input
-  width: calc(100% - 200px)
-  min-width: 200px
-  height: 50px
-  border-radius: 4px
-  background-color: color-white
-  border: solid 1px color-border-grey
-  display: inline-block
-  font-size: 16px
-  text-align: left
-  padding-left: 15px
-  margin-bottom: 15px
-  color: color-text-gray-1
-
-  &:placeholder
-    font-size: 16px
-    text-align: left
-    color: color-text-gray-1
-
-  &:focus
-    outline: 0
-
-
-.btn
-  width: 205
-  height: 50
-  line-height: 50px
-  border-radius: s-padding-big
-  background-color: color-aqua
-  display: block
-  margin: auto
-  margin-bottom: s-margin-big
-  font-size: 18px
-  letter-spacing: -0.7px
-  text-align: center
-  border: 0
-  cursor: pointer
-  text-decoration: none
-  &:focus
-    outline: 0
-
-  &:hover
-    background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)
-
-
-.completed
-  width: 30%
-  display: inline-block
-  border: solid 1px color-grey
-  border-radius: 4px
-  font-size: 40px
-  color: color-pink
-  text-align: center
-  padding-top: 46px
-  padding-bottom: 46px
-  margin-bottom: s-margin-big
-  > span
-    font-size: 16px
-    color: color-text-1
-    display: block

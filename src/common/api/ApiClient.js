@@ -14,19 +14,16 @@ export default class ApiClient {
     this.request.post(`${this.apiUrl}${url}`, payload)
       .then(this.processResponse)
 
-  postForm = (url, payload) =>
-    this.request.postForm(`${this.apiUrl}${url}`, payload)
-      .then(this.processResponse)
-
   processResponse = async (response) => {
+    const text = await response.text();
     let json = null;
     try {
-      json = await response.json();
+      json = text.length ? JSON.parse(text) : null;
     } catch (e) {
-      throw new ApiError(e, 500);
+      throw new ApiError(e.message, 500);
     }
 
-    if (json.error) {
+    if (json && json.error) {
       throw new ApiError(json.error, response.status);
     }
     if (response.status < 200 || response.status >= 400) {
