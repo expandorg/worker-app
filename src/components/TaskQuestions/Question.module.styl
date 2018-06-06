@@ -1,0 +1,288 @@
+@import 'common/uikit/font'
+@import 'common/uikit/colors'
+@import 'common/uikit/components'
+.container
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
+
+
+//-----------------Buttons--------------------
+
+.btnPink
+  button('large', 'pink')
+  width: 100%
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: initial
+    min-width: 254px
+
+.btnPinkTrans
+  button('large', 'white')
+  width: 100%
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: initial
+    min-width: 254px
+    margin: 10px
+
+.btnBlueTrans
+  button('medium', 'blueTransparent')
+  margin: 10px
+  padding: 0 15px
+
+.btnGrey
+  button('large', 'grey')
+  width: 100%
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: initial
+    min-width: 254px
+    margin: 10px
+.btnTrans
+    button('large', 'transparent')
+    width: 100%
+    margin: 20px 0
+.btnTransActive
+    button('large', 'pink')
+    width: 100%
+    margin: 20px 0
+
+.btnAqua
+  button('medium', 'aqua')
+  width: 100%
+  margin: 10px 0
+  margin-top:40px;
+  @media(min-width: 768px)
+    width: initial
+    min-width: 254px
+    margin: 70px
+//-----------------End buttons--------------------
+.questionWraper
+  background: color-white
+  @media(min-width: 768px)
+    margin: 0 20px;
+
+.taskTitle
+   h2
+    font-weight: bold
+    padding: 0px 23px
+    margin-top: 20px
+    margin-bottom: 10px
+    color: color-blue
+    @media(min-width: 768px)
+      background: color-white
+      padding: 26px 23px
+      margin-bottom: 33px
+      margin-top: 0
+      font-size: 30px
+
+.taskContainer
+  font-weight: bold
+  margin: 21px 0
+  padding: 10px 15px 62px 15px
+  text-align: center
+  color:color-text-1
+  @media(min-width: 768px)
+    width: 85%
+    margin: 0 auto
+  @media(min-width: 1024px)
+    width: 70%
+  h3
+    margin-top: 40px
+    color:color-text-1
+    font-size: 24px;
+    @media(min-width: 768px)
+      font-size: 37px;
+      margin-top: 83px;
+  p
+    padding: 20px 0px;
+  .phWhiteGrey
+    color: color-text-gray-1
+  .phDarkGrey
+    color: color-text-1
+
+
+.termsBox
+  margin: 76px auto 0px auto;
+  width: 85%;
+  label
+    display: inline-block
+    position: relative
+    padding-left: 35px
+    padding-bottom: 12px;
+    padding-top: 12px;
+    margin-bottom: 12px
+    cursor: pointer
+    user-select: none
+    text-align: left
+    font-size: 12px
+    @media(min-width: 768px)
+      font-size:14px;
+
+  /* Hide the browser's default checkbox */
+  input
+    position: absolute
+    opacity: 0
+    cursor: pointer
+  /* Create a custom checkbox */
+  .checkmark
+    position: absolute
+    top: 9px
+    left: 0
+    height: 25px
+    width: 25px
+    background-color: color-white
+    border-radius: 50%
+    border: 2px solid color-pink
+    &:after
+      content: ""
+      position: absolute
+      display: none
+      left: 8px
+      top: 4px
+      width: 6px
+      height: 11px
+      border: solid color-white
+      border-width: 0 2px 2px 0
+      -webkit-transform: rotate(45deg)
+      -ms-transform: rotate(45deg)
+      transform: rotate(45deg)
+
+  input:checked~.checkmark
+    background-color: color-pink
+
+  input:checked~.checkmark:after
+    display: block
+  @media(min-width: 1150px)
+    width: 53%;
+    margin: 145px auto 17px auto;
+
+.imgBox
+  text-align: center
+  padding: 20px
+  width: 200px
+  height: 200px
+  margin: 0 auto 20px auto
+  @media(min-width: 768px)
+    margin: 30px auto 40px auto;
+  img 
+    width: 100%;
+    height: 100%;
+
+.taskHeader
+  display: flex
+  justify-content: space-between
+  padding: 26px 15px
+  border-bottom: 1px solid #ececec
+  h4
+    font-weight: bold
+    color: #9fa2b2
+  .col1
+    span
+      color: #ff7092
+      padding-right: 6px
+      @media(min-width: 768px)
+        font-size: 28px;
+        position: relative;
+        top: 1px;
+  .col2
+    span
+      color: #191f40;
+      padding-right: 6px;
+      @media(min-width: 768px)
+        font-size: 28px;
+        position: relative;
+        top: 1px;
+  @media(min-width: 768px)
+    padding: 26px 57px;
+  @media(min-width: 768px)
+    padding: 26px 102px;
+
+.twoColumn
+  text-align: left;
+  button
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    white-space: inherit;
+    span:nth-child(1)
+      margin-right: 0;
+      font-size: 35px;
+      padding: 0px 20px;
+      white-space: inherit;
+  @media(min-width: 768px)
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: left;
+      button
+        min-width: 254px;
+        width: calc(47% - 10px);
+        margin: 10px;
+
+
+.oneColumn
+  text-align: left;
+  button
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    white-space: inherit;
+    span:nth-child(1)
+      margin-right: 0;
+      font-size: 35px;
+      padding: 0px 20px;
+      white-space: inherit;
+  @media(min-width: 768px)
+      button
+        width: calc(47% - 10px);
+        margin: 20px auto;
+        min-width: 254px;
+
+/* // Modal for wrong answer */
+.backdropStyle 
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background: rgba(8, 8, 8, 0.53)
+  padding: 50px 14px
+  .modalContainer
+    background: color-white
+    padding: 20px;
+    margin: 54px 0;
+    padding-bottom: 72px;
+    @media(min-width: 1024px)
+      width: 60%; 
+      margin: 0 auto;
+    @media(min-width: 1024px)
+      width: 50%; 
+      margin: 0 auto;
+    .modalHeader
+      h3
+        margin: 0;
+    .modalFooter
+        margin-top: 86px;  
+        button
+          justify-content: center;
+          @media(min-width: 768px)
+            width: 200px;
+            margin: 10px;
+        @media(min-width: 768px)
+          display: flex;
+          justify-content: center;
+    .modalBody
+      text-align: center
+      margin-top: 40px;
+      h4
+        font-size: 22px;
+      h5
+        color:color-text-gray-1
+        font-size: 22px;
+        span
+          color: color-blue
+          font-size: 22px;
+          padding-right: 8px;

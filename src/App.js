@@ -19,6 +19,8 @@ import Requester from './components/Requester/Requester';
 import Task from './components/Task/Task';
 import Confirm from './components/Confirm/Confirm';
 
+import TaskQuestion from './components/TaskQuestions/taskQuestion';
+
 import NotFound from './components/shared/pages/NotFound';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 
@@ -49,7 +51,7 @@ const App = () => {
             <Route path="/stats" component={Stats} />
             <Route path="/requester" component={Requester} />
             <Route path="/tasks/:taskId" component={Task} />
-
+            <Route path="/questions" component={TaskQuestion} />
             <Route component={NotFound} />
           </Switch>
         </AppPage>

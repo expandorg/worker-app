@@ -38,9 +38,9 @@ button(size = 'medium', theme = 'pink')
     color: color-pink
     background-color: color-white
     border: 2px solid color-pink
-
     &:disabled
       background-color: color-grey
+
 
   if theme == 'blue'
     color: color-white
@@ -54,7 +54,31 @@ button(size = 'medium', theme = 'pink')
     &:hover
       background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)
 
+  if theme == 'transparent'
+    color: color-text-1
+    background-color: transparent
+    border: 2px solid color-text-gray-1 
+    font-weight: bold
+    text-align: left 
+    &:hover
+      background: color-pink
+      border: 2px solid  color-pink
 
+  if theme == 'blueTransparent'
+    color: color-text-1
+    background-color: transparent
+    border: 1px solid color-text-1
+    font-weight: bold
+    font-size: 14px;
+    &:hover
+      background-image: grey // izmeniti
+    @media(min-width: 768px)
+      font-size: 16px;
+  if theme == 'grey'
+    color: color-text-1
+    background-color: color-text-gray-1
+    &:hover
+      background-image: grey // izmeniti
 
 
 input()
