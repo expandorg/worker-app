@@ -15,7 +15,11 @@ export class FormBuilder {
 
   static defaultValues(fields: Array<Object>): Object {
     return fields.reduce((result, field) => {
-      result[field.name] = field.default || FormBuilder.getDefaultValue(field.type);
+      const defaultValue = typeof field.default !== 'undefined'
+        ? field.default
+        : FormBuilder.getDefaultValue(field.type);
+
+      result[field.name] = defaultValue;
       return result;
     }, {});
   }
