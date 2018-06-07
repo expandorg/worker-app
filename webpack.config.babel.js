@@ -3,7 +3,7 @@ import webpack from 'webpack';
 
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { envFilePath } from './config';
 
@@ -68,37 +68,31 @@ export default (env = {}) => {
         },
         {
           test: /^((?!\.module).)*\.styl$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              'css-loader?sourceMap&importLoaders=2',
-              'postcss-loader?sourceMap',
-              'stylus-loader?paths[]=src',
-            ],
-          }),
+          use: [
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader?sourceMap&importLoaders=2',
+            'postcss-loader?sourceMap',
+            'stylus-loader?paths[]=src',
+          ],
           exclude: /node_modules/,
         },
         {
           test: /\.module\.styl$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${dev ? '[local]__[path][name]__' : ''}[hash:base64:5]`,
-              'postcss-loader?sourceMap',
-              'stylus-loader?paths[]=src',
-            ],
-          }),
+          use: [
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${dev ? '[local]__[path][name]__' : ''}[hash:base64:5]`,
+            'postcss-loader?sourceMap',
+            'stylus-loader?paths[]=src',
+          ],
           exclude: /node_modules/,
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              'css-loader?sourceMap&importLoaders=2',
-              'postcss-loader?sourceMap',
-            ],
-          }),
+          use: [
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader?sourceMap&importLoaders=2',
+            'postcss-loader?sourceMap',
+          ],
         },
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
@@ -119,10 +113,8 @@ export default (env = {}) => {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
         },
       }),
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: dev ? '[name].css' : '[name]-[chunkhash].css',
-        allChunks: true,
-        disable: dev,
       }),
       new DotenvWebpackPlugin({ path: envFilePath }),
       new HTMLWebpackPlugin({

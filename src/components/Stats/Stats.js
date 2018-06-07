@@ -1,11 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { userProps } from '../shared/propTypes';
+import { connect } from 'react-redux';
 
 import Content from '../shared/Content';
 import Panel from '../shared/Panel';
 
+import { userProps } from '../shared/propTypes';
+import { userSelector } from '../../selectors/userSelectors';
+import { authenticated } from '../hoc/authRules';
+
 import styles from './Stats.module.styl';
+
+
+const mapStateToProps = state => ({
+  user: userSelector(state),
+});
+
 
 const Stats = ({ user }) => (
   <Content title="Submission Stats">
@@ -31,4 +41,4 @@ Stats.propTypes = {
   user: PropTypes.shape(userProps).isRequired,
 };
 
-export default Stats;
+export default authenticated(connect(mapStateToProps)(Stats));

@@ -13,7 +13,7 @@ export default class Dialog extends Component {
     overlayClass: PropTypes.string,
     contentLabel: PropTypes.string.isRequired,
     hideButton: PropTypes.bool,
-    onHide: PropTypes.func.isRequired,
+    onHide: PropTypes.func,
   }
 
   static defaultProps = {
@@ -21,6 +21,7 @@ export default class Dialog extends Component {
     modalClass: null,
     overlayClass: null,
     hideButton: false,
+    onHide: Function.prototype,
   }
 
   render() {

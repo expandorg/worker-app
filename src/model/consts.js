@@ -1,4 +1,4 @@
-export const TRANSACTIONS_DISABLED = true;
+export const TRANSACTIONS_DISABLED = false;
 export const JOB_DISABLED = false;
 export const MAINTENANCE_MODE = false;
 

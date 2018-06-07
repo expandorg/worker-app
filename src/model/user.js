@@ -1,3 +1,4 @@
+// @flow
 import { rules } from '../common/validation';
 
 export const loginValidation = {

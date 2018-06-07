@@ -16,7 +16,7 @@ const Transaction = ({ tx }) => (
     </div>
     <br />
     <br />
-    <a href={`https://etherscan.io/tx/${tx}`} target="_blank">
+    <a href={`https://etherscan.io/tx/${tx}`} target="_blank" rel="noopener noreferrer">
       Follow transaction on Etherscan
     </a>
   </div>

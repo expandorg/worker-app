@@ -38,6 +38,7 @@ class AccontGemsActions extends Component {
     gemsBalance: PropTypes.number,
 
     withdrawState: PropTypes.shape(requestStateProps).isRequired,
+
     withdrawPayments: PropTypes.func.isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,
   }

@@ -12,7 +12,7 @@ export const initialState = {
   error: null,
 };
 
-export const requestUiStateReducer = (actionType, preservePayload = false) =>
+export const requestUiStateReducer = (actionType, preservePayload = false, foldErrors = false) =>
   (state = initialState, action) => {
     switch (action.type) {
       case actionType:
@@ -25,7 +25,14 @@ export const requestUiStateReducer = (actionType, preservePayload = false) =>
         };
       }
       case `${actionType}_FAILED`: {
-        return { state: RequestStates.FetchError, error: action.payload.responseStatus };
+        const { errors, message } = action.payload;
+        const commonMessage = (!message && foldErrors)
+          ? errors[Reflect.ownKeys(errors)[0]]
+          : message;
+        return {
+          state: RequestStates.FetchError,
+          error: { ...errors, commonMessage },
+        };
       }
       default:
         break;

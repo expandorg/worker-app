@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from './Form.module.styl';
 
+import ErrorMessage from '../../common/ErrorMessage';
+
+
 export default class Form extends Component {
   static propTypes = {
     action: PropTypes.string.isRequired,
@@ -27,11 +30,7 @@ export default class Form extends Component {
           <button className={styles.login} onClick={onLogin}>
             {action}
           </button>
-          {error &&
-            <div className={styles.error}>
-              {error.toString()}
-            </div>
-          }
+          <ErrorMessage error={error} className={styles.error} />
         </div>
       </div>
     );
