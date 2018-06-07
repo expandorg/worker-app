@@ -2,13 +2,28 @@
 @import 'common/uikit/colors';
 @import 'common/uikit/layout';
 
-.container
+.panel
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 
-.task
+.description
   font(font-preset[title], false, 22px)
   text-align: center
   margin: s-margin-big
   color: color-text-1
+
+.container
+  display: block
+  margin: auto
+  margin-bottom: s-margin-big
+  width: 80%
+
+.actions
+  display: flex;
+  justify-content: center;
+
+.submit
+  button('large', 'pink')
+  padding: 0 20px;
+  margin-top: 15px

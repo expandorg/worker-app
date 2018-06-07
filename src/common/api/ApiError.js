@@ -1,17 +1,22 @@
+// @flow
+
 export default class ApiError extends Error {
-  constructor(responseStatus, httpStatus = 500) {
-    super();
+  httpStatus: number
+  errors: ?Object
+
+  constructor(message: ?string, httpStatus: number = 500, errors: ?Object) {
+    super(message);
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, ApiError);
     } else {
-      this.stack = (new Error(responseStatus)).stack;
+      this.stack = (new Error(message)).stack;
     }
     this.name = 'ApiError';
-    this.responseStatus = responseStatus;
     this.httpStatus = httpStatus;
+    this.errors = errors;
   }
 
-  static validation(message) {
-    return new ApiError(message, 400);
+  static validation(errors: ?Object) {
+    return new ApiError(undefined, 400, errors);
   }
 }

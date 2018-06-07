@@ -15,10 +15,13 @@ export const fetchTask = taskId => ({
 
 const watchFetchRequest = takeEveryApiCall(tasksActionTypes.FETCH, tasksApi.fetch);
 
-export const submitTask = (taskId, form) => ({
+export const submitTask = (taskId, form, rules) => ({
   type: tasksActionTypes.SUBMIT,
-  payload: { taskId, response: JSON.stringify(form) },
-  meta: { schema: { assignments: [assignmentSchema] } },
+  payload: { taskId, form, response: JSON.stringify(form) },
+  meta: {
+    schema: { assignments: [assignmentSchema] },
+    validation: { form: rules },
+  },
 });
 
 const watchCreateRequest = takeEveryApiCall(tasksActionTypes.SUBMIT, tasksApi.submitTask);

@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Content from '../shared/Content';
-import Panel from '../shared/Panel';
 
-import TriviaForm from './TriviaForm';
+import Form from './form/Form';
 import SubmissionDialog from './SubmissionDialog';
 
 import { taskProps, requestStateProps } from '../shared/propTypes';
@@ -20,8 +19,6 @@ import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
 import { RequestStates, initialState as initialRequestState } from '../../common/app/requestUiState';
 
 import { authenticated } from '../hoc/authRules';
-
-import styles from './Task.module.styl';
 
 const makeMapStateToProps = () => {
   const taskSelector = makeTaskSelector();
@@ -66,26 +63,24 @@ class Task extends Component {
     }
   }
 
-  handleSubmit = (data) => {
-    this.setState({ submitted: true });
-    this.props.submitTask(this.props.task.id, data);
+  handleSubmit = (form, rules) => {
+    this.setState({ submitted: true },
+      () => this.props.submitTask(this.props.task.id, form, rules),
+    );
   }
 
   render() {
     const { isFunded, task } = this.props;
     const { submitState } = this.state;
-
-    console.log(task);
-
     return (
       <Content title="Question writing and fact checking">
-        <Panel className={styles.container}>
-          <div className={styles.task}>
-            Write a trivia question with three multiple-choice answers.
-            One answer should be correct and fact-checked, and two answers should be incorrect.
-          </div>
-          <TriviaForm submitState={submitState} onSubmit={this.handleSubmit} />
-        </Panel>
+        {task &&
+          <Form
+            task={task}
+            submitState={submitState}
+            onSubmit={this.handleSubmit}
+          />
+        }
         {submitState.state === RequestStates.Fetched &&
           <SubmissionDialog isFunded={isFunded} />
         }
