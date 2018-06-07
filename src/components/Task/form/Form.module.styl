@@ -2,22 +2,32 @@
 @import 'common/uikit/colors';
 @import 'common/uikit/layout';
 
-.panel
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.container
+  @media(max-width: 660px)
+    margin: 0;
+    padding-left: 0
+    padding-right: 0
+
 
 .description
   font(font-preset[title], false, 22px)
   text-align: center
-  margin: s-margin-big
   color: color-text-1
 
-.container
+  margin: s-margin-big 0;
+  padding: 0;
+  max-width: 800px;
+
+  @media(max-width: 660px)
+    font-size: 16px;
+    margin: s-margin-medium 0;
+    padding: 0 s-margin-medium;
+
+.form
   display: block
-  margin: auto
+  margin: 0 auto
+  max-width: 800px;
   margin-bottom: s-margin-big
-  width: 80%
 
 .actions
   display: flex;
