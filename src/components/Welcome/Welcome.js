@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import DocumentTitle from 'react-document-title';
 
 import LoginDialog from '../Auth/LoginDialog';
 
+import Content from '../shared/Content';
 import Slider from '../common/Slider/Slider';
 
 import { notAuthenticated } from '../hoc/authRules';
@@ -21,7 +21,7 @@ class Welcome extends Component {
   render() {
     const { opened } = this.state;
     return (
-      <DocumentTitle title="Welcome">
+      <Content title="Login">
         <div className={styles.container}>
           <div className={styles.panel}>
             <div className={styles.slider}>
@@ -57,7 +57,7 @@ class Welcome extends Component {
             <LoginDialog onHide={this.handleToggle} />
           }
         </div>
-      </DocumentTitle>
+      </Content>
     );
   }
 }
