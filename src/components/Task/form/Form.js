@@ -68,11 +68,11 @@ export default class Form extends Component {
     const isLoading = submitState.state === RequestStates.Fetching;
     const form = task.form || triviaForm;
     return (
-      <Panel className={styles.panel}>
-        <div className={styles.description}>
-          {form.description}
-        </div>
-        <form className={styles.container} onSubmit={this.handleSubmit} >
+      <Panel className={styles.container}>
+        <form className={styles.form} onSubmit={this.handleSubmit} >
+          <div className={styles.description}>
+            {form.description}
+          </div>
           <ErrorMessage error={errors} />
           {form.fields.map(field => (
             <Field
