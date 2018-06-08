@@ -1,0 +1,86 @@
+@import 'common/uikit/font'
+@import 'common/uikit/colors'
+@import 'common/uikit/components'
+
+//-----------------Buttons--------------------
+button
+  width: 100%
+  font-weight: 600!important
+
+.btnPink
+  button('large', 'pink')
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: 200px
+    min-width: 200px
+
+.btnPinkTrans
+  button('large', 'white')
+  margin: 10px 0
+
+.btnBlueTrans
+  button('medium', 'blueTransparent')
+  margin: 10px
+  padding: 0 15px
+  width: 150px
+
+.btnGrey
+  button('large', 'grey')
+  margin: 10px 0
+
+.btnDisabled
+  button('large', 'grey')
+  margin: 10px 0
+
+.btnTrans
+    button('large', 'transparent')
+    margin: 20px 0
+    
+.btnTransActive
+    button('large', 'pink')
+    margin: 20px 0
+
+.btnAqua
+  button('medium', 'aqua')
+  margin: 10px 0
+  margin-top:40px
+  position: relative
+  @media(min-width: 768px)
+    width: 100px
+    min-width: 100px 
+  span
+    small
+      font-size: 20px;
+//-----------------Task container--------------------
+
+.taskContainer
+  font-weight: bold
+  margin: 21px 0
+  padding: 10px 15px 62px 15px
+  text-align: center
+  color:color-text-1
+  height: 100vh;
+  @media(min-width: 1150px)
+    padding: 10px 50px 62px 50px
+  @media(min-width: 1440px)
+    padding: 10px 100px 62px 100px
+  h3
+    margin-top: 40px
+    color:color-text-1
+    font-size: 24px
+    @media(min-width: 768px)
+      font-size: 32px
+      margin-top: 54px
+  p
+    padding: 20px 0px
+    font-size: 14px
+    @media(min-width: 1150px)
+      font-size: initial
+      width:80%
+      margin:0 auto
+    @media(min-width: 1440px)
+      width:60%    
+  .phWhiteGrey
+    color: color-text-gray-1
+  .phDarkGrey
+    color: color-text-1
