@@ -42,9 +42,10 @@ export const assignJobStateSelector = createSelector(uiStateSelector, state => s
 
 export const submitTaskStateSelector = createSelector(uiStateSelector, state => state.submitTask);
 
-export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
 
-export const depositGemsStateSelector = createSelector(uiStateSelector, state => state.depositGems);
+export const depositStateSelector = createSelector(uiStateSelector, state => state.deposit);
+
+export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
 
 export const questionStateSelector = createSelector(uiStateSelector, state => state.fetchQuestion);
 

@@ -10,17 +10,15 @@ import Panel from '../shared/Panel';
 import Field from './Field';
 
 import AccountAddress from './address/AccountAddress';
-import AccountEmail from './AccountEmail';
+import AccountEmail from './email/AccountEmail';
 import ReservedGems from './ReservedGems';
-import AccontGemsActions from './AccontGemsActions';
+import GemsActions from './gems/Actions';
 
 import { authenticated } from '../hoc/authRules';
 import { userProps } from '../shared/propTypes';
 
 import { logout } from '../../sagas/authSagas';
 import { userSelector } from '../../selectors/userSelectors';
-
-import { TRANSACTIONS_DISABLED } from '../../model/consts';
 
 import styles from './Account.module.styl';
 
@@ -57,21 +55,14 @@ class Account extends Component {
           <ReservedGems user={user} />
           <Field>
             <div className={styles.actions}>
-              <div>
-                {!TRANSACTIONS_DISABLED &&
-                  <AccontGemsActions user={user} />
-                }
-              </div>
+              <GemsActions user={user} />
               <button className={styles.logout} onClick={this.props.logout}>
                 Log Out
               </button>
             </div>
           </Field>
           <Field>
-            {TRANSACTIONS_DISABLED
-              ? '*Depositing and withrdrawing Gems is temporarily disabled while we update our system'
-              : '*Due to high demand, we can only let you withdraw if you have over 500 GEM tokens'
-            }
+            *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
           </Field>
         </Panel>
       </Content>

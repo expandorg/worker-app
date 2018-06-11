@@ -27,8 +27,10 @@ export default combineReducers({
   confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
   resendConfirmEmail: requestUiStateReducer(userActionTypes.RESEND_CONFIRM_EMAIL),
 
-  depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
-  withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),
+  deposit: requestUiStateReducer(gemsActionTypes.DEPOSIT, true),
+  depositStage,
+
+  withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
   fetchQuestion: requestUiStateReducer(questionsActionTypes.FETCH),
@@ -38,5 +40,4 @@ export default combineReducers({
   cancelTest: requestUiStateReducer(answersActionTypes.CANCEL),
 
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
-  depositStage,
 });

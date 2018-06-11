@@ -1,33 +1,33 @@
-import { fork, takeEvery, put, call } from 'redux-saga/effects';
+import { fork, takeEvery, put, select, call } from 'redux-saga/effects';
+import { normalize } from 'normalizr';
+
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 
 import { gemsActionTypes } from './actionTypes';
 
-import { gemsApi } from '../api/GemsApi';
 import { userApi } from '../api/UserApi';
 import { gemsService } from '../services/GemsService';
 
+import { userSelector } from '../selectors/userSelectors';
 
-export const setTransactions = payload => ({
-  type: gemsActionTypes.SET_TRANSACTIONS,
-  payload,
-});
+import { authResponseSchema } from '../model/schemas';
 
-
-export const depositGems = value => ({
+export const depositGems = deposit => ({
   type: gemsActionTypes.DEPOSIT,
-  payload: { value },
+  payload: { deposit },
 });
 
-function* handleDeposit({ payload }) {
+function* handleDeposit({ payload: { deposit } }) {
   try {
     // approve depost tx
-    yield call(gemsService.approve, payload);
+    yield call(gemsService.approve, deposit);
 
     yield put({ type: gemsActionTypes.DEPOSIT_STAGE, payload: 2 });
+    const user = yield select(userSelector);
 
-    const result = yield call(gemsApi.deposit, payload);
-    yield put({ type: gemsActionTypes.DEPOSIT_COMPLETE, payload: result });
+    const data = yield call(userApi.deposit, { deposit, userId: user.id });
+    const payload = normalize(data, authResponseSchema);
+    yield put({ type: gemsActionTypes.DEPOSIT_COMPLETE, payload });
   } catch (error) {
     yield put({ type: gemsActionTypes.DEPOSIT_FAILED, payload: error });
   }
@@ -35,17 +35,18 @@ function* handleDeposit({ payload }) {
 
 export const fetchGemsBalance = user => ({
   type: gemsActionTypes.FETCH_BALANCE,
-  payload: user,
+  payload: { userId: user.id },
 });
 
 const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, userApi.fetchBalance);
 
-export const withdrawPayments = () => ({
+export const withdrawPayments = user => ({
   type: gemsActionTypes.WITHDRAW,
-  payload: null,
+  payload: { userId: user.id },
+  meta: { schema: authResponseSchema },
 });
 
-const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, gemsApi.withdraw);
+const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
 
 export function* gemsSagas() {
   yield takeEvery(gemsActionTypes.DEPOSIT, handleDeposit);
