@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates, initialState as initialRequestState } from '../../../../common/app/requestUiState';
+import withSubmitState from '../../../hoc/withSubmitState';
+
+import { RequestStates } from '../../../../common/app/requestUiState';
 import { withdrawPayments } from '../../../../sagas/gemsSagas';
 import { userProps, requestStateProps } from '../../../shared/propTypes';
 
@@ -19,7 +21,6 @@ import styles from './Withdraw.module.styl';
 
 const mapStateToProps = state => ({
   gemsBalance: gemBalanceSelector(state),
-  submitState: withdrawStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -30,32 +31,19 @@ class Withdraw extends Component {
     user: PropTypes.shape(userProps).isRequired,
     submitState: PropTypes.shape(requestStateProps).isRequired,
     withdrawPayments: PropTypes.func.isRequired,
-  }
-
-  state = {
-    submitState: initialRequestState,
-    submitted: false,
-  }
-
-  componentWillReceiveProps({ submitState }) {
-    if (this.state.submitted) {
-      this.setState({ submitState });
-    }
+    onSubmit: PropTypes.func.isRequired,
+    onResetSubmit: PropTypes.func.isRequired,
   }
 
   handleClick = () => {
-    if (this.state.submitState.state !== RequestStates.Fetching) {
-      this.setState({ submitted: true }, () => this.props.withdrawPayments(this.props.user));
+    const { submitState, onSubmit, user } = this.props;
+    if (submitState.state !== RequestStates.Fetching) {
+      onSubmit(() => this.props.withdrawPayments(user));
     }
   }
 
-  handleHide = () => {
-    this.setState({ submitState: initialRequestState });
-  }
-
   render() {
-    const { user } = this.props;
-    const { submitState } = this.state;
+    const { user, submitState, onResetSubmit } = this.props;
 
     const isFetching = submitState.state === RequestStates.Fetching;
 
@@ -71,7 +59,7 @@ class Withdraw extends Component {
         {submitState.state === RequestStates.Fetched &&
           <WithdrawSuccessDialog
             transactions={submitState.payload.result.tx}
-            onHide={this.handleHide}
+            onHide={onResetSubmit}
           />
         }
       </Fragment>
@@ -79,4 +67,6 @@ class Withdraw extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Withdraw);
+export default withSubmitState(withdrawStateSelector)(
+  connect(mapStateToProps, mapDispatchToProps)(Withdraw),
+);
