@@ -7,7 +7,7 @@ import { userProps } from '../shared/propTypes';
 
 import styles from './ReservedGems.module.styl';
 
-import { getStakedGems } from '../../model/worker';
+import { userBalance } from '../../model/balance';
 
 export default class ReservedGems extends Component {
   static propTypes = {
@@ -15,10 +15,11 @@ export default class ReservedGems extends Component {
   }
 
   render() {
+    const { user } = this.props;
     return (
       <Field title="Reserved for Pending Tasks">
         <div className={styles.reserved}>
-          {getStakedGems(this.props.user.stats.pending)} GEMS
+          {userBalance.stakedGems(user.stats.pending)} GEMS
         </div>
       </Field>
     );

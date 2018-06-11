@@ -4,8 +4,8 @@ export class UserApi extends BaseApi {
   assignAddress = ({ userId, address, signature }) =>
     this.post(`/users/${userId}/address`, { address, signature })
 
-  fetchBalance = user =>
-    this.get(`/users/${user.id}/gems`)
+  fetchBalance = ({ userId }) =>
+    this.get(`/users/${userId}/gems`)
 
   editEmail = ({ userId, email }) =>
     this.post(`/users/${userId}/email`, { email })
@@ -15,6 +15,12 @@ export class UserApi extends BaseApi {
 
   resendConfirmEmail = ({ userId }) =>
     this.post(`/users/${userId}/email/resend`)
+
+  depost = ({ userId, deposit }) =>
+    this.post(`/users/${userId}/depost`, { deposit });
+
+  withdraw = ({ userId }) =>
+    this.post(`/users/${userId}/withdraw`)
 }
 
 export const userApi = new UserApi();

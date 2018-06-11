@@ -86,9 +86,10 @@ export const tasksActionTypes = createActionTypes('tasks', {
 
 export const gemsActionTypes = createActionTypes('gems', {
   DEPOSIT: null,
-  DEPOSIT_STAGE: null,
   DEPOSIT_COMPLETE: null,
   DEPOSIT_FAILED: null,
+
+  DEPOSIT_STAGE: null,
 
   WITHDRAW: null,
   WITHDRAW_COMPLETE: null,
@@ -97,6 +98,4 @@ export const gemsActionTypes = createActionTypes('gems', {
   FETCH_BALANCE: null,
   FETCH_BALANCE_COMPLETE: null,
   FETCH_BALANCE_FAILED: null,
-
-  SET_TRANSACTIONS: null,
 });
