@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import ErrorMessage from '../../common/ErrorMessage';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import { metamaskStateSelector } from '../../../selectors/web3Selectors';
@@ -71,11 +72,7 @@ class MatamaskLogin extends Component {
             error={error}
           />
         }
-        {error &&
-          <div className={styles.error}>
-            {error.toString()}
-          </div>
-        }
+        <ErrorMessage error={error} className={styles.error} />
       </div>
     );
   }

@@ -14,7 +14,7 @@ import Signup from './components/Auth/Signup';
 import Account from './components/Account/Account';
 import Jobs from './components/Jobs/Jobs';
 
-import Stats from './components/Stats/StatsContainer';
+import Stats from './components/Stats/Stats';
 import Requester from './components/Requester/Requester';
 import Task from './components/Task/Task';
 import Confirm from './components/Confirm/Confirm';

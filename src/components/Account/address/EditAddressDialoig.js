@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Dialog, { DialogHeadline } from '../../common/Dialog';
+import ErrorMessage from '../../common/ErrorMessage';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 
@@ -116,11 +117,7 @@ class EditAddressDialoig extends Component {
               <button className={styles.save} onClick={this.handleSaveClick}>
                 Save
               </button>
-              {error &&
-                <div className={styles.error}>
-                  {error.toString()}
-                </div>
-              }
+              <ErrorMessage error={error} className={styles.error} />
             </div>
           </div>
         </div>

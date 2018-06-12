@@ -36,7 +36,12 @@ class Navigation extends Component {
               My Tasks
             </span>
             {assignments.map(ast => (
-              <NavLink to={`/tasks/${ast.taskId}`} className={styles.task} activeClassName={styles.activeTask}>
+              <NavLink
+                key={ast.taskId}
+                to={`/tasks/${ast.taskId}`}
+                className={styles.task}
+                activeClassName={styles.activeTask}
+              >
                 Task #{ast.taskId}
               </NavLink>),
             )}

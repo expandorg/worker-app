@@ -10,7 +10,7 @@ export const encodeUrlParams = (query: Object) => {
     .join('&');
 };
 
-export const keyMirror = (object: Object, transformKey: Function = (key => key)) =>
+export const keyMirror = (object: Object, transformKey: Function = (key => key)): Object =>
   Reflect.ownKeys(object).reduce((result, key) => {
     result[key] = transformKey(key);
     return result;
