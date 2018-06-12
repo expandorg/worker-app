@@ -24,6 +24,11 @@ export class Balance {
     return amount >= DEPOSIT_MIN && amount <= DEPOSIT_MAX;
   }
 
+  canWithdraw(user: Object) {
+    const balance = this.get(user);
+    return !!user.address && (balance >= WITHDRAW_MIN);
+  }
+
   get(user: Object) {
     const staked = this.stakedGems(user.stats.pending);
     const balance = new BigNumber(user.gems.balance + user.gems.reserved);
