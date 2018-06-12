@@ -15,10 +15,20 @@ const authResponseSchema = {
   assignments: [assignmentSchema],
 };
 
+const questionSchema = new schema.Entity('questions');
+const answersSchema = new schema.Entity(
+  'answers',
+  {},
+  {
+    idAttribute: 'user_id',
+  },
+);
+
 export {
   jobSchema,
   assignmentSchema,
   taskSchema,
-
+  questionSchema,
+  answersSchema,
   authResponseSchema,
 };

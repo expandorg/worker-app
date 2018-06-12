@@ -13,14 +13,12 @@ import Signup from './components/Auth/Signup';
 
 import Account from './components/Account/Account';
 import Jobs from './components/Jobs/Jobs';
+import Job from './components/Jobs/Job/Job';
 
 import Stats from './components/Stats/StatsContainer';
 import Requester from './components/Requester/Requester';
 import Task from './components/Task/Task';
 import Confirm from './components/Confirm/Confirm';
-
-// import TaskQuestion from './components/TaskQuestions/taskQuestion';
-import Base from './components/TaskQuestions/base';
 
 import NotFound from './components/shared/pages/NotFound';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';
@@ -52,7 +50,7 @@ const App = () => {
             <Route path="/stats" component={Stats} />
             <Route path="/requester" component={Requester} />
             <Route path="/tasks/:taskId" component={Task} />
-            <Route path="/questions" component={Base} />
+            <Route path="/job/:jobId" component={Job} />
             <Route component={NotFound} />
           </Switch>
         </AppPage>

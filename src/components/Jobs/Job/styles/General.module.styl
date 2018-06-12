@@ -16,7 +16,10 @@ button
 
 .btnPinkTrans
   button('large', 'white')
-  margin: 10px 0
+  margin: 0 10px
+  @media(min-width: 768px)
+    width: 200px
+    min-width: 200px
 
 .btnBlueTrans
   button('medium', 'blueTransparent')
@@ -35,7 +38,7 @@ button
 .btnTrans
     button('large', 'transparent')
     margin: 20px 0
-    
+
 .btnTransActive
     button('large', 'pink')
     margin: 20px 0
@@ -47,7 +50,7 @@ button
   position: relative
   @media(min-width: 768px)
     width: 100px
-    min-width: 100px 
+    min-width: 100px
   span
     small
       font-size: 20px;
@@ -79,7 +82,7 @@ button
       width:80%
       margin:0 auto
     @media(min-width: 1440px)
-      width:60%    
+      width:60%
   .phWhiteGrey
     color: color-text-gray-1
   .phDarkGrey

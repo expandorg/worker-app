@@ -15,6 +15,14 @@ export const fetchJobs = () => ({
 const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch);
 
 
+export const getJob = jobId => ({
+  type: jobsActionTypes.GET,
+  payload: { jobId },
+  meta: { schema: jobSchema },
+});
+
+const watchgetRequest = takeEveryApiCall(jobsActionTypes.GET, jobsApi.getJob);
+
 export const assignJob = jobId => ({
   type: jobsActionTypes.ASSIGN,
   payload: { jobId },
@@ -26,5 +34,6 @@ const watchAssignRequest = takeEveryApiCall(jobsActionTypes.ASSIGN, jobsApi.assi
 
 export function* jobsSagas() {
   yield fork(watchFetchRequest);
+  yield fork(watchgetRequest);
   yield fork(watchAssignRequest);
 }

@@ -12,6 +12,9 @@ import assignmentsEntities from './assignments/assignmentsEntitiesReducer';
 
 import tasksEntities from './tasks/tasksEntitiesReducer';
 
+import questionsEntities from './questions/questionsEntitiesReducer';
+import answersEntities from './answers/answersEntitiesReducer';
+
 import metamask from './web3/metamaskReducer';
 
 import ui from './ui';
@@ -34,5 +37,11 @@ export default combineReducers({
   ui,
   web3: combineReducers({
     metamask,
+  }),
+  questions: combineReducers({
+    entities: questionsEntities,
+  }),
+  answers: combineReducers({
+    entities: answersEntities,
   }),
 });

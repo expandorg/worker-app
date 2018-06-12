@@ -73,6 +73,22 @@ export const requestStateProps = {
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
+export const questionProps = {
+  id: PropTypes.number,
+  job_id: PropTypes.number,
+  answers_needed: PropTypes.number,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+};
+
+export const answerProps = {
+  user_id: PropTypes.number,
+  questions_id: PropTypes.number,
+  job_id: PropTypes.number,
+  fails: PropTypes.number,
+  remaining: PropTypes.number,
+  failed_question_index: PropTypes.number,
+  status: PropTypes.number,
+};
 
 export const assignmentsProps = {
   // Dictionary
