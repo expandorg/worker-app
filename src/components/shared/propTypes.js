@@ -1,3 +1,4 @@
+// @flow
 import PropTypes from 'prop-types';
 
 export const userProps = {
@@ -50,12 +51,6 @@ export const taskProps = {
   id: PropTypes.number,
 };
 
-export const assignmentProps = {
-  taskId: PropTypes.number,
-  jobId: PropTypes.number,
-  id: PropTypes.number,
-};
-
 export const historyProps = {
   replace: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
@@ -71,9 +66,4 @@ export const locationProps = {
 export const requestStateProps = {
   state: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-};
-
-
-export const assignmentsProps = {
-  // Dictionary
 };

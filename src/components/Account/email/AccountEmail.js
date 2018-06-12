@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 
 import Clipboard from 'react-clipboard.js';
 
-import EditEmailDialog from '../shared/email/EditEmailDialog';
+import EditEmailDialog from '../../shared/email/EditEmailDialog';
+import { userProps } from '../../shared/propTypes';
 
-import Field from './Field';
-
-import { userProps } from '../shared/propTypes';
+import Field from '../Field';
 
 import styles from './AccountEmail.module.styl';
 

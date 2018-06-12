@@ -2,15 +2,12 @@ import { combineReducers } from 'redux';
 
 import user from './userReducer';
 import gemsBalance from './gemsBalanceReducer';
-import transactions from './transactionsReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
 
-import activeAssignments from './assignments/activeAssignmentsReducer';
-import assignmentsEntities from './assignments/assignmentsEntitiesReducer';
-
 import tasksEntities from './tasks/tasksEntitiesReducer';
+import assignedTasks from './tasks/assignedTasksReducer';
 
 import metamask from './web3/metamaskReducer';
 
@@ -25,12 +22,8 @@ export default combineReducers({
   }),
   tasks: combineReducers({
     entities: tasksEntities,
+    assigned: assignedTasks,
   }),
-  assignments: combineReducers({
-    active: activeAssignments,
-    entities: assignmentsEntities,
-  }),
-  transactions,
   ui,
   web3: combineReducers({
     metamask,

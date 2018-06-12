@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { isFunded } from '../model/worker';
+import { userBalance } from '../model/balance';
 
 export const userSelector = state => state.user;
 
@@ -11,7 +11,7 @@ export const loggedInSelector = createSelector(
 
 export const isFundedSelector = createSelector(
   userSelector,
-  user => (user ? isFunded(user) : false),
+  user => (user ? userBalance.isFunded(user) : false),
 );
 
 
