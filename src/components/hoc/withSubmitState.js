@@ -19,15 +19,19 @@ export default function withSubmitState(submitSelector) {
         submitState: PropTypes.shape(requestStateProps).isRequired,
       }
 
+      /* eslint-disable react/sort-comp, react/no-unused-state */
+      static getDerivedStateFromProps({ submitState }, state) {
+        if (state.submitted) {
+          return {
+            submitState,
+          };
+        }
+        return null;
+      }
+
       state = {
         submitState: initialState,
         submitted: false,
-      }
-
-      componentWillReceiveProps({ submitState }) {
-        if (this.state.submitted) {
-          this.setState({ submitState });
-        }
       }
 
       handleSubmit = (submitCallback) => {
