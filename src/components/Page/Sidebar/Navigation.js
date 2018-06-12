@@ -5,44 +5,44 @@ import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { loggedInSelector } from '../../../selectors/userSelectors';
-import { assignmentsSelector } from '../../../selectors/assignmentsSelectors';
-import { assignmentsProps } from '../../shared/propTypes';
+import { assignedTasksSelector } from '../../../selectors/tasksSelector';
+import { taskProps } from '../../shared/propTypes';
 
 import styles from './Navigation.module.styl';
 
 const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
-  assignments: assignmentsSelector(state),
+  assignedTasks: assignedTasksSelector(state),
 });
 
 
 class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentsProps)).isRequired,
+    assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
   };
 
 
   render() {
-    const { isLoggedIn, assignments } = this.props;
+    const { isLoggedIn, assignedTasks } = this.props;
     if (!isLoggedIn) {
       return null;
     }
     return (
       <div className={styles.container}>
-        {assignments.length > 0 &&
+        {assignedTasks.length > 0 &&
           <Fragment>
             <span className={styles.link}>
               My Tasks
             </span>
-            {assignments.map(ast => (
+            {assignedTasks.map(task => (
               <NavLink
-                key={ast.taskId}
-                to={`/tasks/${ast.taskId}`}
+                key={task.id}
+                to={`/tasks/${task.id}`}
                 className={styles.task}
                 activeClassName={styles.activeTask}
               >
-                Task #{ast.taskId}
+                Task #{task.id}
               </NavLink>),
             )}
           </Fragment>
