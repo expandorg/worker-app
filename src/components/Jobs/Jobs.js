@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps, assignmentsProps, historyProps } from '../shared/propTypes';
+import { userProps, jobProps, assignmentsProps, taskProps, historyProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
@@ -19,7 +19,7 @@ import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
-import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
+import { assignedTasksSelector } from '../../selectors/tasksSelector';
 
 import { JOB_DISABLED } from '../../model/consts';
 
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
   isFunded: isFundedSelector(state),
   jobs: jobsSelector(state),
-  assignments: assignmentsSelector(state),
+  assignedTasks: assignedTasksSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -41,7 +41,7 @@ class Jobs extends Component {
     user: PropTypes.shape(userProps).isRequired,
     history: PropTypes.shape(historyProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
-    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentsProps)).isRequired,
+    assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
   }
 
@@ -71,7 +71,7 @@ class Jobs extends Component {
 
   render() {
     const {
-      isFunded, user, jobs, assignments,
+      isFunded, user, jobs, assignedTasks,
     } = this.props;
     const { emailDialog } = this.state;
 
@@ -86,7 +86,7 @@ class Jobs extends Component {
             <JobItem
               key={job.id}
               job={job}
-              assignment={assignments.find(a => a.jobId === job.id)}
+              task={assignedTasks.find(t => t.jobId === job.id)}
               isFunded={isFunded}
               onJoin={this.handleSelect}
             />

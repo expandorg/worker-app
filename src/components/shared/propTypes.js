@@ -1,3 +1,4 @@
+// @flow
 import PropTypes from 'prop-types';
 
 export const userProps = {
@@ -47,12 +48,6 @@ export const jobProps = {
 
 
 export const taskProps = {
-  id: PropTypes.number,
-};
-
-export const assignmentProps = {
-  taskId: PropTypes.number,
-  jobId: PropTypes.number,
   id: PropTypes.number,
 };
 

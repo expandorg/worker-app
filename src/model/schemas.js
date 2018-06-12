@@ -3,16 +3,9 @@ import { schema } from 'normalizr';
 const jobSchema = new schema.Entity('jobs');
 
 const taskSchema = new schema.Entity('tasks');
-const assignmentSchema = new schema.Entity(
-  'assignments',
-  {},
-  {
-    idAttribute: 'jobId',
-  },
-);
 
 const authResponseSchema = {
-  assignments: [assignmentSchema],
+  assignedTasks: [taskSchema],
 };
 
 const questionSchema = new schema.Entity('questions');
@@ -26,7 +19,6 @@ const answersSchema = new schema.Entity(
 
 export {
   jobSchema,
-  assignmentSchema,
   taskSchema,
   questionSchema,
   answersSchema,

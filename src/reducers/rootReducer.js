@@ -6,10 +6,8 @@ import gemsBalance from './gemsBalanceReducer';
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
 
-import activeAssignments from './assignments/activeAssignmentsReducer';
-import assignmentsEntities from './assignments/assignmentsEntitiesReducer';
-
 import tasksEntities from './tasks/tasksEntitiesReducer';
+import assignedTasks from './tasks/assignedTasksReducer';
 
 import questionsEntities from './questions/questionsEntitiesReducer';
 import answersEntities from './answers/answersEntitiesReducer';
@@ -27,10 +25,7 @@ export default combineReducers({
   }),
   tasks: combineReducers({
     entities: tasksEntities,
-  }),
-  assignments: combineReducers({
-    active: activeAssignments,
-    entities: assignmentsEntities,
+    assigned: assignedTasks,
   }),
   ui,
   web3: combineReducers({

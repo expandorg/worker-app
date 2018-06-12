@@ -3,7 +3,7 @@ import { fork } from 'redux-saga/effects';
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { tasksActionTypes } from './actionTypes';
 
-import { taskSchema, assignmentSchema } from '../model/schemas';
+import { taskSchema } from '../model/schemas';
 
 import { tasksApi } from '../api/TasksApi';
 
@@ -19,7 +19,7 @@ export const submitTask = (taskId, form, rules) => ({
   type: tasksActionTypes.SUBMIT,
   payload: { taskId, form, response: JSON.stringify(form) },
   meta: {
-    schema: { assignments: [assignmentSchema] },
+    schema: { assignedTasks: [taskSchema] },
     validation: { form: rules },
   },
 });
