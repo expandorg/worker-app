@@ -10,6 +10,7 @@
     "test": "node_modules/.bin/jest --config jest.config.json"
   },
   "dependencies": {
+    "@xlnt/scry-one": "0.0.1",
     "bignumber.js": "^7.1.0",
     "classnames": "^2.2.6",
     "gems-token": "github:gemsorg/gems-token",

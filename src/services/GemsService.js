@@ -1,4 +1,5 @@
-import { GemsToken } from 'gems-token';
+import { GemsToken, events as tokenEvents } from 'gems-token';
+import Watcher from '@xlnt/scry-one';
 
 import settings from '../common/settings';
 import { promisify } from '../common/utils';
@@ -12,7 +13,16 @@ export class GemsService {
   }
 
   initGemTokens = async () => {
-    const instance = new GemsToken(this.web3.currentProvider, this.getDefaultAccount());
+    const watcher = new Watcher(
+      process.env.ETH_NODE,
+      tokenEvents,
+    );
+
+    const instance = new GemsToken(
+      this.web3.currentProvider,
+      this.getDefaultAccount(),
+      watcher,
+    );
     await instance.init();
     this.gems = instance;
   }
