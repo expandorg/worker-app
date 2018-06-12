@@ -15,7 +15,7 @@ import WithdrawSuccessDialog from './WithdrawSuccessDialog';
 
 import { gemBalanceSelector } from '../../../../selectors/userSelectors';
 import { withdrawStateSelector } from '../../../../selectors/uiStateSelectors';
-import { userBalance, WITHDRAW_MIN } from '../../../../model/balance';
+import { userBalance } from '../../../../model/balance';
 
 import styles from './Withdraw.module.styl';
 
@@ -48,7 +48,7 @@ class Withdraw extends Component {
     const isFetching = submitState.state === RequestStates.Fetching;
 
     const balance = userBalance.get(user);
-    const disabled = balance < WITHDRAW_MIN;
+    const disabled = !userBalance.canWithdraw(user);
 
     return (
       <Fragment>

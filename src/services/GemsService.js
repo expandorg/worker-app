@@ -1,4 +1,4 @@
-import GemsToken from 'gems-token';
+import { GemsToken } from 'gems-token';
 
 import settings from '../common/settings';
 import { promisify } from '../common/utils';

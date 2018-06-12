@@ -41,8 +41,17 @@ class Actions extends Component {
 
   componentDidMount() {
     const { user } = this.props;
-    if (user.address /* FIXME: fix address confirmation: && user.addressConfirmed */) {
+    if (user.address && user.addressConfirmed) {
       this.props.fetchGemsBalance(user);
+    }
+  }
+
+  componentDidUpdate({ user: prevUser }) {
+    const { user } = this.props;
+    if (user !== prevUser) {
+      if (user.address && user.addressConfirmed) {
+        this.props.fetchGemsBalance(user);
+      }
     }
   }
 
