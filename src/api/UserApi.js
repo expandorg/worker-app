@@ -16,8 +16,8 @@ export class UserApi extends BaseApi {
   resendConfirmEmail = ({ userId }) =>
     this.post(`/users/${userId}/email/resend`)
 
-  depost = ({ userId, deposit }) =>
-    this.post(`/users/${userId}/depost`, { deposit });
+  deposit = ({ userId, deposit }) =>
+    this.post(`/users/${userId}/deposit`, { deposit });
 
   withdraw = ({ userId }) =>
     this.post(`/users/${userId}/withdraw`)
