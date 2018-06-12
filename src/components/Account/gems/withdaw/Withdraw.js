@@ -53,7 +53,7 @@ class Withdraw extends Component {
     return (
       <Fragment>
         <button onClick={this.handleClick} className={styles.withdraw} disabled={disabled}>
-          {isFetching ? 'Withdrawing' : 'Withdraw'}
+          {isFetching ? 'Withdrawing' : 'Withdraw '}
           {!isFetching && <AvailableFunds balance={balance} />}
         </button>
         {submitState.state === RequestStates.Fetched &&
