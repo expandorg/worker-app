@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/General.module.styl';
+import custom from '../styles/Custom.module.styl';
 
 class SuccessTestMessage extends Component {
   static propTypes = {
@@ -12,7 +13,7 @@ class SuccessTestMessage extends Component {
   render() {
     return (
       <div className={styles.taskContainer}>
-        <div>
+        <div className={custom.successMsg}>
           <h3>Great job!</h3>
           <p className={styles.phWhiteGrey}>Lorem ipsum dolor sit amet
           consectetur adipiscing elit. Pellentesque nec maximus turpis.

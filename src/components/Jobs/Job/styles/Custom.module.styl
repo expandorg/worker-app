@@ -34,6 +34,7 @@
     cursor: pointer
     user-select: none
     font-size: 12px
+    font-weight: 600
     @media(min-width: 768px)
       font-size:14px
 
@@ -74,7 +75,7 @@
     display: block
   @media(min-width: 1150px)
     width: 53%
-    margin: 25px auto 17px auto
+    margin: 36px auto 28px auto;
 // End custom checkbox
 
 .questionHeader
@@ -103,26 +104,33 @@
     border-bottom: 1px solid #ececec
 
     h4
-      font-weight: bold
+      font-weight: 600
       color: #9fa2b2
-      font-size: 18px
-
+      font-size: 16px
+      @media(min-width: 768px)
+        font-size: 18px
     .col1
       span
         color: #ff7092
         padding-right: 6px
+        font-weight: 800
+        font-size: 20px
+        position: relative
         @media(min-width: 768px)
-          font-size: 28px
-          position: relative
-          top: 1px  
+          font-size: 25px
+          top: 0px  
+          font-weight: 600
     .col2
       span
         color: #191f40
         padding-right: 6px
+        font-weight: 800
+        font-size: 20px
+        position: relative
         @media(min-width: 768px)
-          font-size: 28px
-          position: relative
-          top: 1px
+          font-size: 25px
+          top: 0px
+          font-weight: 600
     @media(min-width: 1150px)
      padding: 26px 70px
     @media(min-width: 1440px)
@@ -149,3 +157,9 @@
     @media(min-width: 768px)
       width:200px
       min-width:200px
+
+.successMsg
+   h6
+     font-size: 15px
+     padding: 30px 0
+     font-weight: 600
