@@ -30,11 +30,30 @@ const watchResendConfirm = takeEveryApiCall(
   userApi.resendConfirmEmail,
 );
 
+export const resetPassword = email => ({
+  type: userActionTypes.RESET_PASSWORD,
+  payload: { email },
+});
+
+const watchResetPassword = takeEveryApiCall(userActionTypes.RESET_PASSWORD, userApi.resetPassword);
+
+
+export const restorePassword = (password, code) => ({
+  type: userActionTypes.RESTORE_PASSWORD,
+  payload: { password, code },
+});
+
+const watchRestorePassword = takeEveryApiCall(
+  userActionTypes.RESTORE_PASSWORD,
+  userApi.restorePassword,
+);
+
 
 export const assignAddress = (user, address = null) => ({
   type: userActionTypes.ASSIGN_ADDRESS,
   payload: { user, address },
 });
+
 
 function* handleAssignAddress({ payload: { user, address } }) {
   try {
@@ -52,11 +71,12 @@ function* handleAssignAddress({ payload: { user, address } }) {
   }
 }
 
-
 export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
 
   yield fork(watchEditEmail);
+  yield fork(watchResetPassword);
+  yield fork(watchRestorePassword);
   yield fork(watchConfirmEmail);
   yield fork(watchResendConfirm);
 }
