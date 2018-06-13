@@ -16,7 +16,7 @@ export class Balance {
   }
 
   stakedGems(pending: number) {
-    return new BigNumber(pending).multipliedBy(new BigNumber(0.1)).toNumber();
+    return stake.multipliedBy(new BigNumber(pending)).toNumber();
   }
 
   canDeposit(value: string | number) {
@@ -29,9 +29,9 @@ export class Balance {
   }
 
   get(user: Object) {
-    const staked = this.stakedGems(user.stats.pending);
-    const balance = new BigNumber(user.gems.balance + user.gems.reserved);
-    return balance.minus(staked).toNumber();
+    const totalBalance = new BigNumber(user.gems.balance).plus(new BigNumber(user.gems.reserved));
+    const staked = stake.multipliedBy(new BigNumber(user.stats.pending));
+    return totalBalance.minus(staked).toNumber();
   }
 }
 
