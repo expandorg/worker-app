@@ -12,6 +12,7 @@ import { userProps, requestStateProps } from '../../../shared/propTypes';
 
 import AvailableFunds from './AvailableFunds';
 import WithdrawSuccessDialog from './WithdrawSuccessDialog';
+import EditAddressDialoig from '../../address/EditAddressDialoig';
 
 import { gemBalanceSelector } from '../../../../selectors/userSelectors';
 import { withdrawStateSelector } from '../../../../selectors/uiStateSelectors';
@@ -35,15 +36,26 @@ class Withdraw extends Component {
     onResetSubmit: PropTypes.func.isRequired,
   }
 
+  state = {
+    edit: false,
+  }
+
+  handleEdit = () => {
+    this.setState({ edit: false });
+  }
+
   handleClick = () => {
     const { submitState, onSubmit, user } = this.props;
-    if (submitState.state !== RequestStates.Fetching) {
+    if (!user.address) {
+      this.setState({ edit: true });
+    } else if (submitState.state !== RequestStates.Fetching) {
       onSubmit(() => this.props.withdrawPayments(user));
     }
   }
 
   render() {
     const { user, submitState, onResetSubmit } = this.props;
+    const { edit } = this.state;
 
     const isFetching = submitState.state === RequestStates.Fetching;
 
@@ -61,6 +73,9 @@ class Withdraw extends Component {
             transactions={submitState.payload.result.tx}
             onHide={onResetSubmit}
           />
+        }
+        {edit &&
+          <EditAddressDialoig user={user} onHide={this.handleEdit} />
         }
       </Fragment>
     );

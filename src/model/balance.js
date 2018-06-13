@@ -25,8 +25,7 @@ export class Balance {
   }
 
   canWithdraw(user: Object) {
-    const balance = this.get(user);
-    return !!user.address && (balance >= WITHDRAW_MIN);
+    return this.get(user) >= WITHDRAW_MIN;
   }
 
   get(user: Object) {
