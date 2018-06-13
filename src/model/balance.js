@@ -29,9 +29,8 @@ export class Balance {
   }
 
   get(user: Object) {
-    const totalBalance = new BigNumber(user.gems.balance).plus(new BigNumber(user.gems.reserved));
-    const staked = stake.multipliedBy(new BigNumber(user.stats.pending));
-    return totalBalance.minus(staked).toNumber();
+    const totalBalance = new BigNumber(user.gems.balance).minus(new BigNumber(user.gems.reserved));
+    return totalBalance.toNumber();
   }
 }
 
