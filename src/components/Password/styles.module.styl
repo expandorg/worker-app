@@ -1,0 +1,63 @@
+@import 'common/uikit/font'
+@import 'common/uikit/colors'
+@import 'common/uikit/components'
+
+
+.container
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box
+
+  @media(max-width: 685px)
+    align-items: stretch;
+    min-height: 'calc(100vh - %s)' % s-header-height
+
+.panel
+  margin-top: 50px;
+  box-sizing: border-box;
+  background-color: color-white
+
+  width: 685px;
+  padding-top: 55px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media(max-width: 685px)
+    margin-top: 0
+    width: 100%
+
+.title
+  font(font-preset[title])
+  color: color-text-1
+  text-align: center;
+
+.form
+  box-sizing: border-box;
+  padding-top: 30px;
+  padding-bottom: 90px;
+  width: 380px;
+
+
+.error
+  margin-top: 10px;
+
+.input
+  input()
+  width: 100%
+
+  color: color-text-1
+  background-color: color-white
+
+  border-radius: 4px;
+  margin-top: 15px
+
+.submit
+  button('medium', 'pink')
+  width: 100%
+  margin-top: 24px;
+
+.message
+  font(font-preset[subheader])
+  color: color-text-1

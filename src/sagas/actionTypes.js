@@ -62,6 +62,18 @@ export const userActionTypes = createActionTypes('user', {
   RESEND_CONFIRM_EMAIL: null,
   RESEND_CONFIRM_EMAIL_COMPLETE: null,
   RESEND_CONFIRM_EMAIL_FAILED: null,
+
+  CHANGE_PASSWORD: null,
+  CHANGE_PASSWORD_COMPLETE: null,
+  CHANGE_PASSWORD_FAILED: null,
+
+  RESET_PASSWORD: null,
+  RESET_PASSWORD_COMPLETE: null,
+  RESET_PASSWORD_FAILED: null,
+
+  RESTORE_PASSWORD: null,
+  RESTORE_PASSWORD_COMPLETE: null,
+  RESTORE_PASSWORD_FAILED: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {

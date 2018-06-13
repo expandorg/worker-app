@@ -11,6 +11,9 @@ import Welcome from './components/Welcome/Welcome';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
+import Password from './components/Password/Password';
+import Restore from './components/Password/Restore';
+
 import Account from './components/Account/Account';
 import Jobs from './components/Jobs/Jobs';
 import Job from './components/Jobs/Job/Job';
@@ -43,9 +46,11 @@ const App = () => {
             <Route path="/" exact component={Welcome} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/password" component={Password} />
+            <Route path="/restore" component={Restore} />
+            <Route path="/confirm" component={Confirm} />≥≥
 
             <Route path="/account" component={Account} />
-            <Route path="/confirm" component={Confirm} />≥≥
             <Route path="/jobs" component={Jobs} />
             <Route path="/stats" component={Stats} />
             <Route path="/requester" component={Requester} />
