@@ -25,6 +25,9 @@ export default combineReducers({
   confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
   resendConfirmEmail: requestUiStateReducer(userActionTypes.RESEND_CONFIRM_EMAIL),
 
+  resetPassword: requestUiStateReducer(userActionTypes.RESET_PASSWORD),
+  restorePassword: requestUiStateReducer(userActionTypes.RESTORE_PASSWORD),
+
   deposit: requestUiStateReducer(gemsActionTypes.DEPOSIT, true),
   depositStage,
 
