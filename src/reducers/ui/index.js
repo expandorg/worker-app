@@ -27,6 +27,7 @@ export default combineReducers({
   confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
   resendConfirmEmail: requestUiStateReducer(userActionTypes.RESEND_CONFIRM_EMAIL),
 
+  changePassword: requestUiStateReducer(userActionTypes.CHANGE_PASSWORD, false, true),
   resetPassword: requestUiStateReducer(userActionTypes.RESET_PASSWORD),
   restorePassword: requestUiStateReducer(userActionTypes.RESTORE_PASSWORD),
 

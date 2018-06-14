@@ -3,11 +3,11 @@
 @import 'common/uikit/font';
 @import 'common/uikit/components';
 
+
 .container
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 
   @media(max-width: 660px)
     flex-direction: column;
@@ -32,7 +32,7 @@
   color: color-text-1
 
 
-.address
+.value
   flex-grow: 1
   text-overflow: ellipsis
   overflow: hidden
@@ -51,7 +51,7 @@
   background-color: transparent
   cursor: pointer
 
-.assign
+.edit
   button('medium', 'pink')
   width: 150px
   margin-left: 20px;

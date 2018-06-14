@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Field from './Field';
+import Field from '../shared/Field';
 
-import { userProps } from '../shared/propTypes';
+import { userProps } from '../../shared/propTypes';
+import { userBalance } from '../../../model/balance';
 
-import styles from './ReservedGems.module.styl';
+import styles from './Reserved.module.styl';
 
-import { userBalance } from '../../model/balance';
 
-export default class ReservedGems extends Component {
+export default class Reserved extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
   }
