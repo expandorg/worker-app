@@ -26,7 +26,16 @@ class Navigation extends Component {
   render() {
     const { isLoggedIn, assignedTasks } = this.props;
     if (!isLoggedIn) {
-      return null;
+      return (
+        <div className={styles.container} >
+          <NavLink to="/login" className={styles.link} activeClassName={styles.active}>
+            Login
+          </NavLink>
+          <NavLink to="/signup" className={styles.link} activeClassName={styles.active}>
+            Signup
+          </NavLink>
+        </div>
+      );
     }
     return (
       <div className={styles.container}>
@@ -43,8 +52,8 @@ class Navigation extends Component {
                 activeClassName={styles.activeTask}
               >
                 Task #{task.id}
-              </NavLink>),
-            )}
+              </NavLink>
+            ))}
           </Fragment>
         }
         <NavLink to="/jobs" className={styles.link} activeClassName={styles.active}>
