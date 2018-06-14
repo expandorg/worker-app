@@ -111,6 +111,8 @@ class Base extends Component {
         question.data = JSON.parse(question.data);
       }
       this.setState({ question });
+    } else {
+      this.finishedTest();
     }
     if (result.answers) {
       const answer = answers[result.answers];
