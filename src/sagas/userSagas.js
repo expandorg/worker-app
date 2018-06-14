@@ -30,6 +30,17 @@ const watchResendConfirm = takeEveryApiCall(
   userApi.resendConfirmEmail,
 );
 
+export const changePassword = (user, password) => ({
+  type: userActionTypes.CHANGE_PASSWORD,
+  payload: { userId: user.id, password },
+});
+
+const watchChangePassword = takeEveryApiCall(
+  userActionTypes.CHANGE_PASSWORD,
+  userApi.changePassword,
+);
+
+
 export const resetPassword = email => ({
   type: userActionTypes.RESET_PASSWORD,
   payload: { email },
@@ -75,6 +86,7 @@ export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
 
   yield fork(watchEditEmail);
+  yield fork(watchChangePassword);
   yield fork(watchResetPassword);
   yield fork(watchRestorePassword);
   yield fork(watchConfirmEmail);

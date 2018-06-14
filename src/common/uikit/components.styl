@@ -12,6 +12,12 @@ button(size = 'medium', theme = 'pink')
   cursor: pointer;
   display: inline-block;
 
+  if size == 'small'
+    font(font-preset[normal], false, false, 28px)
+    height: 30px
+    border-radius: 2px
+
+
   if size == 'medium'
     font(font-preset[menu], false, false, 38px)
     height: 40px
@@ -56,7 +62,6 @@ button(size = 'medium', theme = 'pink')
 
 
 
-
 input()
   box-sizing: border-box
   display: inline-block
@@ -76,15 +81,3 @@ input()
   &:focus
     box-shadow: 0 0 4px 0 color-text-gray-1;
     border: solid 1px color-text-gray-1;
-
-
-loading()
-  display: block
-  margin: auto
-  height: 150px
-  width: 150px
-  background: url(/images/loading-animation.gif) no-repeat left top
-  background-size: contain
-  position: relative
-  top: 35%
-  transform: translateY(-50%)

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Dialog, { DialogHeadline } from '../../../common/Dialog';
 
-import Transactions from '../../transactions/Transactions';
+import Transactions from '../../../shared/transactions/Transactions';
 
 export default class WithdrawSuccessDialog extends Component {
   static propTypes = {
