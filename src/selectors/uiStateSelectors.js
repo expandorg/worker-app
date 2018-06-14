@@ -38,6 +38,11 @@ export const resendConfirmEmailStateSelector = createSelector(
   state => state.resendConfirmEmail,
 );
 
+export const changePasswordStateSelector = createSelector(
+  uiStateSelector,
+  state => state.changePassword,
+);
+
 export const resetPasswordStateSelector = createSelector(
   uiStateSelector,
   state => state.resetPassword,

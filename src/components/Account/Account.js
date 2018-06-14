@@ -7,12 +7,14 @@ import { bindActionCreators } from 'redux';
 import Content from '../shared/Content';
 import Panel from '../shared/Panel';
 
-import Field from './Field';
+import Field from './shared/Field';
 
-import AccountAddress from './address/AccountAddress';
-import AccountEmail from './email/AccountEmail';
-import ReservedGems from './ReservedGems';
-import GemsActions from './gems/Actions';
+import Address from './address/Address';
+import Email from './email/Email';
+import Password from './password/Password';
+
+import Reserved from './gems/Reserved';
+import Actions from './gems/Actions';
 
 import { authenticated } from '../hoc/authRules';
 import { userProps } from '../shared/propTypes';
@@ -50,12 +52,13 @@ class Account extends Component {
       <Content title="Account" >
         <Panel className={styles.container}>
           <div className={styles.headline}>Your Account</div>
-          <AccountAddress user={user} />
-          <AccountEmail user={user} />
-          <ReservedGems user={user} />
+          <Address user={user} />
+          <Email user={user} />
+          <Password user={user} />
+          <Reserved user={user} />
           <Field>
             <div className={styles.actions}>
-              <GemsActions user={user} />
+              <Actions user={user} />
               <button className={styles.logout} onClick={this.props.logout}>
                 Log Out
               </button>

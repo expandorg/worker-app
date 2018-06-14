@@ -8,7 +8,7 @@ import withSubmitState from '../../../hoc/withSubmitState';
 import Dialog, { DialogHeadline } from '../../../common/Dialog';
 
 import DepositForm from './DepositForm';
-import Transactions from '../../transactions/Transactions';
+import Transactions from '../../../shared/transactions/Transactions';
 
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps } from '../../../shared/propTypes';
