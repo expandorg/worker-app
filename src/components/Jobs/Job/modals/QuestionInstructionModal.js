@@ -14,7 +14,7 @@ class QuestionInstructionModal extends Component {
       <div className={styles.backdropStyle}>
         <div className={styles.modalContainer}>
           <div className={styles.modalHeader}>
-            <h3>Task</h3>
+            <h3>Instructions</h3>
           </div>
           <div className={styles.modalBody}>
             <h4>Read task instructions here!</h4>

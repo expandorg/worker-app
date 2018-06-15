@@ -14,6 +14,9 @@ import FailedAnswerModal from './modals/FailedAnswerModal';
 import FailedTestMessage from './components/FailedTestMessage';
 import SuccessTestMessage from './components/SuccessTestMessage';
 
+import RulesModal from './modals/RulesModal';
+import QuestionInstructionModal from './modals/QuestionInstructionModal';
+
 class Questions extends Component {
   static propTypes = {
     answer: PropTypes.shape(answerProps).isRequired,
@@ -29,6 +32,8 @@ class Questions extends Component {
     showErrorModal: false,
     showFailedMessage: false,
     showSuccessMessage: false,
+    showRulesModal: false,
+    showInstructionModal: false,
   };
 
   componentWillReceiveProps({ answer: nextAnswer }) {
@@ -58,6 +63,18 @@ class Questions extends Component {
     this.props.postAnswer(this.state.answered, this.state.index);
   };
 
+  openRulesModal = () => {
+    this.setState({ showRulesModal: true });
+  }
+  closeRulesModal = () => {
+    this.setState({ showRulesModal: false });
+  }
+  openInstructionModal = () => {
+    this.setState({ showInstructionModal: true });
+  }
+  closeInstructionModal = () => {
+    this.setState({ showInstructionModal: false });
+  }
   renderQuestion = () => {
     const item = this.props.question.data.questions[this.state.index];
     let template;
@@ -97,7 +114,9 @@ class Questions extends Component {
   render() {
     const itemLenght = this.props.question.data.questions.length;
     const { remaining, status } = this.props.answer;
-    const { showFailedMessage, showSuccessMessage, showErrorModal } = this.state;
+    const {
+      showFailedMessage, showSuccessMessage, showErrorModal, showRulesModal, showInstructionModal,
+    } = this.state;
     return (
       <div>
         <div>
@@ -144,6 +163,9 @@ class Questions extends Component {
                   > See instructions
                   </span>
                 </div>
+                {showRulesModal ? <RulesModal confirm={this.closeRulesModal} /> : null}
+                {showInstructionModal ?
+                  <QuestionInstructionModal confirm={this.closeInstructionModal} /> : null}
                 {showErrorModal ?
                   <FailedAnswerModal
                     confirm={() => this.setState({ showErrorModal: false })}
