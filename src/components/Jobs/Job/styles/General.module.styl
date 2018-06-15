@@ -7,24 +7,25 @@
   button('large', 'pink')
   margin: 10px 0
   @media(min-width: 768px)
-    width: 200px
-    min-width: 200px
+    width: 200px!important
+    min-width: 200px!important
 
 .btnPinkTrans
   button('large', 'white')
-  margin: 0 10px
+  margin: 10px 0
   @media(min-width: 768px)
-    width: 200px
-    min-width: 200px
+    width: 200px!important
+    min-width: 200px!important
+    margin: 10px
 
 .btnBlueTrans
   button('medium', 'blueTransparent')
   margin: 10px
   padding: 0 15px
-  width: 150px
+  width: 150px!important
   &:hover
     background: color-blue
-    color:color-white
+    color:color-white   
 .btnGrey
   button('large', 'grey')
   margin: 10px 0
@@ -47,8 +48,8 @@
   margin-top:40px
   position: relative
   @media(min-width: 768px)
-    width: 100px
-    min-width: 100px
+    width: 100px!important
+    min-width: 100px!important
   span
     small
       font-size: 20px;

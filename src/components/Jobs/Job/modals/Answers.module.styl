@@ -24,7 +24,7 @@
       text-align: left
 
       button
-        min-width: 254px
+        min-width: 254px!important
         width: calc(47% - 10px)
         margin: 10px
 
@@ -45,15 +45,15 @@
       button
         width: calc(47% - 10px)
         margin: 20px auto
-        min-width: 254px
+        min-width: 254px!important
 
 .btnYesNoBox
   button
     text-align: center
     margin: 13px 0
     @media(min-width: 768px)
-      width: 200px
-      min-width: 200px
+      width: 200px!important
+      min-width: 200px!important
       margin:45px 10px
   @media(min-width: 768px)
     display: flex
@@ -74,7 +74,8 @@
     margin: 54px 0
     padding-bottom: 72px
     border-radius: 4px
-
+    button
+      width:100%  
     @media(min-width: 768px)
       width: 70%
       margin: 0 auto
@@ -107,9 +108,10 @@
         padding: 20px;
         button
           justify-content: center
+          margin: 10px 0
           @media(min-width: 768px)
-            min-width: 175px
-            width: 175px
+            min-width: 175px!important
+            width: 175px!important
             margin: 10px
         @media(min-width: 768px)
           display: flex
@@ -119,9 +121,9 @@
       text-align: center
       padding: 33px;
       p
-        padding: 40px 0;
-        margin: 0 auto;
-        width: 90%; 
+        padding: 40px 0
+        margin: 0 auto
+        width: 90%
       h4
         font-size: 22px
 
@@ -137,3 +139,4 @@
       @media(min-width: 768px)
         width: 80%
         margin: 40px auto 30px auto
+  

@@ -144,8 +144,14 @@ class Questions extends Component {
                   > See instructions
                   </span>
                 </div>
+                {showErrorModal ?
+                  <FailedAnswerModal
+                    confirm={() => this.setState({ showErrorModal: false })}
+                    cancel={this.cancelTest}
+                    tries={remaining}
+                  /> : null}
               </div>
-            </div> : null }
+            </div> : null}
           {showSuccessMessage || status === 1 ?
             <SuccessTestMessage
               confirm={this.props.finishedTest}
@@ -156,12 +162,6 @@ class Questions extends Component {
               confirm={this.props.abandon}
             /> : null}
         </div>
-        {showErrorModal ?
-          <FailedAnswerModal
-            confirm={() => this.setState({ showErrorModal: false })}
-            cancel={this.cancelTest}
-            tries={remaining}
-          /> : null}
       </div>
     );
   }
