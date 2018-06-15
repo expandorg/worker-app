@@ -16,8 +16,8 @@ export class UserApi extends BaseApi {
   resendConfirmEmail = ({ userId }) =>
     this.post(`/users/${userId}/email/resend`)
 
-  changePassword = ({ userId, password }) =>
-    this.post(`/users/${userId}/password`, { password })
+  changePassword = ({ userId, password, currentPassword }) =>
+    this.post(`/users/${userId}/password`, { password, currentPassword })
 
   resetPassword = ({ email }) =>
     this.post('/password/reset', { email })
