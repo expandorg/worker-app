@@ -32,14 +32,15 @@ class EditPasswordDialog extends Component {
 
   state = {
     password: '',
+    currentPassword: '',
   }
 
   handleSubmit = (evt) => {
     evt.preventDefault();
     const { onSubmit, user, submitState } = this.props;
-    const { password } = this.state;
+    const { password, currentPassword } = this.state;
     if (submitState.state !== RequestStates.Fetching) {
-      onSubmit(() => this.props.changePassword(user, password));
+      onSubmit(() => this.props.changePassword(user, password, currentPassword));
     }
   }
 
@@ -51,7 +52,7 @@ class EditPasswordDialog extends Component {
 
   render() {
     const { submitState } = this.props;
-    const { password } = this.state;
+    const { password, currentPassword } = this.state;
     const isFetching = submitState.state === RequestStates.Fetching;
     const isFetchied = submitState.state === RequestStates.Fetched;
 
@@ -64,6 +65,12 @@ class EditPasswordDialog extends Component {
           {!isFetchied &&
             <form className={styles.form} onSubmit={this.handleSubmit}>
               <input
+                className={styles.input}
+                type="password"
+                placeholder="Current password"
+                value={currentPassword}
+                onChange={({ target }) => this.setState({ currentPassword: target.value })}
+              />              <input
                 className={styles.input}
                 type="password"
                 placeholder="New password"
