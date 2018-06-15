@@ -2,79 +2,60 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import DepositDialog from './deposit/DepositDialog';
+import Deposit from './deposit/Deposit';
 import Withraw from './withdaw/Withdraw';
 
-import { fetchGemsBalance } from '../../../sagas/gemsSagas';
+import EditAddressDialoig from '../address/EditAddressDialoig';
+import ConfirmEmailDialog from '../../shared/email/ConfirmEmailDialog';
+
 import { userProps } from '../../shared/propTypes';
-
-import { gemBalanceSelector, userSelector } from '../../../selectors/userSelectors';
-
-import { DEPOSIT_MIN } from '../../../model/balance';
+import { userSelector } from '../../../selectors/userSelectors';
 
 import styles from './Actions.module.styl';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
-  gemsBalance: gemBalanceSelector(state),
 });
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchGemsBalance }, dispatch);
 
 class Actions extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    gemsBalance: PropTypes.number,
-    fetchGemsBalance: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    gemsBalance: 0,
   }
 
   state = {
-    deposit: false,
+    addressDialog: false,
+    emailDialog: false,
   }
 
-  componentDidMount() {
-    const { user } = this.props;
-    if (user.address && user.addressConfirmed) {
-      this.props.fetchGemsBalance(user);
-    }
+  handleToggleAddress = () => {
+    this.setState(({ addressDialog }) => ({ addressDialog: !addressDialog }));
   }
 
-  componentDidUpdate({ user: prevUser }) {
-    const { user } = this.props;
-    if (user !== prevUser) {
-      if (user.address && user.addressConfirmed) {
-        this.props.fetchGemsBalance(user);
-      }
-    }
-  }
-
-  handleToggle = () => {
-    this.setState(({ deposit }) => ({ deposit: !deposit }));
+  handleToggleEmail = () => {
+    this.setState(({ emailDialog }) => ({ emailDialog: !emailDialog }));
   }
 
   render() {
-    const { gemsBalance, user } = this.props;
-    const canDeposit = gemsBalance > DEPOSIT_MIN;
-
+    const { user } = this.props;
+    const { addressDialog, emailDialog } = this.state;
     return (
       <div className={styles.container}>
-        <button className={styles.deposit} onClick={this.handleToggle} disabled={!canDeposit}>
-          Deposit
-        </button>
-        <Withraw user={user} />
-        {this.state.deposit &&
-          <DepositDialog onHide={this.handleToggle} />
+        <Deposit user={user} onEditAddres={this.handleToggleAddress} />
+        <Withraw
+          user={user}
+          onEditAddres={this.handleToggleAddress}
+          onEditEmail={this.handleToggleEmail}
+        />
+        {addressDialog &&
+          <EditAddressDialoig user={user} onHide={this.handleToggleAddress} />
+        }
+        {emailDialog &&
+          <ConfirmEmailDialog user={user} onHide={this.handleToggleEmail} />
         }
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Actions);
+export default connect(mapStateToProps)(Actions);

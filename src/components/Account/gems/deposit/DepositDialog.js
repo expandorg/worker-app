@@ -15,10 +15,12 @@ import { requestStateProps } from '../../../shared/propTypes';
 
 import { depositGems } from '../../../../sagas/gemsSagas';
 
+import { gemBalanceSelector } from '../../../../selectors/userSelectors';
 import { depositStageSelector, depositStateSelector } from '../../../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
   stage: depositStageSelector(state),
+  gemsBalance: gemBalanceSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -28,9 +30,14 @@ class DepositDialog extends Component {
   static propTypes = {
     submitState: PropTypes.shape(requestStateProps).isRequired,
     stage: PropTypes.number.isRequired,
+    gemsBalance: PropTypes.number,
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     depositGems: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    gemsBalance: 0,
   }
 
   handleDeposit = (amount) => {
@@ -45,7 +52,7 @@ class DepositDialog extends Component {
   }
 
   render() {
-    const { stage, submitState } = this.props;
+    const { stage, submitState, gemsBalance } = this.props;
     const isFetched = submitState.state === RequestStates.Fetched;
 
     return (
@@ -55,7 +62,14 @@ class DepositDialog extends Component {
         </DialogHeadline>
         {isFetched
           ? <Transactions transactions={submitState.payload.result.tx} />
-          : <DepositForm submitState={submitState} stage={stage} onDeposit={this.handleDeposit} />
+          : (
+            <DepositForm
+              submitState={submitState}
+              stage={stage}
+              gemsBalance={gemsBalance}
+              onDeposit={this.handleDeposit}
+            />
+          )
         }
       </Dialog>
     );

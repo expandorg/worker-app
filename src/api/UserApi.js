@@ -28,8 +28,8 @@ export class UserApi extends BaseApi {
   deposit = ({ userId, deposit }) =>
     this.post(`/users/${userId}/deposit`, { deposit });
 
-  withdraw = ({ userId }) =>
-    this.post(`/users/${userId}/withdraw`)
+  withdraw = ({ userId, amount }) =>
+    this.post(`/users/${userId}/withdraw`, { amount })
 }
 
 export const userApi = new UserApi();

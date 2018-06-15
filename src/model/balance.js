@@ -19,13 +19,13 @@ export class Balance {
     return stake.multipliedBy(new BigNumber(pending)).toNumber();
   }
 
-  canDeposit(value: string | number) {
-    const amount = +value;
-    return amount >= DEPOSIT_MIN && amount <= DEPOSIT_MAX;
+  canDeposit(amount: number, gemsBalance: number) {
+    return (gemsBalance >= DEPOSIT_MIN) && amount >= DEPOSIT_MIN && amount <= DEPOSIT_MAX;
   }
 
-  canWithdraw(user: Object) {
-    return this.get(user) >= WITHDRAW_MIN;
+  canWithdraw(user: Object, amount: number) {
+    const balance = this.get(user);
+    return (balance >= WITHDRAW_MIN) && (amount <= balance);
   }
 
   get(user: Object) {

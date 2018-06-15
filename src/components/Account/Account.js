@@ -15,6 +15,7 @@ import Password from './password/Password';
 
 import Reserved from './gems/Reserved';
 import Actions from './gems/Actions';
+import AmountWarning from './gems/AmountWarning';
 
 import { authenticated } from '../hoc/authRules';
 import { userProps } from '../shared/propTypes';
@@ -65,7 +66,7 @@ class Account extends Component {
             </div>
           </Field>
           <Field>
-            *Due to high demand, we can only let you withdraw if you have over 500 GEM tokens
+            <AmountWarning />
           </Field>
         </Panel>
       </Content>
