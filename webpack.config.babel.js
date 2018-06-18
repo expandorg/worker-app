@@ -87,14 +87,6 @@ export default (env = {}) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.css$/,
-          use: [
-            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader?sourceMap&importLoaders=2',
-            'postcss-loader?sourceMap',
-          ],
-        },
-        {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
           loader: 'file-loader?name=static/[hash].[ext]',
           exclude: /node_modules/,
@@ -125,15 +117,6 @@ export default (env = {}) => {
     ],
     optimization: {
       minimize: !dev,
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            name: 'app-common',
-            chunks: 'initial',
-            minChunks: 2,
-          },
-        },
-      },
     },
     resolve: {
       modules: [path.resolve('./src'), 'node_modules'],
