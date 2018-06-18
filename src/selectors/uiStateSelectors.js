@@ -1,6 +1,7 @@
+// @flow
 import { createSelector } from 'reselect';
 
-export const uiStateSelector = state => state.ui;
+export const uiStateSelector = (state: Object) => state.ui;
 
 
 export const authStateSelector = createSelector(uiStateSelector, state => state.auth);

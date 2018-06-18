@@ -36,7 +36,7 @@ class AssignDialog extends Component {
   componentWillReceiveProps({ assignState: next }) {
     const { assignState } = this.props;
     if (assignState.state === RequestStates.Fetching && next.state === RequestStates.Fetched) {
-      this.props.history.push(`/tasks/${next.payload.result.assignment.taskId}`);
+      this.props.history.push(`/tasks/${next.payload.result.newAssignment.taskId}`);
     }
   }
 
