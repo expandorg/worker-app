@@ -10,7 +10,7 @@ import { requestStateProps } from '../../../shared/propTypes';
 import Loading from './Loading';
 import Description from './Description';
 
-import { userBalance } from '../../../../model/balance';
+import { userBalance, DEPOSIT_MIN } from '../../../../model/balance';
 
 import styles from './DepositForm.module.styl';
 
@@ -49,13 +49,14 @@ export default class DepositForm extends Component {
     const { stage, submitState, gemsBalance } = this.props;
     const { value } = this.state;
 
+    const available = gemsBalance >= DEPOSIT_MIN;
     const disabled = !userBalance.canDeposit(+value, gemsBalance);
     const isFetching = submitState.state === RequestStates.Fetching;
 
     return (
       <div className={styles.container}>
-        <Description gemsBalance={gemsBalance} />
-        {!isFetching &&
+        <Description gemsBalance={gemsBalance} available={available} />
+        {!isFetching && available &&
           <form className={styles.form} onSubmit={this.handleSubmit} >
             <div className={styles.row}>
               <input

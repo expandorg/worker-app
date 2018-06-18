@@ -45,24 +45,36 @@ export default class WithdrawForm extends Component {
     const { submitState, user } = this.props;
     const { value } = this.state;
 
+    const balance = userBalance.get(user);
+
+    const available = userBalance.canWithdraw(user, balance);
     const disabled = !userBalance.canWithdraw(user, +value);
+
     const isFetching = submitState.state === RequestStates.Fetching;
 
     return (
       <div className={styles.container}>
         <form className={styles.form} onSubmit={this.handleSubmit} >
-          <div className={styles.row}>
-            <input
-              className={styles.input}
-              type="number"
-              value={value}
-              onChange={this.handleChange}
-              placeholder="Amount of Gems to withdraw"
-            />
-            <button type="submit" className={styles.submit} disabled={disabled}>
-              {isFetching ? 'Withdrawing' : 'Withdraw'}
-            </button>
-          </div>
+          {available &&
+            <div className={styles.row}>
+              <input
+                className={styles.input}
+                type="number"
+                value={value}
+                onChange={this.handleChange}
+                placeholder="Amount of Gems to withdraw"
+              />
+              <button type="submit" className={styles.submit} disabled={disabled}>
+                {isFetching ? 'Withdrawing' : 'Withdraw'}
+              </button>
+            </div>
+          }
+          {!available &&
+            <div className={styles.warn}>
+              You don&#39;t have enough gems to withdraw. You current balance is
+              &nbsp;<span className={styles.gems}>{balance}</span> Gems.
+            </div>
+          }
           <ErrorMessage error={submitState.error} className={styles.error} />
           <div className={styles.description}>
             <AmountWarning />
