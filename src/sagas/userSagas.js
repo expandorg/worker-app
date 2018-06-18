@@ -30,9 +30,9 @@ const watchResendConfirm = takeEveryApiCall(
   userApi.resendConfirmEmail,
 );
 
-export const changePassword = (user, password, currentPassword) => ({
+export const changePassword = (user, newPassword, oldPassword) => ({
   type: userActionTypes.CHANGE_PASSWORD,
-  payload: { userId: user.id, password, currentPassword },
+  payload: { userId: user.id, newPassword, oldPassword },
 });
 
 const watchChangePassword = takeEveryApiCall(
