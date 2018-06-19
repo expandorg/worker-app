@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps, assignmentsProps, taskProps, historyProps } from '../shared/propTypes';
+import { userProps, jobProps, taskProps, historyProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
