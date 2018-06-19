@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Navigation from './Navigation';
 
-import styles from './Sidebar.module.styl';
+import './Sidebar.styl';
 
 export default class Sidebar extends Component {
   static propTypes = {
@@ -16,9 +16,9 @@ export default class Sidebar extends Component {
   render() {
     const { visible } = this.props;
     return (
-      <div className={cn(styles.container, { [styles.visible]: visible })} >
+      <div className={cn('gem-sidebar', { 'gem-sidebar-visible': visible })} >
         <Link to="/">
-          <img className={styles.logo} src="/images/logo.svg" alt="Gems" />
+          <img className="gem-sidebar-logo" src="/images/logo.svg" alt="Gems" />
         </Link>
         <Navigation />
       </div>

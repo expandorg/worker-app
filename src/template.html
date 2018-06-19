@@ -15,8 +15,191 @@
 
       gtag('config', 'UA-109138070-1');
     </script>
+    <style media="screen">
+      html {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+      html,
+      body {
+        font-family: 'Poppins';
+        margin: 0;
+      }
+      * {
+        -webkit-box-sizing: content-box;
+                box-sizing: content-box;
+        -webkit-box-sizing: initial;
+                box-sizing: initial;
+        border: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .gem-page {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        min-height: 100vh;
+        background-color: #f2f2f2;
+      }
+      .gem-page-content {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        width: calc(100% - 250px);
+        margin-left: 250px;
+      }
+      @media (max-width: 1150px) {
+        .gem-page-content {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+
+      .gem-header {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        position: relative;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        height: 68px;
+        background-color: #1c2541;
+        padding: 0 20px;
+        display: none;
+      }
+      @media (max-width: 1150px) {
+        .gem-header {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+        }
+      }
+      .gem-header-logo {
+        height: 30px;
+        width: 30px;
+      }
+      .gem-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        width: 250px;
+        height: 100vh;
+        background-color: #1c2541;
+        z-index: 2;
+      }
+      @media (max-width: 1150px) {
+        .gem-sidebar {
+          display: none;
+        }
+      }
+      .gem-sidebar-logo {
+        width: 119px;
+        height: 50px;
+        margin-left: 25px;
+        margin-top: 10px;
+      }
+
+      .gem-nav {
+        margin-top: 25px;
+        padding: 0 0 0 25px;
+        font-family: 'Poppins';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1.4;
+      }
+      .gem-nav-placehoder {
+        position: relative;
+        height: 18px;
+        margin-top: 3px;
+        margin-bottom: 20px;
+        background-color: rgba(255,255,255,0.1);
+        color: transparent;
+        border-radius: 1px;
+        overflow: hidden;
+      }
+      .gem-nav-placehoder-1 {
+        width: 35%;
+      }
+      .gem-nav-placehoder-2 {
+        width: 40%;
+      }
+      .gem-nav-placehoder-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 70%;
+        background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(50%, rgba(100,100,100,0.2)), to(transparent));
+        background: -o-linear-gradient(left, transparent 0%, rgba(100,100,100,0.2) 50%, transparent 100%);
+        background: linear-gradient(to right, transparent 0%, rgba(100,100,100,0.2) 50%, transparent 100%);
+        -webkit-animation: gem-nav-ph 1s linear infinite;
+                animation: gem-nav-ph 1s linear infinite;
+        will-change: transform;
+      }
+      @keyframes gem-nav-ph {
+        0% {
+          -webkit-transform: translateX(-50%);
+                  transform: translateX(-50%);
+        }
+        100% {
+          -webkit-transform: translateX(300%);
+                  transform: translateX(300%);
+        }
+      }
+      .gem-content {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        height: 100%;
+      }
+      .gem-content-title {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        font-family: 'Poppins';
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 70px;
+        height: 70px;
+        padding-left: 50px;
+        -o-text-overflow: ellipsis;
+           text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        background-color: #fff;
+        -webkit-box-shadow: inset 0 -1px 0 0 #f2f2f2;
+                box-shadow: inset 0 -1px 0 0 #f2f2f2;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="gem-page">
+        <div class="gem-header">
+          <img class="gem-header-logo" src="/images/mobile-logo.png" alt="Gems">
+        </div>
+        <div class="gem-sidebar">
+          <a href="/">
+            <img class="gem-sidebar-logo" src="/images/logo.svg" alt="Gems">
+          </a>
+          <div class="gem-nav">
+            <div class="gem-nav-placehoder gem-nav-placehoder-1">
+              <span class="gem-nav-placehoder-bg"></span>
+            </div>
+            <div class="gem-nav-placehoder gem-nav-placehoder-2">
+              <span class="gem-nav-placehoder-bg"></span>
+            </div>
+          </div>
+        </div>
+        <div class="gem-page-content">
+          <div class="gem-content">
+            <div class="gem-content-title"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

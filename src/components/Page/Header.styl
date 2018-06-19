@@ -1,7 +1,7 @@
 @import 'common/uikit/layout';
 @import 'common/uikit/colors';
 
-.container
+.gem-header
   box-sizing: border-box;
   position relative
 
@@ -19,18 +19,18 @@
   @media(max-width: 1150px)
     display: flex
 
-.logo
-  height: 30px
-  width: 30px
+  &-logo
+    height: 30px
+    width: 30px
 
-.toggle
-  position: absolute;
-  left: 20px
-  top: calc(50% - 12px)
+  &-toggle
+    position: absolute;
+    left: 20px
+    top: calc(50% - 12px)
 
-  transition-property: left
-  transition-duration: 0.3s
-  transition-timing-function: ease;
+    transition-property: left
+    transition-duration: 0.3s
+    transition-timing-function: ease;
 
-.opened
-  left: 'calc(%s +  20px)' % s-sidebar-width
+  &-opened
+    left: 'calc(%s +  20px)' % s-sidebar-width

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
 
-import styles from './AppPage.module.styl';
+import './AppPage.styl';
 
 export default class AppPage extends Component {
   state = {
@@ -19,10 +19,10 @@ export default class AppPage extends Component {
     const { sidebar } = this.state;
 
     return (
-      <div className={styles.container}>
+      <div className="gem-page">
         <Header collapsed={sidebar} onToggle={this.handleToggle} />
         <Sidebar visible={sidebar} />
-        <div className={styles.content}>
+        <div className="gem-page-content">
           {children}
         </div>
       </div>
