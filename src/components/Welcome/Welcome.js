@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
-
 import LoginDialog from '../Auth/LoginDialog';
-
 import Content from '../shared/Content';
-import Slider from '../common/Slider/Slider';
+import Panel from '../shared/Panel';
+import Gallery from './Gallery';
 
 import { notAuthenticated } from '../hoc/authRules';
 
@@ -23,36 +22,14 @@ class Welcome extends Component {
     return (
       <Content title="Login">
         <div className={styles.container}>
-          <div className={styles.panel}>
-            <div className={styles.slider}>
-              <Slider
-                dots
-                speed={500}
-                slidesToShow={1}
-                slidesToScroll={1}
-                initialSlide={0}
-                variableWidth={false}
-              >
-                <div>
-                  <img alt="complete tasks" src="/images/complete-tasks.png" />
-                  <span>Complete Tasks online</span>
-                </div>
-                <div>
-                  <img alt="earn crypto" src="/images/earn-crypto.png" />
-                  <span>Earn your first Crypto</span>
-                </div>
-                <div>
-                  <img alt="no middleman" src="/images/no-middleman.png" />
-                  <span>No Middleman fees</span>
-                </div>
-              </Slider>
-            </div>
+          <Panel className={styles.panel}>
+            <Gallery />
             <div className={styles.actions}>
               <button className={styles.start} onClick={this.handleToggle}>
                 Start
               </button>
             </div>
-          </div>
+          </Panel>
           {opened &&
             <LoginDialog onHide={this.handleToggle} />
           }
