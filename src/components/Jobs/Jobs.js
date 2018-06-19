@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps, taskProps } from '../shared/propTypes';
+import { userProps, jobProps, assignmentProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
@@ -20,7 +20,7 @@ import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
-import { assignedTasksSelector } from '../../selectors/tasksSelector';
+import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 
 import { JOB_DISABLED } from '../../model/consts';
 
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
   isFunded: isFundedSelector(state),
   jobs: jobsSelector(state),
-  assignedTasks: assignedTasksSelector(state),
+  assignments: assignmentsSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -41,7 +41,7 @@ class Jobs extends Component {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
-    assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
+    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
   }
 
@@ -76,7 +76,7 @@ class Jobs extends Component {
 
   render() {
     const {
-      isFunded, user, jobs, assignedTasks,
+      isFunded, user, jobs, assignments,
     } = this.props;
     const { selected, emailDialog } = this.state;
 
@@ -91,7 +91,7 @@ class Jobs extends Component {
             <Job
               key={job.id}
               job={job}
-              task={assignedTasks.find(t => t.jobId === job.id)}
+              assignment={assignments.find(a => a.jobId === job.id)}
               isFunded={isFunded}
               onJoin={this.handleSelect}
             />

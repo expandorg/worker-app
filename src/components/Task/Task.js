@@ -15,7 +15,7 @@ import { taskProps, requestStateProps } from '../shared/propTypes';
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';
 
 import { isFundedSelector } from '../../selectors/userSelectors';
-import { makeTaskSelector } from '../../selectors/tasksSelector';
+import { makeTaskSelector } from '../../selectors/tasksSelectors';
 import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
 
 import { RequestStates } from '../../common/app/requestUiState';

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { loggedInSelector } from '../../../selectors/userSelectors';
-import { assignedTasksSelector } from '../../../selectors/tasksSelector';
+import { assignedTasksSelector, assignedVerificationsSelector } from '../../../selectors/tasksSelectors';
 import { taskProps } from '../../shared/propTypes';
 
 import styles from './Navigation.module.styl';
@@ -13,6 +13,7 @@ import styles from './Navigation.module.styl';
 const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
   assignedTasks: assignedTasksSelector(state),
+  assignedVerifications: assignedVerificationsSelector(state),
 });
 
 
@@ -20,11 +21,12 @@ class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
+    assignedVerifications: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
   };
 
 
   render() {
-    const { isLoggedIn, assignedTasks } = this.props;
+    const { isLoggedIn, assignedTasks, assignedVerifications } = this.props;
     if (!isLoggedIn) {
       return (
         <div className={styles.container} >
@@ -52,6 +54,23 @@ class Navigation extends Component {
                 activeClassName={styles.activeTask}
               >
                 Task #{task.id}
+              </NavLink>
+            ))}
+          </Fragment>
+        }
+        {assignedVerifications.length > 0 &&
+          <Fragment>
+            <span className={styles.link}>
+              My Verifications
+            </span>
+            {assignedVerifications.map(task => (
+              <NavLink
+                key={task.id}
+                to={`/verify/${task.id}`}
+                className={styles.verify}
+                activeClassName={styles.activeTask}
+              >
+                Verify #{task.id}
               </NavLink>
             ))}
           </Fragment>
