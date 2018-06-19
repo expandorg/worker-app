@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import EditAddressDialoig from '../../address/EditAddressDialoig';
+import ConfirmEmailDialog from '../../../shared/email/ConfirmEmailDialog';
+
 import AvailableFunds from './AvailableFunds';
 import WithdrawDialog from './WithdrawDialog';
 
@@ -9,31 +12,53 @@ import { userProps } from '../../../shared/propTypes';
 
 import styles from './Withdraw.module.styl';
 
+
 export default class Withdraw extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    onEditAddres: PropTypes.func.isRequired,
-    onEditEmail: PropTypes.func.isRequired,
   }
 
   state = {
     dialog: false,
+    emailDialog: false,
+    addressDialog: false,
   }
 
   handleToggle = () => {
-    const { user, onEditAddres, onEditEmail } = this.props;
-    if (!user.emailConfirmed) {
-      onEditEmail();
-    } else if (!user.address) {
-      onEditAddres();
-    } else {
-      this.setState(({ dialog }) => ({ dialog: !dialog }));
+    const { user } = this.props;
+    const { dialog } = this.state;
+    try {
+      if (!dialog) {
+        if (!user.emailConfirmed) {
+          throw new Error('emailDialog');
+        }
+        if (!user.address) {
+          throw new Error('addressDialog');
+        }
+      }
+      this.setState({ dialog: !dialog });
+    } catch (e) {
+      this.setState({ [e.message]: true });
+    }
+  }
+
+  handleHideAddress = () => {
+    this.setState({ addressDialog: false });
+    if (this.props.user.address) {
+      this.handleToggle();
+    }
+  }
+
+  handleHideEmail = () => {
+    this.setState({ emailDialog: false });
+    if (this.props.user.emailConfirmed) {
+      this.handleToggle();
     }
   }
 
   render() {
     const { user } = this.props;
-    const { dialog } = this.state;
+    const { dialog, emailDialog, addressDialog } = this.state;
     const balance = userBalance.get(user);
 
     return (
@@ -43,6 +68,12 @@ export default class Withdraw extends Component {
         </button>
         {dialog &&
           <WithdrawDialog user={user} onHide={this.handleToggle} />
+        }
+        {addressDialog &&
+          <EditAddressDialoig user={user} onHide={this.handleHideAddress} />
+        }
+        {emailDialog &&
+          <ConfirmEmailDialog user={user} onHide={this.handleHideEmail} />
         }
       </Fragment>
     );

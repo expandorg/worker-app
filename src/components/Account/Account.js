@@ -13,8 +13,10 @@ import Address from './address/Address';
 import Email from './email/Email';
 import Password from './password/Password';
 
+import Deposit from './gems/deposit/Deposit';
+import Withdraw from './gems/withdaw/Withdraw';
+
 import Reserved from './gems/Reserved';
-import Actions from './gems/Actions';
 import AmountWarning from './gems/AmountWarning';
 
 import { authenticated } from '../hoc/authRules';
@@ -59,7 +61,10 @@ class Account extends Component {
           <Reserved user={user} />
           <Field>
             <div className={styles.actions}>
-              <Actions user={user} />
+              <div className={styles.gems}>
+                <Deposit user={user} />
+                <Withdraw user={user} />
+              </div>
               <button className={styles.logout} onClick={this.props.logout}>
                 Log Out
               </button>
