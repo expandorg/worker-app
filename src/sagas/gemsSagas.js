@@ -40,9 +40,9 @@ export const fetchGemsBalance = user => ({
 
 const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, userApi.fetchBalance);
 
-export const withdrawPayments = (user, amount) => ({
+export const withdrawPayments = (user, withdrawal) => ({
   type: gemsActionTypes.WITHDRAW,
-  payload: { userId: user.id, amount },
+  payload: { userId: user.id, withdrawal },
   meta: { schema: authResponseSchema },
 });
 
