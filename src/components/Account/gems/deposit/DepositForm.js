@@ -10,7 +10,7 @@ import { requestStateProps } from '../../../shared/propTypes';
 import Loading from './Loading';
 import Description from './Description';
 
-import { userBalance } from '../../../../model/balance';
+import { userBalance, DEPOSIT_MIN } from '../../../../model/balance';
 
 import styles from './DepositForm.module.styl';
 
@@ -21,6 +21,7 @@ const message = () =>
 export default class DepositForm extends Component {
   static propTypes = {
     submitState: PropTypes.shape(requestStateProps).isRequired,
+    gemsBalance: PropTypes.number.isRequired,
     stage: PropTypes.number.isRequired,
     onDeposit: PropTypes.func.isRequired,
   }
@@ -35,25 +36,27 @@ export default class DepositForm extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { submitState, onDeposit } = this.props;
-    const amount = parseFloat(this.state.value);
+    const { submitState, onDeposit, gemsBalance } = this.props;
+    const amount = +this.state.value;
 
-    if (submitState.state !== RequestStates.Fetching && userBalance.canDeposit(amount)) {
+    if (submitState.state !== RequestStates.Fetching &&
+        userBalance.canDeposit(amount, gemsBalance)) {
       onDeposit(amount);
     }
   }
 
   render() {
-    const { stage, submitState } = this.props;
+    const { stage, submitState, gemsBalance } = this.props;
     const { value } = this.state;
 
-    const disabled = !userBalance.canDeposit(value);
+    const available = gemsBalance >= DEPOSIT_MIN;
+    const disabled = !userBalance.canDeposit(+value, gemsBalance);
     const isFetching = submitState.state === RequestStates.Fetching;
 
     return (
       <div className={styles.container}>
-        <Description />
-        {!isFetching &&
+        <Description gemsBalance={gemsBalance} available={available} />
+        {!isFetching && available &&
           <form className={styles.form} onSubmit={this.handleSubmit} >
             <div className={styles.row}>
               <input

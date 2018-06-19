@@ -1,87 +1,50 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import withSubmitState from '../../../hoc/withSubmitState';
-
-import { RequestStates } from '../../../../common/app/requestUiState';
-import { withdrawPayments } from '../../../../sagas/gemsSagas';
-import { userProps, requestStateProps } from '../../../shared/propTypes';
-
 import AvailableFunds from './AvailableFunds';
-import WithdrawSuccessDialog from './WithdrawSuccessDialog';
-import EditAddressDialoig from '../../address/EditAddressDialoig';
+import WithdrawDialog from './WithdrawDialog';
 
-import { gemBalanceSelector } from '../../../../selectors/userSelectors';
-import { withdrawStateSelector } from '../../../../selectors/uiStateSelectors';
 import { userBalance } from '../../../../model/balance';
+import { userProps } from '../../../shared/propTypes';
 
 import styles from './Withdraw.module.styl';
 
-const mapStateToProps = state => ({
-  gemsBalance: gemBalanceSelector(state),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ withdrawPayments }, dispatch);
-
-class Withdraw extends Component {
+export default class Withdraw extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
-    withdrawPayments: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    onResetSubmit: PropTypes.func.isRequired,
+    onEditAddres: PropTypes.func.isRequired,
+    onEditEmail: PropTypes.func.isRequired,
   }
 
   state = {
-    edit: false,
+    dialog: false,
   }
 
-  handleEdit = () => {
-    this.setState({ edit: false });
-  }
-
-  handleClick = () => {
-    const { submitState, onSubmit, user } = this.props;
-    if (!user.address) {
-      this.setState({ edit: true });
-    } else if (submitState.state !== RequestStates.Fetching) {
-      onSubmit(() => this.props.withdrawPayments(user));
+  handleToggle = () => {
+    const { user, onEditAddres, onEditEmail } = this.props;
+    if (!user.emailConfirmed) {
+      onEditEmail();
+    } else if (!user.address) {
+      onEditAddres();
+    } else {
+      this.setState(({ dialog }) => ({ dialog: !dialog }));
     }
   }
 
   render() {
-    const { user, submitState, onResetSubmit } = this.props;
-    const { edit } = this.state;
-
-    const isFetching = submitState.state === RequestStates.Fetching;
-
+    const { user } = this.props;
+    const { dialog } = this.state;
     const balance = userBalance.get(user);
-    const disabled = !userBalance.canWithdraw(user);
 
     return (
       <Fragment>
-        <button onClick={this.handleClick} className={styles.withdraw} disabled={disabled}>
-          {isFetching ? 'Withdrawing' : 'Withdraw '}
-          {!isFetching && <AvailableFunds balance={balance} />}
+        <button onClick={this.handleToggle} className={styles.withdraw}>
+          Withdraw <AvailableFunds balance={balance} />
         </button>
-        {submitState.state === RequestStates.Fetched &&
-          <WithdrawSuccessDialog
-            transactions={submitState.payload.result.tx}
-            onHide={onResetSubmit}
-          />
-        }
-        {edit &&
-          <EditAddressDialoig user={user} onHide={this.handleEdit} />
+        {dialog &&
+          <WithdrawDialog user={user} onHide={this.handleToggle} />
         }
       </Fragment>
     );
   }
 }
-
-export default withSubmitState(withdrawStateSelector)(
-  connect(mapStateToProps, mapDispatchToProps)(Withdraw),
-);
