@@ -22,7 +22,6 @@ class TwoColumsAnswers extends Component {
     this.setState({ selected: key });
     this.props.answered(key);
   }
-
   render() {
     const transActive = general.btnTransActive;
     const trans = general.btnTrans;

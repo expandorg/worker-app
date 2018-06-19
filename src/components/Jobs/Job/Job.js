@@ -98,7 +98,7 @@ class Base extends Component {
     }
     if (assignState.state === RequestStates.Fetching
       && nextAssignState.state === RequestStates.Fetched) {
-      this.props.history.push(`/tasks/${nextAssignState.payload.result.task}`);
+      this.props.history.push(`/tasks/${nextAssignState.payload.result.assignedTasks}`);
     }
   }
 

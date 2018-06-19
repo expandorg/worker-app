@@ -7,7 +7,7 @@ import custom from '../styles/Custom.module.styl';
 class SuccessTestMessage extends Component {
   static propTypes = {
     confirm: PropTypes.func.isRequired,
-    cancel: PropTypes.func.isRequired,
+    pointsWon: PropTypes.number.isRequired,
   };
 
   render() {
@@ -15,6 +15,9 @@ class SuccessTestMessage extends Component {
       <div className={styles.taskContainer}>
         <div className={custom.successMsg}>
           <h3>Great job!</h3>
+          <p className={styles.phWhiteBlue}>You won
+            <span className={styles.pinkColor}>{this.props.pointsWon} </span>points.
+          </p>
           <p className={styles.phWhiteGrey}>Lorem ipsum dolor sit amet
           consectetur adipiscing elit. Pellentesque nec maximus turpis.
           Nullam maximus eu nislsed sollicitudin. Nulla sit amet cursus quam,
@@ -23,11 +26,6 @@ class SuccessTestMessage extends Component {
           </p>
           <h6>Continue with the real task and earn some gems!</h6>
           <div className="btn-box">
-            <button
-              className={styles.btnPinkTrans}
-              onClick={this.props.cancel}
-            >Not interested
-            </button>
             <button className={styles.btnPink} onClick={this.props.confirm}>Start</button>
           </div>
         </div>

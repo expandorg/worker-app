@@ -6,13 +6,19 @@ import styles from '../styles/General.module.styl';
 class FailedTestMessage extends Component {
   static propTypes = {
     confirm: PropTypes.func.isRequired,
+    pointsNedded: PropTypes.number.isRequired,
+    pointsWon: PropTypes.number.isRequired,
   };
 
   render() {
     return (
       <div className={styles.taskContainer}>
         <div>
-          <h3>Sorry, you are out of tries!</h3>
+          <h3>Sorry you did not get the necessary points to go further</h3>
+          <p className={styles.phWhiteBlue}>Minimum points to pass the test is
+            <span className={styles.pinkColor}>{this.props.pointsNedded}</span> points. You won
+            <span className={styles.pinkColor}>{this.props.pointsWon}</span>  points.
+          </p>
           <p className={styles.phWhiteGrey}>Lorem ipsum dolor sit amet,
             consectetur adipiscing elit. Pellentesque nec maximus turpis.
             Nullam maximus eu nislsed sollicitudin elit. Pellentesque nec

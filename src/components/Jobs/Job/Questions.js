@@ -10,7 +10,6 @@ import TwoColumsAnswers from './components/TwoColumAnswer';
 import OneColumsAnswers from './components/OneColumAnswer';
 import YesNoAnswers from './components/YesNoAnswer';
 
-import FailedAnswerModal from './modals/FailedAnswerModal';
 import FailedTestMessage from './components/FailedTestMessage';
 import SuccessTestMessage from './components/SuccessTestMessage';
 
@@ -29,11 +28,11 @@ class Questions extends Component {
 
   state = {
     index: this.props.answer.answers.length,
-    showErrorModal: false,
     showFailedMessage: false,
     showSuccessMessage: false,
     showRulesModal: false,
     showInstructionModal: false,
+    checked: false,
   };
 
   componentWillReceiveProps({ answer: nextAnswer }) {
@@ -46,20 +45,19 @@ class Questions extends Component {
     if (answer.answers.length !== nextAnswer.answers.length) {
       this.setState({ index: nextAnswer.answers.length });
     }
-    if (answer.fails !== nextAnswer.fails) {
-      this.setState({ showErrorModal: true });
-    }
   }
-
   setAnswer = (key) => {
+    if (key) {
+      this.setState({ checked: true });
+    }
     this.setState({ answered: key });
   }
-
   cancelTest = () => {
     this.props.cancelTest(this.state.index);
   };
 
   goToNext = () => {
+    this.setState({ checked: false });
     this.props.postAnswer(this.state.answered, this.state.index);
   };
 
@@ -112,10 +110,13 @@ class Questions extends Component {
   }
 
   render() {
+    const aqua = styles.btnAqua;
+    const disabledBtn = styles.btnDisabledSmall;
     const itemLenght = this.props.question.data.questions.length;
-    const { remaining, status } = this.props.answer;
+    const { status } = this.props.answer;
     const {
-      showFailedMessage, showSuccessMessage, showErrorModal, showRulesModal, showInstructionModal,
+      showFailedMessage, showSuccessMessage, showRulesModal, showInstructionModal,
+      checked,
     } = this.state;
     return (
       <div>
@@ -133,17 +134,21 @@ class Questions extends Component {
                       <span>{this.state.index + 1} / {itemLenght}</span> questions
                     </h4>
                   </div>
-                  <div className={custom.col2}>
+                  {/* <div className={custom.col2}>
                     <h4>
                       <span>{remaining}</span>tries left
                     </h4>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className={styles.taskContainer}>
                 {this.renderQuestion()}
                 <div>
-                  <button className={styles.btnAqua} onClick={this.goToNext}>
+                  <button
+                    className={checked ? aqua : disabledBtn}
+                    onClick={this.goToNext}
+                    disabled={!this.state.checked}
+                  >
                     <span>Next <small>&rsaquo;</small></span>
                   </button>
                 </div>
@@ -166,22 +171,18 @@ class Questions extends Component {
                 {showRulesModal ? <RulesModal confirm={this.closeRulesModal} /> : null}
                 {showInstructionModal ?
                   <QuestionInstructionModal confirm={this.closeInstructionModal} /> : null}
-                {showErrorModal ?
-                  <FailedAnswerModal
-                    confirm={() => this.setState({ showErrorModal: false })}
-                    cancel={this.cancelTest}
-                    tries={remaining}
-                  /> : null}
               </div>
             </div> : null}
           {showSuccessMessage || status === 1 ?
             <SuccessTestMessage
               confirm={this.props.finishedTest}
-              cancel={this.props.abandon}
+              pointsWon={this.props.answer.points}
             /> : null}
           {showFailedMessage || status === 2 ?
             <FailedTestMessage
               confirm={this.props.abandon}
+              pointsNedded={this.props.question.points_needed}
+              pointsWon={this.props.answer.points}
             /> : null}
         </div>
       </div>
