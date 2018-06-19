@@ -14,10 +14,10 @@ export const assignmentsSelector = createSelector(
 
 export const taskAssignmentsSelector = createSelector(
   assignmentsSelector,
-  assignments => assignments.filter(assignment => typeof assignment.responseId === 'undefined'),
+  assignments => assignments.filter(assignment => assignment.responseId === null),
 );
 
 export const verificationAssignmentsSelector = createSelector(
   assignmentsSelector,
-  assignments => assignments.filter(assignment => typeof assignment.responseId !== 'undefined'),
+  assignments => assignments.filter(assignment => assignment.responseId !== null),
 );

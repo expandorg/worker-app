@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import { taskAssignmentsSelector, verificationAssignmentsSelector } from './assignmentsSelectors';
 
 export const tasksEntitiesSelector = (state: Object) => state.tasks.entities;
+export const responsesEntitiesSelector = (state: Object) => state.responses.entities;
 
 export const makeTaskSelector = () => createSelector(
   tasksEntitiesSelector,
@@ -21,6 +22,10 @@ export const assignedTasksSelector = createSelector(
 
 export const assignedVerificationsSelector = createSelector(
   tasksEntitiesSelector,
+  responsesEntitiesSelector,
   verificationAssignmentsSelector,
-  (entities, assignments) => assignments.map(assignment => entities[assignment.taskId]),
+  (taskEntities, responseEntities, assignments) => assignments.map(assignment => ({
+    task: taskEntities[assignment.taskId],
+    response: responseEntities[assignment.responseId],
+  })),
 );
