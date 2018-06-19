@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import EditAddressDialoig from '../../address/EditAddressDialoig';
+
 import DepositDialog from './DepositDialog';
 
 import { fetchGemsBalance } from '../../../../sagas/gemsSagas';
@@ -19,11 +21,11 @@ class Deposit extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,
-    onEditAddres: PropTypes.func.isRequired,
   }
 
   state = {
     dialog: false,
+    addressDialog: false,
   }
 
   componentDidMount() {
@@ -41,16 +43,25 @@ class Deposit extends Component {
   }
 
   handleToggle = () => {
-    const { user, onEditAddres } = this.props;
-    if (!user.address) {
-      onEditAddres();
+    const { user } = this.props;
+    const { dialog } = this.state;
+    if (!dialog && !user.address) {
+      this.setState({ addressDialog: true });
     } else {
-      this.setState(({ dialog }) => ({ dialog: !dialog }));
+      this.setState({ dialog: !dialog });
+    }
+  }
+
+  handleHideAddress = () => {
+    this.setState({ addressDialog: false });
+    if (this.props.user.address) {
+      this.handleToggle();
     }
   }
 
   render() {
-    const { dialog } = this.state;
+    const { user } = this.props;
+    const { dialog, addressDialog } = this.state;
     return (
       <Fragment>
         <button className={styles.deposit} onClick={this.handleToggle}>
@@ -58,6 +69,9 @@ class Deposit extends Component {
         </button>
         {dialog &&
           <DepositDialog onHide={this.handleToggle} />
+        }
+        {addressDialog &&
+          <EditAddressDialoig user={user} onHide={this.handleHideAddress} />
         }
       </Fragment>
     );
