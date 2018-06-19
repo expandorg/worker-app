@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
-import { Parallax } from 'react-spring';
+import { Parallax, config } from 'react-spring';
 
 import Slide from './Slide';
 import Dots from './Dots';
@@ -34,6 +34,7 @@ export default class Gallery extends Component {
             className={styles.gallery}
             ref={(node) => { this.parallax = node; }}
             pages={count}
+            config={config.gentle}
             horizontal
             scrolling={false}
           >
