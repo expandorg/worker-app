@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { chromeExtensionLink } from '../../../model/consts';
-
 import styles from './Install.module.styl';
 
 export default function InstallMetamask() {
@@ -24,7 +22,7 @@ export default function InstallMetamask() {
       <div className={styles.actions}>
         <a
           className={styles.install}
-          href={chromeExtensionLink}
+          href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
           rel="noopener noreferrer"
           target="_blank"
         >

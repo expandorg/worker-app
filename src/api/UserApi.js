@@ -11,7 +11,7 @@ export class UserApi extends BaseApi {
     this.post(`/users/${userId}/email`, { email })
 
   confirmEmail = ({ code, userId }) =>
-    this.post('/confirm', { code, userId })
+    this.post('/email/confirm', { code, userId })
 
   resendConfirmEmail = ({ userId }) =>
     this.post(`/users/${userId}/email/resend`)
