@@ -55,7 +55,14 @@ export const assignmentProps = {
 
 export const taskProps = {
   id: PropTypes.number,
+  jobId: PropTypes.number,
 };
+
+export const taskFormProps = {
+  description: PropTypes.string.isRequired,
+  fields: PropTypes.oneOfType([PropTypes.object]),
+};
+
 
 export const historyProps = {
   replace: PropTypes.func.isRequired,

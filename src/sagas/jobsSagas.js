@@ -7,9 +7,18 @@ import { jobsApi } from '../api/JobsApi';
 import { jobSchema, authResponseSchema } from '../model/schemas';
 
 export const fetchJobs = () => ({
-  type: jobsActionTypes.FETCH,
+  type: jobsActionTypes.FETCH_LIST,
   payload: null,
   meta: { schema: { jobs: [jobSchema] } },
+});
+
+const watchFetchListRequest = takeEveryApiCall(jobsActionTypes.FETCH_LIST, jobsApi.list);
+
+
+export const fetchJob = jobId => ({
+  type: jobsActionTypes.FETCH,
+  payload: { jobId },
+  meta: { schema: { job: jobSchema } },
 });
 
 const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch);
@@ -26,5 +35,6 @@ const watchAssignRequest = takeEveryApiCall(jobsActionTypes.ASSIGN, jobsApi.assi
 
 export function* jobsSagas() {
   yield fork(watchFetchRequest);
+  yield fork(watchFetchListRequest);
   yield fork(watchAssignRequest);
 }

@@ -12,7 +12,6 @@ export const makeTaskSelector = () => createSelector(
   (entities, id) => entities[id] || null,
 );
 
-
 export const assignedTasksSelector = createSelector(
   tasksEntitiesSelector,
   taskAssignmentsSelector,

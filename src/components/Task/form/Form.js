@@ -3,30 +3,29 @@ import PropTypes from 'prop-types';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
-import { taskProps, requestStateProps } from '../../shared/propTypes';
+import { taskFormProps, requestStateProps } from '../../shared/propTypes';
 
 import Panel from '../../shared/Panel';
 import ErrorMessage from '../../common/ErrorMessage';
 
 import Field from './Field';
 
-import { triviaForm, FormBuilder } from '../../../model/tasks';
+import { FormBuilder } from '../../../model/tasks';
 
 import styles from './Form.module.styl';
 
 export default class Form extends Component {
   static propTypes = {
     submitState: PropTypes.shape(requestStateProps).isRequired,
-    task: PropTypes.shape(taskProps).isRequired,
+    taskForm: PropTypes.shape(taskFormProps).isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    const form = props.task.form || triviaForm;
 
     this.state = {
-      values: FormBuilder.defaultValues(form.fields),
+      values: FormBuilder.defaultValues(props.taskForm.fields),
       errors: null,
     };
   }
@@ -52,29 +51,26 @@ export default class Form extends Component {
   }
 
   handleSubmit = (evt) => {
-    const { task, onSubmit } = this.props;
+    const { taskForm, onSubmit } = this.props;
     const { values } = this.state;
 
     evt.preventDefault();
-    const form = task.form || triviaForm;
 
-    onSubmit(values, FormBuilder.validation(form.fields));
+    onSubmit(values, FormBuilder.validation(taskForm.fields));
   }
 
   render() {
-    const { submitState, task } = this.props;
+    const { submitState, taskForm } = this.props;
     const { values, errors } = this.state;
-
     const isLoading = submitState.state === RequestStates.Fetching;
-    const form = task.form || triviaForm;
     return (
       <Panel className={styles.container}>
         <form className={styles.form} onSubmit={this.handleSubmit} >
           <div className={styles.description}>
-            {form.description}
+            {taskForm.description}
           </div>
           <ErrorMessage error={errors} />
-          {form.fields.map(field => (
+          {taskForm.fields.map(field => (
             <Field
               key={field.name}
               field={field}

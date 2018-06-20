@@ -2,6 +2,7 @@
 import { TaskFieldType } from './enums';
 import { rules, ruleMessages } from '../common/validation';
 
+
 export class FormBuilder {
   static getDefaultValue = (type: string) => {
     switch (type) {
@@ -38,32 +39,4 @@ export class FormBuilder {
   }
 }
 
-
-export const triviaForm = {
-  name: 'Trivia',
-  description: 'Write a trivia question with three multiple-choice answers. One answer should be correct and fact-checked, and two answers should be incorrect.',
-  fields: [{
-    type: TaskFieldType.text,
-    name: 'question',
-    placeholder: 'Question',
-    validation: ['isRequired'],
-  },
-  {
-    type: TaskFieldType.text,
-    name: 'correctAnswer',
-    placeholder: 'Correct Answer',
-    validation: ['isRequired'],
-  },
-  {
-    type: TaskFieldType.text,
-    name: 'incorrectAnswerA',
-    placeholder: 'Incorrect Answer',
-    validation: ['isRequired'],
-  },
-  {
-    type: TaskFieldType.text,
-    name: 'incorrectAnswerB',
-    placeholder: 'Incorrect Answer',
-    validation: ['isRequired'],
-  }],
-};
+export const formBuilder = new FormBuilder();

@@ -8,7 +8,7 @@ import styles from './Job.module.styl';
 
 
 const getTaskLink = assignment => (
-  typeof assignment.responseId === 'undefined'
+  assignment.responseId === null
     ? `/tasks/${assignment.taskId}`
     : `/verify/${assignment.taskId}`
 );

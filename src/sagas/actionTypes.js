@@ -81,6 +81,10 @@ export const jobsActionTypes = createActionTypes('jobs', {
   FETCH_COMPLETE: null,
   FETCH_FAILED: null,
 
+  FETCH_LIST: null,
+  FETCH_LIST_COMPLETE: null,
+  FETCH_LIST_FAILED: null,
+
   ASSIGN: null,
   ASSIGN_COMPLETE: null,
   ASSIGN_FAILED: null,

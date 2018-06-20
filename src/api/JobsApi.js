@@ -1,8 +1,11 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class JobsApi extends BaseApi {
-  fetch = () =>
+  list = () =>
     this.get('/jobs')
+
+  fetch = ({ jobId }) =>
+    this.get(`/jobs/${jobId}`)
 
   assign = ({ jobId }) =>
     this.post(`/jobs/${jobId}/assign`)
