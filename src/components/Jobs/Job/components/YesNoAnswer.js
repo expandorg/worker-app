@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import general from '../styles/General.module.styl';
-import styles from '../modals/Answers.module.styl';
+import styles from './Column.module.styl';
 
 class YesNoAnswers extends Component {
   static propTypes = {

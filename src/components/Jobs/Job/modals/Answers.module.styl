@@ -2,62 +2,6 @@
 @import 'common/uikit/colors'
 @import 'common/uikit/components'
 
-.twoColumn
-  text-align: left
-
-  button
-    display: flex
-    flex-wrap: wrap
-    justify-content: left
-    align-items: center
-    white-space: inherit
-    span:nth-child(1)
-      margin-right: 0
-      font-size: 35px
-      padding: 0px 20px
-      white-space: inherit
-
-  @media(min-width: 768px)
-      display: flex
-      flex-wrap: wrap
-      justify-content: center
-      text-align: left
-
-      button
-        min-width: 254px!important
-        width: calc(47% - 10px)
-        margin: 10px
-
-.oneColumn
-  text-align: left
-
-  button
-    display: flex
-    justify-content: left
-    align-items: center
-    white-space: inherit
-    span:nth-child(1)
-      margin-right: 0
-      font-size: 35px
-      padding: 0px 20px
-      white-space: inherit
-  @media(min-width: 768px)
-      button
-        width: calc(47% - 10px)
-        margin: 20px auto
-        min-width: 254px!important
-
-.btnYesNoBox
-  button
-    text-align: center
-    margin: 13px 0
-    @media(min-width: 768px)
-      width: 200px!important
-      min-width: 200px!important
-      margin:45px 10px
-  @media(min-width: 768px)
-    display: flex
-    justify-content: center    
 /* // Modal for wrong answer */
 .backdropStyle 
   position: fixed
