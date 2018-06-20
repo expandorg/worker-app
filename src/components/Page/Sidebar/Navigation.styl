@@ -2,12 +2,12 @@
 @import 'common/uikit/colors';
 @import 'common/uikit/font';
 
-//
-// @keyframes gem-nav-ph
-//   0%
-//     transform: translateX(-50%)
-//   100%
-//     transform: translateX(300%)
+
+@keyframes gem-nav-ph
+  0%
+    transform: translateX(-50%)
+  100%
+    transform: translateX(300%)
 
 .gem-nav
   padding: s-padding-big 0 0 s-padding-big;
@@ -42,32 +42,32 @@
   &-activeTask
     opacity: 1
 
-  //
-  // &-placehoder
-  //   position: relative;
-  //   height: 20px;
-  //
-  //   margin-top: 5px;
-  //   margin-bottom: 20px;
-  //   background-color: rgba(255, 255, 255, 0.1);
-  //   color: transparent;
-  //   border-radius: 1px;
-  //   overflow: hidden;
-  //
-  //   &-1
-  //     width: 35%
-  //
-  //   &-2
-  //     width: 40%
-  //
-  //   &-bg
-  //     position: absolute;
-  //     left: 0;
-  //     top: 0;
-  //     bottom: 0;
-  //
-  //     width: 70%;
-  //
-  //     background: linear-gradient(to right, transparent 0%,rgba(100,100,100,0.2) 50%,transparent 100%);;
-  //     animation: gem-nav-ph 1s linear infinite;
-  //     will-change: transform;
+
+  &-placehoder
+    position: relative;
+    height: 20px;
+
+    margin-top: 5px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: transparent;
+    border-radius: 1px;
+    overflow: hidden;
+
+    &-1
+      width: 35%
+
+    &-2
+      width: 40%
+
+    &-bg
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      width: 70%;
+
+      background: linear-gradient(to right, transparent 0%,rgba(100,100,100,0.2) 50%,transparent 100%);;
+      animation: gem-nav-ph 1s linear infinite;
+      will-change: transform;
