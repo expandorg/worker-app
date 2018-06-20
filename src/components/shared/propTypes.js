@@ -60,7 +60,7 @@ export const taskProps = {
 
 export const taskFormProps = {
   description: PropTypes.string.isRequired,
-  fields: PropTypes.oneOfType([PropTypes.object]),
+  fields: PropTypes.array,
 };
 
 
