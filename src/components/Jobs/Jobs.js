@@ -11,7 +11,6 @@ import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
 
 import Job from './Job/Job';
 import AssignDialog from './AssignDialog';
-import Disabled from './Disabled';
 import DepositPrompt from './DepositPrompt';
 
 import { authenticated } from '../hoc/authRules';
@@ -21,8 +20,6 @@ import { fetchJobs } from '../../sagas/jobsSagas';
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
-
-import { JOB_DISABLED } from '../../model/consts';
 
 import styles from './Jobs.module.styl';
 
@@ -79,10 +76,6 @@ class Jobs extends Component {
       isFunded, user, jobs, assignments,
     } = this.props;
     const { selected, emailDialog } = this.state;
-
-    if (JOB_DISABLED) {
-      return <Disabled />;
-    }
 
     return (
       <Content title="Browse Jobs">
