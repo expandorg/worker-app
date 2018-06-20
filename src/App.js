@@ -29,12 +29,12 @@ import store from './reducers/store';
 
 import { init } from './sagas/appSagas';
 
-import { MAINTENANCE_MODE } from './model/consts';
+import settings from './common/settings';
 
 store.dispatch(init());
 
 const App = () => {
-  if (MAINTENANCE_MODE) {
+  if (settings.maintenanceMode) {
     return <MaintenanceMode />;
   }
   return (

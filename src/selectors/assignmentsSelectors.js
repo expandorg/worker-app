@@ -11,6 +11,11 @@ export const assignmentsSelector = createSelector(
   (entities, list) => list.map(jobId => entities[jobId]),
 );
 
+export const makeTaskAssignmentSelector = () => createSelector(
+  assignmentsSelector,
+  (state, taskId) => +taskId,
+  (assignments, taskId) => assignments.find(assignment => assignment.taskId === taskId),
+);
 
 export const taskAssignmentsSelector = createSelector(
   assignmentsSelector,
