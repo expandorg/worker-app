@@ -7,7 +7,7 @@ const Description = ({ gemsBalance }) => (
   <div className={styles.description}>
     <p className={styles.p}>
       In order to submit tasks you will first need to deposit at least 5 Gems
-      (and at most 1000 Gems) from MetaMask.
+      (and at most 1000 Gems) via MetaMask.
     </p>
     <p className={styles.p}>
       You will not lose your deposited Gems even if your tasks are not accepted,
