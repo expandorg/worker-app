@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import general from '../styles/General.module.styl';
-import styles from './Column.module.styl';
+import Field from '../../../Task/form/Field';
+
+import styles from './TwoColums.module.styl';
 
 class TwoColumsAnswers extends Component {
   static propTypes = {
     answers: PropTypes.arrayOf(PropTypes.shape({
       key: PropTypes.string,
-      text: PropTypes.string,
+      labele: PropTypes.string,
+      type: PropTypes.string,
     })).isRequired,
     answered: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
+    styles: PropTypes.string.isRequired,
   };
 
   state = {
@@ -24,25 +27,27 @@ class TwoColumsAnswers extends Component {
   }
 
   render() {
-    const transActive = general.btnTransActive;
-    const trans = general.btnTrans;
+    const transActive = styles.btnTransActive;
+    const trans = styles.btnTrans;
+    const { answers } = this.props;
     return (
       <div>
         {!this.state.message ?
           <div>
             <p className={styles.phDarkGrey}>{this.props.text}</p>
-            <div className={styles.twoColumn}>
-              {this.props.answers.map((answer) => {
+            <div className={styles.twoColumnContainer}>
+              {answers.map((answer) => {
                 const activeLink = this.state.selected === answer.key ? transActive : trans;
+                const type = { type: answer.type };
                 return (
-                  <button
+                  <Field
                     className={activeLink}
-                    key={answer.key}
-                    onClick={() => this.selected(answer.key)}
-                  >
-                    <span>{answer.key}</span>
-                    <span>{answer.text}</span>
-                  </button>);
+                    columnStyle={this.props.styles}
+                    field={type}
+                    value={answer}
+                    onChange={this.selected}
+                  />
+                );
               })}
             </div>
           </div> : null}

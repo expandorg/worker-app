@@ -21,4 +21,5 @@ export const TaskFieldType = keyMirror({
   number: null,
   email: null,
   password: null,
+  button: null,
 });

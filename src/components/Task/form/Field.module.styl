@@ -7,3 +7,56 @@
   position: absolute;
   bottom: -18px
   left: 0
+
+.oneColumn
+  @media(min-width: 768px)
+    width: calc(47% - 10px)
+    margin: 10px auto
+    min-width: 254px!important
+  button
+    display: flex
+    justify-content: left
+    align-items: center
+    margin: 10px 0;
+    span:nth-child(1)
+      margin-right: 0
+      font-size: 35px
+      padding: 0px 20px
+      white-space: inherit
+    span:nth-child(2)
+      line-height: 1
+      max-height: 2.1em;
+      overflow: hidden;
+
+.twoColumn
+  @media(min-width: 768px)
+    min-width: 254px!important
+    width: calc(47% - 10px)
+    margin:0 10px
+  button
+    display: flex
+    justify-content: left
+    align-items: center
+    white-space: inherit
+    margin: 10px 0;
+    span:nth-child(1)
+      margin-right: 0
+      font-size: 35px
+      padding: 0px 20px
+      white-space: inherit
+    span:nth-child(2)
+      line-height: 1
+      max-height: 2.1em;
+      overflow: hidden;
+
+
+.yesOrNo
+  button
+    text-align: center
+    margin: 7px 0
+    @media(min-width: 768px)
+      width: 200px!important
+      min-width: 200px!important
+      margin:45px 10px
+
+

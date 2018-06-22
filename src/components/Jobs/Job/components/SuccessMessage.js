@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../styles/General.module.styl';
-import custom from '../styles/Custom.module.styl';
+import Container from '../shared/Container';
+import styles from './SuccessMessage.module.styl';
 
-class SuccessTestMessage extends Component {
+class SuccessMessage extends Component {
   static propTypes = {
     confirm: PropTypes.func.isRequired,
     pointsWon: PropTypes.number.isRequired,
@@ -12,8 +12,8 @@ class SuccessTestMessage extends Component {
 
   render() {
     return (
-      <div className={styles.taskContainer}>
-        <div className={custom.successMsg}>
+      <Container>
+        <div className={styles.successMsg}>
           <h3>Great job!</h3>
           <p className={styles.phWhiteBlue}>You won
             <span className={styles.pinkColor}>{this.props.pointsWon} </span>points.
@@ -29,8 +29,8 @@ class SuccessTestMessage extends Component {
             <button className={styles.btnPink} onClick={this.props.confirm}>Start</button>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
-export default SuccessTestMessage;
+export default SuccessMessage;

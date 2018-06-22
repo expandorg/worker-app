@@ -13,6 +13,10 @@ import { jobIdSelector } from '../../../selectors/jobsSelectors';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
+import Content from '../../shared/Content';
+import Panel from '../../shared/Panel';
+import styles from './Job.module.styl';
+
 import {
   answersStateSelector,
   startTestStateSelector,
@@ -21,9 +25,8 @@ import {
 } from '../../../selectors/uiStateSelectors';
 import { fetchAnswer, startTest, cancelTest, postAnswer } from '../../../sagas/answersSagas';
 
-import styles from './styles/Base.module.styl';
 
-import Task from './Description';
+import Description from './Description';
 import Rules from './Rules';
 import Eligibility from './Eligibility';
 import Questions from './Questions';
@@ -165,12 +168,9 @@ class Base extends Component {
   render() {
     const { job } = this.props;
     return (
-      <div className={styles.questionPage}>
-        <div className={styles.taskTitle}>
-          <h2>{ job ? job.name : '' }</h2>
-        </div>
-        <div className={styles.questionWraper}>
-          {this.state.step === 0 ? <Task job={job} next={this.nextStep} /> : null}
+      <Content title={job ? job.name : ''}>
+        <Panel className={styles.container}>
+          {this.state.step === 0 ? <Description job={job} next={this.nextStep} /> : null}
           {this.state.step === 1 ? <Rules next={this.nextStep} /> : null}
           {this.state.step === 2 ? <Eligibility next={this.startTesting} /> : null}
           {this.state.step === 3 ?
@@ -184,8 +184,8 @@ class Base extends Component {
               finishedTest={this.finishedTest}
               abandon={this.abandon}
             /> : null}
-        </div>
-      </div>
+        </Panel>
+      </Content>
     );
   }
 }

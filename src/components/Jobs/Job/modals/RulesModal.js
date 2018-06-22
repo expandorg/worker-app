@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import general from '../styles/General.module.styl';
-import styles from './Answers.module.styl';
+import styles from './Modal.module.styl';
 
 class RulesModal extends Component {
   static propTypes = {
@@ -18,7 +17,7 @@ class RulesModal extends Component {
           </div>
           <div className={styles.modalBody}>
             <h4>Rules!</h4>
-            <p className={general.phWhiteGrey}>
+            <p className={styles.phWhiteGrey}>
               Your task will be to read Medium articles that have recently been
               published and decide if the articles pass Medium’s Quality Control
               Guidelines.  If the article passes the guidelines you will click accept.
@@ -27,7 +26,7 @@ class RulesModal extends Component {
             </p>
           </div>
           <div className={styles.modalFooter}>
-            <button className={general.btnPink} onClick={this.props.confirm}>OK</button>
+            <button className={styles.btnPink} onClick={this.props.confirm}>OK</button>
           </div>
         </div>
       </div>

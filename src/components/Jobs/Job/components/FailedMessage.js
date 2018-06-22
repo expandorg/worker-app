@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../styles/General.module.styl';
+import Container from '../shared/Container';
+import styles from './FailedMessage.module.styl';
 
-class FailedTestMessage extends Component {
+class FailedMessage extends Component {
   static propTypes = {
     confirm: PropTypes.func.isRequired,
     pointsNedded: PropTypes.number.isRequired,
@@ -12,7 +13,7 @@ class FailedTestMessage extends Component {
 
   render() {
     return (
-      <div className={styles.taskContainer}>
+      <Container>
         <div>
           <h3>Sorry you did not get the necessary points to go further</h3>
           <p className={styles.phWhiteBlue}>Minimum points to pass the test is
@@ -28,8 +29,8 @@ class FailedTestMessage extends Component {
             <button className={styles.btnPink} onClick={this.props.confirm}>OK</button>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
-export default FailedTestMessage;
+export default FailedMessage;

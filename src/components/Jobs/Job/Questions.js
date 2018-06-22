@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 import { answerProps, questionProps } from '../../shared/propTypes';
 
-import styles from './styles/General.module.styl';
-import custom from './styles/Custom.module.styl';
+import Container from './shared/Container';
+import styles from './Questions.module.styl';
 
-import TwoColumsAnswers from './components/TwoColumAnswer';
-import OneColumsAnswers from './components/OneColumAnswer';
+import TwoColumsAnswers from './components/TwoColumsAnswer';
+import OneColumsAnswers from './components/OneColumsAnswer';
 import YesNoAnswers from './components/YesNoAnswer';
 
-import FailedTestMessage from './components/FailedTestMessage';
-import SuccessTestMessage from './components/SuccessTestMessage';
+import FailedMessage from './components/FailedMessage';
+import SuccessMessage from './components/SuccessMessage';
 
 import RulesModal from './modals/RulesModal';
 import QuestionInstructionModal from './modals/QuestionInstructionModal';
@@ -46,6 +46,7 @@ class Questions extends Component {
       this.setState({ index: nextAnswer.answers.length });
     }
   }
+
   setAnswer = (key) => {
     if (key) {
       this.setState({ checked: true });
@@ -76,29 +77,33 @@ class Questions extends Component {
   renderQuestion = () => {
     const item = this.props.question.data.questions[this.state.index];
     let template;
-    switch (item.type) {
-      case 1:
+    switch (item.style) {
+      case 'oneColumn':
         template = (
           <OneColumsAnswers
-            answers={item.answers}
-            text={item.text}
+            answers={item.fields}
+            text={item.description}
+            styles={item.style}
             answered={this.setAnswer}
           />
         );
         break;
-      case 2:
+      case 'twoColumn':
         template = (
           <TwoColumsAnswers
-            answers={item.answers}
-            text={item.text}
+            answers={item.fields}
+            text={item.description}
+            styles={item.style}
             answered={this.setAnswer}
           />);
         break;
-      case 3:
+      case 'yesOrNo':
         template = (
           <YesNoAnswers
+            answers={item.fields}
             answered={this.setAnswer}
-            text={item.text}
+            styles={item.style}
+            text={item.description}
           />
         );
         break;
@@ -123,13 +128,13 @@ class Questions extends Component {
         <div>
           {status === 0 && !showFailedMessage && !showSuccessMessage ?
             <div>
-              <div className={custom.questionHeader}>
-                <div className={custom.headerHeading}>
+              <div className={styles.questionHeader}>
+                <div className={styles.headerHeading}>
                   <button className={styles.btnPink}>Read article</button>
                   <h5>Read article and answer questions!</h5>
                 </div>
-                <div className={custom.questInfo}>
-                  <div className={custom.col1}>
+                <div className={styles.questInfo}>
+                  <div className={styles.col1}>
                     <h4>
                       <span>{this.state.index + 1} / {itemLenght}</span> questions
                     </h4>
@@ -141,7 +146,7 @@ class Questions extends Component {
                   </div> */}
                 </div>
               </div>
-              <div className={styles.taskContainer}>
+              <Container>
                 {this.renderQuestion()}
                 <div>
                   <button
@@ -152,7 +157,7 @@ class Questions extends Component {
                     <span>Next <small>&rsaquo;</small></span>
                   </button>
                 </div>
-                <div className={custom.taskLinks}>
+                <div className={styles.taskLinks}>
                   <span
                     onClick={this.openRulesModal}
                     onKeyDown={this.openRulesModal}
@@ -171,15 +176,15 @@ class Questions extends Component {
                 {showRulesModal ? <RulesModal confirm={this.closeRulesModal} /> : null}
                 {showInstructionModal ?
                   <QuestionInstructionModal confirm={this.closeInstructionModal} /> : null}
-              </div>
+              </Container>
             </div> : null}
           {showSuccessMessage || status === 1 ?
-            <SuccessTestMessage
+            <SuccessMessage
               confirm={this.props.finishedTest}
               pointsWon={this.props.answer.points}
             /> : null}
           {showFailedMessage || status === 2 ?
-            <FailedTestMessage
+            <FailedMessage
               confirm={this.props.abandon}
               pointsNedded={this.props.question.points_needed}
               pointsWon={this.props.answer.points}
