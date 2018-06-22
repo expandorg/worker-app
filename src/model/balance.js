@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js/bignumber';
 
 const stake = new BigNumber(0.1);
 
-export const DEPOSIT_MIN = 5;
+export const DEPOSIT_MIN = 500;
 export const DEPOSIT_MAX = 1000;
-export const WITHDRAW_MIN = 500;
+export const WITHDRAW_MIN = 1500;
 
 export class Balance {
   isFunded(user: Object) {
