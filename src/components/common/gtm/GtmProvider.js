@@ -1,14 +1,19 @@
 import React, { Component, createContext } from 'react';
 
+import settings from '../../../common/settings';
+
+import withScript from '../withScript';
 import GtmWrapper from './GtmWrapper';
 
 export const GtmContext = createContext(null);
 
-export default class GtmProvider extends Component {
+const src = 'https://www.googletagmanager.com/gtag/js';
+
+class GtmProvider extends Component {
   constructor(props) {
     super(props);
 
-    this.wrapper = new GtmWrapper();
+    this.wrapper = new GtmWrapper(settings.gaTrackingId);
   }
 
   render() {
@@ -21,3 +26,5 @@ export default class GtmProvider extends Component {
     );
   }
 }
+
+export default withScript(`${src}?id=${settings.gaTrackingId}`)(GtmProvider);
