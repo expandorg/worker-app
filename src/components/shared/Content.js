@@ -5,13 +5,13 @@ import DocumentTitle from 'react-document-title';
 
 import VerifyEmailPopup from './email/VerifyEmailPopup';
 
-import styles from './Content.module.styl';
+import './Content.styl';
 
 const Content = ({ children, title }) => (
   <DocumentTitle title={`${title} - Gems`}>
-    <div className={styles.container}>
+    <div className="gem-content">
       <VerifyEmailPopup />
-      <div className={styles.title}>
+      <div className="gem-content-title">
         {title}
       </div>
       {children}

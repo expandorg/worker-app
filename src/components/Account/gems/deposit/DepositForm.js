@@ -55,7 +55,7 @@ export default class DepositForm extends Component {
 
     return (
       <div className={styles.container}>
-        <Description gemsBalance={gemsBalance} available={available} />
+        <Description gemsBalance={gemsBalance} />
         {!isFetching && available &&
           <form className={styles.form} onSubmit={this.handleSubmit} >
             <div className={styles.row}>

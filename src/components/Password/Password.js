@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Link } from 'react-router-dom';
+
 import DocumentTitle from 'react-document-title';
 
 import ErrorMessage from '../common/ErrorMessage';
@@ -70,8 +72,13 @@ class Password extends Component {
               </form>
             }
             {isFetched &&
-              <div className={styles.message}>
-                Check your mail yo get instructions on how to reset your password
+              <div className={styles.sent}>
+                <p className={styles.message}>
+                  Check your mail to get instructions on how to reset your password
+                </p>
+                <Link to="/login" className={styles.link}>
+                  Return to signin
+                </Link>
               </div>
             }
           </div>
