@@ -5,53 +5,77 @@ import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import { loggedInSelector } from '../../../selectors/userSelectors';
-import { assignedTasksSelector, assignedVerificationsSelector } from '../../../selectors/tasksSelectors';
-import { taskProps } from '../../shared/propTypes';
+import { authStateSelector } from '../../../selectors/uiStateSelectors';
 
-import styles from './Navigation.module.styl';
+import { assignedTasksSelector, assignedVerificationsSelector } from '../../../selectors/tasksSelectors';
+
+import { taskProps, requestStateProps } from '../../shared/propTypes';
+import { RequestStates } from '../../../common/app/requestUiState';
+
+import './Navigation.styl';
 
 const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
+  authState: authStateSelector(state),
   assignedTasks: assignedTasksSelector(state),
   assignedVerifications: assignedVerificationsSelector(state),
 });
 
 
+const Loading = () => (
+  <div className="gem-nav">
+    <div className="gem-nav-placehoder gem-nav-placehoder-1">
+      <span className="gem-nav-placehoder-bg" />
+    </div>
+    <div className="gem-nav-placehoder gem-nav-placehoder-2">
+      <span className="gem-nav-placehoder-bg" />
+    </div>
+  </div>
+);
+
+const Anounimous = () => (
+  <div className="gem-nav">
+    <NavLink to="/login" className="gem-nav-link" activeClassName="gem-nav-active">
+      Login
+    </NavLink>
+    <NavLink to="/signup" className="gem-nav-link" activeClassName="gem-nav-active">
+      Signup
+    </NavLink>
+  </div>
+);
+
+
 class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
+    authState: PropTypes.shape(requestStateProps).isRequired,
     assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
     assignedVerifications: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
   };
 
-
   render() {
-    const { isLoggedIn, assignedTasks, assignedVerifications } = this.props;
+    const {
+      isLoggedIn, assignedTasks, authState, assignedVerifications,
+    } = this.props;
+    if (authState.state === RequestStates.Fetching) {
+      return <Loading />;
+    }
     if (!isLoggedIn) {
-      return (
-        <div className={styles.container} >
-          <NavLink to="/login" className={styles.link} activeClassName={styles.active}>
-            Login
-          </NavLink>
-          <NavLink to="/signup" className={styles.link} activeClassName={styles.active}>
-            Signup
-          </NavLink>
-        </div>
-      );
+      return <Anounimous />;
     }
     return (
-      <div className={styles.container}>
+      <div className="gem-nav">
         {assignedTasks.length > 0 &&
           <Fragment>
-            <span className={styles.link}>
+            <span className="gem-nav-group">
               My Tasks
             </span>
             {assignedTasks.map(task => (
               <NavLink
                 key={task.id}
                 to={`/tasks/${task.id}`}
-                className={styles.task}
-                activeClassName={styles.activeTask}
+                className="gem-nav-task"
+                activeClassName="gem-nav-activeTask"
               >
                 Task #{task.id}
               </NavLink>
@@ -60,31 +84,31 @@ class Navigation extends Component {
         }
         {assignedVerifications.length > 0 &&
           <Fragment>
-            <span className={styles.link}>
+            <span className="gem-nav-group">
               My Verifications
             </span>
             {assignedVerifications.map(task => (
               <NavLink
                 key={task.id}
                 to={`/verify/${task.id}`}
-                className={styles.verify}
-                activeClassName={styles.activeTask}
+                className="gem-nav-task"
+                activeClassName="gem-nav-activeTask"
               >
                 Verify #{task.id}
               </NavLink>
             ))}
           </Fragment>
         }
-        <NavLink to="/jobs" className={styles.link} activeClassName={styles.active}>
+        <NavLink to="/jobs" className="gem-nav-link" activeClassName="gem-nav-active">
           Jobs
         </NavLink>
-        <NavLink to="/account" className={styles.link} activeClassName={styles.active}>
+        <NavLink to="/account" className="gem-nav-link" activeClassName="gem-nav-active">
           Account
         </NavLink>
-        <NavLink to="/stats" className={styles.link} activeClassName={styles.active}>
+        <NavLink to="/stats" className="gem-nav-link" activeClassName="gem-nav-active">
           Stats
         </NavLink>
-        <NavLink to="/requester" className={styles.link} activeClassName={styles.active}>
+        <NavLink to="/requester" className="gem-nav-link" activeClassName="gem-nav-active">
           Requester
         </NavLink>
       </div>
