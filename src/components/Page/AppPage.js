@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import TrackVisit from '../common/gtm/TrackVisit';
+import GtmProvider from '../common/gtm/GtmProvider';
+
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
 
@@ -19,13 +22,16 @@ export default class AppPage extends Component {
     const { sidebar } = this.state;
 
     return (
-      <div className={styles.container}>
-        <Header collapsed={sidebar} onToggle={this.handleToggle} />
-        <Sidebar visible={sidebar} />
-        <div className={styles.content}>
-          {children}
+      <GtmProvider>
+        <div className={styles.container}>
+          <Header collapsed={sidebar} onToggle={this.handleToggle} />
+          <Sidebar visible={sidebar} />
+          <div className={styles.content}>
+            {children}
+          </div>
         </div>
-      </div>
+        <TrackVisit />
+      </GtmProvider>
     );
   }
 }
