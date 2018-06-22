@@ -67,7 +67,7 @@ class Navigation extends Component {
       <div className="gem-nav">
         {assignedTasks.length > 0 &&
           <Fragment>
-            <span className="gem-nav-link">
+            <span className="gem-nav-group">
               My Tasks
             </span>
             {assignedTasks.map(task => (
@@ -84,7 +84,7 @@ class Navigation extends Component {
         }
         {assignedVerifications.length > 0 &&
           <Fragment>
-            <span className="gem-nav-link">
+            <span className="gem-nav-group">
               My Verifications
             </span>
             {assignedVerifications.map(task => (
