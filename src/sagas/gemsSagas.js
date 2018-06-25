@@ -34,7 +34,7 @@ function* handleDeposit({ payload: { deposit } }) {
       const payload = normalize(data, authResponseSchema);
       yield put({ type: gemsActionTypes.DEPOSIT_COMPLETE, payload });
     } else if (initGemsState.error) {
-      throw new Error('Your ethereum address x is no longer connected to your metamask');
+      throw new Error('Your ethereum address is no longer active in Metamask');
     } else {
       throw new Error('Metamask is not avaiable');
     }

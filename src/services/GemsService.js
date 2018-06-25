@@ -29,7 +29,7 @@ export class GemsService {
 
   approve = async (value) => {
     if (!this.gems) {
-      throw new Error('Gems instance is not initiated');
+      throw new Error('Gems instance is not initialized');
     }
     await this.gems.approve(settings.vaultAddress, value * 1e+18);
   }
