@@ -29,6 +29,7 @@ export default combineReducers({
   resetPassword: requestUiStateReducer(userActionTypes.RESET_PASSWORD),
   restorePassword: requestUiStateReducer(userActionTypes.RESTORE_PASSWORD),
 
+  gemBalance: requestUiStateReducer(gemsActionTypes.FETCH_BALANCE),
   deposit: requestUiStateReducer(gemsActionTypes.DEPOSIT, true),
   depositStage,
 

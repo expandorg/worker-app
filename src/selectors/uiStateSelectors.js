@@ -59,6 +59,8 @@ export const assignJobStateSelector = createSelector(uiStateSelector, state => s
 export const submitTaskStateSelector = createSelector(uiStateSelector, state => state.submitTask);
 
 
+export const fetchBalanceStateSelector = createSelector(uiStateSelector, state => state.gemBalance);
+
 export const depositStateSelector = createSelector(uiStateSelector, state => state.deposit);
 
 export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);

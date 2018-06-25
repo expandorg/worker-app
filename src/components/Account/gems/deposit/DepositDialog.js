@@ -29,6 +29,7 @@ const mapDispatchToProps = dispatch =>
 class DepositDialog extends Component {
   static propTypes = {
     submitState: PropTypes.shape(requestStateProps).isRequired,
+    fetchBalanceState: PropTypes.shape(requestStateProps).isRequired,
     stage: PropTypes.number.isRequired,
     gemsBalance: PropTypes.number,
     onHide: PropTypes.func.isRequired,
@@ -52,7 +53,9 @@ class DepositDialog extends Component {
   }
 
   render() {
-    const { stage, submitState, gemsBalance } = this.props;
+    const {
+      stage, submitState, fetchBalanceState, gemsBalance,
+    } = this.props;
     const isFetched = submitState.state === RequestStates.Fetched;
 
     return (
@@ -65,6 +68,7 @@ class DepositDialog extends Component {
           : (
             <DepositForm
               submitState={submitState}
+              fetchState={fetchBalanceState}
               stage={stage}
               gemsBalance={gemsBalance}
               onDeposit={this.handleDeposit}

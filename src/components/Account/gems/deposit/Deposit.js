@@ -9,10 +9,15 @@ import EditAddressDialoig from '../../address/EditAddressDialoig';
 import DepositDialog from './DepositDialog';
 
 import { fetchGemsBalance } from '../../../../sagas/gemsSagas';
-import { userProps } from '../../../shared/propTypes';
+import { fetchBalanceStateSelector } from '../../../../selectors/uiStateSelectors';
+
+import { userProps, requestStateProps } from '../../../shared/propTypes';
 
 import styles from './Deposit.module.styl';
 
+const mapStateToProps = state => ({
+  fetchState: fetchBalanceStateSelector(state),
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ fetchGemsBalance }, dispatch);
@@ -20,6 +25,7 @@ const mapDispatchToProps = dispatch =>
 class Deposit extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
+    fetchState: PropTypes.shape(requestStateProps).isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,
   }
 
@@ -60,7 +66,7 @@ class Deposit extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, fetchState } = this.props;
     const { dialog, addressDialog } = this.state;
     return (
       <Fragment>
@@ -68,7 +74,7 @@ class Deposit extends Component {
           Deposit
         </button>
         {dialog &&
-          <DepositDialog onHide={this.handleToggle} />
+          <DepositDialog fetchBalanceState={fetchState} onHide={this.handleToggle} />
         }
         {addressDialog &&
           <EditAddressDialoig user={user} onHide={this.handleHideAddress} />
@@ -78,4 +84,5 @@ class Deposit extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Deposit);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deposit);
