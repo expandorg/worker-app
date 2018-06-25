@@ -6,9 +6,7 @@ import { answerProps, questionProps } from '../../shared/propTypes';
 import Container from './shared/Container';
 import styles from './Questions.module.styl';
 
-import TwoColumsAnswers from './components/TwoColumsAnswer';
-import OneColumsAnswers from './components/OneColumsAnswer';
-import YesNoAnswers from './components/YesNoAnswer';
+import Field from '../../Task/form/Field';
 
 import FailedMessage from './components/FailedMessage';
 import SuccessMessage from './components/SuccessMessage';
@@ -74,51 +72,12 @@ class Questions extends Component {
   closeInstructionModal = () => {
     this.setState({ showInstructionModal: false });
   }
-  renderQuestion = () => {
-    const item = this.props.question.data.questions[this.state.index];
-    let template;
-    switch (item.style) {
-      case 'oneColumn':
-        template = (
-          <OneColumsAnswers
-            answers={item.fields}
-            text={item.description}
-            styles={item.style}
-            answered={this.setAnswer}
-          />
-        );
-        break;
-      case 'twoColumn':
-        template = (
-          <TwoColumsAnswers
-            answers={item.fields}
-            text={item.description}
-            styles={item.style}
-            answered={this.setAnswer}
-          />);
-        break;
-      case 'yesOrNo':
-        template = (
-          <YesNoAnswers
-            answers={item.fields}
-            answered={this.setAnswer}
-            styles={item.style}
-            text={item.description}
-          />
-        );
-        break;
-      default: {
-        template = null;
-      }
-    }
-    return template;
-  }
-
   render() {
     const aqua = styles.btnAqua;
     const disabledBtn = styles.btnDisabledSmall;
     const itemLenght = this.props.question.data.questions.length;
     const { status } = this.props.answer;
+    const question = this.props.question.data.questions[this.state.index];
     const {
       showFailedMessage, showSuccessMessage, showRulesModal, showInstructionModal,
       checked,
@@ -147,7 +106,13 @@ class Questions extends Component {
                 </div>
               </div>
               <Container>
-                {this.renderQuestion()}
+                <p className={styles.phDarkGrey}>{question.description}</p>
+                {question.fields.map(field =>
+                  (<Field
+                    key={field.type}
+                    field={field}
+                    onChange={this.setAnswer}
+                  />))}
                 <div>
                   <button
                     className={checked ? aqua : disabledBtn}

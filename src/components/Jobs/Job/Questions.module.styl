@@ -33,7 +33,7 @@
   span
     small
       font-size: 20px;
-      
+
 .questionHeader
   .headerHeading
     background: #1c2541
@@ -101,3 +101,30 @@
     padding: 0 5px
     &:hover
      text-decoration:underline
+
+// Columns
+.oneColumn
+  text-align: left
+
+.twoColumn
+  text-align: left
+  @media(min-width: 768px)
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+      text-align: left
+.yesOrNo
+  @media(min-width: 768px)
+    display: flex
+    justify-content: center
+
+.btnTrans
+    button('large', 'transparent')
+    margin: 20px 0
+
+.btnTransActive
+    button('large', 'pink')
+    margin: 20px 0
+
+.phDarkGrey
+  color: color-text-1

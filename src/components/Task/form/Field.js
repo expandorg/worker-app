@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import ErrorMessage from '../../common/ErrorMessage';
 
 import TextField from './TextField';
-import ButtonField from './ButtonField';
+import OneColumn from './OneColumn';
+import TwoColums from './TwoColums';
+import YesNo from './YesNo';
 
 import { TaskFieldType } from '../../../model/enums';
 
@@ -16,8 +18,6 @@ export default class Field extends PureComponent {
     error: PropTypes.shape({}),
     value: PropTypes.any, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
-    className: PropTypes.string, // eslint-disable-line
-    columnStyle: PropTypes.string, // eslint-disable-line
   };
 
   static defaultProps = {
@@ -27,7 +27,7 @@ export default class Field extends PureComponent {
 
   renderField() {
     const {
-      field, value, onChange, className,
+      field, value, onChange,
     } = this.props;
     switch (field.type) {
       case TaskFieldType.text:
@@ -37,12 +37,23 @@ export default class Field extends PureComponent {
         return (
           <TextField field={field} value={value} onChange={onChange} />
         );
-      case TaskFieldType.button:
+      case TaskFieldType.list:
         return (
-          <ButtonField
-            field={field}
-            value={value}
-            className={className}
+          <OneColumn
+            choices={field.choices}
+            onChange={onChange}
+          />
+        );
+      case TaskFieldType.twoColumnsList:
+        return (
+          <TwoColums
+            choices={field.choices}
+            onChange={onChange}
+          />
+        );
+      case TaskFieldType.yesNo:
+        return (
+          <YesNo
             onChange={onChange}
           />
         );
@@ -54,11 +65,8 @@ export default class Field extends PureComponent {
 
   render() {
     const { field, error } = this.props;
-    const styleName = this.props.columnStyle ? this.props.columnStyle : 'container';
-    const componentStyle = styles[styleName || 'container'];
-
     return (
-      <div className={componentStyle} >
+      <div className={styles.container} >
         {this.renderField()}
         <ErrorMessage field={field.name} error={error} className={styles.error} />
       </div>

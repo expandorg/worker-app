@@ -1,0 +1,36 @@
+@import 'common/uikit/font'
+@import 'common/uikit/colors'
+@import 'common/uikit/components'
+
+.oneColumsContainer
+  text-align: left
+  button
+    display: flex
+    justify-content: left
+    align-items: center
+    white-space: inherit
+    span:nth-child(1)
+      margin-right: 0
+      font-size: 35px
+      padding: 0px 20px
+      white-space: inherit
+    span:nth-child(2)
+      line-height: 1
+      max-height: 2.1em;
+      overflow: hidden;
+   @media(min-width: 768px)
+      button
+        width: calc(47% - 10px)
+        margin: 20px auto
+        min-width: 254px!important
+
+.btnTrans
+  button('large', 'transparent')
+  margin: 20px 0
+
+.btnTransActive
+  button('large', 'pink')
+  margin: 20px 0
+
+.phDarkGrey
+	color: color-text-1
