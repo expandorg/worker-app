@@ -9,6 +9,7 @@ import { gemsService } from '../services/GemsService';
 import { authApi } from '../api/AuthApi';
 
 import { loginValidation, signupValidation } from '../model/user';
+import { GTMEvents } from '../model/enums';
 
 import { userSelector } from '../selectors/userSelectors';
 
@@ -26,7 +27,13 @@ const watchGetCurrent = takeEveryApiCall(authActionTypes.GET_CURRENT, authApi.ge
 export const login = (email, password) => ({
   type: authActionTypes.LOGIN,
   payload: { email, password },
-  meta: { validation: loginValidation, schema: authResponseSchema },
+  meta: {
+    validation: loginValidation,
+    schema: authResponseSchema,
+    track: {
+      action: GTMEvents.login,
+    },
+  },
 });
 
 const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
@@ -35,7 +42,13 @@ const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
 export const signup = form => ({
   type: authActionTypes.SIGNUP,
   payload: form,
-  meta: { validation: signupValidation, schema: authResponseSchema },
+  meta: {
+    validation: signupValidation,
+    schema: authResponseSchema,
+    track: {
+      action: GTMEvents.signup,
+    },
+  },
 });
 
 const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser);

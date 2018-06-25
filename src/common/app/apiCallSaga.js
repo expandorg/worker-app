@@ -3,6 +3,8 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { validate } from '../validation';
 
+import { ga } from '../GoogleAnalytics';
+
 export type ReduxAction = {
   type: string,
   payload: any,
@@ -20,6 +22,10 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
       if (meta && meta.validation) {
         validate(payload, meta.validation);
       }
+
+      if (meta && meta.track) {
+        ga.event(meta.track.action, meta.track.actionParams);
+      }
       let result = yield call(asyncCall, payload);
 
       if (meta && meta.schema) {
@@ -27,8 +33,14 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
       }
 
       yield put({ type: `${actionType}_COMPLETE`, payload: result, meta });
+      if (meta && meta.track) {
+        ga.event(meta.track.success, meta.track.successParams);
+      }
     } catch (error) {
       yield put({ type: `${actionType}_FAILED`, payload: error, meta });
+      if (meta && meta.track) {
+        ga.event(meta.track.failed, meta.track.failedParams);
+      }
     }
   }
   return request;

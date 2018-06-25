@@ -22,3 +22,16 @@ export const TaskFieldType = keyMirror({
   email: null,
   password: null,
 });
+
+
+export const GTMEvents = keyMirror({
+  login: null,
+  signup: null,
+  logout: null,
+  job_assign: null,
+  task_submitted: null,
+  deposit: null,
+  withdraw: null,
+  password_forgot: null,
+  password_change: null,
+});

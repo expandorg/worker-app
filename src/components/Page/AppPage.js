@@ -30,7 +30,7 @@ export default class AppPage extends Component {
             {children}
           </div>
           <TrackVisit />
-        </div>      
+        </div>
       </GtmProvider>
     );
   }

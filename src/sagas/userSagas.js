@@ -5,6 +5,7 @@ import { userActionTypes } from './actionTypes';
 
 import { gemsService } from '../services/GemsService';
 import { userApi } from '../api/UserApi';
+import { GTMEvents } from '../model/enums';
 
 export const editEmail = (user, email) => ({
   type: userActionTypes.EDIT_EMAIL,
@@ -33,6 +34,11 @@ const watchResendConfirm = takeEveryApiCall(
 export const changePassword = (user, newPassword, oldPassword) => ({
   type: userActionTypes.CHANGE_PASSWORD,
   payload: { userId: user.id, newPassword, oldPassword },
+  meta: {
+    track: {
+      action: GTMEvents.password_change,
+    },
+  },
 });
 
 const watchChangePassword = takeEveryApiCall(
@@ -44,6 +50,11 @@ const watchChangePassword = takeEveryApiCall(
 export const resetPassword = email => ({
   type: userActionTypes.RESET_PASSWORD,
   payload: { email },
+  meta: {
+    track: {
+      action: GTMEvents.password_forgot,
+    },
+  },
 });
 
 const watchResetPassword = takeEveryApiCall(userActionTypes.RESET_PASSWORD, userApi.resetPassword);

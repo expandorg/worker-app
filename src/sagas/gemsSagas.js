@@ -11,6 +11,7 @@ import { gemsService } from '../services/GemsService';
 import { userSelector } from '../selectors/userSelectors';
 
 import { authResponseSchema } from '../model/schemas';
+import { GTMEvents } from '../model/enums';
 
 export const depositGems = deposit => ({
   type: gemsActionTypes.DEPOSIT,
@@ -43,7 +44,15 @@ const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, userAp
 export const withdrawPayments = (user, withdrawal) => ({
   type: gemsActionTypes.WITHDRAW,
   payload: { userId: user.id, withdrawal },
-  meta: { schema: authResponseSchema },
+  meta: {
+    schema: authResponseSchema,
+    track: {
+      action: GTMEvents.withdraw,
+      actionParams: {
+        value: withdrawal,
+      },
+    },
+  },
 });
 
 const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
