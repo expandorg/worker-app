@@ -30,7 +30,7 @@ export default class SubmissionDialog extends Component {
               Please deposit more Gems to submit again.
             </div>
           }
-          <div className={styles.heading}>
+          <div className={styles.finished}>
             <Link to="/jobs" className={styles.browse}>Browse available jobs</Link>
           </div>
         </div>

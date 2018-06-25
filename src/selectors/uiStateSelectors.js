@@ -3,6 +3,8 @@ import { createSelector } from 'reselect';
 
 export const uiStateSelector = (state: Object) => state.ui;
 
+export const initGemsStateSelector = createSelector(uiStateSelector, state => state.initGems);
+
 
 export const authStateSelector = createSelector(uiStateSelector, state => state.auth);
 export const loginStateSelector = createSelector(uiStateSelector, state => state.login);
@@ -34,6 +36,7 @@ export const confirmEmailStateSelector = createSelector(
   state => state.confirmEmail,
 );
 
+
 export const resendConfirmEmailStateSelector = createSelector(
   uiStateSelector,
   state => state.resendConfirmEmail,
@@ -58,6 +61,8 @@ export const assignJobStateSelector = createSelector(uiStateSelector, state => s
 
 export const submitTaskStateSelector = createSelector(uiStateSelector, state => state.submitTask);
 
+
+export const fetchBalanceStateSelector = createSelector(uiStateSelector, state => state.gemBalance);
 
 export const depositStateSelector = createSelector(uiStateSelector, state => state.deposit);
 
