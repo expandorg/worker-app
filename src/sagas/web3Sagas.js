@@ -26,11 +26,10 @@ function* initGemsInstance() {
       }
       yield call(delay, 1000);
     }
-    // init gem token instance with user
-    gemsService.initGemTokens();
+    yield call(gemsService.initGemTokens);
     yield put({ type: web3ActionTypes.INIT_GEMS_COMPLETE, payload: null });
   } catch (e) {
-    yield put({ type: web3ActionTypes.INIT_GEMS_FAILED, payload: null });
+    yield put({ type: web3ActionTypes.INIT_GEMS_FAILED, payload: e });
   }
 }
 

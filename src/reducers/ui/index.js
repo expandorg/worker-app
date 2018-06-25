@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import {
+  web3ActionTypes,
   tasksActionTypes,
   gemsActionTypes,
   authActionTypes,
@@ -12,6 +13,8 @@ import { requestUiStateReducer } from '../../common/app/requestUiState';
 import depositStage from './depositStageReducer';
 
 export default combineReducers({
+  initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
+
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
 
   login: requestUiStateReducer(authActionTypes.LOGIN, false, true),
