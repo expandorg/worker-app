@@ -4,12 +4,12 @@ import cn from 'classnames';
 
 import { targetIsDescendant, KeyCodes } from '../../../common/dom';
 
-import AutocompelteSuggestions from './AutocompelteSuggestions';
+import AutocompleteSuggestions from './AutocompleteSuggestions';
 import { containsFilter } from './filterOptions';
 
-import './AutocompelteInput.styl';
+import './AutocompleteInput.styl';
 
-export default class AutocompelteInput extends Component {
+export default class AutocompleteInput extends Component {
   static propTypes = {
     value: PropTypes.string,
     className: PropTypes.string,
@@ -129,7 +129,7 @@ export default class AutocompelteInput extends Component {
           {...rest}
         />
         {focus &&
-          <AutocompelteSuggestions options={filtered} onSelect={this.handleSelect} />
+          <AutocompleteSuggestions options={filtered} onSelect={this.handleSelect} />
         }
       </div>
     );

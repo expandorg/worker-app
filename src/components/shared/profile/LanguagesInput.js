@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import AutocompelteInput from '../../common/Autocompelte/AutocompelteInput';
+import AutocompleteInput from '../../common/Autocomplete/AutocompleteInput';
 
 import languages from '../../../model/languages';
 
@@ -56,7 +56,7 @@ export default class LanguagesInput extends Component {
     const { suggest } = this.state;
     return (
       <div className={styles.container}>
-        <AutocompelteInput
+        <AutocompleteInput
           className={styles.input}
           value={suggest}
           placeholder="Start typing..."

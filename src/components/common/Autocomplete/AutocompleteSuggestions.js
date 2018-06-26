@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './AutocompelteInput.styl';
+import './AutocompleteInput.styl';
 
 const Suggestion = ({ value, onSelect }) => (
   <button className="gem-autocomplete-suggestion" onClick={() => onSelect(value)}>
@@ -14,7 +14,7 @@ Suggestion.propTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 
-export default class AutocompelteSuggestions extends Component {
+export default class AutocompleteSuggestions extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.string),
     onSelect: PropTypes.func.isRequired,
