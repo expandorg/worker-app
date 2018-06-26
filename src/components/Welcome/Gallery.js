@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import cn from 'classnames';
 
 import { Parallax, config } from 'react-spring';
@@ -13,15 +13,21 @@ const count = 3;
 
 
 export default class Gallery extends Component {
-  state = {
-    active: 0,
+  constructor(props) {
+    super(props);
+
+    this.parallaxRef = createRef();
+
+    this.state = {
+      active: 0,
+    };
   }
 
   handleSlide = (to) => {
     this.setState({
       active: to < 0 ? count - 1 : (to >= count ? 0 : to), // eslint-disable-line
     }, () => {
-      this.parallax.scrollTo(this.state.active);
+      this.parallaxRef.current.scrollTo(this.state.active);
     });
   }
 
@@ -32,7 +38,7 @@ export default class Gallery extends Component {
         <div className={styles.inner}>
           <Parallax
             className={styles.gallery}
-            ref={(node) => { this.parallax = node; }}
+            ref={this.parallaxRef}
             pages={count}
             config={config.gentle}
             horizontal

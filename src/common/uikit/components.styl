@@ -45,6 +45,9 @@ button(size = 'medium', theme = 'pink')
     background-color: color-white
     border: 2px solid color-pink
 
+    &:hover
+      border-color: color-pink-light
+
     &:disabled
       background-color: color-grey
 
@@ -62,7 +65,7 @@ button(size = 'medium', theme = 'pink')
 
 
 
-input()
+input(theme = 'grey')
   box-sizing: border-box
   display: inline-block
 
@@ -73,11 +76,19 @@ input()
   background-color: color-white
   color: color-text-1
 
-  border-radius: 2px
-  border: solid 1px color-border-grey
-
   outline: 0
+  border-radius: 2px
 
-  &:focus
-    box-shadow: 0 0 4px 0 color-text-gray-1;
-    border: solid 1px color-text-gray-1;
+  if theme == 'grey'
+    border: solid 1px color-border-grey
+
+    &:focus
+      box-shadow: 0 0 4px 0 color-text-gray-1;
+      border: solid 1px color-text-gray-1;
+
+  if theme == 'pink'
+    border: solid 1px color-pink
+
+    &:focus
+      box-shadow: 0 0 4px 0 color-pink-light;
+      border: solid 1px color-pink-light;

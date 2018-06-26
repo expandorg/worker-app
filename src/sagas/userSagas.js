@@ -82,6 +82,15 @@ function* handleAssignAddress({ payload: { user, address } }) {
   }
 }
 
+
+export const saveProfile = (user, profile) => ({
+  type: userActionTypes.EDIT_EMAIL,
+  payload: { userId: user.id, profile },
+});
+
+const watchSaveProfile = takeEveryApiCall(userActionTypes.SAVE_PROFILE, userApi.saveProfile);
+
+
 export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
 
@@ -91,4 +100,5 @@ export function* userSagas() {
   yield fork(watchRestorePassword);
   yield fork(watchConfirmEmail);
   yield fork(watchResendConfirm);
+  yield fork(watchSaveProfile);
 }
