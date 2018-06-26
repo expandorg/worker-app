@@ -9,44 +9,35 @@ import Dialog, { DialogHeadline } from '../../common/Dialog';
 import Profile, { makeProfile } from './ProfileForm';
 
 import { saveProfile } from '../../../sagas/userSagas';
-import { userSelector } from '../../../selectors/userSelectors';
 import { userProps } from '../propTypes';
 
 import styles from './SurveyDialog.module.styl';
-
-const mapStateToProps = state => ({
-  user: userSelector(state),
-});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ saveProfile }, dispatch);
 
 class SurveyDialog extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps),
+    user: PropTypes.shape(userProps).isRequired,
     saveProfile: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    user: null,
+    onHide: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      profile: makeProfile(this.props.user),
-      visible: true,
+      profile: makeProfile(props.user),
     };
   }
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    this.setState({ visible: false });
+    this.props.onHide();
   }
 
   handleSkip = (evt) => {
     evt.preventDefault();
-    this.setState({ visible: false });
+    this.props.onHide();
   }
 
   handleProfileChange = (update) => {
@@ -56,11 +47,7 @@ class SurveyDialog extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    const { profile, visible } = this.state;
-    if (!user || !visible) {
-      return null;
-    }
+    const { profile } = this.state;
 
     return (
       <Dialog contentLabel="survey" visible hideButton>
@@ -88,4 +75,4 @@ class SurveyDialog extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SurveyDialog);
+export default connect(null, mapDispatchToProps)(SurveyDialog);
