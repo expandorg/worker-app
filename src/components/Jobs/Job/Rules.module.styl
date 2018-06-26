@@ -1,0 +1,89 @@
+@import 'common/uikit/components';
+@import 'common/uikit/colors';
+@import 'common/uikit/layout';
+
+.phWhiteGrey
+  color: color-text-gray-1
+.phDarkGrey
+  color: color-text-1   
+.btnRulesBox
+  button
+    @media(min-width: 768px)
+      width:200px!important
+      min-width:200px!important
+.btnPink
+  button('large', 'pink')
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: 200px!important
+    min-width: 200px!important
+
+.btnDisabled
+  button('large', 'grey')
+  margin: 10px 0
+
+.btnBlueTrans
+  button('medium', 'blueTransparent')
+  margin: 10px
+  padding: 0 15px
+  width: 150px!important
+  &:hover
+    background: color-blue
+    color:color-white
+// Custom styled checknbox
+.termsBox
+  margin: 76px auto 34px auto
+  width: 85%
+  label
+    display: flex
+    position: relative
+    justify-content:center
+    flex-direction: row-reverse
+    width: 100%
+    align-items:center
+    cursor: pointer
+    user-select: none
+    font-size: 12px
+    font-weight: 600
+    @media(min-width: 768px)
+      font-size:14px
+
+  /* Hide the browser's default checkbox */
+  input
+    position: absolute
+    opacity: 0
+    cursor: pointer
+  /* Create a custom checkbox */
+  .checkmark
+    position: relative
+    height: 25px
+    width: 25px
+    min-width: 25px
+    min-height: 25px
+    background-color: color-text-1 
+    border-radius: 50%
+    border: 2px solid color-text-gray-1 
+    margin-right: 6px
+    &:after
+      content: ""
+      position: absolute
+      display: none
+      left: 8px
+      top: 4px
+      width: 6px
+      height: 11px
+      border: solid color-white
+      border-width: 0 2px 2px 0
+      -webkit-transform: rotate(45deg)
+      -ms-transform: rotate(45deg)
+      transform: rotate(45deg)
+
+  input:checked~.checkmark
+    background-color: color-pink
+    border: 2px solid color-pink
+  input:checked~.checkmark:after
+    display: block
+  @media(min-width: 1150px)
+    width: 53%
+    margin: 36px auto 28px auto;
+// End custom checkbox

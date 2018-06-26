@@ -115,3 +115,32 @@ export const gemsActionTypes = createActionTypes('gems', {
   FETCH_BALANCE_COMPLETE: null,
   FETCH_BALANCE_FAILED: null,
 });
+
+export const questionsActionTypes = createActionTypes('questions', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+
+  SUBMIT: null,
+  SUBMIT_COMPLETE: null,
+  SUBMIT_FAILED: null,
+});
+
+export const answersActionTypes = createActionTypes('answers', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+
+  START: null,
+  START_COMPLETE: null,
+  START_FAILED: null,
+
+  ANSWER: null,
+  ANSWER_COMPLETE: null,
+  ANSWER_FAILED: null,
+
+  CANCEL: null,
+  CANCEL_COMPLETE: null,
+  CANCEL_FAILED: null,
+});
+

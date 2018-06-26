@@ -68,4 +68,14 @@ export const depositStateSelector = createSelector(uiStateSelector, state => sta
 
 export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
 
+export const questionStateSelector = createSelector(uiStateSelector, state => state.fetchQuestion);
+
+export const answersStateSelector = createSelector(uiStateSelector, state => state.fetchAnswer);
+
+export const startTestStateSelector = createSelector(uiStateSelector, state => state.startTest);
+
+export const postAnswerStateSelector = createSelector(uiStateSelector, state => state.postAnswer);
+
+export const cancelTestStateSelector = createSelector(uiStateSelector, state => state.cancelTest);
+
 export const withdrawStateSelector = createSelector(uiStateSelector, state => state.withdraw);

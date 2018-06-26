@@ -1,0 +1,104 @@
+@import 'common/uikit/font'
+@import 'common/uikit/colors'
+@import 'common/uikit/components'
+
+.btnPink
+  button('large', 'pink')
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: 200px!important
+    min-width: 200px!important
+
+.btnPinkTrans
+  button('large', 'white')
+  margin: 10px 0
+  @media(min-width: 768px)
+    width: 200px!important
+    min-width: 200px!important
+    margin: 10px
+.phWhiteGrey
+  color: color-text-gray-1
+.phDarkGrey
+  color: color-text-1  
+/* // Modal for wrong answer */
+.backdropStyle 
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background: rgba(8, 8, 8, 0.53)
+  padding: 50px 14px
+  z-index: 999;
+
+  .modalContainer
+    background: color-white
+    margin: 54px 0
+    padding-bottom: 72px
+    border-radius: 4px
+    button
+      width:100%  
+    @media(min-width: 768px)
+      width: 70%
+      margin: 0 auto
+    @media(min-width: 1150px)
+      margin-left: 380px;
+      margin-right: 150px;
+      width: inherit;
+    @media(min-width: 1440px)
+      margin-left: 450px;
+      margin-right: 200px;
+      width: inherit;   
+    @media(min-width: 1600px)
+      margin-left: 550px;
+      margin-right: 300px;
+      width: inherit; 
+    @media(min-width: 1750px)
+      margin-left: 650px;
+      margin-right: 400px;
+      width: inherit;       
+    .modalHeader
+      border-bottom:1px solid #f1f1f1
+      text-align: left
+      padding: 17px 20px
+      h3
+        margin: 0
+        font-size: 25px;
+        font-weight: 600
+
+    .modalFooter
+        padding: 20px;
+        button
+          justify-content: center
+          margin: 10px 0
+          @media(min-width: 768px)
+            min-width: 175px!important
+            width: 175px!important
+            margin: 10px
+        @media(min-width: 768px)
+          display: flex
+          justify-content: center
+
+    .modalBody
+      text-align: center
+      padding: 33px;
+      p
+        padding: 40px 0
+        margin: 0 auto
+        width: 90%
+      h4
+        font-size: 22px
+
+      h5
+        color:color-text-gray-1
+        font-size: 22px
+        padding-top: 30px;
+        span
+          color: color-blue
+          font-size: 22px
+          padding-right: 8px
+
+      @media(min-width: 768px)
+        width: 80%
+        margin: 40px auto 30px auto
+  

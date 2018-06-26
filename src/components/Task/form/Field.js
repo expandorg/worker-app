@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import ErrorMessage from '../../common/ErrorMessage';
 
 import TextField from './TextField';
+import OneColumn from './OneColumn';
+import TwoColums from './TwoColums';
+import YesNo from './YesNo';
 
 import { TaskFieldType } from '../../../model/enums';
 
@@ -31,6 +34,26 @@ export default class Field extends PureComponent {
       case TaskFieldType.password:
         return (
           <TextField field={field} value={value} onChange={onChange} />
+        );
+      case TaskFieldType.list:
+        return (
+          <OneColumn
+            choices={field.choices}
+            onChange={onChange}
+          />
+        );
+      case TaskFieldType.twoColumnsList:
+        return (
+          <TwoColums
+            choices={field.choices}
+            onChange={onChange}
+          />
+        );
+      case TaskFieldType.yesNo:
+        return (
+          <YesNo
+            onChange={onChange}
+          />
         );
       default:
         break;

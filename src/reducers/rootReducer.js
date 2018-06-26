@@ -15,6 +15,9 @@ import assignedTasks from './tasks/assignedTasksReducer';
 import responseEntities from './responses/responseEntitiesReducer';
 import assignedResponses from './responses/assignedResponsesReducer';
 
+import questionsEntities from './questions/questionsEntitiesReducer';
+import answersEntities from './answers/answersEntitiesReducer';
+
 import metamask from './web3/metamaskReducer';
 
 import ui from './ui';
@@ -41,5 +44,11 @@ export default combineReducers({
   ui,
   web3: combineReducers({
     metamask,
+  }),
+  questions: combineReducers({
+    entities: questionsEntities,
+  }),
+  answers: combineReducers({
+    entities: answersEntities,
   }),
 });

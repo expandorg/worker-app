@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps, assignmentProps } from '../shared/propTypes';
+import { userProps, jobProps, assignmentProps, historyProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
 
 import Job from './Job/Job';
-import AssignDialog from './AssignDialog';
 import DepositPrompt from './DepositPrompt';
 
 import { authenticated } from '../hoc/authRules';
@@ -37,6 +36,7 @@ class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps).isRequired,
+    history: PropTypes.shape(historyProps).isRequired,
     isFunded: PropTypes.bool.isRequired,
     assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
@@ -50,7 +50,6 @@ class Jobs extends Component {
     super(props);
 
     this.state = {
-      selected: null,
       emailDialog: false,
     };
   }
@@ -63,19 +62,15 @@ class Jobs extends Component {
     if (!this.props.user.emailConfirmed) {
       this.setState({ emailDialog: true });
     } else {
-      this.setState({ selected: job });
+      this.props.history.push(`/job/${job.id}`);
     }
-  }
-
-  handleCancel = () => {
-    this.setState({ selected: null });
   }
 
   render() {
     const {
       isFunded, user, jobs, assignments,
     } = this.props;
-    const { selected, emailDialog } = this.state;
+    const { emailDialog } = this.state;
 
     return (
       <Content title="Browse Jobs">
@@ -90,9 +85,6 @@ class Jobs extends Component {
             />
           ))}
         </div>
-        {selected &&
-          <AssignDialog job={selected} onHide={this.handleCancel} onAssign={this.handleAssign} />
-        }
         {emailDialog &&
           <ConfirmEmailDialog user={user} onHide={() => this.setState({ emailDialog: false })} />
         }
