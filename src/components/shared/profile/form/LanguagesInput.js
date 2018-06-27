@@ -27,9 +27,11 @@ export default class LanguagesInput extends Component {
   }
 
   handleSelect = (lang) => {
-    const { value, onChange } = this.props;
-    onChange([...new Set(value.concat(lang))]);
     this.setState({ suggest: '' });
+    if (lang) {
+      const { value, onChange } = this.props;
+      onChange([...new Set(value.concat(lang))]);
+    }
   }
 
   handleDelete = (lang) => {

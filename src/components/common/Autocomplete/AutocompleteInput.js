@@ -121,7 +121,8 @@ export default class AutocompleteInput extends Component {
     this.blur();
   }
 
-  handleClear = () => {
+  handleClear = (evt) => {
+    evt.preventDefault();
     this.handleSelect('');
   }
 

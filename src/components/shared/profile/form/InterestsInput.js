@@ -22,10 +22,12 @@ export default class InterestsInput extends Component {
     this.setState({ suggest: target.value });
   }
 
-  handleSelect = (lang) => {
-    const { value, onChange } = this.props;
-    onChange([...new Set(value.concat(lang))]);
+  handleSelect = (topic) => {
     this.setState({ suggest: '' });
+    if (topic) {
+      const { value, onChange } = this.props;
+      onChange([...new Set(value.concat(topic))]);
+    }
   }
 
   handleDelete = (lang) => {
