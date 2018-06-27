@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Tags.module.styl';
 
-const Tag = ({ value, onDelete }) => (
+export const Tag = ({ value, onDelete }) => (
   <div className={styles.tag}>
     {value}
     <button className={styles.delete} onClick={onDelete}>

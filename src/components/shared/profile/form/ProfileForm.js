@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import DateInput from '../../../common/DateInput';
+
 import ProfileField from './ProfileField';
 import LanguagesInput from './LanguagesInput';
 import GenderInput from './GenderInput';
@@ -12,20 +14,20 @@ import styles from './ProfileForm.module.styl';
 export const makeProfile = user => ({
   languages: user.languages || [],
   location: user.location || '',
-  age: user.age || 0,
+  birthday: user.birthday || new Date(),
   gender: user.gender || '',
   education: user.education || '',
-  intersts: user.intersts || [],
+  interests: user.intersts || [],
 });
 
 export default class ProfileForm extends Component {
   static propTypes = {
     languages: PropTypes.arrayOf(PropTypes.string).isRequired,
     location: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired,
+    birthday: PropTypes.instanceOf(Date).isRequired,
     gender: PropTypes.string.isRequired,
     education: PropTypes.string.isRequired,
-    intersts: PropTypes.string.isRequired,
+    interests: PropTypes.arrayOf(PropTypes.string).isRequired,
     onChange: PropTypes.func.isRequired,
   }
 
@@ -36,7 +38,7 @@ export default class ProfileForm extends Component {
 
   render() {
     const {
-      languages, location, age, gender, education, intersts,
+      languages, location, birthday, gender, education, interests,
     } = this.props;
     return (
       <div className={styles.container}>
@@ -55,13 +57,11 @@ export default class ProfileForm extends Component {
             onChange={({ target }) => this.handleChange('location', target.value)}
           />
         </ProfileField>
-        <ProfileField name="You age">
-          <input
-            type="number"
-            className={styles.input}
-            placeholder="Your age"
-            value={age}
-            onChange={({ target }) => this.handleChange('age', target.value)}
+        <ProfileField name="Birth date">
+          <DateInput
+            value={birthday}
+            className={styles.birthdate}
+            onChange={value => this.handleChange('birthday', value)}
           />
         </ProfileField>
         <ProfileField name="Gender">
@@ -76,10 +76,10 @@ export default class ProfileForm extends Component {
             onChange={value => this.handleChange('education', value)}
           />
         </ProfileField>
-        <ProfileField name="Intersts">
+        <ProfileField name="Interests">
           <InterestsInput
-            value={intersts}
-            onChange={value => this.handleChange('intersts', value)}
+            value={interests}
+            onChange={value => this.handleChange('interests', value)}
           />
         </ProfileField>
       </div>
