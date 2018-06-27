@@ -8,7 +8,7 @@ import AmountWarning from '../AmountWarning';
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';
 
-import { userBalance } from '../../../../model/balance';
+import { userBalance, WITHDRAW_MAX } from '../../../../model/balance';
 
 import styles from './WithdrawForm.module.styl';
 
@@ -23,7 +23,7 @@ export default class WithdrawForm extends Component {
     super(props, ctx);
 
     this.state = {
-      value: `${userBalance.get(props.user)}`,
+      value: `${Math.min(userBalance.get(props.user), WITHDRAW_MAX)}`,
     };
   }
 
