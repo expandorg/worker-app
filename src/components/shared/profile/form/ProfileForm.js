@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ProfileField from './ProfileField';
 import LanguagesInput from './LanguagesInput';
 import GenderInput from './GenderInput';
+import EducationInput from './EducationInput';
+import InterestsInput from './InterestsInput';
 
 import styles from './ProfileForm.module.styl';
 
@@ -13,7 +15,7 @@ export const makeProfile = user => ({
   age: user.age || 0,
   gender: user.gender || '',
   education: user.education || '',
-  intersts: user.intersts || '',
+  intersts: user.intersts || [],
 });
 
 export default class ProfileForm extends Component {
@@ -69,19 +71,15 @@ export default class ProfileForm extends Component {
           />
         </ProfileField>
         <ProfileField name="Education">
-          <input
-            type="text"
-            className={styles.input}
-            placeholder="Education level"
+          <EducationInput
             value={education}
-            onChange={({ target }) => this.handleChange('education', target.value)}
+            onChange={value => this.handleChange('education', value)}
           />
         </ProfileField>
         <ProfileField name="Intersts">
-          <textarea
-            className={styles.textarea}
+          <InterestsInput
             value={intersts}
-            onChange={({ target }) => this.handleChange('intersts', target.value)}
+            onChange={value => this.handleChange('intersts', value)}
           />
         </ProfileField>
       </div>

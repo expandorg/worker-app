@@ -13,17 +13,22 @@ export default class AutocompleteInput extends Component {
   static propTypes = {
     value: PropTypes.string,
     className: PropTypes.string,
+    allowAdd: PropTypes.bool,
+    clear: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
-    onSelect: PropTypes.func.isRequired,
+    onSelect: PropTypes.func,
     filterFn: PropTypes.func,
   }
 
   static defaultProps = {
     value: '',
+    clear: false,
+    allowAdd: false,
     options: [],
     className: null,
     filterFn: containsFilter,
+    onSelect: Function.prototype,
   }
 
   constructor(props) {
@@ -77,8 +82,13 @@ export default class AutocompleteInput extends Component {
         this.blur();
         break;
       case KeyCodes.ENTER: {
-        if (this.state.filtered.length) {
-          this.handleSelect(this.state.filtered[0]);
+        const { value, filtered } = this.state;
+        if (value) {
+          if (this.props.allowAdd) {
+            this.handleSelect(value);
+          } else if (filtered.length) {
+            this.handleSelect(filtered[0]);
+          }
         }
         break;
       }
@@ -111,9 +121,13 @@ export default class AutocompleteInput extends Component {
     this.blur();
   }
 
+  handleClear = () => {
+    this.handleSelect('');
+  }
+
   render() {
     const {
-      value, className, options, onSelect, onChange, filterFn, ...rest
+      value, className, options, onSelect, onChange, filterFn, allowAdd, clear, ...rest
     } = this.props;
     const { focus, filtered } = this.state;
     return (
@@ -128,7 +142,12 @@ export default class AutocompleteInput extends Component {
           onKeyDown={this.handleKeyDown}
           {...rest}
         />
-        {focus &&
+        {clear && value &&
+          <button className="gem-autocomplete-clear" onClick={this.handleClear} >
+            ✕
+          </button>
+        }
+        {focus && filtered.length !== 0 &&
           <AutocompleteSuggestions options={filtered} onSelect={this.handleSelect} />
         }
       </div>

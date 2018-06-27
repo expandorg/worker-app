@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import AutocompleteInput from '../../common/Autocomplete/AutocompleteInput';
+import AutocompleteInput from '../../../common/Autocomplete/AutocompleteInput';
+import Tags from './Tags';
 
-import languages from '../../../model/languages';
-
-import styles from './LanguagesInput.module.styl';
-
-
-const Lang = ({ lang, onDelete }) => (
-  <div className={styles.lang}>
-    {lang}
-    <button className={styles.delete} onClick={onDelete}>
-      ✕
-    </button>
-  </div>
-);
-
-Lang.propTypes = {
-  lang: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
-
-export default class LanguagesInput extends Component {
+export default class InterestsInput extends Component {
   static propTypes = {
     value: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
@@ -55,21 +37,17 @@ export default class LanguagesInput extends Component {
     const { value } = this.props;
     const { suggest } = this.state;
     return (
-      <div className={styles.container}>
+      <div>
         <AutocompleteInput
-          className={styles.input}
           value={suggest}
-          placeholder="Start typing..."
-          options={languages}
+          placeholder="Start typing to add..."
+          allowAdd
+          clear
           onChange={this.handleChange}
           onSelect={this.handleSelect}
         />
         {value.length > 0 &&
-          <div className={styles.list}>
-            {value.map(lang =>
-              <Lang key={lang} lang={lang} onDelete={() => this.handleDelete(lang)} />,
-            )}
-          </div>
+          <Tags tags={value} onDelete={this.handleDelete} />
         }
       </div>
     );

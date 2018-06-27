@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import SurveyDialog from './SurveyDialog';
+import OnboardingDialog from './OnboardingDialog';
 
 import { userSelector } from '../../../selectors/userSelectors';
 import { userProps } from '../propTypes';
@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
 });
 
-class Survey extends Component {
+class Onboarding extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps),
   }
@@ -36,8 +36,8 @@ class Survey extends Component {
     if (!user || !visible) {
       return null;
     }
-    return <SurveyDialog user={user} onHide={this.handleHide} />;
+    return <OnboardingDialog user={user} onHide={this.handleHide} />;
   }
 }
 
-export default connect(mapStateToProps)(Survey);
+export default connect(mapStateToProps)(Onboarding);

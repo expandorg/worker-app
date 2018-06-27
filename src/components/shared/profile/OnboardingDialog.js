@@ -6,17 +6,17 @@ import { bindActionCreators } from 'redux';
 
 import Dialog, { DialogHeadline } from '../../common/Dialog';
 
-import Profile, { makeProfile } from './ProfileForm';
+import Profile, { makeProfile } from './form/ProfileForm';
 
 import { saveProfile } from '../../../sagas/userSagas';
 import { userProps } from '../propTypes';
 
-import styles from './SurveyDialog.module.styl';
+import styles from './OnboardingDialog.module.styl';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ saveProfile }, dispatch);
 
-class SurveyDialog extends Component {
+class OnboardingDialog extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     saveProfile: PropTypes.func.isRequired,
@@ -75,4 +75,4 @@ class SurveyDialog extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SurveyDialog);
+export default connect(null, mapDispatchToProps)(OnboardingDialog);
