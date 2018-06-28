@@ -4,7 +4,9 @@ import cn from 'classnames';
 
 import { targetIsDescendant, KeyCodes } from '../../../common/dom';
 
-import AutocompleteSuggestions from './AutocompleteSuggestions';
+import Suggestions from './Suggestions';
+import Suggestion from './Suggestion';
+
 import { containsFilter } from './filterOptions';
 
 import './AutocompleteInput.styl';
@@ -149,7 +151,11 @@ export default class AutocompleteInput extends Component {
           </button>
         }
         {focus && filtered.length !== 0 &&
-          <AutocompleteSuggestions options={filtered} onSelect={this.handleSelect} />
+          <Suggestions>
+            {filtered.map(suggest =>
+              <Suggestion key={suggest} value={suggest} onSelect={this.handleSelect} />,
+            )}
+          </Suggestions>
         }
       </div>
     );

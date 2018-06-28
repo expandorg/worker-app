@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import DateInput from '../../../common/DateInput';
+import AutocompletePlaces from '../../../common/Autocomplete/AutocompletePlaces';
 
 import ProfileField from './ProfileField';
 import LanguagesInput from './LanguagesInput';
@@ -49,12 +50,10 @@ export default class ProfileForm extends Component {
           />
         </ProfileField>
         <ProfileField name="Location">
-          <input
-            type="text"
+          <AutocompletePlaces
             placeholder="Country, City"
-            className={styles.input}
             value={location}
-            onChange={({ target }) => this.handleChange('location', target.value)}
+            onChange={value => this.handleChange('location', value)}
           />
         </ProfileField>
         <ProfileField name="Birth date">
