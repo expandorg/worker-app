@@ -24,13 +24,11 @@ export default class JsScript extends Component {
 
   componentDidMount() {
     const { src, async, defer } = this.props;
-    if (!this.state.loaded) {
-      jsScripts.addScript(src, async, defer, this.handleLoad);
-    }
+    this.unsubsribe = jsScripts.addScript(src, async, defer, this.handleLoad);
   }
 
   componentWillUnmount() {
-    jsScripts.unsubsribe(this.props.src, this.handleLoad);
+    this.unsubsribe();
   }
 
   handleLoad = () => {

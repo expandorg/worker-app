@@ -1,0 +1,72 @@
+// @flow
+
+import { PubSubMap } from '../common/pubsub';
+
+export class ReverseGeocoder extends PubSubMap {
+  valuesCache: Map<string, string> = new Map();
+
+  geocoder: Object
+
+  getGeocoder() {
+    if (!this.geocoder) {
+      this.geocoder = new window.google.maps.Geocoder();
+    }
+    return this.geocoder;
+  }
+
+  getKey = (lat: number, lng: number) =>
+    `${lat},${lng}`
+
+  getCity = (lat: number, lng: number) => {
+    this.valuesCache.get(this.getKey(lat, lng));
+  }
+
+  locateCity = (lat: number, lng: number, onComplete: Function) => {
+    const key = this.getKey(lat, lng);
+    if (!this.hasKey(key)) {
+      this.startGeocoding(lat, lng);
+    }
+    return this.subscribe(key, onComplete);
+  }
+
+  startGeocoding = (lat: number, lng: number) => {
+    const latLng = new window.google.maps.LatLng(lat, lng);
+
+    this.getGeocoder().geocode({ latLng }, (results, status) => {
+      if (status === window.google.maps.GeocoderStatus.OK) {
+        const key = this.getKey(lat, lng);
+        const address = this.extractAddress(results);
+
+        this.valuesCache.set(key, address);
+        this.notify(key, address);
+      }
+    });
+  }
+
+  extractAddress = (results: Array<Object>): string => {
+    const components = [
+      'administrative_area_level_1',
+      'locality',
+      'country',
+    ];
+    const address = {};
+    for (let x = 0; x < results.length; x += 1) {
+      for (let y = 0; y < results[x].address_components.length; y += 1) {
+        if (!components.length) {
+          break;
+        }
+        const type = results[x].address_components[y].types[0];
+        if (!address[type]) {
+          const index = components.indexOf(type);
+          if (index !== -1) {
+            address[type] = results[x].address_components[y].long_name;
+            components.splice(index, 1);
+          }
+        }
+      }
+    }
+    return [address.country, address.locality, address.administrative_area_level_1].join(', ');
+  }
+}
+
+export const reverseGeocoder = new ReverseGeocoder();

@@ -4,16 +4,25 @@ import cn from 'classnames';
 
 import PlacesAutocomplete from 'react-places-autocomplete';
 
+import settings from '../../../common/settings';
+
+import { reverseGeocoder } from '../../../services/ReverseGeocoder';
+
 import AutocompleteInput from './AutocompleteInput';
 import Suggestions from './Suggestions';
 
 import withScript from '../withScript';
+import withCurrentLocation from '../withCurrentLocation';
 
 const googlePlaces = 'https://maps.googleapis.com/maps/api/js?libraries=places';
 
 class AutocompletePlaces extends Component {
   static propTypes = {
     value: PropTypes.string,
+    latLng: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+    }),
     jsLoaded: PropTypes.bool.isRequired,
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
@@ -21,12 +30,43 @@ class AutocompletePlaces extends Component {
 
   static defaultProps = {
     value: '',
+    latLng: null,
     className: null,
+  }
+
+  componentDidMount() {
+    this.tryGetCurrentCity();
+  }
+
+  componentDidUpdate({ latLng: prevLatLng, jsLoaded: prevLoaded }) {
+    const { jsLoaded, latLng } = this.props;
+    if ((jsLoaded && !prevLoaded && latLng) || (latLng && !prevLatLng && jsLoaded)) {
+      this.tryGetCurrentCity();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.unsibscribe) {
+      this.unsibscribe();
+    }
+  }
+
+  tryGetCurrentCity() {
+    const { jsLoaded, latLng } = this.props;
+    if (latLng && jsLoaded) {
+      this.unsibscribe = reverseGeocoder.locateCity(latLng.lat, latLng.lng, this.handleCurrentCity);
+    }
+  }
+
+  handleCurrentCity = (city) => {
+    if (!this.props.value) {
+      this.props.onChange(city);
+    }
   }
 
   render() {
     const {
-      className, value, onChange, jsLoaded, ...rest
+      className, value, onChange, jsLoaded, latLng, ...rest
     } = this.props;
     if (!jsLoaded) {
       return (
@@ -45,7 +85,7 @@ class AutocompletePlaces extends Component {
             <input
               {...props.getInputProps({ className: 'gem-autocomplete-input', ...rest })}
             />
-            {props.suggestions.length > 0 &&
+            {props.suggestions.length !== 0 &&
               <Suggestions>
                 {props.suggestions.map(suggestion => (
                   <div {...props.getSuggestionItemProps(suggestion, { className: 'gem-autocomplete-suggestion' })} >
@@ -61,6 +101,6 @@ class AutocompletePlaces extends Component {
   }
 }
 
-export default withScript(
-  `${googlePlaces}&key=AIzaSyC_tVILLYrsPVZbJxBbJmJyxiC6vG9CB0I`,
-)(AutocompletePlaces);
+export default withScript(`${googlePlaces}&key=${settings.googleMapsKey}`)(
+  withCurrentLocation(AutocompletePlaces),
+);

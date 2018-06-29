@@ -1,38 +1,22 @@
 // @flow
+import { PubSubMap } from './pubsub';
 
-export class JsScripts {
-  installed: Set<string> = new Set();
-  complete: Set<string> = new Set();
-  callbacks: Map<string, Function> = new Map();
-
+export class JsScripts extends PubSubMap {
   addScript = (src: string, async: boolean, defer: boolean, onLoad: Function) => {
-    if (!this.installed.has(src)) {
+    if (!this.hasKey(src)) {
       const script = this.createScript(src, async, defer);
-
-      this.callbacks.set(src, onLoad);
       script.onload = () => {
-        this.complete.add(src);
         this.notify(src);
       };
-
       document.body.appendChild(script);
-      this.installed.add(src);
     }
+    return this.subscribe(src, onLoad);
   }
 
-  unsubsribe = (src: string) => {
-    this.callbacks.delete(src);
+  isLoaded = (src: string) => {
+    const pubSub = this.map.get(src);
+    return !!pubSub && pubSub.notified;
   }
-
-  notify = (src: string) => {
-    const loadHandler = this.callbacks.get(src);
-    if (loadHandler) {
-      loadHandler();
-    }
-  }
-
-  isLoaded = (src: string) =>
-    this.complete.has(src);
 
   createScript = (src: string, async: boolean, defer: boolean) => {
     const script = document.createElement('script');
