@@ -14,7 +14,7 @@ import Suggestions from './Suggestions';
 import withScript from '../withScript';
 import withCurrentLocation from '../withCurrentLocation';
 
-const googlePlaces = 'https://maps.googleapis.com/maps/api/js?libraries=places';
+const googlePlaces = 'https://maps.googleapis.com/maps/api/js?libraries=places&language=en';
 
 class AutocompletePlaces extends Component {
   static propTypes = {
