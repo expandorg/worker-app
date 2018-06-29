@@ -7,11 +7,13 @@ import { bindActionCreators } from 'redux';
 import Dialog, { DialogHeadline } from '../../common/Dialog';
 
 import Profile, { makeProfile } from './form/ProfileForm';
+import { TooltipSpan, TooltipButton, WhyText } from './tooltips';
 
 import { saveProfile } from '../../../sagas/userSagas';
 import { userProps } from '../propTypes';
 
 import styles from './OnboardingDialog.module.styl';
+
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ saveProfile }, dispatch);
@@ -52,7 +54,14 @@ class OnboardingDialog extends Component {
     return (
       <Dialog contentLabel="survey" visible hideButton>
         <DialogHeadline>
-          Tell us about yourself
+          Fill out your profile
+          <TooltipSpan
+            className={styles.why}
+            tooltip={<WhyText />}
+            tooltipOrientation="bottom"
+          >
+            why?
+          </TooltipSpan>
         </DialogHeadline>
         <div className={styles.container}>
           <form className={styles.content} onSubmit={this.handleSubmit}>
@@ -61,9 +70,13 @@ class OnboardingDialog extends Component {
               onChange={this.handleProfileChange}
             />
             <div className={styles.row}>
-              <button onClick={this.handleSkip} className={styles.skip}>
+              <TooltipButton
+                onClick={this.handleSkip}
+                className={styles.skip}
+                tooltip={<WhyText />}
+              >
                 Skip
-              </button>
+              </TooltipButton>
               <button type="submit" className={styles.submit}>
                 Save
               </button>
