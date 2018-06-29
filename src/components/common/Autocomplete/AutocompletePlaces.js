@@ -36,6 +36,14 @@ class AutocompletePlaces extends Component {
 
   componentDidMount() {
     this.tryGetCurrentCity();
+    const { value, onChange, latLng } = this.props;
+
+    if (!value && latLng) {
+      const city = reverseGeocoder.getCity(latLng.lat, latLng.lng);
+      if (city) {
+        onChange(city);
+      }
+    }
   }
 
   componentDidUpdate({ latLng: prevLatLng, jsLoaded: prevLoaded }) {

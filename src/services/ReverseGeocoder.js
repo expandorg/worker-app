@@ -5,15 +5,6 @@ import { PubSubMap } from '../common/pubsub';
 export class ReverseGeocoder extends PubSubMap {
   valuesCache: Map<string, string> = new Map();
 
-  geocoder: Object
-
-  getGeocoder() {
-    if (!this.geocoder) {
-      this.geocoder = new window.google.maps.Geocoder();
-    }
-    return this.geocoder;
-  }
-
   getKey = (lat: number, lng: number) =>
     `${lat},${lng}`
 
@@ -31,8 +22,9 @@ export class ReverseGeocoder extends PubSubMap {
 
   startGeocoding = (lat: number, lng: number) => {
     const latLng = new window.google.maps.LatLng(lat, lng);
+    const geocoder = new window.google.maps.Geocoder();
 
-    this.getGeocoder().geocode({ latLng }, (results, status) => {
+    geocoder.geocode({ latLng }, (results, status) => {
       if (status === window.google.maps.GeocoderStatus.OK) {
         const key = this.getKey(lat, lng);
         const address = this.extractAddress(results);
