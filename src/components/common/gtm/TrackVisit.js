@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import withGtm from './withGtm';
-import { GoogleAnalytics } from '../../../common/GoogleAnalytics';
+import { GoogleTagManager } from '../../../services/GoogleTagManager';
 
 import { locationProps } from '../../shared/propTypes';
 
 class TrackVisit extends Component {
   static propTypes = {
     location: PropTypes.shape(locationProps).isRequired,
-    gtm: PropTypes.instanceOf(GoogleAnalytics).isRequired,
+    gtm: PropTypes.instanceOf(GoogleTagManager).isRequired,
   }
 
   componentDidUpdate({ location, gtm }) {

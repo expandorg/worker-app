@@ -1,23 +1,23 @@
 import React, { Component, createContext } from 'react';
 
 import settings from '../../../common/settings';
-import { ga } from '../../../common/GoogleAnalytics';
+import { gtm } from '../../../services/GoogleTagManager';
 
 import withScript from '../withScript';
 
 export const GtmContext = createContext(null);
 
-const src = 'https://www.googletagmanager.com/gtag/js';
+const src = 'https://www.googletagmanager.com/gtm.js';
 
 class GtmProvider extends Component {
   render() {
     const { children } = this.props;
     return (
-      <GtmContext.Provider value={ga}>
+      <GtmContext.Provider value={gtm}>
         {children}
       </GtmContext.Provider>
     );
   }
 }
 
-export default withScript(`${src}?id=${settings.gaTrackingId}`)(GtmProvider);
+export default withScript(`${src}?id=${settings.gtmTrackingId}`)(GtmProvider);

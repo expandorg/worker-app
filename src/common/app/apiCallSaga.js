@@ -3,7 +3,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { validate } from '../validation';
 
-import { ga } from '../GoogleAnalytics';
+import { gtm } from '../../services/GoogleTagManager';
 
 export type ReduxAction = {
   type: string,
@@ -11,7 +11,15 @@ export type ReduxAction = {
   meta: ?{
     validation?: Object,
     schema?: Object,
-    params?: Object
+    params?: Object,
+    track?: {
+      action?: string,
+      actionParams?: any,
+      success?: string,
+      successParams?: any,
+      failed?: string,
+      failedParams?: any,
+    }
   },
   [key: string]: any
 }
@@ -24,7 +32,7 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
       }
 
       if (meta && meta.track) {
-        ga.event(meta.track.action, meta.track.actionParams);
+        gtm.event(meta.track.action, meta.track.actionParams);
       }
       let result = yield call(asyncCall, payload);
 
@@ -34,12 +42,12 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
 
       yield put({ type: `${actionType}_COMPLETE`, payload: result, meta });
       if (meta && meta.track) {
-        ga.event(meta.track.success, meta.track.successParams);
+        gtm.event(meta.track.success, meta.track.successParams);
       }
     } catch (error) {
       yield put({ type: `${actionType}_FAILED`, payload: error, meta });
       if (meta && meta.track) {
-        ga.event(meta.track.failed, meta.track.failedParams);
+        gtm.event(meta.track.failed, meta.track.failedParams);
       }
     }
   }
