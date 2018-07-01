@@ -1,7 +1,7 @@
 import React, { Component, createContext } from 'react';
 
 import settings from '../../../common/settings';
-import { gtm } from '../../../services/GoogleTagManager';
+import { gtm } from '../../../common/gtm/GoogleTagManager';
 
 import withScript from '../withScript';
 

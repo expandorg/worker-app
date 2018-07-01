@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import TrackVisit from '../common/gtm/TrackVisit';
 import GtmProvider from '../common/gtm/GtmProvider';
 
 import Header from './Header';
@@ -29,7 +28,6 @@ export default class AppPage extends Component {
           <div className="gem-page-content">
             {children}
           </div>
-          <TrackVisit />
         </div>
       </GtmProvider>
     );

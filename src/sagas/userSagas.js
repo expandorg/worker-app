@@ -5,7 +5,7 @@ import { userActionTypes } from './actionTypes';
 
 import { gemsService } from '../services/GemsService';
 import { userApi } from '../api/UserApi';
-import { GTMEvents } from '../model/enums';
+import { GtmActions } from '../common/gtm/GtmEvents';
 
 export const editEmail = (user, email) => ({
   type: userActionTypes.EDIT_EMAIL,
@@ -36,7 +36,7 @@ export const changePassword = (user, newPassword, oldPassword) => ({
   payload: { userId: user.id, newPassword, oldPassword },
   meta: {
     track: {
-      action: GTMEvents.password_change,
+      action: GtmActions.password_change,
     },
   },
 });
@@ -52,7 +52,7 @@ export const resetPassword = email => ({
   payload: { email },
   meta: {
     track: {
-      action: GTMEvents.password_forgot,
+      action: GtmActions.password_forgot,
     },
   },
 });

@@ -11,7 +11,7 @@ import { gemsService } from '../services/GemsService';
 import { userSelector } from '../selectors/userSelectors';
 
 import { authResponseSchema } from '../model/schemas';
-import { GTMEvents } from '../model/enums';
+import { ua, GtmActions } from '../common/gtm/GtmEvents';
 
 export const depositGems = deposit => ({
   type: gemsActionTypes.DEPOSIT,
@@ -47,10 +47,7 @@ export const withdrawPayments = (user, withdrawal) => ({
   meta: {
     schema: authResponseSchema,
     track: {
-      action: GTMEvents.withdraw,
-      actionParams: {
-        value: withdrawal,
-      },
+      action: ua(GtmActions.withdraw, withdrawal),
     },
   },
 });

@@ -9,7 +9,7 @@ import { gemsService } from '../services/GemsService';
 import { authApi } from '../api/AuthApi';
 
 import { loginValidation, signupValidation } from '../model/user';
-import { GTMEvents } from '../model/enums';
+import { GtmActions } from '../common/gtm/GtmEvents';
 
 import { userSelector } from '../selectors/userSelectors';
 
@@ -31,7 +31,7 @@ export const login = (email, password) => ({
     validation: loginValidation,
     schema: authResponseSchema,
     track: {
-      action: GTMEvents.login,
+      action: GtmActions.login,
     },
   },
 });
@@ -46,7 +46,7 @@ export const signup = form => ({
     validation: signupValidation,
     schema: authResponseSchema,
     track: {
-      action: GTMEvents.signup,
+      action: GtmActions.signup,
     },
   },
 });

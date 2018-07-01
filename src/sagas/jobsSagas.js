@@ -5,7 +5,7 @@ import { jobsActionTypes } from './actionTypes';
 
 import { jobsApi } from '../api/JobsApi';
 import { jobSchema, authResponseSchema } from '../model/schemas';
-import { GTMEvents } from '../model/enums';
+import { GtmActions } from '../common/gtm/GtmEvents';
 
 export const fetchJobs = () => ({
   type: jobsActionTypes.FETCH_LIST,
@@ -31,7 +31,7 @@ export const assignJob = jobId => ({
   meta: {
     schema: authResponseSchema,
     track: {
-      action: GTMEvents.job_assign,
+      action: GtmActions.job_assign,
     },
   },
 });
