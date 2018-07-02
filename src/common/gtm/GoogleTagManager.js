@@ -33,7 +33,6 @@ export class GoogleTagManager {
     if (GoogleTagManager.inited) {
       window.dataLayer.push(data);
     } else {
-      console.log('track-event:', data);
       GoogleTagManager.queue.push(data);
     }
   }
