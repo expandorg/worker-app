@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const loaded = new Set();
 
-const withScript = (src, async = true, defer = false) => (Wrapped) => {
+const withScript = (src, async = true, defer = false, disabled = false) => (Wrapped) => {
   class WithScriptWrapper extends Component {
     static propTypes = {
       forwardedRef: PropTypes.func,
@@ -16,6 +16,9 @@ const withScript = (src, async = true, defer = false) => (Wrapped) => {
     }
 
     componentDidMount() {
+      if (disabled) {
+        return;
+      }
       const { onLoad } = this.props;
       if (loaded.has(src)) {
         return;

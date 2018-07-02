@@ -7,7 +7,7 @@ import withScript from '../withScript';
 
 export const GtmContext = createContext(null);
 
-const src = 'https://www.googletagmanager.com/gtm.js';
+const src = `https://www.googletagmanager.com/gtm.js?id=${settings.gtmTrackingId}`;
 
 class GtmProvider extends Component {
   render() {
@@ -20,4 +20,4 @@ class GtmProvider extends Component {
   }
 }
 
-export default withScript(`${src}?id=${settings.gtmTrackingId}`)(GtmProvider);
+export default withScript(src, true, false, !settings.gtmTrackingId)(GtmProvider);
