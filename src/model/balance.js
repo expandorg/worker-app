@@ -21,12 +21,12 @@ export class Balance {
   }
 
   canDeposit(amount: number, gemsBalance: number) {
-    return (DEPOSIT_MIN <= gemsBalance) && (DEPOSIT_MIN <= amount) && (amount <= DEPOSIT_MAX);
+    return (gemsBalance >= DEPOSIT_MIN) && (amount >= DEPOSIT_MIN) && (amount <= DEPOSIT_MAX);
   }
 
   canWithdraw(user: Object, amount: number) {
     const balance = this.get(user);
-    return (WITHDRAW_MIN <= amount) && (amount <= balance) && (amount <= WITHDRAW_MAX);
+    return (amount >= WITHDRAW_MIN) && (amount <= balance) && (amount <= WITHDRAW_MAX);
   }
 
   get(user: Object) {
