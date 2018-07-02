@@ -21,6 +21,7 @@ const message = () =>
 export default class DepositForm extends Component {
   static propTypes = {
     submitState: PropTypes.shape(requestStateProps).isRequired,
+    fetchState: PropTypes.shape(requestStateProps).isRequired,
     gemsBalance: PropTypes.number.isRequired,
     stage: PropTypes.number.isRequired,
     onDeposit: PropTypes.func.isRequired,
@@ -46,17 +47,24 @@ export default class DepositForm extends Component {
   }
 
   render() {
-    const { stage, submitState, gemsBalance } = this.props;
+    const {
+      stage, submitState, fetchState, gemsBalance,
+    } = this.props;
     const { value } = this.state;
 
     const available = gemsBalance >= DEPOSIT_MIN;
     const disabled = !userBalance.canDeposit(+value, gemsBalance);
-    const isFetching = submitState.state === RequestStates.Fetching;
+    const isSubmitting = submitState.state === RequestStates.Fetching;
 
+    const isFetching =
+      fetchState.state === RequestStates.Fetching || fetchState.state === RequestStates.NotFetched;
     return (
       <div className={styles.container}>
-        <Description gemsBalance={gemsBalance} />
-        {!isFetching && available &&
+        <Description
+          gemsBalance={gemsBalance}
+          isFetching={isFetching}
+        />
+        {!isSubmitting && available &&
           <form className={styles.form} onSubmit={this.handleSubmit} >
             <div className={styles.row}>
               <input
@@ -73,10 +81,10 @@ export default class DepositForm extends Component {
             <ErrorMessage error={submitState.error} className={styles.error} />
           </form>
         }
-        {isFetching &&
+        {isSubmitting &&
           <Loading value={value} stage={stage} />
         }
-        <Prompt when={isFetching} message={message} />
+        <Prompt when={isSubmitting} message={message} />
       </div>
     );
   }

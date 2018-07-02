@@ -8,7 +8,10 @@ import { gemsActionTypes } from './actionTypes';
 import { userApi } from '../api/UserApi';
 import { gemsService } from '../services/GemsService';
 
+import { RequestStates } from '../common/app/requestUiState';
+
 import { userSelector } from '../selectors/userSelectors';
+import { initGemsStateSelector } from '../selectors/uiStateSelectors';
 
 import { authResponseSchema } from '../model/schemas';
 import { ua, GtmActions } from '../common/gtm/GtmEvents';
@@ -24,20 +27,27 @@ export const depositGems = deposit => ({
 function* handleDeposit({ payload: { deposit } }) {
   try {
     // approve depost tx
-    yield call(gemsService.approve, deposit);
+    const initGemsState = yield select(initGemsStateSelector);
+    if (initGemsState.state === RequestStates.Fetched) {
+      yield call(gemsService.approve, deposit);
 
-    yield put({ type: gemsActionTypes.DEPOSIT_STAGE, payload: 2 });
-    const user = yield select(userSelector);
+      yield put({ type: gemsActionTypes.DEPOSIT_STAGE, payload: 2 });
+      const user = yield select(userSelector);
 
-    const data = yield call(userApi.deposit, { deposit, userId: user.id });
-    const payload = normalize(data, authResponseSchema);
-    yield put({
-      type: gemsActionTypes.DEPOSIT_COMPLETE,
-      payload,
-      meta: {
-        track: { action: ua(GtmActions.DepositSuccess, deposit) },
-      },
-    });
+      const data = yield call(userApi.deposit, { deposit, userId: user.id });
+      const payload = normalize(data, authResponseSchema);
+      yield put({ 
+        type: gemsActionTypes.DEPOSIT_COMPLETE, 
+        payload,
+        meta: {
+          track: { action: ua(GtmActions.DepositSuccess, deposit) },
+        },        
+      });
+    } else if (initGemsState.error) {
+      throw new Error('Your ethereum address is no longer active in Metamask');
+    } else {
+      throw new Error('Metamask is not avaiable');
+    }
   } catch (error) {
     yield put({
       type: gemsActionTypes.DEPOSIT_FAILED,
