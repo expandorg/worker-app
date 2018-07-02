@@ -14,6 +14,8 @@ export type ReduxActionMeta = {
 export type ReduxAction = {
   type: string,
   payload: any,
+  complete?: boolean,
+  failed?: boolean,
   meta: ?ReduxActionMeta,
   [key: string]: any
 }

@@ -31,7 +31,7 @@ export const assignJob = jobId => ({
   meta: {
     schema: authResponseSchema,
     track: {
-      action: GtmActions.job_assign,
+      action: GtmActions.JobAssign,
     },
   },
 });

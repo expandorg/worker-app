@@ -16,6 +16,9 @@ import { ua, GtmActions } from '../common/gtm/GtmEvents';
 export const depositGems = deposit => ({
   type: gemsActionTypes.DEPOSIT,
   payload: { deposit },
+  meta: {
+    track: { action: ua(GtmActions.Deposit, deposit) },
+  },
 });
 
 function* handleDeposit({ payload: { deposit } }) {
@@ -28,9 +31,21 @@ function* handleDeposit({ payload: { deposit } }) {
 
     const data = yield call(userApi.deposit, { deposit, userId: user.id });
     const payload = normalize(data, authResponseSchema);
-    yield put({ type: gemsActionTypes.DEPOSIT_COMPLETE, payload });
+    yield put({
+      type: gemsActionTypes.DEPOSIT_COMPLETE,
+      payload,
+      meta: {
+        track: { action: ua(GtmActions.DepositSuccess, deposit) },
+      },
+    });
   } catch (error) {
-    yield put({ type: gemsActionTypes.DEPOSIT_FAILED, payload: error });
+    yield put({
+      type: gemsActionTypes.DEPOSIT_FAILED,
+      payload: error,
+      meta: {
+        track: { action: GtmActions.DepositFailed },
+      },
+    });
   }
 }
 
@@ -47,7 +62,9 @@ export const withdrawPayments = (user, withdrawal) => ({
   meta: {
     schema: authResponseSchema,
     track: {
-      action: ua(GtmActions.withdraw, withdrawal),
+      action: ua(GtmActions.Withdraw, withdrawal),
+      complete: ua(GtmActions.WithdrawSuccess, withdrawal),
+      failed: GtmActions.WithdrawFailed,
     },
   },
 });

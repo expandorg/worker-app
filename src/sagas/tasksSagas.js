@@ -23,7 +23,7 @@ export const submitTask = (taskId, form, rules) => ({
     schema: { assignedTasks: [taskSchema] },
     validation: { form: rules },
     track: {
-      action: GtmActions.task_submitted,
+      action: GtmActions.TaskSubmit,
     },
   },
 });

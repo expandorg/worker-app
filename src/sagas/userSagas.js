@@ -35,9 +35,7 @@ export const changePassword = (user, newPassword, oldPassword) => ({
   type: userActionTypes.CHANGE_PASSWORD,
   payload: { userId: user.id, newPassword, oldPassword },
   meta: {
-    track: {
-      action: GtmActions.password_change,
-    },
+    track: { action: GtmActions.ChangePassword },
   },
 });
 
@@ -51,9 +49,7 @@ export const resetPassword = email => ({
   type: userActionTypes.RESET_PASSWORD,
   payload: { email },
   meta: {
-    track: {
-      action: GtmActions.password_forgot,
-    },
+    track: { action: GtmActions.ForgotPassword },
   },
 });
 

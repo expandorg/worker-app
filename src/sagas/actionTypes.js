@@ -1,9 +1,7 @@
 
 // @flow
-import { keyMirror } from '../common/utils';
+import createActionTypes from '../common/app/createActionTypes';
 
-export const createActionTypes = (scope: string, actionTypes: Object) =>
-  keyMirror(actionTypes, key => `${scope}/${key}`);
 
 export const appActionTypes = createActionTypes('app', {
   INIT: null,

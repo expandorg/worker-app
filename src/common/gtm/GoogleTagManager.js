@@ -1,7 +1,6 @@
 // @flow
 
 import settings from '../settings';
-import { GtmEventsMeta } from './GtmEvents';
 
 export class GoogleTagManager {
   static inited: boolean = false;
@@ -31,7 +30,6 @@ export class GoogleTagManager {
   }
 
   track(data: Object) {
-    console.log(data);
     if (GoogleTagManager.inited) {
       window.dataLayer.push(data);
     } else {
@@ -39,29 +37,26 @@ export class GoogleTagManager {
     }
   }
 
-  createUAEvent = (action: ?string | ?Object): ?Object => {
+  createUAEvent = (event: ?string | ?Object): ?Object => {
     let uaLayer = null;
-    if (action) {
-      if (typeof action === 'object') {
-        const event = GtmEventsMeta[action.action];
-        if (event) {
-          uaLayer = { ...event, ...action };
-        }
-      } else if (typeof action === 'string') {
-        const event = GtmEventsMeta[action];
-        if (event) {
-          uaLayer = { ...event, action };
-        }
+    if (event) {
+      if (typeof event === 'object') {
+        const [category, action] = event.action.split('/');
+        uaLayer = { ...event, category, action };
+      } else if (typeof event === 'string') {
+        const [category, action] = event.split('/');
+        uaLayer = { category, action };
       }
     }
-    if (uaLayer) {
-      return { event: 'uaEvent', ua: uaLayer };
+    if (!uaLayer) {
+      return undefined;
     }
-    return undefined;
+    return { event: 'uaEvent', ua: uaLayer };
   }
 
   event = (action: ?string | ?Object) => {
     const event = this.createUAEvent(action);
+    console.log('event:', event);
     if (event) {
       this.track(event);
     }

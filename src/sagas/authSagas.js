@@ -9,7 +9,7 @@ import { gemsService } from '../services/GemsService';
 import { authApi } from '../api/AuthApi';
 
 import { loginValidation, signupValidation } from '../model/user';
-import { GtmActions } from '../common/gtm/GtmEvents';
+import { GtmActions, ua } from '../common/gtm/GtmEvents';
 
 import { userSelector } from '../selectors/userSelectors';
 
@@ -31,7 +31,7 @@ export const login = (email, password) => ({
     validation: loginValidation,
     schema: authResponseSchema,
     track: {
-      action: GtmActions.login,
+      action: ua(GtmActions.Login, undefined, 'email'),
     },
   },
 });
@@ -46,7 +46,7 @@ export const signup = form => ({
     validation: signupValidation,
     schema: authResponseSchema,
     track: {
-      action: GtmActions.signup,
+      action: ua(GtmActions.Signup, undefined, 'email'),
     },
   },
 });
@@ -56,6 +56,11 @@ const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser)
 export const logout = () => ({
   type: authActionTypes.LOGOUT,
   payload: null,
+  meta: {
+    track: {
+      action: GtmActions.Logout,
+    },
+  },
 });
 
 const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
@@ -64,6 +69,9 @@ const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
 export const loginMetamask = () => ({
   type: authActionTypes.LOGIN_METAMASK,
   payload: null,
+  meta: {
+    track: { action: ua(GtmActions.Login, undefined, 'metamask') },
+  },
 });
 
 function* handleLoginMetamask() {
@@ -82,6 +90,9 @@ function* handleLoginMetamask() {
 export const signupMetamask = () => ({
   type: authActionTypes.SIGNUP_METAMASK,
   payload: null,
+  meta: {
+    track: { action: ua(GtmActions.Signup, undefined, 'metamask') },
+  },
 });
 
 function* handleSignupMetamask() {
