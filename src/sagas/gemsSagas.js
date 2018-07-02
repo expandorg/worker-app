@@ -36,12 +36,12 @@ function* handleDeposit({ payload: { deposit } }) {
 
       const data = yield call(userApi.deposit, { deposit, userId: user.id });
       const payload = normalize(data, authResponseSchema);
-      yield put({ 
-        type: gemsActionTypes.DEPOSIT_COMPLETE, 
+      yield put({
+        type: gemsActionTypes.DEPOSIT_COMPLETE,
         payload,
         meta: {
           track: { action: ua(GtmActions.DepositSuccess, deposit) },
-        },        
+        },
       });
     } else if (initGemsState.error) {
       throw new Error('Your ethereum address is no longer active in Metamask');
