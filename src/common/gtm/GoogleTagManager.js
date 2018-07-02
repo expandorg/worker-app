@@ -33,6 +33,7 @@ export class GoogleTagManager {
     if (GoogleTagManager.inited) {
       window.dataLayer.push(data);
     } else {
+      console.log('track-event:', data);
       GoogleTagManager.queue.push(data);
     }
   }
@@ -56,7 +57,6 @@ export class GoogleTagManager {
 
   event = (action: ?string | ?Object) => {
     const event = this.createUAEvent(action);
-    console.log('event:', event);
     if (event) {
       this.track(event);
     }
