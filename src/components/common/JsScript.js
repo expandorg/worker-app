@@ -8,11 +8,13 @@ export default class JsScript extends Component {
     src: PropTypes.string.isRequired,
     async: PropTypes.bool,
     defer: PropTypes.bool,
+    disable: PropTypes.bool,
   }
 
   static defaultProps = {
     async: true,
     defer: false,
+    disable: false,
   }
 
   constructor(props) {
@@ -23,12 +25,18 @@ export default class JsScript extends Component {
   }
 
   componentDidMount() {
-    const { src, async, defer } = this.props;
-    this.unsubsribe = jsScripts.addScript(src, async, defer, this.handleLoad);
+    const {
+      src, async, defer, disable,
+    } = this.props;
+    if (!disable) {
+      this.unsubsribe = jsScripts.addScript(src, async, defer, this.handleLoad);
+    }
   }
 
   componentWillUnmount() {
-    this.unsubsribe();
+    if (!this.props.disable) {
+      this.unsubsribe();
+    }
   }
 
   handleLoad = () => {
