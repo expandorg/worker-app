@@ -17,7 +17,8 @@ import Deposit from './gems/deposit/Deposit';
 import Withdraw from './gems/withdaw/Withdraw';
 
 import Reserved from './gems/Reserved';
-import AmountWarning from './gems/AmountWarning';
+
+import { WITHDRAW_MIN } from '../../model/balance';
 
 import { authenticated } from '../hoc/authRules';
 import { userProps } from '../shared/propTypes';
@@ -71,7 +72,7 @@ class Account extends Component {
             </div>
           </Field>
           <Field>
-            <AmountWarning />
+            *Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} GEM tokens
           </Field>
         </Panel>
       </Content>

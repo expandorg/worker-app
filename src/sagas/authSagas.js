@@ -9,6 +9,7 @@ import { gemsService } from '../services/GemsService';
 import { authApi } from '../api/AuthApi';
 
 import { loginValidation, signupValidation } from '../model/user';
+import { GtmActions, ua } from '../common/gtm/GtmEvents';
 
 import { userSelector } from '../selectors/userSelectors';
 
@@ -26,7 +27,13 @@ const watchGetCurrent = takeEveryApiCall(authActionTypes.GET_CURRENT, authApi.ge
 export const login = (email, password) => ({
   type: authActionTypes.LOGIN,
   payload: { email, password },
-  meta: { validation: loginValidation, schema: authResponseSchema },
+  meta: {
+    validation: loginValidation,
+    schema: authResponseSchema,
+    track: {
+      action: ua(GtmActions.Login, undefined, 'email'),
+    },
+  },
 });
 
 const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
@@ -35,7 +42,13 @@ const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
 export const signup = form => ({
   type: authActionTypes.SIGNUP,
   payload: form,
-  meta: { validation: signupValidation, schema: authResponseSchema },
+  meta: {
+    validation: signupValidation,
+    schema: authResponseSchema,
+    track: {
+      action: ua(GtmActions.Signup, undefined, 'email'),
+    },
+  },
 });
 
 const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser);
@@ -43,6 +56,11 @@ const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser)
 export const logout = () => ({
   type: authActionTypes.LOGOUT,
   payload: null,
+  meta: {
+    track: {
+      action: GtmActions.Logout,
+    },
+  },
 });
 
 const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
@@ -51,6 +69,9 @@ const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
 export const loginMetamask = () => ({
   type: authActionTypes.LOGIN_METAMASK,
   payload: null,
+  meta: {
+    track: { action: ua(GtmActions.Login, undefined, 'metamask') },
+  },
 });
 
 function* handleLoginMetamask() {
@@ -69,6 +90,9 @@ function* handleLoginMetamask() {
 export const signupMetamask = () => ({
   type: authActionTypes.SIGNUP_METAMASK,
   payload: null,
+  meta: {
+    track: { action: ua(GtmActions.Signup, undefined, 'metamask') },
+  },
 });
 
 function* handleSignupMetamask() {

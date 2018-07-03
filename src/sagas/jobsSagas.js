@@ -5,6 +5,7 @@ import { jobsActionTypes } from './actionTypes';
 
 import { jobsApi } from '../api/JobsApi';
 import { jobSchema, authResponseSchema } from '../model/schemas';
+import { GtmActions } from '../common/gtm/GtmEvents';
 
 export const fetchJobs = () => ({
   type: jobsActionTypes.FETCH_LIST,
@@ -27,7 +28,12 @@ const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch)
 export const assignJob = jobId => ({
   type: jobsActionTypes.ASSIGN,
   payload: { jobId },
-  meta: { schema: authResponseSchema },
+  meta: {
+    schema: authResponseSchema,
+    track: {
+      action: GtmActions.JobAssign,
+    },
+  },
 });
 
 const watchAssignRequest = takeEveryApiCall(jobsActionTypes.ASSIGN, jobsApi.assign);

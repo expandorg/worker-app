@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import GtmProvider from '../common/gtm/GtmProvider';
+
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
 
@@ -19,13 +21,15 @@ export default class AppPage extends Component {
     const { sidebar } = this.state;
 
     return (
-      <div className="gem-page">
-        <Header collapsed={sidebar} onToggle={this.handleToggle} />
-        <Sidebar visible={sidebar} />
-        <div className="gem-page-content">
-          {children}
+      <GtmProvider>
+        <div className="gem-page">
+          <Header collapsed={sidebar} onToggle={this.handleToggle} />
+          <Sidebar visible={sidebar} />
+          <div className="gem-page-content">
+            {children}
+          </div>
         </div>
-      </div>
+      </GtmProvider>
     );
   }
 }
