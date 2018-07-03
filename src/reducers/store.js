@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import analyticsMiddlware from '../common/gtm/analyticsMiddlware';
 
 import sagas from '../sagas';
 
@@ -14,7 +15,7 @@ const middleware = ((middlewares) => {
     }
   }
   return applyMiddleware(...middlewares);
-})([sagaMiddleware]);
+})([sagaMiddleware, analyticsMiddlware]);
 
 const store = createStore(rootReducer, window.initialState || {}, middleware);
 

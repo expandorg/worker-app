@@ -3,6 +3,7 @@ const settings = {
   cookieDomain: process.env.COOKIE_DOMAIN,
   vaultAddress: process.env.VAULT_ADDRESS,
   maintenanceMode: process.env.MAINTENANCE_MODE || false,
+  gtmTrackingId: process.env.GTM_TRACKING_ID,
 };
 
 export default settings;
