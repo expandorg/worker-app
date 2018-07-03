@@ -1,0 +1,23 @@
+import React, { Component, createContext } from 'react';
+
+import settings from '../../../common/settings';
+import { gtm } from '../../../common/gtm/GoogleTagManager';
+
+import withScript from '../withScript';
+
+export const GtmContext = createContext(null);
+
+const src = `https://www.googletagmanager.com/gtm.js?id=${settings.gtmTrackingId}`;
+
+class GtmProvider extends Component {
+  render() {
+    const { children } = this.props;
+    return (
+      <GtmContext.Provider value={gtm}>
+        {children}
+      </GtmContext.Provider>
+    );
+  }
+}
+
+export default withScript(src, true, false, !settings.gtmTrackingId)(GtmProvider);

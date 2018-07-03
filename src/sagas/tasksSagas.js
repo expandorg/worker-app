@@ -4,6 +4,7 @@ import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { tasksActionTypes } from './actionTypes';
 
 import { taskSchema } from '../model/schemas';
+import { GtmActions } from '../common/gtm/GtmEvents';
 
 import { tasksApi } from '../api/TasksApi';
 
@@ -21,6 +22,9 @@ export const submitTask = (taskId, form, rules) => ({
   meta: {
     schema: { assignedTasks: [taskSchema] },
     validation: { form: rules },
+    track: {
+      action: GtmActions.TaskSubmit,
+    },
   },
 });
 

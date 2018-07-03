@@ -31,3 +31,5 @@ export function promisify(original: Function, ctx: any): Function {
     });
   };
 }
+
+export const canUseDom = typeof window !== 'undefined';

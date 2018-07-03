@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 
 import ErrorMessage from '../../../common/ErrorMessage';
 
-import AmountWarning from '../AmountWarning';
-
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';
 
-import { userBalance } from '../../../../model/balance';
+import { userBalance, WITHDRAW_MAX, WITHDRAW_MIN } from '../../../../model/balance';
 
 import styles from './WithdrawForm.module.styl';
 
@@ -23,7 +21,7 @@ export default class WithdrawForm extends Component {
     super(props, ctx);
 
     this.state = {
-      value: `${userBalance.get(props.user)}`,
+      value: `${Math.min(userBalance.get(props.user), WITHDRAW_MAX)}`,
     };
   }
 
@@ -77,7 +75,8 @@ export default class WithdrawForm extends Component {
           }
           <ErrorMessage error={submitState.error} className={styles.error} />
           <div className={styles.description}>
-            <AmountWarning />
+            Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} GEM tokens.<br />
+            The maximum amount of GEM available for withdrawal is {WITHDRAW_MAX}.
           </div>
         </form>
       </div>

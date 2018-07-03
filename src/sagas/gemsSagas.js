@@ -14,10 +14,14 @@ import { userSelector } from '../selectors/userSelectors';
 import { initGemsStateSelector } from '../selectors/uiStateSelectors';
 
 import { authResponseSchema } from '../model/schemas';
+import { ua, GtmActions } from '../common/gtm/GtmEvents';
 
 export const depositGems = deposit => ({
   type: gemsActionTypes.DEPOSIT,
   payload: { deposit },
+  meta: {
+    track: { action: ua(GtmActions.Deposit, deposit) },
+  },
 });
 
 function* handleDeposit({ payload: { deposit } }) {
@@ -32,14 +36,26 @@ function* handleDeposit({ payload: { deposit } }) {
 
       const data = yield call(userApi.deposit, { deposit, userId: user.id });
       const payload = normalize(data, authResponseSchema);
-      yield put({ type: gemsActionTypes.DEPOSIT_COMPLETE, payload });
+      yield put({
+        type: gemsActionTypes.DEPOSIT_COMPLETE,
+        payload,
+        meta: {
+          track: { action: ua(GtmActions.DepositSuccess, deposit) },
+        },
+      });
     } else if (initGemsState.error) {
       throw new Error('Your ethereum address is no longer active in Metamask');
     } else {
       throw new Error('Metamask is not avaiable');
     }
   } catch (error) {
-    yield put({ type: gemsActionTypes.DEPOSIT_FAILED, payload: error });
+    yield put({
+      type: gemsActionTypes.DEPOSIT_FAILED,
+      payload: error,
+      meta: {
+        track: { action: GtmActions.DepositFailed },
+      },
+    });
   }
 }
 
@@ -53,7 +69,14 @@ const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, userAp
 export const withdrawPayments = (user, withdrawal) => ({
   type: gemsActionTypes.WITHDRAW,
   payload: { userId: user.id, withdrawal },
-  meta: { schema: authResponseSchema },
+  meta: {
+    schema: authResponseSchema,
+    track: {
+      action: ua(GtmActions.Withdraw, withdrawal),
+      complete: ua(GtmActions.WithdrawSuccess, withdrawal),
+      failed: GtmActions.WithdrawFailed,
+    },
+  },
 });
 
 const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
