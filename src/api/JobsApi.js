@@ -4,7 +4,7 @@ import { mock } from './__tests__/onboardingMocks';
 export class JobsApi extends BaseApi {
   list = () =>
     this.get('/jobs').then((data) => {
-      data.jobs(job => mock.inject(job));
+      data.jobs.forEach(job => mock.inject(job));
       return data;
     })
 

@@ -8,7 +8,11 @@ import withSubmitState from '../../hoc/withSubmitState';
 
 import Panel from '../../shared/Panel';
 
-import { requestStateProps, jobProps, onboardingStatusProps } from '../../shared/propTypes';
+import {
+  // requestStateProps,
+  jobProps,
+  // onboardingStatusProps,
+} from '../../shared/propTypes';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 
@@ -20,8 +24,8 @@ const mapDispatchToProps = dispatch =>
 class Onboarding extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
-    onboardingStatus: PropTypes.shape(onboardingStatusProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    // onboardingStatus: PropTypes.shape(onboardingStatusProps).isRequired,
+    // submitState: PropTypes.shape(requestStateProps).isRequired,
     submitOnboarding: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
 
@@ -33,8 +37,13 @@ class Onboarding extends Component {
     onSubmit(() => this.props.submitOnboarding(job.id, step, form));
   }
 
+  handleAssign = () => {
+    this.props.onAssign();
+  }
+
   render() {
-    const { onboardingStatus } = this.props;
+    // const { job } = this.props;
+
     return (
       <Panel>
         {/* <Description job={job} next={this.nextStep} />
