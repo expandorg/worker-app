@@ -7,12 +7,17 @@ export const jobEntitiesSelector = (state: Object) => state.jobs.entities;
 
 export const jobListSelector = (state: Object) => state.jobs.list;
 
-export const jobIdSelector = (state, id) => state.jobs.entities[id];
+export const onboardingStatusEntitiesSelector = (state: Object) => state.jobs.onboarding.entities;
+
+export const makeJobSelector = () => createSelector(
+  jobEntitiesSelector,
+  (state, id) => id,
+  (entities, id) => entities[id],
+);
 
 export const jobsSelector = createSelector(
   jobListSelector,
   jobEntitiesSelector,
-  jobIdSelector,
   (list, entities) => list.map(id => entities[id]),
 );
 
@@ -34,3 +39,10 @@ export const makeTaskFormSelector = () => {
     },
   );
 };
+
+
+export const makeOnboardingStatusSelector = () => createSelector(
+  onboardingStatusEntitiesSelector,
+  (state, id) => id,
+  (entities, id) => entities[id],
+);

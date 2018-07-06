@@ -16,7 +16,7 @@ import Restore from './components/Password/Restore';
 
 import Account from './components/Account/Account';
 import Jobs from './components/Jobs/Jobs';
-import JobDetails from './components/Jobs/JobDetails';
+import Job from './components/Job/Job';
 
 import Stats from './components/Stats/Stats';
 import Requester from './components/Requester/Requester';
@@ -51,11 +51,13 @@ const App = () => {
             <Route path="/confirm" component={Confirm} />≥≥
 
             <Route path="/account" component={Account} />
-            <Route path="/jobs" component={Jobs} />
+            <Route path="/jobs" exact component={Jobs} />
+            <Route path="/jobs/:jobId" component={Job} />
+
+            <Route path="/tasks/:taskId" component={Task} />
+
             <Route path="/stats" component={Stats} />
             <Route path="/requester" component={Requester} />
-            <Route path="/tasks/:taskId" component={Task} />
-            <Route path="/job/:jobId" component={JobDetails} />
             <Route component={NotFound} />
           </Switch>
         </AppPage>

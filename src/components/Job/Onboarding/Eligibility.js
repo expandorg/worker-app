@@ -39,4 +39,3 @@ class Eligibility extends Component {
   }
 }
 export default Eligibility;
-

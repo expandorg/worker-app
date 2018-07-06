@@ -36,7 +36,6 @@ export const confirmEmailStateSelector = createSelector(
   state => state.confirmEmail,
 );
 
-
 export const resendConfirmEmailStateSelector = createSelector(
   uiStateSelector,
   state => state.resendConfirmEmail,
@@ -59,23 +58,17 @@ export const restorePasswordStateSelector = createSelector(
 
 export const assignJobStateSelector = createSelector(uiStateSelector, state => state.assignJob);
 
-export const submitTaskStateSelector = createSelector(uiStateSelector, state => state.submitTask);
+export const submitOnboardingStateSelector = createSelector(
+  uiStateSelector,
+  state => state.submitOnboarding,
+);
 
+export const submitTaskStateSelector = createSelector(uiStateSelector, state => state.submitTask);
 
 export const fetchBalanceStateSelector = createSelector(uiStateSelector, state => state.gemBalance);
 
 export const depositStateSelector = createSelector(uiStateSelector, state => state.deposit);
 
 export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
-
-export const questionStateSelector = createSelector(uiStateSelector, state => state.fetchQuestion);
-
-export const answersStateSelector = createSelector(uiStateSelector, state => state.fetchAnswer);
-
-export const startTestStateSelector = createSelector(uiStateSelector, state => state.startTest);
-
-export const postAnswerStateSelector = createSelector(uiStateSelector, state => state.postAnswer);
-
-export const cancelTestStateSelector = createSelector(uiStateSelector, state => state.cancelTest);
 
 export const withdrawStateSelector = createSelector(uiStateSelector, state => state.withdraw);

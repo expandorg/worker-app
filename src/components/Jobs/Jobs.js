@@ -9,7 +9,7 @@ import { userProps, jobProps, assignmentProps, historyProps } from '../shared/pr
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
 
-import Job from './Job/Job';
+import JobItem from './JobItem';
 import DepositPrompt from './DepositPrompt';
 
 import { authenticated } from '../hoc/authRules';
@@ -59,10 +59,11 @@ class Jobs extends Component {
   }
 
   handleSelect = (job) => {
-    if (!this.props.user.emailConfirmed) {
+    const { user, history } = this.props;
+    if (!user.emailConfirmed) {
       this.setState({ emailDialog: true });
     } else {
-      this.props.history.push(`/job/${job.id}`);
+      history.push(`/jobs/${job.id}`);
     }
   }
 
@@ -76,7 +77,7 @@ class Jobs extends Component {
       <Content title="Browse Jobs">
         <div className={styles.list}>
           {jobs.map(job => (
-            <Job
+            <JobItem
               key={job.id}
               job={job}
               assignment={assignments.find(a => a.jobId === job.id)}
@@ -86,7 +87,10 @@ class Jobs extends Component {
           ))}
         </div>
         {emailDialog &&
-          <ConfirmEmailDialog user={user} onHide={() => this.setState({ emailDialog: false })} />
+          <ConfirmEmailDialog
+            user={user}
+            onHide={() => this.setState({ emailDialog: false })}
+          />
         }
         <DepositPrompt visible={!isFunded} />
       </Content>

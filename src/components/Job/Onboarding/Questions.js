@@ -8,8 +8,8 @@ import styles from './Questions.module.styl';
 
 import Field from '../../Task/form/Field';
 
-import FailedMessage from './components/FailedMessage';
-import SuccessMessage from './components/SuccessMessage';
+import FailedMessage from './shared/FailedMessage';
+import SuccessMessage from './shared/SuccessMessage';
 
 import RulesModal from './modals/RulesModal';
 import QuestionInstructionModal from './modals/QuestionInstructionModal';

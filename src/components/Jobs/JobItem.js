@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { jobProps, assignmentProps } from '../../shared/propTypes';
+import { jobProps, assignmentProps } from '../shared/propTypes';
 
-import styles from './Job.module.styl';
-
+import styles from './JobItem.module.styl';
 
 const getTaskLink = assignment => (
   assignment.responseId === null
@@ -13,7 +12,7 @@ const getTaskLink = assignment => (
     : `/verify/${assignment.taskId}`
 );
 
-export default class Job extends Component {
+export default class JobItem extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
     assignment: PropTypes.shape(assignmentProps),
@@ -44,7 +43,6 @@ export default class Job extends Component {
             {job.requester}
           </div>
           <div>
-            {}
             {isFunded && !isJoined &&
               <button onClick={this.handleJoin} className={styles.join}>
                 Join

@@ -5,6 +5,7 @@ import gemsBalance from './gemsBalanceReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
+import onboardingStatusEntities from './jobs/onboardingStatusEntitiesReducer';
 
 import assignmentEntities from './assignments/assignmentEntitiesReducer';
 import assignmentsList from './assignments/assignmentsListReducer';
@@ -14,9 +15,6 @@ import assignedTasks from './tasks/assignedTasksReducer';
 
 import responseEntities from './responses/responseEntitiesReducer';
 import assignedResponses from './responses/assignedResponsesReducer';
-
-import questionsEntities from './questions/questionsEntitiesReducer';
-import answersEntities from './answers/answersEntitiesReducer';
 
 import metamask from './web3/metamaskReducer';
 
@@ -28,6 +26,9 @@ export default combineReducers({
   jobs: combineReducers({
     entities: jobEntities,
     list: jobsList,
+    onboarding: combineReducers({
+      entities: onboardingStatusEntities,
+    }),
   }),
   assignments: combineReducers({
     entities: assignmentEntities,
@@ -44,11 +45,5 @@ export default combineReducers({
   ui,
   web3: combineReducers({
     metamask,
-  }),
-  questions: combineReducers({
-    entities: questionsEntities,
-  }),
-  answers: combineReducers({
-    entities: answersEntities,
   }),
 });

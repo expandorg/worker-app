@@ -46,6 +46,8 @@ export const jobProps = {
   }),
 };
 
+export const onboardingStatusProps = {
+};
 
 export const assignmentProps = {
   jobId: PropTypes.number,

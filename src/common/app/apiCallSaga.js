@@ -22,6 +22,7 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
         type: `${actionType}_COMPLETE`, payload: result, complete: true, meta,
       });
     } catch (error) {
+      console.log(error);
       yield put({
         type: `${actionType}_FAILED`, payload: error, failed: true, meta,
       });

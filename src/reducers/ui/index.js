@@ -6,8 +6,7 @@ import {
   authActionTypes,
   userActionTypes,
   jobsActionTypes,
-  questionsActionTypes,
-  answersActionTypes,
+  onboardingActionTypes,
 } from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
@@ -40,12 +39,9 @@ export default combineReducers({
 
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
+  submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT, true),
+
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
-  fetchQuestion: requestUiStateReducer(questionsActionTypes.FETCH),
-  fetchAnswer: requestUiStateReducer(answersActionTypes.FETCH, true),
-  startTest: requestUiStateReducer(answersActionTypes.START, true),
-  postAnswer: requestUiStateReducer(answersActionTypes.ANSWER, true),
-  cancelTest: requestUiStateReducer(answersActionTypes.CANCEL),
 
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
 });
