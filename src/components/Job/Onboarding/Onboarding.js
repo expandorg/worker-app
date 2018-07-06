@@ -7,12 +7,9 @@ import { bindActionCreators } from 'redux';
 import withSubmitState from '../../hoc/withSubmitState';
 
 import Panel from '../../shared/Panel';
+import OnboardingStep from './OnboardingStep';
 
-import {
-  // requestStateProps,
-  jobProps,
-  // onboardingStatusProps,
-} from '../../shared/propTypes';
+import { requestStateProps, jobProps, onboardingStatusProps } from '../../shared/propTypes';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 
@@ -24,17 +21,21 @@ const mapDispatchToProps = dispatch =>
 class Onboarding extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
-    // onboardingStatus: PropTypes.shape(onboardingStatusProps).isRequired,
-    // submitState: PropTypes.shape(requestStateProps).isRequired,
+    onboardingStatus: PropTypes.shape(onboardingStatusProps).isRequired,
+    submitState: PropTypes.shape(requestStateProps).isRequired,
     submitOnboarding: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
 
     onAssign: PropTypes.func.isRequired,
   };
 
-  handleSaveStep = (step, form) => {
+  getActiveStep(job, onboardingStatus) {
+    return job.onboarding.steps.find(s => s.id === onboardingStatus.activeStep);
+  }
+
+  handleSaveStep = (stepId, form) => {
     const { onSubmit, job } = this.props;
-    onSubmit(() => this.props.submitOnboarding(job.id, step, form));
+    onSubmit(() => this.props.submitOnboarding(job.id, stepId, form));
   }
 
   handleAssign = () => {
@@ -42,28 +43,20 @@ class Onboarding extends Component {
   }
 
   render() {
-    // const { job } = this.props;
-
+    const { job, onboardingStatus, submitState } = this.props;
+    const step = this.getActiveStep(job, onboardingStatus);
     return (
       <Panel>
-        {/* <Description job={job} next={this.nextStep} />
-          <Rules next={this.nextStep} />
-          <Eligibility next={this.startTesting} />
-          <Questions
-            job={job}
-            next={this.nextStep}
-            question={this.state.question}
-            answer={this.state.answer}
-            postAnswer={this.postAnswer}
-            cancelTest={this.cancelTest}
-            finishedTest={this.finishedTest}
-            abandon={this.abandon}
-          /> */}
+        <OnboardingStep
+          step={step}
+          submitState={submitState}
+          onSubmit={this.handleSaveStep}
+        />
       </Panel>
     );
   }
 }
 
 export default withSubmitState(submitOnboardingStateSelector)(
-  connect(undefined, mapDispatchToProps)(Onboarding),
+  connect(null, mapDispatchToProps)(Onboarding),
 );

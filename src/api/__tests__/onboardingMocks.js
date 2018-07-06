@@ -36,12 +36,17 @@ const onboarding = {
 export class OnboardingMocks {
   stepsMap = new Map();
 
-  fetchStatus = jobId => ({
-    onboardingStatus: {
-      jobId,
-      steps: this.getSteps(jobId),
-    },
-  })
+  fetchStatus = (jobId) => {
+    const steps = this.getSteps(jobId);
+    const activeStep = this.getActiveStep(steps);
+    return ({
+      onboardingStatus: {
+        jobId,
+        activeStep,
+        steps,
+      },
+    });
+  }
 
   inject = (job) => {
     job.onboarding = onboarding;
@@ -50,12 +55,13 @@ export class OnboardingMocks {
   submitStep = (jobId, stepId, response) => {
     const steps = this.getSteps(jobId);
     const step = onboarding.steps.find(s => s.id === stepId);
-    const status = this.validateStep(step, response);
-    steps.push({ id: stepId, status });
+    steps.push({ id: stepId, status: this.validateStep(step, response) });
+    const activeStep = this.getActiveStep(steps);
     return ({
       onboardingStatus: {
         jobId,
-        steps: this.getSteps(jobId),
+        activeStep,
+        steps,
       },
     });
   }
@@ -64,6 +70,19 @@ export class OnboardingMocks {
     const data = JSON.parse(response);
     console.log(data);
     return 'complete';
+  }
+
+  getActiveStep = (steps) => {
+    if (!steps.length) {
+      return onboarding.steps[0].id;
+    }
+    const completed = steps.reverse().find(step => step.status === 'complete');
+    if (!completed) {
+      return null;
+    }
+    const index = onboarding.steps.findIndex(s => s.id === completed.id);
+    const nextStep = onboarding.steps[index + 1];
+    return nextStep ? nextStep.id : null;
   }
 
   getSteps = (jobId) => {
