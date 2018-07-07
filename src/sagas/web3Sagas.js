@@ -3,6 +3,8 @@ import { appActionTypes, web3ActionTypes } from './actionTypes';
 
 import { gemsService } from '../services/GemsService';
 
+import { delay } from '../common/app/apiCallSaga';
+
 function* handleInitWeb3() {
   try {
     yield call(gemsService.initWeb3);
@@ -11,9 +13,6 @@ function* handleInitWeb3() {
     yield put({ type: web3ActionTypes.INIT_WEB3_FAILED, payload: error });
   }
 }
-
-export const delay = ms =>
-  new Promise(resolve => setTimeout(resolve, ms));
 
 function* initGemsInstance() {
   try {
@@ -33,6 +32,7 @@ function* initGemsInstance() {
   }
 }
 
+/* eslint-disable import/prefer-default-export */
 export function* web3Sagas() {
   yield takeEvery(appActionTypes.INIT, handleInitWeb3);
   yield takeEvery(web3ActionTypes.INIT_WEB3_COMPLETE, initGemsInstance);

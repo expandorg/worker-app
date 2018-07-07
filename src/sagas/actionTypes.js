@@ -6,6 +6,9 @@ import createActionTypes from '../common/app/createActionTypes';
 export const appActionTypes = createActionTypes('app', {
   INIT: null,
   REFRESH: null,
+
+  NOTIFICATION_ADD: null,
+  NOTIFICATION_REMOVE: null,
 });
 
 export const web3ActionTypes = createActionTypes('web3', {
