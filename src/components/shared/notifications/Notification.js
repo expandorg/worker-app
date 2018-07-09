@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { notificationProps } from '../../shared/propTypes';
+import BalanceNotification from './BalanceNotification';
 
+import { notificationProps } from '../../shared/propTypes';
 
 export default class Notification extends Component {
   static propTypes = {
     notification: PropTypes.shape(notificationProps),
+    onClear: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -18,10 +20,12 @@ export default class Notification extends Component {
     if (!notification) {
       return null;
     }
-    return (
-      <div>
-        {notification.text}
-      </div>
-    );
+    switch (notification.type) {
+      case 'balance':
+        return <BalanceNotification {...this.props} />;
+      default:
+        break;
+    }
+    return null;
   }
 }

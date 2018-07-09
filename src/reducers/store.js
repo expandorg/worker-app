@@ -1,12 +1,16 @@
+
+// @flow
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import analyticsMiddlware from '../common/gtm/analyticsMiddlware';
+import createAnalyticsMiddlware from '../common/gtm/analyticsMiddlware';
 
 import sagas from '../sagas';
+import services from '../services/services';
 
 import rootReducer from './rootReducer';
 
-export const sagaMiddleware = createSagaMiddleware();
+export const sagaMiddleware = createSagaMiddleware({ context: { services } });
 
 const middleware = ((middlewares) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -15,9 +19,13 @@ const middleware = ((middlewares) => {
     }
   }
   return applyMiddleware(...middlewares);
-})([sagaMiddleware, analyticsMiddlware]);
+})([sagaMiddleware, createAnalyticsMiddlware(services)]);
+
 
 const store = createStore(rootReducer, window.initialState || {}, middleware);
+
+services.resolve('eventSources')
+  .configure(store.dispatch);
 
 sagaMiddleware.run(sagas);
 

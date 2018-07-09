@@ -75,6 +75,8 @@ export const userActionTypes = createActionTypes('user', {
   RESTORE_PASSWORD: null,
   RESTORE_PASSWORD_COMPLETE: null,
   RESTORE_PASSWORD_FAILED: null,
+
+  UPDATED: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {

@@ -1,6 +1,6 @@
 {
   "transformIgnorePatterns": [
-    "node_modules/"
+    "/node_modules/"
   ],
   "moduleDirectories": [
     "src",
@@ -11,6 +11,6 @@
     "\\.js$": "babel-jest"
   },
   "testPathIgnorePatterns": [
-    "/node_modules/",
+    "/node_modules/"
   ]
 }

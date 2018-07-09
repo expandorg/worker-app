@@ -1,0 +1,30 @@
+@import 'common/uikit/colors'
+@import 'common/uikit/font'
+
+.container
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 30px;
+
+.content
+  font(font-preset[subheader])
+  color: color-text-1
+
+.important
+  font-weight: 600;
+
+.clear
+  height 16px
+  line-height: 16px
+  font-size: 14px
+
+  border-radius: 0
+  background: none
+  color: #cacaca
+  outline: none;
+  cursor: pointer;
+
+  &:hover
+    color: darken(#cacaca, 20%);

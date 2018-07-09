@@ -1,6 +1,8 @@
 import { appActionTypes } from '../../sagas/actionTypes';
 
-export default function notificationReducer(state = null, action) {
+const initialState = null;
+
+export default function notificationReducer(state = initialState, action) {
   switch (action.type) {
     case appActionTypes.NOTIFICATION_ADD:
       return action.payload;

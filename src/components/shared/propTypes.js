@@ -83,4 +83,5 @@ export const requestStateProps = {
 
 export const notificationProps = {
   type: PropTypes.string.isRequired,
+  data: PropTypes.object,
 };
