@@ -1,9 +1,8 @@
-import { takeEvery, fork, call, put } from 'redux-saga/effects';
+import { takeEvery, fork, call, put, getContext } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { userActionTypes } from './actionTypes';
 
-import { gemsService } from '../services/GemsService';
 import { userApi } from '../api/UserApi';
 import { GtmActions } from '../common/gtm/GtmEvents';
 
@@ -77,6 +76,9 @@ function* handleAssignAddress({ payload: { user, address } }) {
   try {
     let params = { userId: user.id, address };
     if (!address) {
+      const services = yield getContext('services');
+      const gemsService = services.resolve('gems');
+
       const defaultAccount = gemsService.getDefaultAccount();
       const { result: signature } = yield call(gemsService.getAccountSingature, defaultAccount);
       params = { ...params, address: defaultAccount, signature };
@@ -96,6 +98,12 @@ export const saveProfile = (user, profile) => ({
 });
 
 const watchSaveProfile = takeEveryApiCall(userActionTypes.SAVE_PROFILE, userApi.saveProfile);
+
+
+export const userUpdated = (data, params) => ({
+  type: userActionTypes.UPDATED,
+  payload: { data, params },
+});
 
 
 export function* userSagas() {

@@ -69,3 +69,5 @@ export const depositStateSelector = createSelector(uiStateSelector, state => sta
 export const depositStageSelector = createSelector(uiStateSelector, state => state.depositStage);
 
 export const withdrawStateSelector = createSelector(uiStateSelector, state => state.withdraw);
+
+export const notificationSelector = createSelector(uiStateSelector, state => state.notification);

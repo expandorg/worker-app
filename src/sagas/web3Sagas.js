@@ -1,10 +1,13 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, getContext } from 'redux-saga/effects';
 import { appActionTypes, web3ActionTypes } from './actionTypes';
 
-import { gemsService } from '../services/GemsService';
+import { delay } from '../common/app/apiCallSaga';
 
 function* handleInitWeb3() {
   try {
+    const services = yield getContext('services');
+    const gemsService = services.resolve('gems');
+
     yield call(gemsService.initWeb3);
     yield put({ type: web3ActionTypes.INIT_WEB3_COMPLETE, payload: null });
   } catch (error) {
@@ -12,12 +15,12 @@ function* handleInitWeb3() {
   }
 }
 
-export const delay = ms =>
-  new Promise(resolve => setTimeout(resolve, ms));
-
 function* initGemsInstance() {
   try {
     yield put({ type: web3ActionTypes.INIT_GEMS, payload: null });
+
+    const services = yield getContext('services');
+    const gemsService = services.resolve('gems');
 
     // await, while user login with metamask extension
     while (true) {
@@ -33,6 +36,7 @@ function* initGemsInstance() {
   }
 }
 
+/* eslint-disable import/prefer-default-export */
 export function* web3Sagas() {
   yield takeEvery(appActionTypes.INIT, handleInitWeb3);
   yield takeEvery(web3ActionTypes.INIT_WEB3_COMPLETE, initGemsInstance);

@@ -21,3 +21,8 @@ export const TaskFieldType = keyMirror({
   email: null,
   password: null,
 });
+
+export const NotificationType = keyMirror({
+  Balance: null,
+  TxError: null,
+});
