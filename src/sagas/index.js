@@ -5,6 +5,7 @@ import { tasksSagas } from './tasksSagas';
 import { jobsSagas } from './jobsSagas';
 import { authSagas } from './authSagas';
 import { web3Sagas } from './web3Sagas';
+import { notificationsSagas } from './notificationsSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -13,4 +14,5 @@ export default function* sagas() {
   yield fork(tasksSagas);
   yield fork(jobsSagas);
   yield fork(gemsSagas);
+  yield fork(notificationsSagas);
 }

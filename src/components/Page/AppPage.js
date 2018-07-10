@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 import GtmProvider from '../common/gtm/GtmProvider';
 
+import Notifications from '../shared/notifications/Notifications';
+
 import Header from './Header';
 import Sidebar from './Sidebar/Sidebar';
+
 
 import './AppPage.styl';
 
@@ -28,6 +31,7 @@ export default class AppPage extends Component {
           <div className="gem-page-content">
             {children}
           </div>
+          <Notifications />
         </div>
       </GtmProvider>
     );

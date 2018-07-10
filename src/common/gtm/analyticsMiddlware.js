@@ -1,9 +1,7 @@
-// @flow
-import { gtm } from './GoogleTagManager';
-import { type ReduxAction } from '../app/types.flow';
 
-const analyticsMiddlware = () => (next: Function) => (action: ReduxAction) => {
+const createAnalyticsMiddlware = services => () => next => (action) => {
   if (action.meta && action.meta.track) {
+    const gtm = services.resolve('gtm');
     if (action.complete) {
       gtm.event(action.meta.track.complete);
     } else if (action.failed) {
@@ -15,4 +13,4 @@ const analyticsMiddlware = () => (next: Function) => (action: ReduxAction) => {
   return next(action);
 };
 
-export default analyticsMiddlware;
+export default createAnalyticsMiddlware;

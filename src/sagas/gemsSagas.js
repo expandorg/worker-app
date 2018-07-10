@@ -1,19 +1,16 @@
-import { fork, takeEvery, put, select, call } from 'redux-saga/effects';
-import { normalize } from 'normalizr';
+import { fork, takeEvery, put, select, call, getContext } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 
 import { gemsActionTypes } from './actionTypes';
 
 import { userApi } from '../api/UserApi';
-import { gemsService } from '../services/GemsService';
 
 import { RequestStates } from '../common/app/requestUiState';
 
 import { userSelector } from '../selectors/userSelectors';
 import { initGemsStateSelector } from '../selectors/uiStateSelectors';
 
-import { authResponseSchema } from '../model/schemas';
 import { ua, GtmActions } from '../common/gtm/GtmEvents';
 
 export const depositGems = deposit => ({
@@ -29,13 +26,15 @@ function* handleDeposit({ payload: { deposit } }) {
     // approve depost tx
     const initGemsState = yield select(initGemsStateSelector);
     if (initGemsState.state === RequestStates.Fetched) {
+      const services = yield getContext('services');
+      const gemsService = services.resolve('gems');
+
       yield call(gemsService.approve, deposit);
 
       yield put({ type: gemsActionTypes.DEPOSIT_STAGE, payload: 2 });
       const user = yield select(userSelector);
 
-      const data = yield call(userApi.deposit, { deposit, userId: user.id });
-      const payload = normalize(data, authResponseSchema);
+      const payload = yield call(userApi.deposit, { deposit, userId: user.id });
       yield put({
         type: gemsActionTypes.DEPOSIT_COMPLETE,
         payload,
@@ -70,7 +69,6 @@ export const withdrawPayments = (user, withdrawal) => ({
   type: gemsActionTypes.WITHDRAW,
   payload: { userId: user.id, withdrawal },
   meta: {
-    schema: authResponseSchema,
     track: {
       action: ua(GtmActions.Withdraw, withdrawal),
       complete: ua(GtmActions.WithdrawSuccess, withdrawal),
@@ -79,10 +77,30 @@ export const withdrawPayments = (user, withdrawal) => ({
   },
 });
 
+
+function* handleGemsOpeartionComplete({ type, payload }) {
+  const services = yield getContext('services');
+  const eventSources = services.resolve('eventSources');
+
+  const source = type === gemsActionTypes.WITHDRAW_COMPLETE
+    ? 'withdraw'
+    : 'deposit';
+
+  eventSources.subscribe('tx', { tx: payload.tx, source });
+}
+
+export const transactionFailed = (data, params) => ({
+  type: gemsActionTypes.TRANSACTION_FAILED,
+  payload: { data, params },
+});
+
 const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
 
 export function* gemsSagas() {
   yield takeEvery(gemsActionTypes.DEPOSIT, handleDeposit);
   yield fork(watchFetchBalance);
   yield fork(watchWithdraw);
+
+  yield takeEvery(gemsActionTypes.WITHDRAW_COMPLETE, handleGemsOpeartionComplete);
+  yield takeEvery(gemsActionTypes.DEPOSIT_COMPLETE, handleGemsOpeartionComplete);
 }

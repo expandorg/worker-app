@@ -75,8 +75,8 @@ export default class WithdrawForm extends Component {
           }
           <ErrorMessage error={submitState.error} className={styles.error} />
           <div className={styles.description}>
-            Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} GEM tokens.<br />
-            The maximum amount of GEM available for withdrawal is {WITHDRAW_MAX}.
+            Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} tokens.<br />
+            The maximum amount of tokens available for withdrawal is {WITHDRAW_MAX}.
           </div>
         </form>
       </div>

@@ -1,10 +1,8 @@
-import { fork, takeEvery, call, put, select } from 'redux-saga/effects';
+import { fork, takeEvery, call, put, select, getContext } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
 import { authActionTypes, appActionTypes } from './actionTypes';
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
-
-import { gemsService } from '../services/GemsService';
 
 import { authApi } from '../api/AuthApi';
 
@@ -76,7 +74,11 @@ export const loginMetamask = () => ({
 
 function* handleLoginMetamask() {
   try {
+    const services = yield getContext('services');
+
+    const gemsService = services.resolve('gems');
     const address = gemsService.getDefaultAccount();
+
     const { result: signature } = yield call(gemsService.getAccountSingature, address);
     const data = yield call(authApi.loginMetamask, { address, signature });
     const payload = normalize(data, authResponseSchema);
@@ -97,6 +99,9 @@ export const signupMetamask = () => ({
 
 function* handleSignupMetamask() {
   try {
+    const services = yield getContext('services');
+    const gemsService = services.resolve('gems');
+
     const address = gemsService.getDefaultAccount();
     const { result: signature } = yield call(gemsService.getAccountSingature, address);
     const data = yield call(authApi.signupMetamask, { address, signature });
