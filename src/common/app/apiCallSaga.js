@@ -6,7 +6,6 @@ import { validate } from '../validation';
 
 import { type ReduxAction } from './types.flow';
 
-
 export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) => {
   function* request({ payload, meta }: ReduxAction): Iterable<any> {
     try {
@@ -38,3 +37,6 @@ export const takeEveryApiCall = (actionType: string, asyncCall: () => Promise<an
   }
   return watchGenerator;
 };
+
+export const delay = (ms: number) =>
+  new Promise(resolve => setTimeout(() => resolve(true), ms));

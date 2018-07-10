@@ -6,6 +6,9 @@ import createActionTypes from '../common/app/createActionTypes';
 export const appActionTypes = createActionTypes('app', {
   INIT: null,
   REFRESH: null,
+
+  NOTIFICATION_ADD: null,
+  NOTIFICATION_REMOVE: null,
 });
 
 export const web3ActionTypes = createActionTypes('web3', {
@@ -72,6 +75,8 @@ export const userActionTypes = createActionTypes('user', {
   RESTORE_PASSWORD: null,
   RESTORE_PASSWORD_COMPLETE: null,
   RESTORE_PASSWORD_FAILED: null,
+
+  UPDATED: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {
@@ -123,4 +128,6 @@ export const gemsActionTypes = createActionTypes('gems', {
   FETCH_BALANCE: null,
   FETCH_BALANCE_COMPLETE: null,
   FETCH_BALANCE_FAILED: null,
+
+  TRANSACTION_FAILED: null,
 });

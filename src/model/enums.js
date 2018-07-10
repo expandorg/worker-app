@@ -25,3 +25,8 @@ export const TaskFieldType = keyMirror({
   twoColumnsList: null,
   yesNo: null,
 });
+
+export const NotificationType = keyMirror({
+  Balance: null,
+  TxError: null,
+});

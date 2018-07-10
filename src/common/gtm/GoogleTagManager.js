@@ -1,8 +1,6 @@
 // @flow
 
-import settings from '../settings';
-
-export class GoogleTagManager {
+export default class GoogleTagManager {
   static inited: boolean = false;
   static queue: Array<Object> = [];
 
@@ -61,5 +59,3 @@ export class GoogleTagManager {
     }
   }
 }
-
-export const gtm = new GoogleTagManager(settings.gtmTrackingId);

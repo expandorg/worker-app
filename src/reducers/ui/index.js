@@ -12,6 +12,7 @@ import {
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 
 import depositStage from './depositStageReducer';
+import notification from './notificationReducer';
 
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
@@ -44,4 +45,6 @@ export default combineReducers({
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
+
+  notification,
 });

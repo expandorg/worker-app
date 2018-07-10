@@ -72,7 +72,7 @@ class Account extends Component {
             </div>
           </Field>
           <Field>
-            *Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} GEM tokens
+            *Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} tokens
           </Field>
         </Panel>
       </Content>

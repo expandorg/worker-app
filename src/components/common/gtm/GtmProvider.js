@@ -1,7 +1,7 @@
 import React, { Component, createContext } from 'react';
 
 import settings from '../../../common/settings';
-import { gtm } from '../../../common/gtm/GoogleTagManager';
+import services from '../../../services/services';
 
 import withScript from '../withScript';
 
@@ -12,6 +12,7 @@ const src = `https://www.googletagmanager.com/gtm.js?id=${settings.gtmTrackingId
 class GtmProvider extends Component {
   render() {
     const { children } = this.props;
+    const gtm = services.resolve('gtm');
     return (
       <GtmContext.Provider value={gtm}>
         {children}
