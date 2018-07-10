@@ -16,7 +16,7 @@ export default class Balance extends Component {
     return (
       <div className={styles.content}>
         Your {op} has succeeded. Your new balance is&nbsp;
-        <span className={styles.important}>{data.balance}</span>&nbsp;Gems
+        <span className={styles.important}>{data.user.gems.balance}</span>&nbsp;Gems
       </div>
     );
   }

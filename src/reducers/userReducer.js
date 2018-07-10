@@ -26,7 +26,7 @@ export default function userReducer(state = initialState, action) {
       return action.payload.user;
 
     case userActionTypes.UPDATED: {
-      break;
+      return action.payload.data.user;
     }
     case jobsActionTypes.ASSIGN_COMPLETE:
       return action.payload.result.user;
