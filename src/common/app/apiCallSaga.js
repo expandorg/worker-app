@@ -38,4 +38,4 @@ export const takeEveryApiCall = (actionType: string, asyncCall: () => Promise<an
 };
 
 export const delay = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+  new Promise(resolve => setTimeout(() => resolve(true), ms));
