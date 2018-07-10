@@ -13,7 +13,7 @@ const Field = ({ children, title }) => (
 );
 
 Field.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 Field.defaultProps = {

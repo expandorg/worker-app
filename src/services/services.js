@@ -7,10 +7,10 @@ import ServiceLocator from './ServiceLocator';
 import GemsService from './GemsService';
 
 import EventSourceService from './EventSourceService';
-import UserEventSource from './events/UserEventSource';
+import TxEventSource from './events/TxEventSource';
 
 const eventSources = new EventSourceService(settings.apiUrl)
-  .definition('user', new UserEventSource());
+  .definition('tx', new TxEventSource());
 
 const services = new ServiceLocator()
   .register('gtm', new GoogleTagManager(settings.gtmTrackingId))

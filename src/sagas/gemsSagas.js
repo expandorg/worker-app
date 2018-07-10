@@ -78,9 +78,7 @@ export const withdrawPayments = (user, withdrawal) => ({
 });
 
 
-function* handleGemsOpeartionComplete({ type }) {
-  const user = yield select(userSelector);
-
+function* handleGemsOpeartionComplete({ type, payload }) {
   const services = yield getContext('services');
   const eventSources = services.resolve('eventSources');
 
@@ -88,7 +86,7 @@ function* handleGemsOpeartionComplete({ type }) {
     ? 'withdraw'
     : 'deposit';
 
-  eventSources.subscribe('user', { userId: user.id, source });
+  eventSources.subscribe('tx', { tx: payload.tx, source });
 }
 
 export const transactionFailed = (data, params) => ({
