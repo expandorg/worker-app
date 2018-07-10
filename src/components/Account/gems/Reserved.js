@@ -6,8 +6,6 @@ import Field from '../shared/Field';
 import { userProps } from '../../shared/propTypes';
 import { userBalance } from '../../../model/balance';
 
-import styles from './Reserved.module.styl';
-
 
 export default class Reserved extends Component {
   static propTypes = {
@@ -17,11 +15,9 @@ export default class Reserved extends Component {
   render() {
     const { user } = this.props;
     return (
-      <Field title="Reserved for Pending Tasks">
-        <div className={styles.reserved}>
-          {userBalance.stakedGems(user.stats.pending)} GEMS
-        </div>
-      </Field>
+      <Field
+        title={`${userBalance.stakedGems(user.stats.pending)} GEMS Reserverd for tasks`}
+      />
     );
   }
 }
