@@ -6,7 +6,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 
 import settings from '../../../common/settings';
 
-import { reverseGeocoder } from '../../../services/ReverseGeocoder';
+import services from '../../../services/services';
 
 import AutocompleteInput from './AutocompleteInput';
 import Suggestions from './Suggestions';
@@ -39,6 +39,7 @@ class AutocompletePlaces extends Component {
     const { value, onChange, latLng } = this.props;
 
     if (!value && latLng) {
+      const reverseGeocoder = services.resolve('reverseGeocoder');
       const city = reverseGeocoder.getCity(latLng.lat, latLng.lng);
       if (city) {
         onChange(city);
@@ -62,6 +63,7 @@ class AutocompletePlaces extends Component {
   tryGetCurrentCity() {
     const { jsLoaded, latLng } = this.props;
     if (latLng && jsLoaded) {
+      const reverseGeocoder = services.resolve('reverseGeocoder');
       this.unsibscribe = reverseGeocoder.locateCity(latLng.lat, latLng.lng, this.handleCurrentCity);
     }
   }

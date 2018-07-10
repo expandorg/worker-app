@@ -3,7 +3,7 @@
 
 import { PubSub } from '../common/pubsub';
 
-export class LocationService extends PubSub {
+export default class LocationService extends PubSub {
   latLng = null;
   start = false;
 
@@ -27,5 +27,3 @@ export class LocationService extends PubSub {
     }
   }
 }
-
-export const locationService = new LocationService();

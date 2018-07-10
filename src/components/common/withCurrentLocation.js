@@ -1,7 +1,7 @@
 import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { locationService } from '../../services/LocationService';
+import services from '../../services/services';
 
 const withCurrentLocation = (Wrapped) => {
   class WithLocationWrapper extends Component {
@@ -14,10 +14,11 @@ const withCurrentLocation = (Wrapped) => {
     }
 
     state = {
-      latLng: locationService.latLng,
+      latLng: services.resolve('location').latLng,
     }
 
     componentDidMount() {
+      const locationService = services.resolve('location');
       this.unsibscribe = locationService.findCurrent(this.handleLocated);
     }
 

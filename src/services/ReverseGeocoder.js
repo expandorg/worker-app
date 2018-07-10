@@ -2,7 +2,7 @@
 
 import { PubSubMap } from '../common/pubsub';
 
-export class ReverseGeocoder extends PubSubMap {
+export default class ReverseGeocoder extends PubSubMap {
   valuesCache: Map<string, string> = new Map();
 
   getKey = (lat: number, lng: number) =>
@@ -60,5 +60,3 @@ export class ReverseGeocoder extends PubSubMap {
     return [address.country, address.locality, address.administrative_area_level_1].join(', ');
   }
 }
-
-export const reverseGeocoder = new ReverseGeocoder();
