@@ -14,7 +14,7 @@ export default class AvailableFunds extends Component {
 
     return (
       <span className={styles.availableFunds}>
-        {balance} GEM{balance < WITHDRAW_MIN && '*'}
+        {balance} tokens{balance < WITHDRAW_MIN && '*'}
       </span>
     );
   }
