@@ -117,4 +117,6 @@ export const gemsActionTypes = createActionTypes('gems', {
   FETCH_BALANCE: null,
   FETCH_BALANCE_COMPLETE: null,
   FETCH_BALANCE_FAILED: null,
+
+  TRANSACTION_FAILED: null,
 });

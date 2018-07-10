@@ -77,14 +77,24 @@ export const withdrawPayments = (user, withdrawal) => ({
   },
 });
 
-function* handleGemsOpeartionComplete() {
+
+function* handleGemsOpeartionComplete({ type }) {
   const user = yield select(userSelector);
 
   const services = yield getContext('services');
   const eventSources = services.resolve('eventSources');
 
-  eventSources.subscribe('user', { userId: user.id, notificationType: 'balance' });
+  const source = type === gemsActionTypes.WITHDRAW_COMPLETE
+    ? 'withdraw'
+    : 'deposit';
+
+  eventSources.subscribe('user', { userId: user.id, source });
 }
+
+export const transactionFailed = (data, params) => ({
+  type: gemsActionTypes.TRANSACTION_FAILED,
+  payload: { data, params },
+});
 
 const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
 

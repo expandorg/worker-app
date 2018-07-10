@@ -26,7 +26,6 @@ export default function userReducer(state = initialState, action) {
       return action.payload.user;
 
     case userActionTypes.UPDATED: {
-      console.log(action.payload);
       break;
     }
     case jobsActionTypes.ASSIGN_COMPLETE:

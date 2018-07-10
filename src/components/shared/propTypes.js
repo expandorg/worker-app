@@ -81,7 +81,13 @@ export const requestStateProps = {
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
-export const notificationProps = {
-  type: PropTypes.string.isRequired,
+
+export const notificationPayloadProps = {
   data: PropTypes.object,
+  params: PropTypes.object,
+};
+
+export const notificationProps = {
+  notificationType: PropTypes.string.isRequired,
+  payload: PropTypes.shape(notificationPayloadProps),
 };

@@ -1,14 +1,15 @@
 import { takeLatest, takeEvery, call, put, take, race } from 'redux-saga/effects';
 
-import { appActionTypes, userActionTypes } from './actionTypes';
+import { appActionTypes, userActionTypes, gemsActionTypes } from './actionTypes';
+import { NotificationTypes } from '../model/enums';
 
 import { delay } from '../common/app/apiCallSaga';
 
 const NOTIFICATION_TIMEOUT = 3000;
 
-export const addNotification = (type, data) => ({
+export const addNotification = (notificationType, payload) => ({
   type: appActionTypes.NOTIFICATION_ADD,
-  payload: { type, data },
+  payload: { notificationType, payload },
 });
 
 export const clearNotification = () => ({
@@ -26,13 +27,19 @@ function* handldNotificationAdded() {
   }
 }
 
-
-function* handleUserUpdated({ payload: { data, params } }) {
-  yield put(addNotification(params.type, data));
-}
+const getNotificationHandler = (notificationType) => {
+  function* handler({ payload }) {
+    yield put(addNotification(notificationType, payload));
+  }
+  return handler;
+};
 
 export function* notificationsSagas() {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
 
-  yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);
+  yield takeEvery(userActionTypes.UPDATED, getNotificationHandler(NotificationTypes.Balance));
+  yield takeEvery(
+    gemsActionTypes.TRANSACTION_FAILED,
+    getNotificationHandler(NotificationTypes.TxError),
+  );
 }
