@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 
 import Content from '../shared/Content';
 import Panel from '../shared/Panel';
-import Tokens from '../shared/Tokens';
 
 import Field from './shared/Field';
 
@@ -53,8 +52,6 @@ class Account extends Component {
     if (!user) {
       return null;
     }
-    const min = <Tokens value={WITHDRAW_MIN} />;
-
     return (
       <Content title="Account" >
         <Panel className={styles.container}>
@@ -75,7 +72,7 @@ class Account extends Component {
             </div>
           </Field>
           <Field>
-            *Due to high demand, we require a minimum withdrawal of {min} tokens
+            *Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} tokens
           </Field>
         </Panel>
       </Content>

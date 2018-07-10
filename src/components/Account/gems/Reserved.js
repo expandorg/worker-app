@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Tokens from '../../shared/Tokens';
 import Field from '../shared/Field';
 
 import { userProps } from '../../shared/propTypes';
@@ -19,7 +18,7 @@ export default class Reserved extends Component {
       <Field
         title={(
           <span>
-            <Tokens value={value} /> Reserverd for tasks
+            {value} tokens reserverd for tasks
           </span>
         )}
       />
