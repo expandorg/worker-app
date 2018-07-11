@@ -6,7 +6,7 @@ const initialState = RequestStates.NotFetched;
 export default function txStateReucer(state = initialState, action) {
   switch (action.type) {
     case gemsActionTypes.WITHDRAW_COMPLETE:
-    case gemsActionTypes.WITHDRAW_FAILED:
+    case gemsActionTypes.DEPOSIT_COMPLETE:
       return RequestStates.Fetching;
     case userActionTypes.UPDATED:
     case gemsActionTypes.TRANSACTION_FAILED:
