@@ -13,8 +13,11 @@ import { requestUiStateReducer } from '../../common/app/requestUiState';
 import depositStage from './depositStageReducer';
 import notification from './notificationReducer';
 
+import txState from './txStateReucer';
+
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
+  tx: txState,
 
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
 
