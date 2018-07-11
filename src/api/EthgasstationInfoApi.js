@@ -24,7 +24,7 @@ class EthgasstationInfoClient extends ApiClient {
 }
 
 export class EthgasstationInfoApi extends BaseApi {
-  static fallbackGasPrice: number = 20000000000;
+  static fallbackAvg: number = 200;
 
   cache: ExpirationCache = new ExpirationCache(EXPIRE_IN);
 
@@ -34,7 +34,7 @@ export class EthgasstationInfoApi extends BaseApi {
       const data = await this.cache.invokeCached('data', this.fetchStats);
       return data.average;
     } catch (e) {
-      return EthgasstationInfoApi.fallbackGasPrice;
+      return EthgasstationInfoApi.fallbackAvg;
     }
   }
 
