@@ -4,6 +4,11 @@ import Watcher from '@xlnt/scry-one';
 
 import { promisify } from '../common/utils';
 
+const GAS_PRICE_FACTOR = 1e8;
+
+const GAS_PRICE_MIN = 7e9;
+const GAS_PRICE_MAX = 80e9;
+
 export default class GemsService {
   vaultAddress: string
   web3: window.Web3
@@ -35,11 +40,15 @@ export default class GemsService {
     this.gems = instance;
   }
 
-  approve = async (value: number) => {
+  calculateGasPrice = (average: number) =>
+    Math.min(Math.max(average * GAS_PRICE_FACTOR, GAS_PRICE_MIN), GAS_PRICE_MAX)
+
+  approve = async (value: number, average: number) => {
     if (!this.gems) {
       throw new Error('Gems instance is not initialized');
     }
-    await this.gems.approve(this.vaultAddress, value * 1e+18);
+    const gasPrice = this.calculateGasPrice(average);
+    await this.gems.approve(this.vaultAddress, value * 1e+18, { gasPrice });
   }
 
   getDefaultAccount = () =>
