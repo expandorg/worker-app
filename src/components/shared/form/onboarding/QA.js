@@ -52,17 +52,16 @@ export default class QA extends Component {
           </p>
         </Alignment>
 
-        <Alignment padding="medium" align="between" vCenter>
-          <div className={styles.title}>
-            Question <span className={styles.number}>{field.number} / {field.total}</span>
+        <div className={styles.stats}>
+          <div className={styles.block}>
+            Question<span className={styles.number}>{field.number} / {field.total}</span>
           </div>
-          <div className={styles.title}>
+          <div className={styles.block}>
             <span className={styles.number}>{field.tries}</span>Tries left
           </div>
-        </Alignment>
-
+        </div>
         <Alignment vertical vCenter padding="medium">
-          <div className={styles.title}>
+          <div className={styles.block}>
             Question {field.number}:
           </div>
           <Paragraph className={styles.question} fontSize="medium" centered>
@@ -86,7 +85,7 @@ export default class QA extends Component {
           </Answers>
         </Alignment>
         <Alignment align="between" padding="medium">
-          <div className={styles.info}>
+          <div className={styles.actions}>
             <Button size="small" theme="link">
               See rules
             </Button>
@@ -97,9 +96,9 @@ export default class QA extends Component {
           </div>
           <Submit
             caption={field.submit}
+            isSubmitting={isSubmitting || disabled}
             theme="aqua"
             size="medium"
-            isSubmitting={isSubmitting || disabled}
             onSubmit={onSubmit}
             disabled={disabled}
           />
