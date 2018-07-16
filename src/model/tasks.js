@@ -1,13 +1,17 @@
 // @flow
-import { TaskFieldType } from './enums';
+import { FieldType } from './enums';
 import { rules, ruleMessages } from '../common/validation';
 
 
 export class FormBuilder {
   static getDefaultValue = (type: string) => {
     switch (type) {
-      case TaskFieldType.text:
+      case FieldType.text:
         return '';
+      case FieldType.checkbox:
+        return false;
+      case FieldType.modal:
+        return false;
       default:
         break;
     }

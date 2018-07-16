@@ -11,7 +11,6 @@ import Content from '../shared/Content';
 import Form from './form/Form';
 import SubmissionDialog from './SubmissionDialog';
 
-
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 

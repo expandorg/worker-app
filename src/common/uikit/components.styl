@@ -2,6 +2,58 @@
 @import './font';
 @import './layout';
 
+pink()
+  color: color-white
+  background-color: color-pink
+  &:hover
+    background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
+
+  &:disabled
+    background-color: darken(color-grey, 20%)
+
+    &:hover
+      background-image: none
+
+white()
+  color: color-pink
+  background-color: color-white
+  border: 2px solid color-pink
+
+  &:disabled
+    background-color: color-grey
+
+transparent()
+  color: color-text-1
+  background-color: transparent
+  border: 1px solid color-text-gray-1
+
+  &:hover
+    background: color-pink
+    border: 2px solid  color-pink
+
+aqua()
+  color: color-text-1
+  background-color: color-aqua
+
+  &:hover
+    background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)
+
+blue()
+  color: color-white
+  background-color: color-blue
+  &:hover
+    background-image: linear-gradient(to bottom right, color-blue, lighten(color-blue, 10%))
+
+blue-transparent()
+  color: color-text-1
+  background-color: transparent
+  border: 1px solid color-text-1
+
+  &:hover
+    color: lighten(color-text-1, 20%)
+    border-color: lighten(color-text-1, 20%)
+
+
 button(size = 'medium', theme = 'pink')
   box-sizing: border-box;
   text-align: center;
@@ -17,7 +69,6 @@ button(size = 'medium', theme = 'pink')
     height: 30px
     border-radius: 2px
 
-
   if size == 'medium'
     font(font-preset[menu], false, false, 38px)
     height: 40px
@@ -29,62 +80,17 @@ button(size = 'medium', theme = 'pink')
     border-radius: 4px
 
   if theme == 'pink'
-    color: color-white
-    background-color: color-pink
-    &:hover
-      background-image: linear-gradient(to bottom right, color-pink, color-pink-light)
-
-    &:disabled
-      background-color: darken(color-grey, 20%)
-
-      &:hover
-        background-image: none
-
+    pink()
   if theme == 'white'
-    color: color-pink
-    background-color: color-white
-    border: 2px solid color-pink
-
-    &:disabled
-      background-color: color-grey
-
+    white()
   if theme == 'blue'
-    color: color-white
-    background-color: color-blue
-    &:hover
-      background-image: linear-gradient(to bottom right, color-blue, lighten(color-blue, 10%))
-
+    blue()
   if theme == 'aqua'
-    color: color-text-1
-    background-color: color-aqua
-    &:hover
-      background-image: linear-gradient(to bottom right, color-aqua, color-aqua-light)
-
+    aqua()
   if theme == 'transparent'
-    color: color-text-1
-    background-color: transparent
-    border: 1px solid color-text-gray-1 
-    font-weight: 600
-    text-align: left 
-    &:hover
-      background: color-pink
-      border: 2px solid  color-pink
-
-  if theme == 'blueTransparent'
-    color: color-text-1
-    background-color: transparent
-    border: 1px solid color-text-1
-    font-weight: 600
-    font-size: 14px;
-    &:hover
-      background-image: grey // izmeniti
-    @media(min-width: 768px)
-      font-size: 16px;
-  if theme == 'grey'
-    color: color-text-1
-    background-color: color-text-gray-1
-    &:hover
-      background-image: grey // izmeniti
+    transparent()
+  if theme == 'blue-transparent'
+    blue-transparent()
 
 input()
   box-sizing: border-box
@@ -105,3 +111,10 @@ input()
   &:focus
     box-shadow: 0 0 4px 0 color-text-gray-1;
     border: solid 1px color-text-gray-1;
+
+
+debug()
+  background-color: rgba(0, 0, 0, 0.07)
+
+  > *
+    background-color: rgba(0, 0, 0, 0.07)

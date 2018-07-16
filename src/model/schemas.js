@@ -9,7 +9,7 @@ const taskSchema = new schema.Entity('tasks');
 
 const responseSchema = new schema.Entity('responses');
 
-const onboardingStatusSchema = new schema.Entity('onboardingStatus', {}, { idAttribute: 'jobId' });
+const onboardingSchema = new schema.Entity('onboarding', {}, { idAttribute: 'jobId' });
 
 const authResponseSchema = {
   assignments: [assignmentSchema],
@@ -19,7 +19,7 @@ const authResponseSchema = {
 
 export {
   jobSchema,
-  onboardingStatusSchema,
+  onboardingSchema,
   assignmentSchema,
   taskSchema,
   responseSchema,

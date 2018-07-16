@@ -6,9 +6,9 @@ import { RequestStates } from '../../../common/app/requestUiState';
 import { taskFormProps, requestStateProps } from '../../shared/propTypes';
 
 import Panel from '../../shared/Panel';
-import ErrorMessage from '../../common/ErrorMessage';
+import Field from '../../shared/form/Field';
 
-import Field from './Field';
+import ErrorMessage from '../../common/ErrorMessage';
 
 import { FormBuilder } from '../../../model/tasks';
 
@@ -62,7 +62,7 @@ export default class Form extends Component {
   render() {
     const { submitState, taskForm } = this.props;
     const { values, errors } = this.state;
-    const isLoading = submitState.state === RequestStates.Fetching;
+    const isSubmitting = submitState.state === RequestStates.Fetching;
     return (
       <Panel className={styles.container}>
         <form className={styles.form} onSubmit={this.handleSubmit} >
@@ -76,16 +76,18 @@ export default class Form extends Component {
               field={field}
               error={errors}
               value={values[field.name]}
+              isSubmitting={isSubmitting}
               onChange={this.handleChange}
+              onClick={this.handleSubmit}
             />
           ))}
           <div className={styles.actions}>
             <button
               className={styles.submit}
               onClick={this.handleSubmit}
-              disabled={isLoading}
+              disabled={isSubmitting}
             >
-              {isLoading ? 'Submitting...' : 'Submit'}
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>

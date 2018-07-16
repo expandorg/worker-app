@@ -16,14 +16,15 @@ export const TaskType = keyMirror({
   Trivia: null,
 });
 
-export const TaskFieldType = keyMirror({
+export const FieldType = keyMirror({
   text: null,
   number: null,
   email: null,
   password: null,
-  list: null,
-  twoColumnsList: null,
-  yesNo: null,
+  submit: null,
+  article: null,
+  rules: null,
+  qa: null,
 });
 
 export const NotificationType = keyMirror({

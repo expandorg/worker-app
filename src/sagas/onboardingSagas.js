@@ -3,28 +3,28 @@ import { fork } from 'redux-saga/effects';
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { onboardingActionTypes } from './actionTypes';
 
-import { onboardingStatusSchema } from '../model/schemas';
+import { onboardingSchema } from '../model/schemas';
 
 import { onboardingApi } from '../api/OnboardingApi';
 
-export const fetchOnboardingStatus = jobId => ({
+export const fetchOnboarding = jobId => ({
   type: onboardingActionTypes.FETCH,
   payload: { jobId },
-  meta: { schema: { onboardingStatus: onboardingStatusSchema } },
+  meta: { schema: { onboarding: onboardingSchema } },
 });
 
-const watchFetchRequest = takeEveryApiCall(onboardingActionTypes.FETCH, onboardingApi.fetchStatus);
+const watchFetchRequest = takeEveryApiCall(onboardingActionTypes.FETCH, onboardingApi.fetch);
 
 
-export const submitOnboarding = (jobId, stepId, form) => ({
+export const submitOnboarding = (jobId, pageId, form) => ({
   type: onboardingActionTypes.SUBMIT,
-  payload: { jobId, stepId, response: JSON.stringify(form) },
+  payload: { jobId, pageId, response: JSON.stringify(form) },
   meta: {
-    schema: { onboardingStatus: onboardingStatusSchema },
+    schema: { onboarding: onboardingSchema },
   },
 });
 
-const watchSubmitRequest = takeEveryApiCall(onboardingActionTypes.SUBMIT, onboardingApi.submitStep);
+const watchSubmitRequest = takeEveryApiCall(onboardingActionTypes.SUBMIT, onboardingApi.submit);
 
 
 export function* onboardingSagas() {

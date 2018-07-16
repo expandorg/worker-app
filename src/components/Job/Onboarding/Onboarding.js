@@ -7,35 +7,33 @@ import { bindActionCreators } from 'redux';
 import withSubmitState from '../../hoc/withSubmitState';
 
 import Panel from '../../shared/Panel';
-import OnboardingStep from './OnboardingStep';
+import OnboardingForm from './OnboardingForm';
 
-import { requestStateProps, jobProps, onboardingStatusProps } from '../../shared/propTypes';
+import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
+
+import styles from './Onboarding.module.styl';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ submitOnboarding }, dispatch);
 
 class Onboarding extends Component {
   static propTypes = {
-    job: PropTypes.shape(jobProps).isRequired,
-    onboardingStatus: PropTypes.shape(onboardingStatusProps).isRequired,
+    jobId: PropTypes.number.isRequired,
+    onboarding: PropTypes.shape(onboardingProps).isRequired,
     submitState: PropTypes.shape(requestStateProps).isRequired,
+
     submitOnboarding: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-
     onAssign: PropTypes.func.isRequired,
   };
 
-  getActiveStep(job, onboardingStatus) {
-    return job.onboarding.steps.find(s => s.id === onboardingStatus.activeStep);
-  }
-
-  handleSaveStep = (stepId, form) => {
-    const { onSubmit, job } = this.props;
-    onSubmit(() => this.props.submitOnboarding(job.id, stepId, form));
+  handleSaveStep = (formValues) => {
+    const { onSubmit, onboarding, jobId } = this.props;
+    onSubmit(() => this.props.submitOnboarding(jobId, onboarding.pageId, formValues));
   }
 
   handleAssign = () => {
@@ -43,12 +41,11 @@ class Onboarding extends Component {
   }
 
   render() {
-    const { job, onboardingStatus, submitState } = this.props;
-    const step = this.getActiveStep(job, onboardingStatus);
+    const { onboarding, submitState } = this.props;
     return (
-      <Panel>
-        <OnboardingStep
-          step={step}
+      <Panel className={styles.container}>
+        <OnboardingForm
+          form={onboarding.form}
           submitState={submitState}
           onSubmit={this.handleSaveStep}
         />

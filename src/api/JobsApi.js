@@ -1,18 +1,11 @@
 import BaseApi from '../common/api/BaseApi';
-import { mock } from './__tests__/onboardingMocks';
 
 export class JobsApi extends BaseApi {
   list = () =>
-    this.get('/jobs').then((data) => {
-      data.jobs.forEach(job => mock.inject(job));
-      return data;
-    })
+    this.get('/jobs')
 
   fetch = ({ jobId }) =>
-    this.get(`/jobs/${jobId}`).then((data) => {
-      mock.inject(data.job);
-      return data;
-    })
+    this.get(`/jobs/${jobId}`)
 
   assign = ({ jobId }) =>
     this.post(`/jobs/${jobId}/assign`)

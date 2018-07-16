@@ -40,7 +40,7 @@ export default combineReducers({
 
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
-  submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT, true),
+  submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 

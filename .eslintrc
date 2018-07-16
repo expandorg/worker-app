@@ -11,7 +11,8 @@
   },
   "rules": {
     "class-methods-use-this":  ["off"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "object-curly-newline":  ["off"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
     "react/prefer-stateless-function": ["off"],
     "react/prop-types": [2, { "ignore": ['children'] }]
   },

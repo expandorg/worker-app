@@ -1,97 +1,128 @@
-const StepsTypes = {
-  Description: 'Description',
-  Rules: 'Rules',
-  Eligibility: 'Eligibility',
-  Question: 'Question',
-};
+import { FieldType } from '../../model/enums';
 
-const onboarding = {
-  steps: [{
-    id: 0,
-    type: StepsTypes.Description,
-    fields: [],
-  }, {
-    id: 1,
-    type: StepsTypes.Rules,
-    fields: [],
-  }, {
-    id: 2,
-    type: StepsTypes.Eligibility,
-    fields: [],
-  }, {
-    id: 3,
-    type: StepsTypes.Question,
-    fields: [],
-  }, {
-    id: 4,
-    type: StepsTypes.Question,
-    fields: [],
-  }, {
-    id: 4,
-    type: StepsTypes.Question,
-    fields: [],
+const onboarding = [{
+  id: 10,
+  fields: [{
+    type: FieldType.qa,
+    name: 'qa',
+    submit: 'Next Question',
+    number: 3,
+    total: 12,
+    tries: 5,
+    answers: [
+      { id: 'A', caption: 'Answer A' },
+      { id: 'B', caption: 'Answer B' },
+      { id: 'C', caption: 'Answer C' },
+      { id: 'D', caption: 'Answer D Long' },
+    ],
+    question: 'Cam sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam porta sem malesuada magna mollis euismod?',
   }],
-};
+}, {
+  id: 0,
+  submit: {
+    caption: 'Proceed to rules',
+  },
+  fields: [{
+    type: FieldType.article,
+    name: 'article',
+    title: 'Task',
+    content: 'Your task will be to read Medium articles that have recently been published and decide if the articles pass Medium’s Quality Control Guidelines.  If the article passes the guidelines you will click accept. While reading the article if you see it fails a guideline, stop reading and click reject.',
+  }],
+}, {
+  id: 1,
+  submit: {
+    caption: 'Let\'s do this',
+  },
+  fields: [{
+    type: FieldType.article,
+    name: 'article',
+    title: 'Rules',
+    content: 'As part of the task you must understand the Medium Quality Control Guidelines. Please familiar yourself with these rules now and keep them in a place where you can easily access them. By clicking agree you agree to our terms of service, and are committed to perform the task to the best of your ability.',
+  }, {
+    type: FieldType.rules,
+    name: 'rules',
+    buttonTitle: 'Read rules',
+    checkbox: 'I have read the instructions and I agree with the terms',
+    headline: 'Task',
+    title: 'Read task instructions here!',
+    rules: 'Your task will be to read Medium articles that have recently been published and decide if the articles pass Medium’s Quality Control Guidelines.  If the article passes the guidelines you will click accept. While reading the article if you see it fails a guideline, stop reading and click reject. ',
+    close: 'Ok',
+  }],
+}, {
+  id: 2,
+  submit: {
+    caption: 'Start test',
+  },
+  fields: [{
+    type: FieldType.article,
+    name: 'article',
+    title: 'Eligibility',
+    image: '/images/complete-tasks.png',
+    content: 'To be eligible for this task you will have to pass a test to show you understand the task and can complete it with both accuracy and speed. There are 13 questions in this test. Do not share the contents of the test or the answers with anyone. To ensure there is no sharing, the articles chosen for this test will be randomized. You will have 2 tries to score 100% on the test. The test is not paid.',
+  }],
+}, {
+  id: 3,
+  fields: [],
+}, {
+  id: 4,
+  fields: [],
+}, {
+  id: 5,
+  fields: [],
+}];
+
 
 export class OnboardingMocks {
-  stepsMap = new Map();
+  progessMap = new Map();
 
-  fetchStatus = (jobId) => {
-    const steps = this.getSteps(jobId);
-    const activeStep = this.getActiveStep(steps);
-    return ({
-      onboardingStatus: {
-        jobId,
-        activeStep,
-        steps,
-      },
-    });
+  fetch = (jobId) => {
+    const progress = this.getProgress(jobId);
+    const current = progress[progress.length - 1];
+    const form = this.getOnboardingForm(current.pageId);
+    return ({ onboarding: { ...current, form } });
   }
 
-  inject = (job) => {
-    job.onboarding = onboarding;
+
+  submit = (jobId, pageId, response) => {
+    const progress = this.getProgress(jobId);
+    const currentForm = this.getOnboardingForm(pageId);
+    const current = progress[progress.length - 1];
+
+    const valid = this.validatePage(currentForm, response, current);
+
+    if (!valid) {
+      return ({ error: 'validation error' });
+    }
+
+    if (progress.length === onboarding.length) {
+      return ({ onboarding: { ...current, form: currentForm } });
+    }
+
+    const curretIndex = onboarding.findIndex(page => page.id === pageId);
+    const form = onboarding[curretIndex + 1];
+    const next = { jobId, pageId: form.id, status: 'pending' };
+    progress.push(next);
+
+    return ({ onboarding: { ...next, form } });
   }
 
-  submitStep = (jobId, stepId, response) => {
-    const steps = this.getSteps(jobId);
-    const step = onboarding.steps.find(s => s.id === stepId);
-    steps.push({ id: stepId, status: this.validateStep(step, response) });
-    const activeStep = this.getActiveStep(steps);
-    return ({
-      onboardingStatus: {
-        jobId,
-        activeStep,
-        steps,
-      },
-    });
-  }
-
-  validateStep = (step, response) => {
-    const data = JSON.parse(response);
+  validatePage = (form, response, current) => {
+    const data = JSON.stringify(response);
     console.log(data);
-    return 'complete';
+    current.status = 'complete';
+    return true;
   }
 
-  getActiveStep = (steps) => {
-    if (!steps.length) {
-      return onboarding.steps[0].id;
-    }
-    const completed = steps.reverse().find(step => step.status === 'complete');
-    if (!completed) {
-      return null;
-    }
-    const index = onboarding.steps.findIndex(s => s.id === completed.id);
-    const nextStep = onboarding.steps[index + 1];
-    return nextStep ? nextStep.id : null;
-  }
+  getOnboardingForm = pageId =>
+    onboarding.find(page => page.id === pageId)
 
-  getSteps = (jobId) => {
-    let steps = this.stepsMap.get(jobId);
-    if (!steps) {
-      steps = [];
-      this.stepsMap.set(jobId, steps);
+  getProgress = (jobId) => {
+    let progress = this.progessMap.get(jobId);
+    if (!progress) {
+      progress = [{ jobId, pageId: onboarding[0].id, status: 'pending' }];
+      this.progessMap.set(jobId, progress);
     }
-    return steps;
+    return progress;
   }
 }
 

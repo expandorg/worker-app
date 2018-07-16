@@ -46,7 +46,22 @@ export const jobProps = {
   }),
 };
 
-export const onboardingStatusProps = {
+export const fieldProps = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+};
+
+export const onboardingFormProps = {
+  submit: PropTypes.shape(fieldProps),
+  fields: PropTypes.arrayOf(PropTypes.shape(fieldProps)),
+};
+
+
+export const onboarding = {
+  jobId: PropTypes.number.isRequired,
+  pageId: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  form: PropTypes.shape(onboardingFormProps),
 };
 
 export const assignmentProps = {
@@ -62,9 +77,8 @@ export const taskProps = {
 
 export const taskFormProps = {
   description: PropTypes.string.isRequired,
-  fields: PropTypes.array,
+  fields: PropTypes.arrayOf(PropTypes.shape(fieldProps)),
 };
-
 
 export const historyProps = {
   replace: PropTypes.func.isRequired,
