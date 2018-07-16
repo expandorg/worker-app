@@ -14,15 +14,15 @@ export default class Modal extends Component {
     button: PropTypes.string.isRequired,
 
     visible: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
+    onHide: PropTypes.func.isRequired,
   };
 
   render() {
     const {
-      button, headline, children, onClose, visible,
+      button, headline, children, onHide, visible,
     } = this.props;
     return (
-      <Dialog visible={visible} onHide={onClose} contentLabel="modal" >
+      <Dialog visible={visible} onHide={onHide} contentLabel="modal" >
         {headline &&
           <DialogHeadline>
             {headline}
@@ -31,7 +31,7 @@ export default class Modal extends Component {
         <div className={styles.container}>
           {children}
           <Alignment padding="medium" align="left">
-            <Button className={styles.confirm} onClick={onClose}>
+            <Button className={styles.confirm} onClick={onHide}>
               {button}
             </Button>
           </Alignment>

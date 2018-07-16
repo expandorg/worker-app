@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { fieldProps } from '../../propTypes';
 
 import Alignment from '../ui/Alignment';
-import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 import Checkbox from '../ui/Checkbox';
-import Title from '../ui/Title';
-import Paragraph from '../ui/Paragraph';
+
+import ArticleModal from './ArticleModal';
 
 import styles from './Rules.module.styl';
 
@@ -50,23 +49,14 @@ export default class Rules extends Component {
           value={value}
           onChange={changed => onChange(changed)}
         />
-        <Modal
-          onClose={this.handleToggle}
-          visible={visible}
+        <ArticleModal
+          onHide={this.handleToggle}
           headline={field.headline}
-          button={field.close}
-        >
-          <Alignment padding="small">
-            <Title>
-              {field.title}
-            </Title>
-          </Alignment>
-          <Alignment padding="small">
-            <Paragraph>
-              {field.rules}
-            </Paragraph>
-          </Alignment>
-        </Modal>
+          visible={visible}
+          title={field.title}
+          content={field.rules}
+          hideTitle={field.close}
+        />
       </Alignment>
     );
   }

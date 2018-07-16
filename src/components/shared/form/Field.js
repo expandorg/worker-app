@@ -8,7 +8,7 @@ import Submit from './Submit';
 
 import Article from './onboarding/Article';
 import Rules from './onboarding/Rules';
-import QA from './onboarding/QA';
+import QA from './onboarding/QA/QA';
 
 import { FieldType } from '../../../model/enums';
 import { fieldProps } from '../propTypes';

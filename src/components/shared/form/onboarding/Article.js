@@ -14,19 +14,23 @@ import styles from './Article.module.styl';
 export default class Article extends Component {
   static propTypes = {
     field: PropTypes.shape(fieldProps).isRequired,
+    wide: PropTypes.bool,
   };
 
+  static defaultProps = {
+    wide: false,
+  }
+
   render() {
-    const { title, image, content } = this.props.field;
+    const { field: { title, image, content }, wide } = this.props;
     return (
       <Alignment padding="small">
-
         <Alignment vertical >
           <Alignment padding="small">
             <Title>{title}</Title>
           </Alignment>
           <Alignment padding="small" >
-            <Paragraph className={cn({ [styles.shrinked]: !image })}>
+            <Paragraph className={cn({ [styles.shrinked]: wide ? false : !image })}>
               {content}
             </Paragraph>
           </Alignment>

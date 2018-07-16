@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fieldProps } from '../../propTypes';
+import { fieldProps } from '../../../propTypes';
 
-import Alignment from '../ui/Alignment';
-import Submit from '../ui/Submit';
-import Button from '../ui/Button';
-import Paragraph from '../ui/Paragraph';
-import Answers from '../ui/Answers';
-import Answer from '../ui/Answer';
+import Alignment from '../../ui/Alignment';
+import Submit from '../../ui/Submit';
+import Button from '../../ui/Button';
+import Paragraph from '../../ui/Paragraph';
+import Answers from '../../ui/Answers';
+import Answer from '../../ui/Answer';
+
+import Progress from './Progress';
+import Task from './Task';
+import ArticleModal from '../ArticleModal';
 
 import styles from './QA.module.styl';
 
@@ -27,6 +31,8 @@ export default class QA extends Component {
 
   state = {
     disabled: true,
+    rules: false,
+    instructions: false,
   }
 
   handleChange = (value) => {
@@ -35,31 +41,23 @@ export default class QA extends Component {
     onChange(field.name, value);
   }
 
+  handleToggleRules = () => {
+    this.setState(({ rules }) => ({ rules: !rules }));
+  }
+
+  handleToggleInstructions = () => {
+    this.setState(({ instructions }) => ({ instructions: !instructions }));
+  }
+
   render() {
     const {
       field, isSubmitting, onSubmit, value,
     } = this.props;
-    const { disabled } = this.state;
+    const { disabled, rules, instructions } = this.state;
     return (
       <Alignment vertical className={styles.container}>
-
-        <Alignment padding="medium" vCenter>
-          <Button size="medium">
-            Read article
-          </Button>
-          <p className={styles.p}>
-            Read article and answer the questions!
-          </p>
-        </Alignment>
-
-        <div className={styles.stats}>
-          <div className={styles.block}>
-            Question<span className={styles.number}>{field.number} / {field.total}</span>
-          </div>
-          <div className={styles.block}>
-            <span className={styles.number}>{field.tries}</span>Tries left
-          </div>
-        </div>
+        <Task link={field.link} />
+        <Progress number={field.number} total={field.total} tries={field.tries} />
         <Alignment vertical vCenter padding="medium">
           <div className={styles.block}>
             Question {field.number}:
@@ -86,11 +84,11 @@ export default class QA extends Component {
         </Alignment>
         <Alignment align="between" padding="medium">
           <div className={styles.actions}>
-            <Button size="small" theme="link">
+            <Button size="small" theme="link" onClick={this.handleToggleRules}>
               See rules
             </Button>
             <div className={styles.spacer} />
-            <Button size="small" theme="link">
+            <Button size="small" theme="link" onClick={this.handleToggleInstructions}>
               See instructions
             </Button>
           </div>
@@ -98,11 +96,27 @@ export default class QA extends Component {
             caption={field.submit}
             isSubmitting={isSubmitting || disabled}
             theme="aqua"
-            size="medium"
+            size="large"
             onSubmit={onSubmit}
             disabled={disabled}
           />
         </Alignment>
+        <ArticleModal
+          visible={rules}
+          onHide={this.handleToggleRules}
+          headline="Rules"
+          hideTitle="Close"
+          title={field.rulesTitle}
+          content={field.rulesContent}
+        />
+        <ArticleModal
+          visible={instructions}
+          onHide={this.handleToggleInstructions}
+          headline="Instructions"
+          hideTitle="Close"
+          title={field.instructionsTitle}
+          content={field.instructionsContent}
+        />
       </Alignment>
     );
   }
