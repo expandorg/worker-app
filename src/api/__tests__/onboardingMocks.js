@@ -1,12 +1,10 @@
-import { FieldType } from '../../model/enums';
-
 const onboarding = [{
   id: 0,
   submit: {
     caption: 'Proceed to rules',
   },
   fields: [{
-    type: FieldType.article,
+    type: 'article',
     name: 'article',
     title: 'Task',
     content: 'Your task will be to read Medium articles that have recently been published and decide if the articles pass Medium’s Quality Control Guidelines.  If the article passes the guidelines you will click accept. While reading the article if you see it fails a guideline, stop reading and click reject.',
@@ -17,12 +15,12 @@ const onboarding = [{
     caption: 'Let\'s do this',
   },
   fields: [{
-    type: FieldType.article,
+    type: 'article',
     name: 'article',
     title: 'Rules',
     content: 'As part of the task you must understand the Medium Quality Control Guidelines. Please familiar yourself with these rules now and keep them in a place where you can easily access them. By clicking agree you agree to our terms of service, and are committed to perform the task to the best of your ability.',
   }, {
-    type: FieldType.rules,
+    type: 'rules',
     name: 'rules',
     buttonTitle: 'Read rules',
     checkbox: 'I have read the instructions and I agree with the terms',
@@ -37,7 +35,7 @@ const onboarding = [{
     caption: 'Start test',
   },
   fields: [{
-    type: FieldType.article,
+    type: 'article',
     name: 'article',
     title: 'Eligibility',
     image: '/images/complete-tasks.png',
@@ -46,7 +44,7 @@ const onboarding = [{
 }, {
   id: 3,
   fields: [{
-    type: FieldType.qa,
+    type: 'qa',
     name: 'qa',
     link: 'https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c',
     submit: 'Next Question',
@@ -68,7 +66,7 @@ const onboarding = [{
 }, {
   id: 4,
   fields: [{
-    type: FieldType.qa,
+    type: 'qa',
     name: 'qa',
     link: 'https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c',
     submit: 'Next Question',
@@ -90,7 +88,7 @@ const onboarding = [{
 }, {
   id: 5,
   fields: [{
-    type: FieldType.qa,
+    type: 'qa',
     name: 'qa',
     link: 'https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c',
     submit: 'Next Question',

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { FieldType } from '../../../model/enums';
+import FieldType from './fieldType';
 import { fieldProps } from '../propTypes';
 
 import UIInput from './ui/Input';

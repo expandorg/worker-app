@@ -5,7 +5,7 @@ import Input from './Input';
 import Submit from './Submit';
 import Article from './Article';
 
-import { FieldType } from '../../../model/enums';
+import FieldType from './fieldType';
 import { fieldProps } from '../propTypes';
 
 export default class Field extends PureComponent {

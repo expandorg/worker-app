@@ -1,5 +1,5 @@
 // @flow
-import { FieldType } from './enums';
+import FieldType from '../components/shared/form/fieldType';
 import { rules, ruleMessages } from '../common/validation';
 
 

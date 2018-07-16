@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Rules from './Rules';
 import QA from './QA/QA';
 
-import { FieldType } from '../../../../model/enums';
+import FieldType from './fieldTypes';
 import { fieldProps } from '../../../shared/propTypes';
 
 import Field from '../../../shared/form/Field';
