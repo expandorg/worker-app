@@ -67,18 +67,9 @@ export default class QA extends Component {
           </Paragraph>
         </Alignment>
         <Alignment padding="medium" vertical>
-          <Answers
-            answers={field.answers}
-            onSelect={this.handleChange}
-            value={value}
-          >
+          <Answers answers={field.answers} onSelect={this.handleChange} value={value} >
             {({ key, onSelect, answer, selected }) => (
-              <Answer
-                key={key}
-                selected={selected}
-                onSelect={onSelect}
-                answer={answer}
-              />
+              <Answer key={key} selected={selected} onSelect={onSelect} answer={answer} />
             )}
           </Answers>
         </Alignment>
