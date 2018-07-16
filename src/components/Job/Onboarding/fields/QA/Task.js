@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Alignment from '../../ui/Alignment';
+import Alignment from '../../../../shared/form/ui/Alignment';
 
 import styles from './Task.module.styl';
 

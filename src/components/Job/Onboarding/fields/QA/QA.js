@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fieldProps } from '../../../propTypes';
+import { fieldProps } from '../../../../shared/propTypes';
 
-import Alignment from '../../ui/Alignment';
-import Submit from '../../ui/Submit';
-import Button from '../../ui/Button';
-import Paragraph from '../../ui/Paragraph';
-import Answers from '../../ui/Answers';
-import Answer from '../../ui/Answer';
+import Alignment from '../../../../shared/form/ui/Alignment';
+import Submit from '../../../../shared/form/ui/Submit';
+import Button from '../../../../shared/form/ui/Button';
+import Paragraph from '../../../../shared/form/ui/Paragraph';
+import Answers from '../../../../shared/form/ui/Answers';
+import Answer from '../../../../shared/form/ui/Answer';
 
 import Progress from './Progress';
 import Task from './Task';

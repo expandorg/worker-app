@@ -7,9 +7,10 @@ import { onboardingFormProps, requestStateProps } from '../../shared/propTypes';
 
 import ErrorMessage from '../../common/ErrorMessage';
 
-import Field from '../../shared/form/Field';
-
 import Submit from '../../shared/form/Submit';
+import FieldContainer from '../../shared/form/FieldContainer';
+
+import OnboardingField from './fields/OnboardingField';
 
 import { FormBuilder } from '../../../model/tasks';
 
@@ -68,15 +69,15 @@ export default class OnboardingForm extends Component {
         <ErrorMessage error={errors} />
         <form className={styles.form} onSubmit={this.handleSubmit} >
           {form.fields.map(field => (
-            <Field
-              key={field.name}
-              field={field}
-              error={errors}
-              value={values[field.name]}
-              isSubmitting={isSubmitting}
-              onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-            />
+            <FieldContainer key={field.name} name={field.name} error={errors} >
+              <OnboardingField
+                field={field}
+                value={values[field.name]}
+                isSubmitting={isSubmitting}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+              />
+            </FieldContainer>
           ))}
           {form.submit &&
             <Submit

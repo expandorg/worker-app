@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Modal from '../ui/Modal';
-import Article from './Article';
+import Modal from '../../../shared/form/ui/Modal';
+import Article from '../../../shared/form/Article';
 
 export default class ArticleModal extends Component {
   static propTypes = {

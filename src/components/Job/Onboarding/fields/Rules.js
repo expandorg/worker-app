@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fieldProps } from '../../propTypes';
+import { fieldProps } from '../../../shared/propTypes';
 
-import Alignment from '../ui/Alignment';
-import Button from '../ui/Button';
-import Checkbox from '../ui/Checkbox';
+import Alignment from '../../../shared/form/ui/Alignment';
+import Button from '../../../shared/form/ui/Button';
+import Checkbox from '../../../shared/form/ui/Checkbox';
 
 import ArticleModal from './ArticleModal';
 
@@ -51,8 +51,8 @@ export default class Rules extends Component {
         />
         <ArticleModal
           onHide={this.handleToggle}
-          headline={field.headline}
           visible={visible}
+          headline={field.headline}
           title={field.title}
           content={field.rules}
           hideTitle={field.close}

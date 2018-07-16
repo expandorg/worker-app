@@ -7,6 +7,7 @@ import { taskFormProps, requestStateProps } from '../../shared/propTypes';
 
 import Panel from '../../shared/Panel';
 import Field from '../../shared/form/Field';
+import FieldContainer from '../../shared/form/FieldContainer';
 
 import ErrorMessage from '../../common/ErrorMessage';
 
@@ -71,15 +72,15 @@ export default class Form extends Component {
           </div>
           <ErrorMessage error={errors} />
           {taskForm.fields.map(field => (
-            <Field
-              key={field.name}
-              field={field}
-              error={errors}
-              value={values[field.name]}
-              isSubmitting={isSubmitting}
-              onChange={this.handleChange}
-              onClick={this.handleSubmit}
-            />
+            <FieldContainer key={field.name} name={field.name} error={errors} >
+              <Field
+                field={field}
+                value={values[field.name]}
+                isSubmitting={isSubmitting}
+                onChange={this.handleChange}
+                onClick={this.handleSubmit}
+              />
+            </FieldContainer>
           ))}
           <div className={styles.actions}>
             <button
