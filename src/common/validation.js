@@ -4,9 +4,9 @@ import isEmail from 'validator/lib/isEmail';
 import ApiError from './api/ApiError';
 
 export const rules = {
-  isRequired: (str: any) => str !== '',
-  isNotEmpty: (str: any) => str !== '',
-  isEmail: (value: any) => (typeof value === 'undefined') || isEmail(value),
+  isRequired: (value: any) => (typeof value !== 'undefined') && value !== '',
+  isNotEmpty: (value: any) => (typeof value !== 'undefined') && value !== '',
+  isEmail: (value: any) => (typeof value !== 'undefined') && isEmail(value),
 };
 
 export const ruleMessages = {

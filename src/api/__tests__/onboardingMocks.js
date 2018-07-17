@@ -28,6 +28,7 @@ const onboarding = [{
     checkbox: 'I have read the instructions and I agree with the terms',
     headline: 'Task',
     title: 'Read task instructions here!',
+    validation: ['isTrue'],
     rules: 'Your task will be to read Medium articles that have recently been published and decide if the articles pass Medium’s Quality Control Guidelines.  If the article passes the guidelines you will click accept. While reading the article if you see it fails a guideline, stop reading and click reject. ',
     close: 'Ok',
   }],

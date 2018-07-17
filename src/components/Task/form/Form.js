@@ -11,7 +11,7 @@ import FieldContainer from '../../shared/form/FieldContainer';
 
 import ErrorMessage from '../../common/ErrorMessage';
 
-import { FormBuilder } from '../../../model/tasks';
+import { formRules } from '../../../model/field';
 
 import styles from './Form.module.styl';
 
@@ -26,7 +26,7 @@ export default class Form extends Component {
     super(props);
 
     this.state = {
-      values: FormBuilder.defaultValues(props.taskForm.fields),
+      values: {},
       errors: null,
     };
   }
@@ -57,7 +57,7 @@ export default class Form extends Component {
 
     evt.preventDefault();
 
-    onSubmit(values, FormBuilder.validation(taskForm.fields));
+    onSubmit(values, formRules(taskForm.fields));
   }
 
   render() {

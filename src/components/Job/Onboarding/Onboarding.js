@@ -29,9 +29,9 @@ class Onboarding extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  handleSaveStep = (formValues) => {
+  handleSaveStep = (formValues, rules) => {
     const { onSubmit, onboarding, jobId } = this.props;
-    onSubmit(() => this.props.submitOnboarding(jobId, onboarding.pageId, formValues));
+    onSubmit(() => this.props.submitOnboarding(jobId, onboarding.pageId, formValues, rules));
   }
 
 

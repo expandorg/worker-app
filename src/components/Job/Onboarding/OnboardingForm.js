@@ -12,7 +12,7 @@ import FieldContainer from '../../shared/form/FieldContainer';
 
 import OnboardingField from './fields/OnboardingField';
 
-import { FormBuilder } from '../../../model/tasks';
+import { formRules } from '../../../model/field';
 
 import styles from './OnboardingForm.module.styl';
 
@@ -27,7 +27,7 @@ export default class OnboardingForm extends Component {
     super(props);
 
     this.state = {
-      values: FormBuilder.defaultValues(props.form.fields),
+      values: {},
       errors: null,
     };
   }
@@ -54,10 +54,10 @@ export default class OnboardingForm extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { onSubmit } = this.props;
+    const { onSubmit, form } = this.props;
     const { values } = this.state;
 
-    onSubmit(values);
+    onSubmit(values, formRules(form.fields));
   }
 
   render() {
