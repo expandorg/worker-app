@@ -78,7 +78,7 @@ export default class Form extends Component {
                 value={values[field.name]}
                 isSubmitting={isSubmitting}
                 onChange={this.handleChange}
-                onClick={this.handleSubmit}
+                onSubmit={this.handleSubmit}
               />
             </FieldContainer>
           ))}

@@ -94,7 +94,7 @@ export const jobsActionTypes = createActionTypes('jobs', {
 });
 
 
-export const onboardingActionTypes = createActionTypes('onboardingStatus', {
+export const onboardingActionTypes = createActionTypes('onboarding', {
   FETCH: null,
   FETCH_COMPLETE: null,
   FETCH_FAILED: null,

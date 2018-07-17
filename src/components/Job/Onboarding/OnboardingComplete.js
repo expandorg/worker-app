@@ -41,7 +41,7 @@ export default class OnboardingComplete extends Component {
             <Link className={styles.back} to="/jobs">
               Not interesting
             </Link>
-            <button className={styles.assign} onClick={onAssign} disabled={isSubmitting}>
+            <button className={styles.start} onClick={onAssign} disabled={isSubmitting}>
               Start
             </button>
           </div>
