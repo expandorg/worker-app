@@ -12,6 +12,7 @@ import Content from '../shared/Content';
 
 import Onboarding from './Onboarding/Onboarding';
 import OnboardingComplete from './Onboarding/OnboardingComplete';
+import OnboardingFailed from './Onboarding/OnboardingFailed';
 
 import { requestStateProps, jobProps, historyProps, onboardingProps } from '../shared/propTypes';
 
@@ -84,11 +85,13 @@ class JobDetails extends Component {
     if (!onboarding) {
       return null;
     }
-    console.log(onboarding);
     return (
       <Content title={title}>
         {onboarding.stage === OnboardingStage.InProgress &&
           <Onboarding jobId={jobId} onboarding={onboarding} />
+        }
+        {onboarding.stage === OnboardingStage.Failed &&
+          <OnboardingFailed />
         }
         {onboarding.stage === OnboardingStage.Complete &&
           <OnboardingComplete
