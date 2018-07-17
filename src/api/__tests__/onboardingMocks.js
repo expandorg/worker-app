@@ -1,5 +1,6 @@
 const onboarding = [{
   id: 0,
+  stage: 'InProgress',
   submit: {
     caption: 'Proceed to rules',
   },
@@ -11,6 +12,7 @@ const onboarding = [{
   }],
 }, {
   id: 1,
+  stage: 'InProgress',
   submit: {
     caption: 'Let\'s do this',
   },
@@ -31,6 +33,7 @@ const onboarding = [{
   }],
 }, {
   id: 2,
+  stage: 'InProgress',
   submit: {
     caption: 'Start test',
   },
@@ -43,6 +46,7 @@ const onboarding = [{
   }],
 }, {
   id: 3,
+  stage: 'InProgress',
   fields: [{
     type: 'qa',
     name: 'qa',
@@ -65,6 +69,7 @@ const onboarding = [{
   }],
 }, {
   id: 4,
+  stage: 'InProgress',
   fields: [{
     type: 'qa',
     name: 'qa',
@@ -87,6 +92,7 @@ const onboarding = [{
   }],
 }, {
   id: 5,
+  stage: 'InProgress',
   fields: [{
     type: 'qa',
     name: 'qa',
@@ -107,6 +113,9 @@ const onboarding = [{
     ],
     question: '// QUESTION: number 3',
   }],
+}, {
+  id: 6,
+  stage: 'Complete',
 }];
 
 
@@ -137,27 +146,24 @@ export class OnboardingMocks {
     }
 
     const curretIndex = onboarding.findIndex(page => page.id === pageId);
-    const form = onboarding[curretIndex + 1];
-    const next = { jobId, pageId: form.id, status: 'pending' };
+    const { id, stage, ...form } = onboarding[curretIndex + 1];
+    const next = { jobId, pageId: id, stage };
     progress.push(next);
 
     return ({ onboarding: { ...next, form } });
   }
 
-  validatePage = (form, response, current) => {
-    const data = JSON.stringify(response);
-    console.log(data);
-    current.status = 'complete';
-    return true;
-  }
+  validatePage = (form, response, current) => true // eslint-disable-line
 
-  getOnboardingForm = pageId =>
-    onboarding.find(page => page.id === pageId)
+  getOnboardingForm = (pageId) => {
+    const { id, stage, ...form } = onboarding.find(page => page.id === pageId);
+    return form;
+  }
 
   getProgress = (jobId) => {
     let progress = this.progessMap.get(jobId);
     if (!progress) {
-      progress = [{ jobId, pageId: onboarding[0].id, status: 'pending' }];
+      progress = [{ jobId, pageId: onboarding[0].id, stage: onboarding[0].stage }];
       this.progessMap.set(jobId, progress);
     }
     return progress;

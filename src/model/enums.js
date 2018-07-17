@@ -20,3 +20,9 @@ export const NotificationType = keyMirror({
   Balance: null,
   TxError: null,
 });
+
+export const OnboardingStage = keyMirror({
+  InProgress: null,
+  Complete: null,
+  Failed: null,
+});

@@ -11,9 +11,11 @@ import withSubmitState from '../hoc/withSubmitState';
 import Content from '../shared/Content';
 
 import Onboarding from './Onboarding/Onboarding';
+import OnboardingComplete from './Onboarding/OnboardingComplete';
 
 import { requestStateProps, jobProps, historyProps, onboardingProps } from '../shared/propTypes';
 
+import { OnboardingStage } from '../../model/enums';
 import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 import { fetchOnboarding } from '../../sagas/onboardingSagas';
 
@@ -77,14 +79,21 @@ class JobDetails extends Component {
   }
 
   render() {
-    const { job, onboarding, jobId } = this.props;
+    const { job, onboarding, jobId, submitState } = this.props;
     const title = job ? job.name : '';
+    if (!onboarding) {
+      return null;
+    }
+    console.log(onboarding);
     return (
       <Content title={title}>
-        {onboarding &&
-          <Onboarding
-            jobId={jobId}
+        {onboarding.stage === OnboardingStage.InProgress &&
+          <Onboarding jobId={jobId} onboarding={onboarding} />
+        }
+        {onboarding.stage === OnboardingStage.Complete &&
+          <OnboardingComplete
             onboarding={onboarding}
+            submitState={submitState}
             onAssign={this.handleAssignJob}
           />
         }

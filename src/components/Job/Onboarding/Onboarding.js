@@ -12,7 +12,6 @@ import OnboardingForm from './OnboardingForm';
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
-
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from './Onboarding.module.styl';
@@ -28,7 +27,6 @@ class Onboarding extends Component {
 
     submitOnboarding: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    onAssign: PropTypes.func.isRequired,
   };
 
   handleSaveStep = (formValues) => {
@@ -36,9 +34,6 @@ class Onboarding extends Component {
     onSubmit(() => this.props.submitOnboarding(jobId, onboarding.pageId, formValues));
   }
 
-  handleAssign = () => {
-    this.props.onAssign();
-  }
 
   render() {
     const { onboarding, submitState } = this.props;
