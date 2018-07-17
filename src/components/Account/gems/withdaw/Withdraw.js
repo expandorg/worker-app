@@ -1,21 +1,30 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 import ConfirmEmailDialog from '../../../shared/email/ConfirmEmailDialog';
 
 import AvailableFunds from './AvailableFunds';
 import WithdrawDialog from './WithdrawDialog';
 
+import { transactionStateSelector } from '../../../../selectors/uiStateSelectors';
+
 import { userBalance } from '../../../../model/balance';
 import { userProps } from '../../../shared/propTypes';
+import { RequestStates } from '../../../../common/app/requestUiState';
 
 import styles from './Withdraw.module.styl';
 
+const mapStateToProps = state => ({
+  txState: transactionStateSelector(state),
+});
 
-export default class Withdraw extends Component {
+class Withdraw extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
+    txState: PropTypes.string.isRequired,
   }
 
   state = {
@@ -25,7 +34,10 @@ export default class Withdraw extends Component {
   }
 
   handleToggle = () => {
-    const { user } = this.props;
+    const { user, txState } = this.props;
+    if (txState === RequestStates.Fetching) {
+      return;
+    }
     const { dialog } = this.state;
     try {
       if (!dialog) {
@@ -57,13 +69,16 @@ export default class Withdraw extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    const { dialog, emailDialog, addressDialog } = this.state;
+    const { user, txState } = this.props;
+    const {
+      dialog, emailDialog, addressDialog,
+    } = this.state;
     const balance = userBalance.get(user);
 
+    const disabled = txState === RequestStates.Fetching;
     return (
       <Fragment>
-        <button onClick={this.handleToggle} className={styles.withdraw}>
+        <button onClick={this.handleToggle} className={styles.withdraw} disabled={disabled}>
           Withdraw <AvailableFunds balance={balance} />
         </button>
         {dialog &&
@@ -79,3 +94,5 @@ export default class Withdraw extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(Withdraw);

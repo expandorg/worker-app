@@ -1,45 +1,37 @@
+// @flow
 import 'whatwg-fetch';
 import { encodeUrlParams } from '../utils';
 
+const defaultSettings = {
+  credentials: 'include',
+  mode: 'cors',
+  cache: 'no-cache',
+  headers: new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }),
+};
+
 export default class ApiRequest {
-  getRequestHeaders(contentType = 'application/json') {
-    const headers = new Headers({
-      Accept: 'application/json',
-    });
-    if (contentType !== null) {
-      headers.append('Content-Type', contentType);
-    }
-    return headers;
+  requestSettings: Object
+
+  constructor(requestSettings: Object = defaultSettings) {
+    this.requestSettings = requestSettings;
   }
 
-  get = (url, query) => {
-    const params = encodeUrlParams(query);
+  get = (url: string, query?: Object) => {
+    const params = query ? encodeUrlParams(query) : '';
     return fetch(`${url}${params && `?${params}`}`, {
+      ...this.requestSettings,
       method: 'GET',
-      credentials: 'include',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: this.getRequestHeaders(),
     });
   }
 
 
-  post = (url, payload) =>
+  post = (url: string, payload?: Object) =>
     fetch(url, {
+      ...this.requestSettings,
       method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
-      cache: 'no-cache',
-      headers: this.getRequestHeaders(),
       body: JSON.stringify(payload),
-    })
-
-  postForm = (url, body) =>
-    fetch(url, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: this.getRequestHeaders(null),
-      body,
     })
 }

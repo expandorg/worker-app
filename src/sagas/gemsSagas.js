@@ -5,6 +5,7 @@ import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { gemsActionTypes } from './actionTypes';
 
 import { userApi } from '../api/UserApi';
+import { etheriumApi } from '../api/EthgasstationInfoApi';
 
 import { RequestStates } from '../common/app/requestUiState';
 
@@ -29,7 +30,9 @@ function* handleDeposit({ payload: { deposit } }) {
       const services = yield getContext('services');
       const gemsService = services.resolve('gems');
 
-      yield call(gemsService.approve, deposit);
+      const average = yield call(etheriumApi.getAverage);
+
+      yield call(gemsService.approve, deposit, average);
 
       yield put({ type: gemsActionTypes.DEPOSIT_STAGE, payload: 2 });
       const user = yield select(userSelector);

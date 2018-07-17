@@ -9,14 +9,16 @@ import EditAddressDialoig from '../../address/EditAddressDialoig';
 import DepositDialog from './DepositDialog';
 
 import { fetchGemsBalance } from '../../../../sagas/gemsSagas';
-import { fetchBalanceStateSelector } from '../../../../selectors/uiStateSelectors';
+import { fetchBalanceStateSelector, transactionStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import { userProps, requestStateProps } from '../../../shared/propTypes';
+import { RequestStates } from '../../../../common/app/requestUiState';
 
 import styles from './Deposit.module.styl';
 
 const mapStateToProps = state => ({
   fetchState: fetchBalanceStateSelector(state),
+  txState: transactionStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -26,6 +28,7 @@ class Deposit extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     fetchState: PropTypes.shape(requestStateProps).isRequired,
+    txState: PropTypes.string.isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,
   }
 
@@ -49,7 +52,10 @@ class Deposit extends Component {
   }
 
   handleToggle = () => {
-    const { user } = this.props;
+    const { user, txState } = this.props;
+    if (txState === RequestStates.Fetching) {
+      return;
+    }
     const { dialog } = this.state;
     if (!dialog && !user.address) {
       this.setState({ addressDialog: true });
@@ -66,11 +72,13 @@ class Deposit extends Component {
   }
 
   render() {
-    const { user, fetchState } = this.props;
+    const { user, fetchState, txState } = this.props;
     const { dialog, addressDialog } = this.state;
+
+    const disabled = txState === RequestStates.Fetching;
     return (
       <Fragment>
-        <button className={styles.deposit} onClick={this.handleToggle}>
+        <button className={styles.deposit} onClick={this.handleToggle} disabled={disabled}>
           Deposit
         </button>
         {dialog &&
