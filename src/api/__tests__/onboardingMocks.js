@@ -1,3 +1,5 @@
+import ApiError from '../../common/api/ApiError';
+
 const onboarding = [{
   id: 0,
   stage: 'InProgress',
@@ -28,7 +30,6 @@ const onboarding = [{
     checkbox: 'I have read the instructions and I agree with the terms',
     headline: 'Task',
     title: 'Read task instructions here!',
-    validation: ['isTrue'],
     rules: 'Your task will be to read Medium articles that have recently been published and decide if the articles pass Medium’s Quality Control Guidelines.  If the article passes the guidelines you will click accept. While reading the article if you see it fails a guideline, stop reading and click reject. ',
     close: 'Ok',
   }],
@@ -136,12 +137,10 @@ export class OnboardingMocks {
     const currentForm = this.getOnboardingForm(pageId);
     const current = progress[progress.length - 1];
 
-    const valid = this.validatePage(currentForm, response, current);
-
-    if (!valid) {
-      return ({ error: 'validation error' });
+    const error = this.validate(currentForm, response, current);
+    if (error) {
+      return ({ error });
     }
-
     if (progress.length === onboarding.length) {
       return ({ onboarding: { ...current, form: currentForm } });
     }
@@ -150,11 +149,17 @@ export class OnboardingMocks {
     const { id, stage, ...form } = onboarding[curretIndex + 1];
     const next = { jobId, pageId: id, stage };
     progress.push(next);
-
     return ({ onboarding: { ...next, form } });
   }
 
-  validatePage = (form, response, current) => true // eslint-disable-line
+  validate(form, response, current) {
+    if (current.pageId === 1) {
+      if (response.rules !== true) {
+        throw new ApiError('You should read and accept rules');
+      }
+    }
+    return null;
+  }
 
   getOnboardingForm = (pageId) => {
     const { id, stage, ...form } = onboarding.find(page => page.id === pageId);

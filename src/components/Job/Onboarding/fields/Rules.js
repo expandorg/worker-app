@@ -47,7 +47,7 @@ export default class Rules extends Component {
           name={field.name}
           label={field.checkbox}
           value={value}
-          onChange={changed => onChange(changed)}
+          onChange={changed => onChange(field.name, changed)}
         />
         <ArticleModal
           onHide={this.handleToggle}

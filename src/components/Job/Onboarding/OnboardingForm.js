@@ -40,6 +40,7 @@ export default class OnboardingForm extends Component {
   }
 
   handleChange = (field, value) => {
+    console.log(field, value);
     this.setState(({ values, errors }) => ({
       values: {
         ...values,
@@ -66,7 +67,6 @@ export default class OnboardingForm extends Component {
     const isSubmitting = submitState.state === RequestStates.Fetching;
     return (
       <div className={styles.container}>
-        <ErrorMessage error={errors} />
         <form className={styles.form} onSubmit={this.handleSubmit} >
           {form.fields.map(field => (
             <FieldContainer key={field.name} name={field.name} error={errors} >
@@ -79,6 +79,7 @@ export default class OnboardingForm extends Component {
               />
             </FieldContainer>
           ))}
+          <ErrorMessage error={errors} />
           {form.submit &&
             <Submit
               field={form.submit}
