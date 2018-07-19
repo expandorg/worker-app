@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Prompt } from 'react-router-dom';
 
-import Input from '../../../common/Input';
-import ErrorMessage from '../../../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@gigs/components';
+
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps } from '../../../shared/propTypes';
 
@@ -75,9 +75,9 @@ export default class DepositForm extends Component {
                 onChange={this.handleChange}
                 placeholder="Amount of Gems to deposit"
               />
-              <button type="submit" className={styles.submit} disabled={disabled}>
+              <Button size="large" type="submit" className={styles.submit} disabled={disabled}>
                 Deposit
-              </button>
+              </Button>
             </div>
             <ErrorMessage error={submitState.error} className={styles.error} />
           </form>

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
+import { Button } from '@gigs/components';
+
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 import ConfirmEmailDialog from '../../../shared/email/ConfirmEmailDialog';
 
@@ -78,9 +80,9 @@ class Withdraw extends Component {
     const disabled = txState === RequestStates.Fetching;
     return (
       <Fragment>
-        <button onClick={this.handleToggle} className={styles.withdraw} disabled={disabled}>
+        <Button onClick={this.handleToggle} className={styles.withdraw} disabled={disabled}>
           Withdraw <AvailableFunds balance={balance} />
-        </button>
+        </Button>
         {dialog &&
           <WithdrawDialog user={user} onHide={this.handleToggle} />
         }

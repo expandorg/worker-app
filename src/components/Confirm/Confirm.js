@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import qs from 'query-string';
 
 import { Redirect } from 'react-router-dom';
-
 import { connect } from 'react-redux';
+
+import { Panel } from '@gigs/components';
 
 
 import Content from '../shared/Content';
-import Panel from '../common/Panel';
+
 import ConfirmEmailForm from '../shared/email/ConfirmEmailForm';
 
 import { authenticated } from '../hoc/authRules';

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorMessage from '../../../common/ErrorMessage';
-import Input from '../../../common/Input';
+
+import { Button, Input, ErrorMessage } from '@gigs/components';
 
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';
@@ -63,9 +63,9 @@ export default class WithdrawForm extends Component {
                 onChange={this.handleChange}
                 placeholder="Amount of Gems to withdraw"
               />
-              <button type="submit" className={styles.submit} disabled={disabled}>
+              <Button type="submit" size="large" className={styles.submit} disabled={disabled}>
                 {isFetching ? 'Withdrawing' : 'Withdraw'}
-              </button>
+              </Button>
             </div>
           }
           {!available &&

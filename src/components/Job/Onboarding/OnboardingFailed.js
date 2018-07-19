@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import Panel from '../../common/Panel';
+import { Panel } from '@gigs/components';
 
 import styles from './OnboardingFailed.module.styl';
 
@@ -21,7 +22,10 @@ export default class OnboardingFailed extends Component {
             turpis. Nullam maximus eu nisl sed sollicitudin.
           </p>
           <div className={styles.actions}>
-            <Link className={styles.back} to="/jobs">
+            <Link
+              className={cn('gem-button', 'gem-button-large', 'gem-button-white', styles.back)}
+              to="/jobs"
+            >
               Browse available jobs
             </Link>
           </div>

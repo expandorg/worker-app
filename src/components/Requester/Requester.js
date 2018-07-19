@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { Panel } from '@gigs/components';
+
 import Content from '../shared/Content';
-import Panel from '../common/Panel';
 
 import { authenticated } from '../hoc/authRules';
 

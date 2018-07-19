@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorMessage from '../../common/ErrorMessage';
+import { ErrorMessage } from '@gigs/components';
 
 import styles from './FieldContainer.module.styl';
 

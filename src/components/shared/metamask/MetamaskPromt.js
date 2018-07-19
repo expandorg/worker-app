@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Dialog, { DialogHeadline } from '../../common/Dialog';
+import { Dialog, DialogHeadline } from '@gigs/components';
 
 import Install from './Install';
 import Unlock from './Unlock';

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import Alignment from '../../../../shared/form/ui/Alignment';
 
-import styles from './Task.module.styl';
-
 export default class Task extends Component {
   static propTypes = {
     link: PropTypes.string.isRequired,
@@ -15,10 +13,15 @@ export default class Task extends Component {
     } = this.props;
     return (
       <Alignment padding="medium" vCenter>
-        <a className={styles.link} href={link} target="_blank" rel="noopener noreferrer" >
+        <a
+          className="gem-button gem-button-medium gem-button-pink"
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Read article
         </a>
-        <p className={styles.p}>
+        <p>
           Read article and answer the questions!
         </p>
       </Alignment>

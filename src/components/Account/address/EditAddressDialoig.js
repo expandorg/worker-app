@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Input from '../../common/Input';
-import Dialog, { DialogHeadline } from '../../common/Dialog';
-import ErrorMessage from '../../common/ErrorMessage';
+import { Input, Button, Dialog, DialogHeadline, ErrorMessage } from '@gigs/components';
+
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 
@@ -92,9 +91,14 @@ class EditAddressDialoig extends Component {
         <div className={styles.container}>
           <div className={styles.form}>
             <div className={styles.field}>
-              <button className={styles.assign} onClick={this.handleAssignClick}>
+              <Button
+                className={styles.assign}
+                theme="blue"
+                size="large"
+                onClick={this.handleAssignClick}
+              >
                 <ins className={styles.fox} /> Use Metamask Address
-              </button>
+              </Button>
               {metamaskDialog &&
                 <MetamaskPromt
                   metamaskState={metamaskState}
@@ -114,9 +118,12 @@ class EditAddressDialoig extends Component {
                 value={address}
                 onChange={({ target }) => this.setState({ address: target.value })}
               />
-              <button className={styles.save} onClick={this.handleSaveClick}>
+              <Button
+                className={styles.save}
+                onClick={this.handleSaveClick}
+              >
                 Save
-              </button>
+              </Button>
               <ErrorMessage error={error} className={styles.error} />
             </div>
           </div>

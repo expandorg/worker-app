@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { fieldProps } from '../../../../shared/propTypes';
+import { Button } from '@gigs/components';
 
-import Button from '../../../../common/Button';
+import { fieldProps } from '../../../../shared/propTypes';
 
 import Alignment from '../../../../shared/form/ui/Alignment';
 import Paragraph from '../../../../shared/form/ui/Paragraph';

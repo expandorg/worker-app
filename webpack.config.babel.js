@@ -65,7 +65,7 @@ export default (env = {}) => {
             ],
             plugins: dev ? ['react-hot-loader/babel'] : [],
           },
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@gigs)\/).*/,
         },
         {
           test: /^((?!\.module).)*\.styl$/,
@@ -75,7 +75,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@gigs)\/).*/,
         },
         {
           test: /\.module\.styl$/,
@@ -85,16 +85,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
-        },
-        {
-          test: /\.css$/,
-          use: [
-            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader?sourceMap&importLoaders=2',
-            'postcss-loader?sourceMap',
-          ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@gigs)\/).*/,
         },
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
@@ -129,8 +120,12 @@ export default (env = {}) => {
       minimize: !dev,
     },
     resolve: {
-      modules: [path.resolve('./src'), 'node_modules'],
-      extensions: ['.js', '.json', '.jsx'],
+      modules: [
+        path.resolve('./src'),
+        path.resolve('node_modules'),
+      ],
+      extensions: ['.js', '.json'],
+      symlinks: false,
     },
     devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
     bail: !dev,

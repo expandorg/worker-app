@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Panel from '../../common/Panel';
+import { Panel } from '@gigs/components';
 
 import Content from '../Content';
 

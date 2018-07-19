@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ErrorMessage from '../../common/ErrorMessage';
+import { ErrorMessage, Button } from '@gigs/components';
 
 import { signup } from '../../../sagas/authSagas';
 
@@ -86,9 +86,13 @@ class SignupForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <button type="submit" className={styles.submit}>
+          <Button
+            size="large"
+            type="submit"
+            className={styles.submit}
+          >
             {isFetching ? 'Signing up...' : 'Sign up'}
-          </button>
+          </Button>
         </form>
         <div className={styles.footer}>
           <button className={styles.toggle} onClick={onToggle}>

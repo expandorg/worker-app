@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import ErrorMessage from '../../common/ErrorMessage';
+import { Button, ErrorMessage } from '@gigs/components';
 
 import { login } from '../../../sagas/authSagas';
 
@@ -86,9 +86,13 @@ class LoginForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <button type="submit" className={styles.submit}>
+          <Button
+            suze="large"
+            type="submit"
+            className={styles.submit}
+          >
             {isFetching ? 'Signing in...' : 'Sign in'}
-          </button>
+          </Button>
         </form>
         <div className={styles.footer}>
           <Link className={styles.forgot} to="/password" >

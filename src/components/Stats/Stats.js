@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { Panel } from '@gigs/components';
+
 import Content from '../shared/Content';
-import Panel from '../common/Panel';
 
 import { userProps } from '../shared/propTypes';
 import { userSelector } from '../../selectors/userSelectors';

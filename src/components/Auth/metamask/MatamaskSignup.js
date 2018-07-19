@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ErrorMessage from '../../common/ErrorMessage';
+import { Button, ErrorMessage } from '@gigs/components';
+
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import { metamaskStateSelector } from '../../../selectors/web3Selectors';
@@ -60,9 +61,14 @@ class MatamaskLogin extends Component {
     const { metamaskDialog, error } = this.state;
     return (
       <div className={styles.container}>
-        <button className={styles.login} onClick={this.handleClick}>
+        <Button
+          theme="blue"
+          size="large"
+          className={styles.login}
+          onClick={this.handleClick}
+        >
           <ins className={styles.fox} /> Signup with MetaMask
-        </button>
+        </Button>
         {metamaskDialog &&
           <MetamaskPromt
             metamaskState={metamaskState}

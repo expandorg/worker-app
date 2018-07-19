@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Dialog, { DialogHeadline } from '../../../common/Dialog';
+import { Button, Dialog, DialogHeadline } from '@gigs/components';
 
-import Button from '../../../common/Button';
 import Alignment from './Alignment';
 
 import styles from './Modal.module.styl';

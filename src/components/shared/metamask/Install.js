@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 import styles from './Install.module.styl';
 
@@ -21,7 +22,7 @@ export default function InstallMetamask() {
       </div>
       <div className={styles.actions}>
         <a
-          className={styles.install}
+          className={cn('gem-button', 'gem-button-pink', 'gem-button-large', styles.install)}
           href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
           rel="noopener noreferrer"
           target="_blank"

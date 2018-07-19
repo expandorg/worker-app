@@ -7,9 +7,8 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
-import Input from '../common/Input';
+import { Button, Input, ErrorMessage } from '@gigs/components';
 
-import ErrorMessage from '../common/ErrorMessage';
 import withSubmitState from '../hoc/withSubmitState';
 
 import { requestStateProps } from '../shared/propTypes';
@@ -67,9 +66,9 @@ class Password extends Component {
                   onChange={({ target }) => this.setState({ email: target.value })}
                 />
                 <ErrorMessage error={submitState.error} className={styles.error} />
-                <button type="submit" className={styles.submit}>
+                <Button type="submit" className={styles.submit}>
                   {isFetching ? 'Sending...' : 'Restore'}
-                </button>
+                </Button>
               </form>
             }
             {isFetched &&

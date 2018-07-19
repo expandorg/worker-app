@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
-import Button from '../common/Button';
+import { Panel, Button } from '@gigs/components';
 
 import LoginDialog from '../Auth/LoginDialog';
 import Content from '../shared/Content';
-import Panel from '../common/Panel';
 import Gallery from './Gallery';
 
 import { notAuthenticated } from '../hoc/authRules';

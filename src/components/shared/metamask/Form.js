@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Form.module.styl';
+import { Button, ErrorMessage } from '@gigs/components';
 
-import ErrorMessage from '../../common/ErrorMessage';
+import styles from './Form.module.styl';
 
 
 export default class Form extends Component {
@@ -27,9 +27,9 @@ export default class Form extends Component {
             You’ll need to sign in using MetaMask<br />
             (similar to the above). Click below to log in.
           </div>
-          <button className={styles.login} onClick={onLogin}>
+          <Button size="large" className={styles.login} onClick={onLogin}>
             {action}
-          </button>
+          </Button>
           <ErrorMessage error={error} className={styles.error} />
         </div>
       </div>

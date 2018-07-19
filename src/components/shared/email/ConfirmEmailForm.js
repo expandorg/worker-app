@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates } from '../../../common/app/requestUiState';
-import ErrorMessage from '../../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@gigs/components';
 
-import Input from '../../common/Input';
+import { RequestStates } from '../../../common/app/requestUiState';
 
 import { confirmEmailStateSelector, resendConfirmEmailStateSelector } from '../../../selectors/uiStateSelectors';
 import { confirmEmail, resendConfirmEmail } from '../../../sagas/userSagas';
@@ -102,16 +101,16 @@ class ConfirmEmailForm extends Component {
             value={code}
             placeholder="Confirmation Code"
           />
-          <button type="submit" className={styles.submit}>
+          <Button size="large" type="submit" className={styles.submit}>
             {confirming ? 'Confirm...' : 'Confirm'}
-          </button>
+          </Button>
         </div>
         <ErrorMessage error={error} />
         <div className={styles.resend}>
           <span className={styles.resendText}>
             Didn&apos;t get the email? We can
           </span>
-          <button className={styles.resendButton} onClick={this.handleResend}>
+          <button size="large" className={styles.resendButton} onClick={this.handleResend}>
             {resending ? 'resending...' : 'resend'}
           </button>
         </div>

@@ -7,8 +7,8 @@ import { bindActionCreators } from 'redux';
 
 import DocumentTitle from 'react-document-title';
 
-import Input from '../common/Input';
-import ErrorMessage from '../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@gigs/components';
+
 import withSubmitState from '../hoc/withSubmitState';
 
 import { requestStateProps, locationProps } from '../shared/propTypes';
@@ -81,9 +81,9 @@ class Restore extends Component {
                 onChange={({ target }) => this.setState({ password: target.value })}
               />
               <ErrorMessage error={submitState.error} className={styles.error} />
-              <button type="submit" className={styles.submit}>
+              <Button type="submit" className={styles.submit}>
                 {isFetching ? 'Changing password...' : 'Change password'}
-              </button>
+              </Button>
             </form>
           </div>
         </div>

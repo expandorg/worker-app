@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button, Checkbox } from '@gigs/components';
+
 import { fieldProps } from '../../../shared/propTypes';
-import Button from '../../../common/Button';
 
 import Alignment from '../../../shared/form/ui/Alignment';
-import Checkbox from '../../../common/Checkbox';
 
 import ArticleModal from './ArticleModal';
 

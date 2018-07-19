@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { ErrorMessage } from '@gigs/components';
+
 import { RequestStates } from '../../../common/app/requestUiState';
 
 import { onboardingFormProps, requestStateProps } from '../../shared/propTypes';
-
-import ErrorMessage from '../../common/ErrorMessage';
 
 import Submit from '../../shared/form/Submit';
 import FieldContainer from '../../shared/form/FieldContainer';

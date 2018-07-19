@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from '@gigs/components';
 import { fieldProps } from '../propTypes';
-import Button from '../../common/Button';
 
 import Alignment from './ui/Alignment';
 

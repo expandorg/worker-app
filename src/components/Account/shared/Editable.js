@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from '@gigs/components';
+
 import Clipboard from 'react-clipboard.js';
 
 import styles from './Editable.module.styl';
@@ -32,9 +34,9 @@ export default class Editable extends Component {
             </Clipboard>
           }
         </div>
-        <button className={styles.edit} onClick={onEdit}>
+        <Button className={styles.edit} onClick={onEdit}>
           Edit
-        </button>
+        </Button>
       </div>
     );
   }

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import withSubmitState from '../../hoc/withSubmitState';
+import { Panel } from '@gigs/components';
 
-import Panel from '../../common/Panel';
+import withSubmitState from '../../hoc/withSubmitState';
 
 import OnboardingForm from './OnboardingForm';
 

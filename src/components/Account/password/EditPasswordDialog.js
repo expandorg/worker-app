@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Button, Input, Dialog, DialogHeadline, ErrorMessage } from '@gigs/components';
+
 import withSubmitState from '../../hoc/withSubmitState';
-import Dialog, { DialogHeadline } from '../../common/Dialog';
-import ErrorMessage from '../../common/ErrorMessage';
-import Input from '../../common/Input';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../shared/propTypes';
@@ -80,9 +79,9 @@ class EditPasswordDialog extends Component {
                 onChange={({ target }) => this.setState({ password: target.value })}
               />
               <ErrorMessage error={submitState.error} className={styles.error} />
-              <button type="submit" className={styles.submit}>
+              <Button type="submit" className={styles.submit}>
                 {isFetching ? 'Changing password...' : 'Change password'}
-              </button>
+              </Button>
             </form>
           }
           {isFetchied &&

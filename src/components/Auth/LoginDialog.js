@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Dialog from '../common/Dialog';
+import { Dialog } from '@gigs/components';
 
 import AuthForm from './AuthForm';
 

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Panel from '../common/Panel';
-import Button from '../common/Button';
+import { Button, Panel } from '@gigs/components';
 
 import Content from '../shared/Content';
 

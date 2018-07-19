@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from '@gigs/components';
+
 import EditPasswordDialog from './EditPasswordDialog';
 import Field from '../shared/Field';
 
@@ -32,9 +34,9 @@ export default class Password extends Component {
     return (
       <Field title="Password">
         <div className={styles.container}>
-          <button className={styles.edit} onClick={this.handleChabge}>
+          <Button theme="white" className={styles.edit} onClick={this.handleChabge}>
             Change password
-          </button>
+          </Button>
         </div>
         {dialog &&
           <EditPasswordDialog user={user} onHide={this.handleChabge} />

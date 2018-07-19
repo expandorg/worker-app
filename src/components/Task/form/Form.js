@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Panel, Button, ErrorMessage } from '@gigs/components';
+
 import { RequestStates } from '../../../common/app/requestUiState';
 
 import { taskFormProps, requestStateProps } from '../../shared/propTypes';
 
-import Button from '../../common/Button';
-
-import Panel from '../../common/Panel';
 import Field from '../../shared/form/Field';
 import FieldContainer from '../../shared/form/FieldContainer';
-
-import ErrorMessage from '../../common/ErrorMessage';
 
 import { formRules } from '../../../model/field';
 

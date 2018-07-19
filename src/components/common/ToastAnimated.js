@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Transition, animated } from 'react-spring';
 
-import Toast from './Toast';
+import { Toast } from '@gigs/components';
 
 const AnimatedToast = animated(Toast);
 

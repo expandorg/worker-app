@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { Input as UIInput } from '@gigs/components';
+
 import FieldType from './fieldType';
 import { fieldProps } from '../propTypes';
 
-import UIInput from '../../common/Input';
 
 import styles from './Input.module.styl';
 

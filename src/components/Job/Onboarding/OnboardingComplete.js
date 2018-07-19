@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import cn from 'classnames';
+
 import { Link } from 'react-router-dom';
 
-import Panel from '../../common/Panel';
-import Button from '../../common/Button';
+import { Panel, Button } from '@gigs/components';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
@@ -38,7 +39,10 @@ export default class OnboardingComplete extends Component {
             Continue with the real task and earn some gems!
           </p>
           <div className={styles.actions}>
-            <Link className={styles.back} to="/jobs">
+            <Link
+              className={cn('gem-button', 'gem-button-large', 'gem-button-white', styles.back)}
+              to="/jobs"
+            >
               Not interesting
             </Link>
             <Button
