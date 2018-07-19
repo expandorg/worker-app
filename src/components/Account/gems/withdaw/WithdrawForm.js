@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ErrorMessage from '../../../common/ErrorMessage';
+import Input from '../../../common/Input';
 
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';
@@ -55,7 +56,7 @@ export default class WithdrawForm extends Component {
         <form className={styles.form} onSubmit={this.handleSubmit} >
           {available &&
             <div className={styles.row}>
-              <input
+              <Input
                 className={styles.input}
                 type="number"
                 value={value}

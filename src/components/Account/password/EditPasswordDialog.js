@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import withSubmitState from '../../hoc/withSubmitState';
 import Dialog, { DialogHeadline } from '../../common/Dialog';
 import ErrorMessage from '../../common/ErrorMessage';
+import Input from '../../common/Input';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../shared/propTypes';
@@ -64,13 +65,14 @@ class EditPasswordDialog extends Component {
         <div className={styles.container}>
           {!isFetchied &&
             <form className={styles.form} onSubmit={this.handleSubmit}>
-              <input
+              <Input
                 className={styles.input}
                 type="password"
                 placeholder="Current password"
                 value={currentPassword}
                 onChange={({ target }) => this.setState({ currentPassword: target.value })}
-              />              <input
+              />
+              <Input
                 className={styles.input}
                 type="password"
                 placeholder="New password"

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Prompt } from 'react-router-dom';
 
+import Input from '../../../common/Input';
 import ErrorMessage from '../../../common/ErrorMessage';
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps } from '../../../shared/propTypes';
@@ -67,7 +68,7 @@ export default class DepositForm extends Component {
         {!isSubmitting && available &&
           <form className={styles.form} onSubmit={this.handleSubmit} >
             <div className={styles.row}>
-              <input
+              <Input
                 className={styles.input}
                 type="number"
                 value={value}

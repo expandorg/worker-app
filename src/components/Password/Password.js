@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
-
 import DocumentTitle from 'react-document-title';
+
+import Input from '../common/Input';
 
 import ErrorMessage from '../common/ErrorMessage';
 import withSubmitState from '../hoc/withSubmitState';
@@ -57,7 +58,7 @@ class Password extends Component {
             </h2>
             {!isFetched &&
               <form className={styles.form} onSubmit={this.handleSubmit}>
-                <input
+                <Input
                   className={styles.input}
                   type="email"
                   required

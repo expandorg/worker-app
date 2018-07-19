@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import DocumentTitle from 'react-document-title';
 
+import Input from '../common/Input';
 import ErrorMessage from '../common/ErrorMessage';
 import withSubmitState from '../hoc/withSubmitState';
 
@@ -63,7 +64,7 @@ class Restore extends Component {
               Change password
             </h2>
             <form className={styles.form} onSubmit={this.handleSubmit}>
-              <input
+              <Input
                 className={styles.input}
                 type="text"
                 required
@@ -71,7 +72,7 @@ class Restore extends Component {
                 value={code}
                 onChange={({ target }) => this.setState({ code: target.value })}
               />
-              <input
+              <Input
                 className={styles.input}
                 type="password"
                 required

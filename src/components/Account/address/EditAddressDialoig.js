@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Input from '../../common/Input';
 import Dialog, { DialogHeadline } from '../../common/Dialog';
 import ErrorMessage from '../../common/ErrorMessage';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
@@ -107,8 +108,7 @@ class EditAddressDialoig extends Component {
               Or enter adress manually
             </h2>
             <div className={styles.field}>
-              <input
-                className={styles.address}
+              <Input
                 type="text"
                 placeholder="Ethereum address"
                 value={address}

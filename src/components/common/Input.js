@@ -21,10 +21,10 @@ export default class Input extends Component {
     const { onChange, className, value, ...rest } = this.props;
     return (
       <input
+        {...rest}
         className={cn('gem-input', className)}
         onChange={onChange}
         value={value}
-        {...rest}
       />
     );
   }

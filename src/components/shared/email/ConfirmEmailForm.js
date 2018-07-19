@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { RequestStates } from '../../../common/app/requestUiState';
 import ErrorMessage from '../../common/ErrorMessage';
 
+import Input from '../../common/Input';
+
 import { confirmEmailStateSelector, resendConfirmEmailStateSelector } from '../../../selectors/uiStateSelectors';
 import { confirmEmail, resendConfirmEmail } from '../../../sagas/userSagas';
 
@@ -93,7 +95,7 @@ class ConfirmEmailForm extends Component {
     return (
       <form className={styles.form} onSubmit={this.handleSubmit}>
         <div className={styles.row}>
-          <input
+          <Input
             className={styles.input}
             onChange={({ target }) => this.setState({ code: target.value })}
             type="text"

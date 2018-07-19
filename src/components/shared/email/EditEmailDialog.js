@@ -8,6 +8,8 @@ import { RequestStates } from '../../../common/app/requestUiState';
 import ErrorMessage from '../../common/ErrorMessage';
 import Dialog, { DialogHeadline } from '../../common/Dialog';
 
+import Input from '../../common/Input';
+
 import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
 import { editEmail } from '../../../sagas/userSagas';
 
@@ -80,7 +82,7 @@ class EditEmailDialog extends Component {
           </div>
           <form className={styles.form} onSubmit={this.handleSubmit}>
             <div className={styles.row}>
-              <input
+              <Input
                 className={styles.input}
                 onChange={({ target }) => this.setState({ email: target.value })}
                 type="text"
