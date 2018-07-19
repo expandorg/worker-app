@@ -7,7 +7,9 @@
     "local": "webpack-dev-server --progress --env.dev",
     "dev": "NODE_ENV=ropsten webpack-dev-server --progress --env.dev",
     "build": "NODE_ENV=production webpack",
-    "test": "node_modules/.bin/jest --config jest.config.json"
+    "lint": "node_modules/.bin/eslint --ext .js ./src/",
+    "test": "jest --config jest.config.json",
+    "coverage": "jest --collectCoverage --coverageDirectory ./coverage"
   },
   "dependencies": {
     "@xlnt/scry-one": "0.0.1",
