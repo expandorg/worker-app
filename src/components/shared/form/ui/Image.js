@@ -18,7 +18,10 @@ export default class Image extends Component {
   render() {
     const { src, className } = this.props;
     return (
-      <div className={cn(styles.img, className)} style={{ backgroundImage: `url('${src}')` }} />
+      <div
+        className={cn(styles.img, className)}
+        style={{ backgroundImage: `url('${src}')` }}
+      />
     );
   }
 }

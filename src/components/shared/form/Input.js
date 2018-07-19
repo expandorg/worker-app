@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import FieldType from './fieldType';
 import { fieldProps } from '../propTypes';
 
-import UIInput from './ui/Input';
+import UIInput from '../../common/Input';
+
+import styles from './Input.module.styl';
 
 const inputTypes = {
   [FieldType.text]: 'text',
@@ -35,6 +37,7 @@ export default class Input extends PureComponent {
     return (
       <UIInput
         type={type}
+        className={styles.input}
         onChange={this.handleChange}
         value={value}
         autoComplete="off"

@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { fieldProps } from '../propTypes';
+import Button from '../../common/Button';
 
-import UISubmit from './ui/Submit';
 import Alignment from './ui/Alignment';
-
 
 export default class Submit extends PureComponent {
   static propTypes = {
@@ -18,12 +17,15 @@ export default class Submit extends PureComponent {
     const { field, isSubmitting, onSubmit } = this.props;
     return (
       <Alignment padding="small" >
-        <UISubmit
-          caption={field.caption}
-          theme={field.theme}
-          isSubmitting={isSubmitting}
-          onSubmit={onSubmit}
-        />
+        <Button
+          onClick={onSubmit}
+          size="large"
+          theme="pink"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {field.caption}
+        </Button>
       </Alignment>
     );
   }

@@ -18,7 +18,7 @@ export default class Field extends PureComponent {
   };
 
   static defaultProps = {
-    value: null,
+    value: undefined,
   }
 
   render() {

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Panel from '../../shared/Panel';
+import Button from '../../common/Button';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
 import { requestStateProps } from '../../shared/propTypes';
 
 import styles from './OnboardingComplete.module.styl';
-
 
 export default class OnboardingComplete extends Component {
   static propTypes = {
@@ -41,9 +41,15 @@ export default class OnboardingComplete extends Component {
             <Link className={styles.back} to="/jobs">
               Not interesting
             </Link>
-            <button className={styles.start} onClick={onAssign} disabled={isSubmitting}>
+            <Button
+              theme="pink"
+              size="large"
+              className={styles.start}
+              onClick={onAssign}
+              disabled={isSubmitting}
+            >
               Start
-            </button>
+            </Button>
           </div>
         </div>
       </Panel>

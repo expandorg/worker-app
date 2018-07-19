@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Checkbox.module.styl';
+import './Checkbox.styl';
 
 export default class Checkbox extends Component {
   static propTypes = {
@@ -24,18 +24,20 @@ export default class Checkbox extends Component {
   render() {
     const { label, name, value } = this.props;
     return (
-      <label htmlFor={name} className={styles.label}>
+      <label htmlFor={name} className="gem-checkbox">
         <input
-          className={styles.input}
+          className="gem-checkbox-input"
           type="checkbox"
           id={name}
           checked={value}
           onChange={this.handleChange}
         />
-        <span className={styles.checkmark} />
-        <span className={styles.checkmarkLabel}>
-          {label}
-        </span>
+        <span className="gem-checkbox-mark" />
+        {label &&
+          <span className="gem-checkbox-label">
+            {label}
+          </span>
+        }
       </label>
     );
   }

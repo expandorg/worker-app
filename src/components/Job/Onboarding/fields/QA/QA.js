@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { fieldProps } from '../../../../shared/propTypes';
 
+import Button from '../../../../common/Button';
+
 import Alignment from '../../../../shared/form/ui/Alignment';
-import Submit from '../../../../shared/form/ui/Submit';
-import Button from '../../../../shared/form/ui/Button';
 import Paragraph from '../../../../shared/form/ui/Paragraph';
 import Answers from '../../../../shared/form/ui/Answers';
 import Answer from '../../../../shared/form/ui/Answer';
@@ -83,14 +83,15 @@ export default class QA extends Component {
               See instructions
             </Button>
           </div>
-          <Submit
-            caption={field.submit}
-            isSubmitting={isSubmitting || disabled}
-            theme="aqua"
+          <Button
+            onClick={onSubmit}
             size="large"
-            onSubmit={onSubmit}
-            disabled={disabled}
-          />
+            theme="aqua"
+            type="submit"
+            disabled={isSubmitting || disabled}
+          >
+            {field.submit}
+          </Button>
         </Alignment>
         <ArticleModal
           visible={rules}

@@ -5,6 +5,8 @@ import { RequestStates } from '../../../common/app/requestUiState';
 
 import { taskFormProps, requestStateProps } from '../../shared/propTypes';
 
+import Button from '../../common/Button';
+
 import Panel from '../../shared/Panel';
 import Field from '../../shared/form/Field';
 import FieldContainer from '../../shared/form/FieldContainer';
@@ -83,13 +85,15 @@ export default class Form extends Component {
             </FieldContainer>
           ))}
           <div className={styles.actions}>
-            <button
+            <Button
+              theme="pink"
+              size="large"
               className={styles.submit}
               onClick={this.handleSubmit}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
-            </button>
+            </Button>
           </div>
         </form>
       </Panel>

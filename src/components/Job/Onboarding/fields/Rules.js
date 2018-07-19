@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { fieldProps } from '../../../shared/propTypes';
+import Button from '../../../common/Button';
 
 import Alignment from '../../../shared/form/ui/Alignment';
-import Button from '../../../shared/form/ui/Button';
-import Checkbox from '../../../shared/form/ui/Checkbox';
+import Checkbox from '../../../common/Checkbox';
 
 import ArticleModal from './ArticleModal';
 
