@@ -30,7 +30,7 @@ export default class Modal extends Component {
         }
         <div className={styles.container}>
           {children}
-          <Alignment padding="medium" align="left">
+          <Alignment padding="medium" justify="left">
             <Button className={styles.confirm} onClick={onHide}>
               {button}
             </Button>

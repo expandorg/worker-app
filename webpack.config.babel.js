@@ -16,6 +16,7 @@ const entry = {
 export default (env = {}) => {
   const dev = !!env.dev;
   const port = env.port || 3000;
+
   Reflect.ownKeys(entry).forEach((name) => {
     entry[name].unshift('babel-polyfill');
     if (dev) {
@@ -64,7 +65,7 @@ export default (env = {}) => {
             ],
             plugins: dev ? ['react-hot-loader/babel'] : [],
           },
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /^((?!\.module).)*\.styl$/,
@@ -74,7 +75,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /\.module\.styl$/,
@@ -84,7 +85,16 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+        },
+        {
+          test: /\.css$/,
+          use: [
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader?sourceMap&importLoaders=2',
+            'postcss-loader?sourceMap',
+          ],
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,

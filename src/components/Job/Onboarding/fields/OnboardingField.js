@@ -19,7 +19,7 @@ export default class OnboardingField extends PureComponent {
   };
 
   static defaultProps = {
-    value: null,
+    value: undefined,
   }
 
   render() {

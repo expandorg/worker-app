@@ -73,7 +73,7 @@ export default class QA extends Component {
             )}
           </Answers>
         </Alignment>
-        <Alignment align="between" padding="medium">
+        <Alignment justify="between" padding="medium">
           <div className={styles.actions}>
             <Button size="small" theme="link" onClick={this.handleToggleRules}>
               See rules

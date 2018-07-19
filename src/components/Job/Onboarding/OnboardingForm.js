@@ -40,7 +40,6 @@ export default class OnboardingForm extends Component {
   }
 
   handleChange = (field, value) => {
-    console.log(field, value);
     this.setState(({ values, errors }) => ({
       values: {
         ...values,

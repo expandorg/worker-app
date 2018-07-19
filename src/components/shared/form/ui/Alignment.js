@@ -6,7 +6,7 @@ import styles from './Alignment.module.styl';
 
 export default class Alignment extends Component {
   static propTypes = {
-    align: PropTypes.oneOf(['left', 'right', 'center', 'between']),
+    justify: PropTypes.oneOf(['left', 'right', 'center', 'between']),
     padding: PropTypes.oneOf(['small', 'medium', 'none']),
     vertical: PropTypes.bool,
     vCenter: PropTypes.bool,
@@ -14,7 +14,7 @@ export default class Alignment extends Component {
   };
 
   static defaultProps = {
-    align: 'left',
+    justify: 'left',
     padding: 'none',
     className: null,
     vertical: false,
@@ -23,11 +23,11 @@ export default class Alignment extends Component {
 
   render() {
     const {
-      children, align, padding, className, vertical, vCenter,
+      children, justify, padding, className, vertical, vCenter,
     } = this.props;
     const classes = cn(
       styles.container,
-      styles[align],
+      styles[`${justify}Justify`],
       styles[`${padding}Padding`],
       {
         [styles.horizontal]: !vertical,
