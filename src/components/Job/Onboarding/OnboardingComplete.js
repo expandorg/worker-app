@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
-import Panel from '../../shared/Panel';
+import Panel from '../../common/Panel';
 import Button from '../../common/Button';
 
 import { RequestStates } from '../../../common/app/requestUiState';

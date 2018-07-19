@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Content from '../shared/Content';
-import Panel from '../shared/Panel';
+import Panel from '../common/Panel';
 
 import { authenticated } from '../hoc/authRules';
 

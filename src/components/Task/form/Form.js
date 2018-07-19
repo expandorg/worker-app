@@ -7,7 +7,7 @@ import { taskFormProps, requestStateProps } from '../../shared/propTypes';
 
 import Button from '../../common/Button';
 
-import Panel from '../../shared/Panel';
+import Panel from '../../common/Panel';
 import Field from '../../shared/form/Field';
 import FieldContainer from '../../shared/form/FieldContainer';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import Panel from '../../shared/Panel';
+import Panel from '../../common/Panel';
 
 import styles from './OnboardingFailed.module.styl';
 

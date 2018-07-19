@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
-import Panel from '../../shared/Panel';
+import Panel from '../../common/Panel';
+
 import OnboardingForm from './OnboardingForm';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';

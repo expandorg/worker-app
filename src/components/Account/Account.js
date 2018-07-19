@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Panel from '../common/Panel';
+import Button from '../common/Button';
+
 import Content from '../shared/Content';
-import Panel from '../shared/Panel';
 
 import Field from './shared/Field';
 
@@ -66,9 +68,13 @@ class Account extends Component {
                 <Deposit user={user} />
                 <Withdraw user={user} />
               </div>
-              <button className={styles.logout} onClick={this.props.logout}>
+              <Button
+                theme="white"
+                className={styles.logout}
+                onClick={this.props.logout}
+              >
                 Log Out
-              </button>
+              </Button>
             </div>
           </Field>
           <Field>

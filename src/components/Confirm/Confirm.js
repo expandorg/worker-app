@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 
 import Content from '../shared/Content';
-import Panel from '../shared/Panel';
+import Panel from '../common/Panel';
 import ConfirmEmailForm from '../shared/email/ConfirmEmailForm';
 
 import { authenticated } from '../hoc/authRules';

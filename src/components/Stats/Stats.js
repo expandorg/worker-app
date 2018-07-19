@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Content from '../shared/Content';
-import Panel from '../shared/Panel';
+import Panel from '../common/Panel';
 
 import { userProps } from '../shared/propTypes';
 import { userSelector } from '../../selectors/userSelectors';
