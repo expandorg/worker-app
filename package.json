@@ -43,6 +43,8 @@
     "caniuse-lite": "^1.0.30000856",
     "css-loader": "^0.28.11",
     "dotenv-webpack": "^1.5.5",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-gemsorg": "github:gemsorg/eslint-config-gemsorg",
     "eslint-loader": "^2.0.0",
