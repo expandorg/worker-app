@@ -12,7 +12,7 @@
     "coverage": "jest --collectCoverage --coverageDirectory ./coverage"
   },
   "dependencies": {
-    "@gigs/components": "0.0.1",
+    "@gigs/components": "0.0.2",
     "@xlnt/scry-one": "0.0.1",
     "bignumber.js": "^7.1.0",
     "classnames": "^2.2.6",
@@ -25,6 +25,7 @@
     "react-clipboard.js": "^2.0.0",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.4.1",
+    "react-modal": "^3.5.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -63,7 +64,6 @@
     "postcss-loader": "^2.1.5",
     "postcss-preset-env": "^5.2.1",
     "react-hot-loader": "^4.3.3",
-    "react-modal": "^3.5.1",
     "style-loader": "^0.21.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

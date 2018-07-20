@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Checkbox } from '@gigs/components';
-
-import { fieldProps } from '../../../shared/propTypes';
-
-import Alignment from '../../../shared/form/ui/Alignment';
+import { Alignment, fieldProps } from '@gigs/components/fields';
 
 import ArticleModal from './ArticleModal';
 
@@ -13,7 +10,7 @@ import styles from './Rules.module.styl';
 
 export default class Rules extends Component {
   static propTypes = {
-    field: PropTypes.shape(fieldProps).isRequired,
+    field: fieldProps.isRequired,
     value: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
   };

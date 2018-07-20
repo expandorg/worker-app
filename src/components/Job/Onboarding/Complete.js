@@ -8,10 +8,9 @@ import { Link } from 'react-router-dom';
 import { Panel, Button } from '@gigs/components';
 
 import { RequestStates } from '../../../common/app/requestUiState';
-
 import { requestStateProps } from '../../shared/propTypes';
 
-import styles from './OnboardingComplete.module.styl';
+import styles from './Complete.module.styl';
 
 export default class OnboardingComplete extends Component {
   static propTypes = {

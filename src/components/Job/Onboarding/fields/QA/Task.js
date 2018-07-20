@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Alignment from '../../../../shared/form/ui/Alignment';
+import { Alignment } from '@gigs/components/fields';
 
 export default class Task extends Component {
   static propTypes = {

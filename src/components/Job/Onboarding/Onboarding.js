@@ -8,7 +8,7 @@ import { Panel } from '@gigs/components';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
-import OnboardingForm from './OnboardingForm';
+import Form from './Form';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 
@@ -40,7 +40,7 @@ class Onboarding extends Component {
     const { onboarding, submitState } = this.props;
     return (
       <Panel className={styles.container}>
-        <OnboardingForm
+        <Form
           form={onboarding.form}
           submitState={submitState}
           onSubmit={this.handleSaveStep}

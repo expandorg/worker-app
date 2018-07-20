@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@gigs/components';
-
-import { fieldProps } from '../../../../shared/propTypes';
-
-import Alignment from '../../../../shared/form/ui/Alignment';
-import Paragraph from '../../../../shared/form/ui/Paragraph';
-import Answers from '../../../../shared/form/ui/Answers';
-import Answer from '../../../../shared/form/ui/Answer';
+import { Alignment, Paragraph, Answers, Answer, fieldProps } from '@gigs/components/fields';
 
 import Progress from './Progress';
 import Task from './Task';
@@ -18,7 +12,7 @@ import styles from './QA.module.styl';
 
 export default class QA extends Component {
   static propTypes = {
-    field: PropTypes.shape(fieldProps).isRequired,
+    field: fieldProps.isRequired,
     value: PropTypes.string,
     isSubmitting: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,

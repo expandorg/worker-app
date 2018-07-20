@@ -1,17 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { Field, fieldProps } from '@gigs/components/fields';
+
 import Rules from './Rules';
 import QA from './QA/QA';
 
 import FieldType from './fieldTypes';
-import { fieldProps } from '../../../shared/propTypes';
-
-import Field from '../../../shared/form/Field';
 
 export default class OnboardingField extends PureComponent {
   static propTypes = {
-    field: PropTypes.shape(fieldProps).isRequired,
+    field: fieldProps.isRequired,
     value: PropTypes.any, // eslint-disable-line
     isSubmitting: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,

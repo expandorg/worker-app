@@ -8,7 +8,7 @@ import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';
 
 import Content from '../shared/Content';
-import Form from './form/Form';
+import Form from './Form';
 import SubmissionDialog from './SubmissionDialog';
 
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';

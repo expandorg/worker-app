@@ -11,8 +11,8 @@ import withSubmitState from '../hoc/withSubmitState';
 import Content from '../shared/Content';
 
 import Onboarding from './Onboarding/Onboarding';
-import OnboardingComplete from './Onboarding/OnboardingComplete';
-import OnboardingFailed from './Onboarding/OnboardingFailed';
+import Complete from './Onboarding/Complete';
+import Failed from './Onboarding/Failed';
 
 import { requestStateProps, jobProps, historyProps, onboardingProps } from '../shared/propTypes';
 
@@ -91,10 +91,10 @@ class JobDetails extends Component {
           <Onboarding jobId={jobId} onboarding={onboarding} />
         }
         {onboarding.stage === OnboardingStage.Failed &&
-          <OnboardingFailed />
+          <Failed />
         }
         {onboarding.stage === OnboardingStage.Complete &&
-          <OnboardingComplete
+          <Complete
             onboarding={onboarding}
             submitState={submitState}
             onAssign={this.handleAssignJob}

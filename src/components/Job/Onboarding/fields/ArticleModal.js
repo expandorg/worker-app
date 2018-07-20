@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Modal from '../../../shared/form/ui/Modal';
-import Article from '../../../shared/form/Article';
+import { Modal, Article } from '@gigs/components/fields';
 
 export default class ArticleModal extends Component {
   static propTypes = {
@@ -28,7 +27,7 @@ export default class ArticleModal extends Component {
         headline={headline}
         button={hideTitle}
       >
-        <Article field={rest} wide />
+        <Article {...rest} wide />
       </Modal>
     );
   }

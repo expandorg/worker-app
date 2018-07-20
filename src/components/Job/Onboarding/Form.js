@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Panel, Button, ErrorMessage } from '@gigs/components';
+import { ErrorMessage } from '@gigs/components';
+import { Submit, Validation } from '@gigs/components/fields';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
-import { taskFormProps, requestStateProps } from '../../shared/propTypes';
+import { onboardingFormProps, requestStateProps } from '../../shared/propTypes';
 
-import Field from '../../shared/form/Field';
-import FieldContainer from '../../shared/form/FieldContainer';
+import OnboardingField from './fields/OnboardingField';
 
 import { formRules } from '../../../model/field';
 
 import styles from './Form.module.styl';
 
-export default class Form extends Component {
+export default class OnboardingForm extends Component {
   static propTypes = {
+    form: PropTypes.shape(onboardingFormProps).isRequired,
     submitState: PropTypes.shape(requestStateProps).isRequired,
-    taskForm: PropTypes.shape(taskFormProps).isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
 
@@ -51,49 +51,41 @@ export default class Form extends Component {
   }
 
   handleSubmit = (evt) => {
-    const { taskForm, onSubmit } = this.props;
+    evt.preventDefault();
+    const { onSubmit, form } = this.props;
     const { values } = this.state;
 
-    evt.preventDefault();
-
-    onSubmit(values, formRules(taskForm.fields));
+    onSubmit(values, formRules(form.fields));
   }
 
   render() {
-    const { submitState, taskForm } = this.props;
+    const { submitState, form } = this.props;
     const { values, errors } = this.state;
     const isSubmitting = submitState.state === RequestStates.Fetching;
     return (
-      <Panel className={styles.container}>
+      <div className={styles.container}>
         <form className={styles.form} onSubmit={this.handleSubmit} >
-          <div className={styles.description}>
-            {taskForm.description}
-          </div>
-          <ErrorMessage error={errors} />
-          {taskForm.fields.map(field => (
-            <FieldContainer key={field.name} name={field.name} error={errors} >
-              <Field
+          {form.fields.map(field => (
+            <Validation key={field.name} name={field.name} error={errors} >
+              <OnboardingField
                 field={field}
                 value={values[field.name]}
                 isSubmitting={isSubmitting}
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
               />
-            </FieldContainer>
+            </Validation>
           ))}
-          <div className={styles.actions}>
-            <Button
-              theme="pink"
-              size="large"
-              className={styles.submit}
-              onClick={this.handleSubmit}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit'}
-            </Button>
-          </div>
+          <ErrorMessage error={errors} />
+          {form.submit &&
+            <Submit
+              {...form.submit}
+              isSubmitting={isSubmitting}
+              onSubmit={this.handleSubmit}
+            />
+          }
         </form>
-      </Panel>
+      </div>
     );
   }
 }

@@ -1,5 +1,6 @@
 // @flow
 import PropTypes from 'prop-types';
+import { fieldProps } from '@gigs/components/fields';
 
 export const userProps = {
   id: PropTypes.number.isRequired,
@@ -46,14 +47,10 @@ export const jobProps = {
   }),
 };
 
-export const fieldProps = {
-  type: PropTypes.string,
-  name: PropTypes.string,
-};
 
 export const onboardingFormProps = {
-  submit: PropTypes.shape(fieldProps),
-  fields: PropTypes.arrayOf(PropTypes.shape(fieldProps)),
+  submit: fieldProps,
+  fields: PropTypes.arrayOf(fieldProps),
 };
 
 
@@ -77,7 +74,7 @@ export const taskProps = {
 
 export const taskFormProps = {
   description: PropTypes.string.isRequired,
-  fields: PropTypes.arrayOf(PropTypes.shape(fieldProps)),
+  fields: PropTypes.arrayOf(fieldProps),
 };
 
 export const historyProps = {
