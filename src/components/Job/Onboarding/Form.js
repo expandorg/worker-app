@@ -21,13 +21,9 @@ export default class OnboardingForm extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      values: {},
-      errors: null,
-    };
+  state = {
+    values: {},
+    errors: null,
   }
 
   componentWillReceiveProps({ submitState: nextState }) {
@@ -52,7 +48,7 @@ export default class OnboardingForm extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { onSubmit, form } = this.props;
+    const { form, onSubmit } = this.props;
     const { values } = this.state;
 
     onSubmit(values, formRules(form.fields));
