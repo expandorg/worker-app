@@ -1,10 +1,12 @@
 // @flow
+
+import { ServiceLocator } from '@gigs/components';
+
 import settings from '../common/settings';
 
 import GoogleTagManager from '../common/gtm/GoogleTagManager';
 import ScriptsLoader from '../common/ScriptsLoader';
 
-import ServiceLocator from './ServiceLocator';
 import GemsService from './GemsService';
 
 import EventSourceService from './EventSourceService';

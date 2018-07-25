@@ -4,15 +4,15 @@ import cn from 'classnames';
 
 import './GemsIcon.styl';
 
-const Gems = ({ className }) =>
+const GemsIcon = ({ className }) =>
   <ins className={cn('gem-gemicon', className)} alt="Gems" />;
 
-Gems.propTypes = {
+GemsIcon.propTypes = {
   className: PropTypes.string,
 };
 
-Gems.defaultProps = {
+GemsIcon.defaultProps = {
   className: null,
 };
 
-export default Gems;
+export default GemsIcon;
