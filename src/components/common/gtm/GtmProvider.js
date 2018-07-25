@@ -1,9 +1,10 @@
 import React, { Component, createContext } from 'react';
 
+import { withScript } from '@gigs/components/hoc';
+
 import settings from '../../../common/settings';
 import services from '../../../services/services';
 
-import withScript from '../withScript';
 
 export const GtmContext = createContext(null);
 

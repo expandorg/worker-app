@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ToastAnimated from '../../common/ToastAnimated';
+import { ToastAnimated } from '@gigs/components';
 
 import Notification from './Notification';
 
