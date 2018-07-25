@@ -105,25 +105,12 @@ export const userUpdated = (data, params) => ({
 });
 
 
-const getNotificationSourceType = (type) => {
-  switch (type) {
-    case gemsActionTypes.WITHDRAW_COMPLETE:
-      return 'withdraw';
-    case gemsActionTypes.DEPOSIT_COMPLETE:
-      return 'deposit';
-    default:
-      break;
-  }
-  return null;
-};
-
-function* handleUserChangedSaga({ type }) {
+function* handleUserChangedSaga() {
   const user = yield select(userSelector);
   if (user.pendingTx) {
     const services = yield getContext('services');
     const eventSources = services.resolve('eventSources');
-    const source = getNotificationSourceType(type);
-    eventSources.subscribe('tx', { tx: user.pendingTx, source });
+    eventSources.subscribe('tx', { tx: user.pendingTx.hash, source: user.pendingTx.type });
   }
 }
 

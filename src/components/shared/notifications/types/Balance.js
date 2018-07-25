@@ -12,10 +12,9 @@ export default class Balance extends Component {
 
   render() {
     const { data, params } = this.props.payload;
-    const op = params.source === 'withdraw' ? 'withdrawal' : 'deposit';
     return (
       <div className={styles.content}>
-        Your {op} has succeeded. Your new balance is&nbsp;
+        Your {params.source} has succeeded. Your new balance is&nbsp;
         <span className={styles.important}>{data.user.gems.balance}</span>&nbsp;Gems
       </div>
     );

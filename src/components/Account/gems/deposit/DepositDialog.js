@@ -64,7 +64,7 @@ class DepositDialog extends Component {
           {isFetched ? 'Transactions' : 'Deposit Gems'}
         </DialogHeadline>
         {isFetched
-          ? <Transactions transactions={[submitState.payload.tx]} />
+          ? <Transactions transactions={[submitState.payload.user.pendingTx.hash]} />
           : (
             <DepositForm
               submitState={submitState}
