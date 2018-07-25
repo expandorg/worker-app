@@ -81,17 +81,6 @@ export const withdrawPayments = (user, withdrawal) => ({
 });
 
 
-function* handleGemsOpeartionComplete({ type, payload }) {
-  const services = yield getContext('services');
-  const eventSources = services.resolve('eventSources');
-
-  const source = type === gemsActionTypes.WITHDRAW_COMPLETE
-    ? 'withdraw'
-    : 'deposit';
-
-  eventSources.subscribe('tx', { tx: payload.tx, source });
-}
-
 export const transactionFailed = (data, params) => ({
   type: gemsActionTypes.TRANSACTION_FAILED,
   payload: { data, params },
@@ -99,11 +88,10 @@ export const transactionFailed = (data, params) => ({
 
 const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
 
+
 export function* gemsSagas() {
   yield takeEvery(gemsActionTypes.DEPOSIT, handleDeposit);
+
   yield fork(watchFetchBalance);
   yield fork(watchWithdraw);
-
-  yield takeEvery(gemsActionTypes.WITHDRAW_COMPLETE, handleGemsOpeartionComplete);
-  yield takeEvery(gemsActionTypes.DEPOSIT_COMPLETE, handleGemsOpeartionComplete);
 }

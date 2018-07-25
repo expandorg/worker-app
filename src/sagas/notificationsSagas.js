@@ -27,19 +27,19 @@ function* handldNotificationAdded() {
   }
 }
 
-const getNotificationHandler = (notificationType) => {
-  function* handler({ payload }) {
-    yield put(addNotification(notificationType, payload));
+function* handleUserUpdated({ payload }) {
+  if (payload.params.source) {
+    yield put(addNotification(NotificationType.Balance, payload));
   }
-  return handler;
-};
+}
+
+function* handleTxFailed({ payload }) {
+  yield put(addNotification(NotificationType.TxError, payload));
+}
 
 export function* notificationsSagas() {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
 
-  yield takeEvery(userActionTypes.UPDATED, getNotificationHandler(NotificationType.Balance));
-  yield takeEvery(
-    gemsActionTypes.TRANSACTION_FAILED,
-    getNotificationHandler(NotificationType.TxError),
-  );
+  yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);
+  yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
 }

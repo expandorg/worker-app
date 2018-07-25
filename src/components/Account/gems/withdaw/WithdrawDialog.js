@@ -52,7 +52,7 @@ class WithdrawDialog extends Component {
           {isFetched ? 'Transactions' : 'Withdaw Gems'}
         </DialogHeadline>
         {isFetched
-          ? <Transactions transactions={[submitState.payload.tx]} />
+          ? <Transactions transactions={[submitState.payload.user.pendingTx.hash]} />
           : <WithdrawForm user={user} submitState={submitState} onWithdraw={this.handleWithdraw} />
         }
       </Dialog>
