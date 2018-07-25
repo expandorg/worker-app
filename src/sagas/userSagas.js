@@ -1,7 +1,15 @@
-import { takeEvery, fork, call, put, getContext } from 'redux-saga/effects';
+import { takeEvery, fork, call, select, put, getContext } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
-import { userActionTypes } from './actionTypes';
+import {
+  authActionTypes,
+  jobsActionTypes,
+  tasksActionTypes,
+  userActionTypes,
+  gemsActionTypes,
+} from './actionTypes';
+
+import { userSelector } from '../selectors/userSelectors';
 
 import { userApi } from '../api/UserApi';
 import { GtmActions } from '../common/gtm/GtmEvents';
@@ -97,8 +105,33 @@ export const userUpdated = (data, params) => ({
 });
 
 
+function* handleUserChangedSaga() {
+  const user = yield select(userSelector);
+  if (user.pendingTx) {
+    const services = yield getContext('services');
+    const eventSources = services.resolve('eventSources');
+    eventSources.subscribe('tx', { tx: user.pendingTx.hash, source: user.pendingTx.type });
+  }
+}
+
+const actionsThatChangesUser = [
+  authActionTypes.GET_CURRENT_COMPLETE,
+  authActionTypes.LOGIN_COMPLETE,
+  authActionTypes.SIGNUP_COMPLETE,
+  authActionTypes.LOGIN_METAMASK_COMPLETE,
+  authActionTypes.SIGNUP_METAMASK_COMPLETE,
+  userActionTypes.ASSIGN_ADDRESS_COMPLETE,
+  userActionTypes.CONFIRM_EMAIL_COMPLETE,
+  userActionTypes.EDIT_EMAIL_COMPLETE,
+  jobsActionTypes.ASSIGN_COMPLETE,
+  tasksActionTypes.SUBMIT_COMPLETE,
+  gemsActionTypes.WITHDRAW_COMPLETE,
+  gemsActionTypes.DEPOSIT_COMPLETE,
+];
+
 export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
+  yield takeEvery(actionsThatChangesUser, handleUserChangedSaga);
 
   yield fork(watchEditEmail);
   yield fork(watchChangePassword);
