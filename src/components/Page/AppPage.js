@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import GtmProvider from '../common/gtm/GtmProvider';
+import { JsScript } from '@gigs/components';
+
+import settings from '../../common/settings';
 
 import Notifications from '../shared/notifications/Notifications';
 
@@ -24,16 +26,18 @@ export default class AppPage extends Component {
     const { sidebar } = this.state;
 
     return (
-      <GtmProvider>
-        <div className="gem-page">
-          <Header collapsed={sidebar} onToggle={this.handleToggle} />
-          <Sidebar visible={sidebar} />
-          <div className="gem-page-content">
-            {children}
-          </div>
-          <Notifications />
+      <div className="gem-page">
+        <Header collapsed={sidebar} onToggle={this.handleToggle} />
+        <Sidebar visible={sidebar} />
+        <div className="gem-page-content">
+          {children}
         </div>
-      </GtmProvider>
+        <Notifications />
+        <JsScript
+          src={`https://www.googletagmanager.com/gtm.js?id=${settings.gtmTrackingId}`}
+          disabled={!settings.gtmTrackingId}
+        />
+      </div>
     );
   }
 }
