@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gigs/components';
+import { formProps } from '@gigs/components/fields';
 
 import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';
@@ -21,7 +22,7 @@ import { makeTaskFormSelector } from '../../selectors/jobsSelectors';
 
 import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
 
-import { taskFormProps, requestStateProps } from '../shared/propTypes';
+import { requestStateProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
 
 import styles from './Task.module.styl';
@@ -42,7 +43,7 @@ class Task extends Component {
   static propTypes = {
     taskId: PropTypes.string.isRequired,
     isFunded: PropTypes.bool.isRequired,
-    form: PropTypes.shape(taskFormProps),
+    form: formProps,
     submitState: PropTypes.shape(requestStateProps).isRequired,
 
     submitTask: PropTypes.func.isRequired,

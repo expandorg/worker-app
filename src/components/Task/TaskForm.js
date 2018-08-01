@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Form, Field } from '@gigs/components/fields';
 
 import { taskFormProps, requestStateProps } from '../shared/propTypes';
+import { RequestStates } from '../../common/app/requestUiState';
 
 import { formRules } from '../../model/field';
 
@@ -27,7 +28,8 @@ export default class TaskForm extends Component {
       <Form
         form={form}
         className={styles.form}
-        submitState={submitState}
+        errors={submitState.error}
+        isSubmitting={submitState.state === RequestStates.Fetching}
         onSubmit={this.handleSubmit}
       >
         {fieldProps => <Field {...fieldProps} />}

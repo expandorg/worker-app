@@ -13,6 +13,7 @@ import OnboardingField from './fields/OnboardingField';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 import { formRules } from '../../../model/field';
+import { RequestStates } from '../../../common/app/requestUiState';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
@@ -45,7 +46,8 @@ class Onboarding extends Component {
         <div className={styles.form}>
           <Form
             form={onboarding.form}
-            submitState={submitState}
+            errors={submitState.error}
+            isSubmitting={submitState.state === RequestStates.Fetching}
             onSubmit={this.handleSaveStep}
           >
             {fieldProps => <OnboardingField {...fieldProps} />}

@@ -1,11 +1,10 @@
-import { keyMirror } from '../utils';
 
-export const RequestStates = keyMirror({
-  NotFetched: null,
-  Fetching: null,
-  Fetched: null,
-  FetchError: null,
-});
+export const RequestStates = {
+  NotFetched: 'NotFetched',
+  Fetching: 'Fetching',
+  Fetched: 'Fetched',
+  FetchError: 'FetchError',
+};
 
 export const initialState = {
   state: RequestStates.NotFetched,
