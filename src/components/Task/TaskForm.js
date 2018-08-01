@@ -31,17 +31,6 @@ export default class TaskForm extends Component {
         onSubmit={this.handleSubmit}
       >
         {fieldProps => <Field {...fieldProps} />}
-        {/* <div className={styles.actions}>
-          <Button
-            theme="pink"
-            size="large"
-            className={styles.submit}
-            onClick={this.handleSubmit}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </Button>
-        </div> */}
       </Form>
     );
   }

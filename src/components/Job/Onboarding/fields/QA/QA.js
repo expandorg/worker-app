@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@gigs/components';
-import { Alignment, Paragraph, Answers, Answer, fieldProps } from '@gigs/components/fields';
+import { Alignment, Paragraph, Select, Choice, fieldProps } from '@gigs/components/fields';
 
 import Progress from './Progress';
 import Task from './Task';
@@ -56,16 +56,24 @@ export default class QA extends Component {
           <div className={styles.block}>
             Question {field.number}:
           </div>
-          <Paragraph className={styles.question} fontSize="medium" centered>
-            {field.question}
-          </Paragraph>
+          <Paragraph
+            className={styles.question}
+            fontSize="medium"
+            centered
+            content={field.question}
+          />
         </Alignment>
         <Alignment padding="medium" vertical>
-          <Answers answers={field.answers} onSelect={this.handleChange} value={value} >
-            {({ key, onSelect, answer, selected }) => (
-              <Answer key={key} selected={selected} onSelect={onSelect} answer={answer} />
+          <Select options={field.answers} onSelect={this.handleChange} value={value} >
+            {({ key, onSelect, option, selected }) => (
+              <Choice
+                key={key}
+                selected={selected}
+                onSelect={onSelect}
+                option={option}
+              />
             )}
-          </Answers>
+          </Select>
         </Alignment>
         <Alignment justify="between" padding="medium">
           <div className={styles.actions}>
