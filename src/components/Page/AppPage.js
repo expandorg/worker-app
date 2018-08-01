@@ -35,7 +35,7 @@ export default class AppPage extends Component {
         <Notifications />
         <JsScript
           src={`https://www.googletagmanager.com/gtm.js?id=${settings.gtmTrackingId}`}
-          disabled={!settings.gtmTrackingId}
+          disable={!settings.gtmTrackingId}
         />
       </div>
     );

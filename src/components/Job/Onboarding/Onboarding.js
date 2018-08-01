@@ -5,12 +5,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gigs/components';
+import { Form } from '@gigs/components/fields';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
-import Form from './Form';
+import OnboardingField from './fields/OnboardingField';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
+import { formRules } from '../../../model/field';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
@@ -30,21 +32,25 @@ class Onboarding extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  handleSaveStep = (formValues, rules) => {
-    const { onSubmit, onboarding, jobId } = this.props;
-    onSubmit(() => this.props.submitOnboarding(jobId, onboarding.pageId, formValues, rules));
+  handleSaveStep = (values) => {
+    const { onSubmit, onboarding: { form, pageId }, jobId } = this.props;
+    const rules = formRules(form.fields);
+    onSubmit(() => this.props.submitOnboarding(jobId, pageId, values, rules));
   }
-
 
   render() {
     const { onboarding, submitState } = this.props;
     return (
       <Panel className={styles.container}>
-        <Form
-          form={onboarding.form}
-          submitState={submitState}
-          onSubmit={this.handleSaveStep}
-        />
+        <div className={styles.form}>
+          <Form
+            form={onboarding.form}
+            submitState={submitState}
+            onSubmit={this.handleSaveStep}
+          >
+            {fieldProps => <OnboardingField {...fieldProps} />}
+          </Form>
+        </div>
       </Panel>
     );
   }

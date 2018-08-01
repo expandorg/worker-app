@@ -10,7 +10,7 @@ import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';
 
 import Content from '../shared/Content';
-import Form from './Form';
+import TaskForm from './TaskForm';
 import SubmissionDialog from './SubmissionDialog';
 
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';
@@ -73,7 +73,11 @@ class Task extends Component {
       <Content title="Question writing and fact checking">
         <Panel className={styles.container}>
           {form &&
-            <Form form={form} submitState={submitState} onSubmit={this.handleSubmit} />
+            <TaskForm
+              form={form}
+              submitState={submitState}
+              onSubmit={this.handleSubmit}
+            />
           }
         </Panel>
         {submitState.state === RequestStates.Fetched &&
