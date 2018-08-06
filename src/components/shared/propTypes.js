@@ -49,7 +49,6 @@ export const jobProps = {
 
 export const onboarding = {
   jobId: PropTypes.number.isRequired,
-  pageId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   form: formProps,
 };
