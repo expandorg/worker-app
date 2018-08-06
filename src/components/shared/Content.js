@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 
 import VerifyEmailPopup from './email/VerifyEmailPopup';
+import Onboarding from './profile/Onboarding';
 
 import './Content.styl';
 
@@ -11,6 +12,7 @@ const Content = ({ children, title }) => (
   <DocumentTitle title={`${title} - Gems`}>
     <div className="gem-content">
       <VerifyEmailPopup />
+      <Onboarding />
       <div className="gem-content-title">
         {title}
       </div>

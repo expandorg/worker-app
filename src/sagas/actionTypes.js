@@ -76,6 +76,10 @@ export const userActionTypes = createActionTypes('user', {
   RESTORE_PASSWORD_COMPLETE: null,
   RESTORE_PASSWORD_FAILED: null,
 
+  SAVE_PROFILE: null,
+  SAVE_PROFILE_COMPLETE: null,
+  SAVE_PROFILE_FAILED: null,
+
   UPDATED: null,
 });
 

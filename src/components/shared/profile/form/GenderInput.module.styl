@@ -1,0 +1,21 @@
+@import 'common/uikit/colors'
+@import 'common/uikit/font'
+@import 'common/uikit/components'
+
+.container
+  border: 1px solid color-pink
+  display: inline-block;
+  border-radius: 2px
+
+.button
+  button('small', null)
+  border-radius: 0px
+  color: color-pink
+  width: 120px;
+
+  &:first-child
+    border-right: 1px solid color-pink;
+
+.selected
+  background-color: color-pink
+  color: color-white

@@ -30,6 +30,9 @@ export class UserApi extends BaseApi {
 
   withdraw = ({ userId, withdrawal }) =>
     this.post(`/users/${userId}/withdraw`, { withdrawal })
+
+  saveProfile = ({ userId, profile }) =>
+    this.post(`/users/${userId}/profile`, profile)
 }
 
 export const userApi = new UserApi();

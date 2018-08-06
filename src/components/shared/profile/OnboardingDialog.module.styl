@@ -1,0 +1,56 @@
+@import 'common/uikit/colors'
+@import 'common/uikit/layout'
+@import 'common/uikit/font'
+@import 'common/uikit/components'
+
+.container
+  box-sizing: border-box;
+  padding: 0px 50px 40px;
+
+  @media(max-width: 660px)
+    width: 100%;
+    padding: 0 20px
+
+.description
+  font(font-preset[menu])
+  color: color-text-1
+
+.content
+  display: flex;
+  flex-direction: column;
+  width: 400px
+
+  @media(max-width: 660px)
+    width: 100%;
+
+.row
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+
+.submit
+  padding: 0 30px;
+  button('medium', 'pink')
+  margin-left: 10px;
+
+.skip
+  position: relative;
+  padding: 0 20px;
+  button('medium', 'white')
+  border-color: transparent;
+
+  &:hover
+    border-color: transparent;
+
+.why
+  margin-left: 8px;
+  position: relative;
+  color: color-text-gray-1
+  cursor: pointer;
+
+.whyText
+  min-width: 300px;
+  font(font-preset[normal])
+  text-align: left;
+  p
+    padding: 7px 0;

@@ -1,45 +1,29 @@
 import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-const loaded = new Set();
+import JsScript from './JsScript';
 
-const withScript = (src, async = true, defer = false, disabled = false) => (Wrapped) => {
+const withScript = (src, async = true, defer = false, disable = false) => (Wrapped) => {
   class WithScriptWrapper extends Component {
     static propTypes = {
       forwardedRef: PropTypes.func,
-      onLoad: PropTypes.func,
     }
 
     static defaultProps = {
       forwardedRef: null,
-      onLoad: Function.prototype,
-    }
-
-    componentDidMount() {
-      if (disabled) {
-        return;
-      }
-      const { onLoad } = this.props;
-      if (loaded.has(src)) {
-        return;
-      }
-      loaded.add(src);
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = async;
-      script.defer = defer;
-      script.onload = () => {
-        onLoad();
-      };
-      document.body.appendChild(script);
     }
 
     render() {
       const { forwardedRef, ...rest } = this.props;
-      return <Wrapped ref={forwardedRef} {...rest} />;
+      return (
+        <JsScript src={src} async={async} defer={defer} disable={disable} >
+          {({ jsLoaded }) =>
+            <Wrapped ref={forwardedRef} jsLoaded={jsLoaded} {...rest} />
+          }
+        </JsScript>
+      );
     }
   }
-
   return forwardRef((props, ref) => <WithScriptWrapper {...props} forwardedRef={ref} />);
 };
 

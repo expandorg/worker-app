@@ -5,6 +5,8 @@ import GoogleTagManager from '../common/gtm/GoogleTagManager';
 
 import ServiceLocator from './ServiceLocator';
 import GemsService from './GemsService';
+import LocationService from './LocationService';
+import ReverseGeocoder from './ReverseGeocoder';
 
 import EventSourceService from './EventSourceService';
 import TxEventSource from './events/TxEventSource';
@@ -15,6 +17,8 @@ const eventSources = new EventSourceService(settings.apiUrl)
 const services = new ServiceLocator()
   .register('gtm', new GoogleTagManager(settings.gtmTrackingId))
   .register('gems', new GemsService(settings.vaultAddress))
-  .register('eventSources', eventSources);
+  .register('eventSources', eventSources)
+  .register('location', new LocationService())
+  .register('reverseGeocoder', new ReverseGeocoder());
 
 export default services;

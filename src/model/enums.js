@@ -2,7 +2,6 @@
 import { keyMirror } from '../common/utils';
 
 export const UserRoles = keyMirror({
-
 });
 
 export const MetamaskState = keyMirror({
