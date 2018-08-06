@@ -1,12 +1,11 @@
 import BaseApi from '../common/api/BaseApi';
-import { mock } from './__tests__/onboardingMocks';
 
 export class OnboardingApi extends BaseApi {
   fetch = ({ jobId }) =>
-    this.success(mock.fetch(jobId))
+    this.get(`/jobs/${jobId}/onboarding`)
 
-  submit = ({ jobId, pageId, response }) =>
-    this.success(mock.submit(jobId, pageId, response))
+  submit = ({ jobId, response }) =>
+    this.post(`/jobs/${jobId}/onboarding`, { response })
 }
 
 export const onboardingApi = new OnboardingApi();

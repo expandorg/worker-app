@@ -21,8 +21,8 @@ export const NotificationType = keyMirror({
   TxError: null,
 });
 
-export const OnboardingStage = keyMirror({
-  InProgress: null,
-  Complete: null,
-  Failed: null,
-});
+export const OnboardingStatus = {
+  InProgress: 'in-progress',
+  Passed: 'passed',
+  Failed: 'failed',
+};

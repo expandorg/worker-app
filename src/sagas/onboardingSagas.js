@@ -16,9 +16,9 @@ export const fetchOnboarding = jobId => ({
 const watchFetchRequest = takeEveryApiCall(onboardingActionTypes.FETCH, onboardingApi.fetch);
 
 
-export const submitOnboarding = (jobId, pageId, response, rules) => ({
+export const submitOnboarding = (jobId, response, rules) => ({
   type: onboardingActionTypes.SUBMIT,
-  payload: { jobId, pageId, response },
+  payload: { jobId, response },
   meta: {
     validation: { response: rules },
     schema: { onboarding: onboardingSchema },

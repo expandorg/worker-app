@@ -16,7 +16,7 @@ import Failed from './Onboarding/Failed';
 
 import { requestStateProps, jobProps, historyProps, onboardingProps } from '../shared/propTypes';
 
-import { OnboardingStage } from '../../model/enums';
+import { OnboardingStatus } from '../../model/enums';
 import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 import { fetchOnboarding } from '../../sagas/onboardingSagas';
 
@@ -87,13 +87,13 @@ class JobDetails extends Component {
     }
     return (
       <Content title={title}>
-        {onboarding.stage === OnboardingStage.InProgress &&
+        {onboarding.status === OnboardingStatus.InProgress &&
           <Onboarding jobId={jobId} onboarding={onboarding} />
         }
-        {onboarding.stage === OnboardingStage.Failed &&
+        {onboarding.status === OnboardingStatus.Failed &&
           <Failed />
         }
-        {onboarding.stage === OnboardingStage.Complete &&
+        {onboarding.status === OnboardingStatus.Passed &&
           <Complete
             onboarding={onboarding}
             submitState={submitState}

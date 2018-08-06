@@ -34,7 +34,11 @@ export default class JobItem extends Component {
     const isJoined = !!assignment;
     return (
       <div className={styles.container}>
-        <img className={styles.logo} src={job.logo} alt={job.requester} />
+        <img
+          className={styles.logo}
+          src={job.logo}
+          alt={job.requester}
+        />
         <div className={styles.info}>
           <div className={styles.heading}>
             {job.name}
@@ -63,7 +67,9 @@ export default class JobItem extends Component {
           </div>
         </div>
         <div className={styles.reward}>
-          <span className={styles.rewardNumber}>{job.logic.funding.reward}</span>
+          <span className={styles.rewardNumber}>
+            {job.logic.funding.reward}
+          </span>
           <img className={styles.rewardIcon} src="/images/logo_icon.svg" alt="Gems" />
         </div>
       </div>

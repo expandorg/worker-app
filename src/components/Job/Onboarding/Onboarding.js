@@ -34,9 +34,9 @@ class Onboarding extends Component {
   };
 
   handleSaveStep = (values) => {
-    const { onSubmit, onboarding: { form, pageId }, jobId } = this.props;
+    const { onSubmit, onboarding: { form }, jobId } = this.props;
     const rules = formRules(form.fields);
-    onSubmit(() => this.props.submitOnboarding(jobId, pageId, values, rules));
+    onSubmit(() => this.props.submitOnboarding(jobId, values, rules));
   }
 
   render() {
