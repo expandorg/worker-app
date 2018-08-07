@@ -8,13 +8,14 @@ import { userProps, jobProps, assignmentProps, historyProps } from '../shared/pr
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
+import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import JobItem from './JobItem';
 import DepositPrompt from './DepositPrompt';
 
 import { authenticated } from '../hoc/authRules';
 
-import { fetchJobs } from '../../sagas/jobsSagas';
+import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 
 import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
@@ -30,7 +31,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchJobs }, dispatch);
+  bindActionCreators({ fetchJobs, assignJob }, dispatch);
 
 class Jobs extends Component {
   static propTypes = {
@@ -40,6 +41,7 @@ class Jobs extends Component {
     isFunded: PropTypes.bool.isRequired,
     assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
+    assignJob: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -62,8 +64,10 @@ class Jobs extends Component {
     const { user, history } = this.props;
     if (!user.emailConfirmed) {
       this.setState({ emailDialog: true });
-    } else {
+    } else if (job.hasOnboarding) {
       history.push(`/jobs/${job.id}`);
+    } else {
+      this.props.assignJob(job.id);
     }
   }
 
@@ -93,6 +97,7 @@ class Jobs extends Component {
           />
         }
         <DepositPrompt visible={!isFunded} />
+        <AssignedJobRedirect />
       </Content>
     );
   }

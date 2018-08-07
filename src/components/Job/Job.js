@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates } from '../../common/app/requestUiState';
 import { authenticated } from '../hoc/authRules';
 import withSubmitState from '../hoc/withSubmitState';
 
 import Content from '../shared/Content';
+import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import Onboarding from './Onboarding/Onboarding';
 import Complete from './Onboarding/Complete';
 import Failed from './Onboarding/Failed';
 
-import { requestStateProps, jobProps, historyProps, onboardingProps } from '../shared/propTypes';
+import { requestStateProps, jobProps, onboardingProps } from '../shared/propTypes';
 
 import { OnboardingStatus } from '../../model/enums';
 import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
@@ -42,8 +42,6 @@ class JobDetails extends Component {
   static propTypes = {
     jobId: PropTypes.number.isRequired,
 
-    history: PropTypes.shape(historyProps).isRequired,
-
     job: PropTypes.shape(jobProps),
     onboarding: PropTypes.shape(onboardingProps),
 
@@ -65,13 +63,6 @@ class JobDetails extends Component {
     const { jobId } = this.props;
     this.props.fetchJobs();
     this.props.fetchOnboarding(jobId);
-  }
-
-  componentDidUpdate({ submitState: prev }) {
-    const { submitState, history } = this.props;
-    if (prev.state === RequestStates.Fetching && submitState.state === RequestStates.Fetched) {
-      history.push(`/tasks/${submitState.payload.result.newAssignment.taskId}`);
-    }
   }
 
   handleAssignJob = () => {
@@ -100,6 +91,7 @@ class JobDetails extends Component {
             onAssign={this.handleAssignJob}
           />
         }
+        <AssignedJobRedirect />
       </Content>
     );
   }
