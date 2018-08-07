@@ -7,12 +7,12 @@ export default class Progress extends Component {
   static propTypes = {
     number: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
-    tries: PropTypes.number.isRequired,
+    triesLeft: PropTypes.number.isRequired,
   };
 
   render() {
     const {
-      number, total, tries,
+      number, total, triesLeft,
     } = this.props;
     return (
       <div className={styles.stats}>
@@ -20,7 +20,7 @@ export default class Progress extends Component {
           Question<span className={styles.number}>{number} / {total}</span>
         </div>
         <div className={styles.block}>
-          <span className={styles.number}>{tries}</span>Tries left
+          <span className={styles.number}>{triesLeft}</span>Tries left
         </div>
       </div>
     );

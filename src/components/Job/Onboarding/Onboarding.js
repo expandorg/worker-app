@@ -50,7 +50,7 @@ class Onboarding extends Component {
             isSubmitting={submitState.state === RequestStates.Fetching}
             onSubmit={this.handleSaveStep}
           >
-            {fieldProps => <OnboardingField {...fieldProps} />}
+            {fieldProps => <OnboardingField {...fieldProps} contextData={onboarding} />}
           </Form>
         </div>
       </Panel>

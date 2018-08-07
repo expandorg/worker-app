@@ -13,6 +13,7 @@ import styles from './QA.module.styl';
 export default class QA extends Component {
   static propTypes = {
     field: fieldProps.isRequired,
+    contextData: PropTypes.object.isRequired, // eslint-disable-line
     value: PropTypes.string,
     isSubmitting: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -43,15 +44,23 @@ export default class QA extends Component {
     this.setState(({ instructions }) => ({ instructions: !instructions }));
   }
 
+  handleSubmit = (evt) => {
+    const { isSubmitting, value, onSubmit } = this.props;
+    if (value && !isSubmitting) {
+      onSubmit(evt);
+    }
+  }
+
   render() {
     const {
-      field, isSubmitting, onSubmit, value,
+      field, isSubmitting, value, contextData,
     } = this.props;
     const { disabled, rules, instructions } = this.state;
+    const triesLeft = (+contextData.allowedTries || 0) - (+contextData.currentTry || 0);
     return (
       <Alignment vertical className={styles.container}>
         <Task link={field.link} />
-        <Progress number={field.number} total={field.total} tries={field.tries} />
+        <Progress number={field.number} total={field.total} triesLeft={triesLeft} />
         <Alignment vertical vCenter padding="medium">
           <div className={styles.block}>
             Question {field.number}:
@@ -86,10 +95,9 @@ export default class QA extends Component {
             </Button>
           </div>
           <Button
-            onClick={onSubmit}
+            onClick={this.handleSubmit}
             size="large"
             theme="aqua"
-            type="submit"
             disabled={isSubmitting || disabled}
           >
             {field.submit}

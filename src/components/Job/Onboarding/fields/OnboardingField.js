@@ -11,6 +11,7 @@ import FieldType from './fieldTypes';
 export default class OnboardingField extends PureComponent {
   static propTypes = {
     field: fieldProps.isRequired,
+    contextData: PropTypes.object.isRequired, // eslint-disable-line
     value: PropTypes.any, // eslint-disable-line
     isSubmitting: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -23,7 +24,7 @@ export default class OnboardingField extends PureComponent {
 
   render() {
     const {
-      field, value, onChange, isSubmitting, onSubmit,
+      field, value, onChange, isSubmitting, onSubmit, contextData,
     } = this.props;
 
     switch (field.type) {
@@ -35,6 +36,7 @@ export default class OnboardingField extends PureComponent {
             field={field}
             value={value}
             onChange={onChange}
+            contextData={contextData}
             onSubmit={onSubmit}
             isSubmitting={isSubmitting}
           />

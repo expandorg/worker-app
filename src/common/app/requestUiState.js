@@ -1,3 +1,10 @@
+// @flow
+import { type ReduxAction } from './types.flow';
+
+export type RequestStateType = {
+  state: 'NotFetched' | 'Fetching' | 'Fetched' | 'FetchError',
+  error?: ?{ [key: string]: string }
+}
 
 export const RequestStates = {
   NotFetched: 'NotFetched',
@@ -6,13 +13,18 @@ export const RequestStates = {
   FetchError: 'FetchError',
 };
 
-export const initialState = {
+
+export const initialState: RequestStateType = {
   state: RequestStates.NotFetched,
   error: null,
 };
 
-export const requestUiStateReducer = (actionType, preservePayload = false, foldErrors = false) =>
-  (state = initialState, action) => {
+export const requestUiStateReducer = (
+  actionType: string,
+  preservePayload: boolean = false,
+  foldErrors: boolean = false,
+) =>
+  (state: RequestStateType = initialState, action: ReduxAction): RequestStateType => {
     switch (action.type) {
       case actionType:
         return { ...initialState, state: RequestStates.Fetching };
