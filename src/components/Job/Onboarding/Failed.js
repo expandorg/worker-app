@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { Panel } from '@gigs/components';
 
+
 import styles from './Failed.module.styl';
 
 export default class OnboardingFailed extends Component {

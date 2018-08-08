@@ -82,7 +82,7 @@ class JobDetails extends Component {
           <Onboarding jobId={jobId} onboarding={onboarding} />
         }
         {onboarding.status === OnboardingStatus.Failed &&
-          <Failed />
+          <Failed onboarding={onboarding} />
         }
         {onboarding.status === OnboardingStatus.Passed &&
           <Complete
