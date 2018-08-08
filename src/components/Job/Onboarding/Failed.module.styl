@@ -2,25 +2,35 @@
 @import '~@gigs/components/src/uikit/font'
 
 .form
-  padding: 35px 20px
+  box-sizing: border-box;
+  min-height: calc(100vh - 230px);
+  margin: 0 auto;
+  max-width: 800px;
+
 
 .heading
   font-size: 32px;
   font-weight: 500
   color: color-text-1
+  text-align: center;
+
+  margin-top: 40px
 
 .description
   box-sizing: border-box;
 
-  margin-top: 20px;
+  margin-top: 40px;
 
-  font(font-preset[normal])
+  text-align: center;
+
+  font(font-preset[subheader])
   color: #939393
 
 .actions
-  margin-top: 35px
+  margin-top: 80px
   display: flex;
-  align-items: center;
+  justify-content: center;
 
 .back
-  border: none;
+  padding-left: 80px;
+  padding-right: 80px;

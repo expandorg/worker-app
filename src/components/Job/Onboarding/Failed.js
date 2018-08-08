@@ -13,7 +13,7 @@ export default class OnboardingFailed extends Component {
       <Panel>
         <div className={styles.form}>
           <h1 className={styles.heading}>
-            Failed
+            Sorry you are out of tries
           </h1>
           <p className={styles.description}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec maximus
@@ -23,10 +23,10 @@ export default class OnboardingFailed extends Component {
           </p>
           <div className={styles.actions}>
             <Link
-              className={cn('gem-button', 'gem-button-large', 'gem-button-white', styles.back)}
+              className={cn('gem-button', 'gem-button-large', 'gem-button-pink', styles.back)}
               to="/jobs"
             >
-              Browse available jobs
+              Ok
             </Link>
           </div>
         </div>
