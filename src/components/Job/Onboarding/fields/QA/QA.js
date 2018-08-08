@@ -77,6 +77,7 @@ export default class QA extends Component {
             {({ key, onSelect, option, selected }) => (
               <Choice
                 key={key}
+                className={styles.choice}
                 selected={selected}
                 onSelect={onSelect}
                 option={option}
@@ -94,14 +95,18 @@ export default class QA extends Component {
               See instructions
             </Button>
           </div>
-          <Button
-            onClick={this.handleSubmit}
-            size="large"
-            theme="aqua"
-            disabled={isSubmitting || disabled}
-          >
-            {field.submit}
-          </Button>
+          <div>
+            {field.submit && (
+              <Button
+                onClick={this.handleSubmit}
+                size="large"
+                theme="aqua"
+                disabled={isSubmitting || disabled}
+              >
+                {field.submit}
+              </Button>
+            )}
+          </div>
         </Alignment>
         <ArticleModal
           visible={rules}
