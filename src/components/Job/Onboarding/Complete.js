@@ -8,19 +8,19 @@ import { Link } from 'react-router-dom';
 import { Panel, Button } from '@gigs/components';
 
 import { RequestStates } from '../../../common/app/requestUiState';
-import { requestStateProps } from '../../shared/propTypes';
+import { requestStateProps, jobProps } from '../../shared/propTypes';
 
 import styles from './Complete.module.styl';
 
 export default class OnboardingComplete extends Component {
   static propTypes = {
-    // onboarding: PropTypes.shape(onboardingProps).isRequired,
+    job: PropTypes.shape(jobProps).isRequired,
     submitState: PropTypes.shape(requestStateProps).isRequired,
     onAssign: PropTypes.func.isRequired,
   };
 
   render() {
-    const { submitState, onAssign } = this.props;
+    const { submitState, job, onAssign } = this.props;
     const isSubmitting = submitState.state === RequestStates.Fetching;
     return (
       <Panel>
@@ -29,10 +29,7 @@ export default class OnboardingComplete extends Component {
             Great job!
           </h1>
           <p className={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec maximus
-            turpis. Nullam maximus eu nisl sed sollicitudin. Nulla sit amet cursus quam, in bibendum
-            felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec maximus
-            turpis. Nullam maximus eu nisl sed sollicitudin.
+            {job.onboarding.successMessage}
           </p>
           <p className={styles.description}>
             Continue with the real task and earn some gems!

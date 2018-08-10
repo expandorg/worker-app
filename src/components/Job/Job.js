@@ -72,21 +72,20 @@ class JobDetails extends Component {
 
   render() {
     const { job, onboarding, jobId, submitState } = this.props;
-    const title = job ? job.name : '';
-    if (!onboarding) {
+    if (!job || !onboarding) {
       return null;
     }
     return (
-      <Content title={title}>
+      <Content title={job.name}>
         {onboarding.status === OnboardingStatus.InProgress &&
           <Onboarding jobId={jobId} onboarding={onboarding} />
         }
         {onboarding.status === OnboardingStatus.Failed &&
-          <Failed onboarding={onboarding} />
+          <Failed job={job} />
         }
         {onboarding.status === OnboardingStatus.Passed &&
           <Complete
-            onboarding={onboarding}
+            job={job}
             submitState={submitState}
             onAssign={this.handleAssignJob}
           />

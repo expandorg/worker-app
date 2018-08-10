@@ -36,6 +36,11 @@ export const jobProps = {
   form: PropTypes.string,
   requesterId: PropTypes.number,
   isActive: PropTypes.bool,
+  onboarding: PropTypes.shape({
+    enabled: PropTypes.bool,
+    successMessage: PropTypes.string,
+    failureMessage: PropTypes.string,
+  }),
   logic: PropTypes.shape({
     funding: PropTypes.shape({
       reward: PropTypes.number,

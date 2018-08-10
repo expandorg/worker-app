@@ -64,7 +64,7 @@ class Jobs extends Component {
     const { user, history } = this.props;
     if (!user.emailConfirmed) {
       this.setState({ emailDialog: true });
-    } else if (job.hasOnboarding) {
+    } else if (job.onboarding.enabled) {
       history.push(`/jobs/${job.id}`);
     } else {
       this.props.assignJob(job.id);
