@@ -1,6 +1,6 @@
 // @flow
 import PropTypes from 'prop-types';
-import { formProps } from '@gigs/components/fields';
+import { formProps } from '@gigs/components/modules';
 
 export const userProps = {
   id: PropTypes.number.isRequired,

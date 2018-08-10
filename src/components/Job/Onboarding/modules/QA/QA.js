@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@gigs/components';
-import { Alignment, Paragraph, Select, Choice, fieldProps } from '@gigs/components/fields';
+import { Alignment, Paragraph, Select, Choice, moduleProps } from '@gigs/components/modules';
 
 import Progress from './Progress';
 import Task from './Task';
@@ -12,7 +12,7 @@ import styles from './QA.module.styl';
 
 export default class QA extends Component {
   static propTypes = {
-    field: fieldProps.isRequired,
+    module: moduleProps.isRequired,
     contextData: PropTypes.object.isRequired, // eslint-disable-line
     value: PropTypes.string,
     isSubmitting: PropTypes.bool.isRequired,
@@ -31,9 +31,9 @@ export default class QA extends Component {
   }
 
   handleChange = (value) => {
-    const { field, onChange } = this.props;
+    const { module, onChange } = this.props;
     this.setState({ disabled: false });
-    onChange(field.name, value);
+    onChange(module.name, value);
   }
 
   handleToggleRules = () => {
@@ -53,27 +53,27 @@ export default class QA extends Component {
 
   render() {
     const {
-      field, isSubmitting, value, contextData,
+      module, isSubmitting, value, contextData,
     } = this.props;
     const { disabled, rules, instructions } = this.state;
     const triesLeft = (+contextData.allowedTries || 0) - (+contextData.currentTry || 0);
     return (
       <Alignment vertical className={styles.container}>
-        <Task link={field.link} />
-        <Progress number={field.number} total={field.total} triesLeft={triesLeft} />
+        <Task link={module.link} />
+        <Progress number={module.number} total={module.total} triesLeft={triesLeft} />
         <Alignment vertical vCenter padding="medium">
           <div className={styles.block}>
-            Question {field.number}:
+            Question {module.number}:
           </div>
           <Paragraph
             className={styles.question}
             fontSize="medium"
             centered
-            content={field.question}
+            content={module.question}
           />
         </Alignment>
         <Alignment padding="medium" vertical>
-          <Select options={field.answers} onSelect={this.handleChange} value={value} >
+          <Select options={module.answers} onSelect={this.handleChange} value={value} >
             {({ key, onSelect, option, selected }) => (
               <Choice
                 key={key}
@@ -96,14 +96,14 @@ export default class QA extends Component {
             </Button>
           </div>
           <div>
-            {field.submit && (
+            {module.submit && (
               <Button
                 onClick={this.handleSubmit}
                 size="large"
                 theme="aqua"
                 disabled={isSubmitting || disabled}
               >
-                {field.submit}
+                {module.submit}
               </Button>
             )}
           </div>
@@ -113,16 +113,16 @@ export default class QA extends Component {
           onHide={this.handleToggleRules}
           headline="Rules"
           hideTitle="Close"
-          title={field.rulesTitle}
-          content={field.rulesContent}
+          title={module.rulesTitle}
+          content={module.rulesContent}
         />
         <ArticleModal
           visible={instructions}
           onHide={this.handleToggleInstructions}
           headline="Instructions"
           hideTitle="Close"
-          title={field.instructionsTitle}
-          content={field.instructionsContent}
+          title={module.instructionsTitle}
+          content={module.instructionsContent}
         />
       </Alignment>
     );

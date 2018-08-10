@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Modal, Article } from '@gigs/components/fields';
+import { Modal, Article } from '@gigs/components/modules';
 
 export default class ArticleModal extends Component {
   static propTypes = {

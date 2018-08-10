@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { Field, fieldProps } from '@gigs/components/fields';
+import { Module, moduleProps } from '@gigs/components/modules';
 
 import Rules from './Rules';
 import QA from './QA/QA';
 
-import FieldType from './fieldTypes';
+import OnboardingModuleTypes from './OnboardingModuleTypes';
 
-export default class OnboardingField extends PureComponent {
+export default class OnboardingModule extends PureComponent {
   static propTypes = {
-    field: fieldProps.isRequired,
+    module: moduleProps.isRequired,
     contextData: PropTypes.object.isRequired, // eslint-disable-line
     value: PropTypes.any, // eslint-disable-line
     isSubmitting: PropTypes.bool.isRequired,
@@ -24,16 +24,16 @@ export default class OnboardingField extends PureComponent {
 
   render() {
     const {
-      field, value, onChange, isSubmitting, onSubmit, contextData,
+      module, value, onChange, isSubmitting, onSubmit, contextData,
     } = this.props;
 
-    switch (field.type) {
-      case FieldType.rules:
-        return <Rules field={field} value={value} onChange={onChange} />;
-      case FieldType.qa:
+    switch (module.type) {
+      case OnboardingModuleTypes.rules:
+        return <Rules module={module} value={value} onChange={onChange} />;
+      case OnboardingModuleTypes.qa:
         return (
           <QA
-            field={field}
+            module={module}
             value={value}
             onChange={onChange}
             contextData={contextData}
@@ -44,6 +44,6 @@ export default class OnboardingField extends PureComponent {
       default:
         break;
     }
-    return <Field {...this.props} />;
+    return <Module {...this.props} />;
   }
 }

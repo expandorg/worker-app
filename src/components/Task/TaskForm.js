@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Field } from '@gigs/components/fields';
+import { Form, Module } from '@gigs/components/modules';
 
 import { taskFormProps, requestStateProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
 
-import { formRules } from '../../model/field';
+import { formRules } from '../../model/module';
 
 import styles from './TaskForm.module.styl';
 
@@ -19,7 +19,7 @@ export default class TaskForm extends Component {
 
   handleSubmit = (values) => {
     const { form, onSubmit } = this.props;
-    onSubmit(values, formRules(form.fields));
+    onSubmit(values, formRules(form.modules));
   }
 
   render() {
@@ -32,7 +32,7 @@ export default class TaskForm extends Component {
         isSubmitting={submitState.state === RequestStates.Fetching}
         onSubmit={this.handleSubmit}
       >
-        {fieldProps => <Field {...fieldProps} />}
+        {props => <Module {...props} />}
       </Form>
     );
   }

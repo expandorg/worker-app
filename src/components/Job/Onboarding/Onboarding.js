@@ -5,15 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gigs/components';
-import { Form } from '@gigs/components/fields';
+import { Form } from '@gigs/components/modules';
+
+import { RequestStates } from '../../../common/app/requestUiState';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
-import OnboardingField from './fields/OnboardingField';
+import OnboardingModule from './modules/OnboardingModule';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
-import { formRules } from '../../../model/field';
-import { RequestStates } from '../../../common/app/requestUiState';
+
+import { formRules } from '../../../model/module';
 
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
@@ -35,7 +37,7 @@ class Onboarding extends Component {
 
   handleSaveStep = (values) => {
     const { onSubmit, onboarding: { form }, jobId } = this.props;
-    const rules = formRules(form.fields);
+    const rules = formRules(form.modules);
     onSubmit(() => this.props.submitOnboarding(jobId, values, rules));
   }
 
@@ -50,7 +52,7 @@ class Onboarding extends Component {
             isSubmitting={submitState.state === RequestStates.Fetching}
             onSubmit={this.handleSaveStep}
           >
-            {fieldProps => <OnboardingField {...fieldProps} contextData={onboarding} />}
+            {props => <OnboardingModule {...props} contextData={onboarding} />}
           </Form>
         </div>
       </Panel>

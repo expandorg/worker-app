@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Checkbox } from '@gigs/components';
-import { Alignment, fieldProps } from '@gigs/components/fields';
+import { Alignment, moduleProps } from '@gigs/components/modules';
 
 import ArticleModal from './ArticleModal';
 
@@ -10,7 +10,7 @@ import styles from './Rules.module.styl';
 
 export default class Rules extends Component {
   static propTypes = {
-    field: fieldProps.isRequired,
+    module: moduleProps.isRequired,
     value: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
   };
@@ -28,7 +28,7 @@ export default class Rules extends Component {
   }
 
   render() {
-    const { field, value, onChange } = this.props;
+    const { module, value, onChange } = this.props;
     const { visible } = this.state;
     return (
       <Alignment padding="medium">
@@ -38,21 +38,21 @@ export default class Rules extends Component {
           className={styles.button}
           onClick={this.handleToggle}
         >
-          {field.buttonTitle}
+          {module.buttonTitle}
         </Button>
         <Checkbox
-          name={field.name}
-          label={field.checkbox}
+          name={module.name}
+          label={module.checkbox}
           value={value}
-          onChange={changed => onChange(field.name, changed)}
+          onChange={changed => onChange(module.name, changed)}
         />
         <ArticleModal
           onHide={this.handleToggle}
           visible={visible}
-          headline={field.headline}
-          title={field.title}
-          content={field.rules}
-          hideTitle={field.close}
+          headline={module.headline}
+          title={module.title}
+          content={module.rules}
+          hideTitle={module.close}
         />
       </Alignment>
     );
