@@ -15,8 +15,6 @@ import OnboardingModule from './modules/OnboardingModule';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 
-import { formRules } from '../../../model/module';
-
 import { submitOnboarding } from '../../../sagas/onboardingSagas';
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
 
@@ -36,9 +34,8 @@ class Onboarding extends Component {
   };
 
   handleSaveStep = (values) => {
-    const { onSubmit, onboarding: { form }, jobId } = this.props;
-    const rules = formRules(form.modules);
-    onSubmit(() => this.props.submitOnboarding(jobId, values, rules));
+    const { onSubmit, jobId } = this.props;
+    onSubmit(() => this.props.submitOnboarding(jobId, values));
   }
 
   render() {

@@ -1,5 +1,5 @@
 // @flow
-import { rules } from '../common/validation';
+import { rules } from '@gigs/components/src/common/validation';
 
 export const loginValidation = {
   email: [

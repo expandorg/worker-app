@@ -6,8 +6,6 @@ import { Form, Module } from '@gigs/components/modules';
 import { taskFormProps, requestStateProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
 
-import { formRules } from '../../model/module';
-
 import styles from './TaskForm.module.styl';
 
 export default class TaskForm extends Component {
@@ -18,8 +16,8 @@ export default class TaskForm extends Component {
   };
 
   handleSubmit = (values) => {
-    const { form, onSubmit } = this.props;
-    onSubmit(values, formRules(form.modules));
+    const { onSubmit } = this.props;
+    onSubmit(values);
   }
 
   render() {

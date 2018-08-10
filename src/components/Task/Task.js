@@ -61,9 +61,9 @@ class Task extends Component {
     this.props.fetchTask(this.props.taskId);
   }
 
-  handleSubmit = (form, rules) => {
+  handleSubmit = (form) => {
     const { taskId, onSubmit } = this.props;
-    onSubmit(() => this.props.submitTask(taskId, form, rules));
+    onSubmit(() => this.props.submitTask(taskId, form));
   }
 
   render() {
