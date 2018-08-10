@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@gigs/components';
-import { Alignment, Paragraph, Select, Choice, moduleProps } from '@gigs/components/modules';
+import { Button } from '@gemsorg/components';
+import { Alignment, Paragraph, Select, Choice, moduleProps } from '@gemsorg/components/modules';
 
 import Progress from './Progress';
 import Task from './Task';

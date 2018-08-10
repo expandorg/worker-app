@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Panel } from '@gigs/components';
+import { Panel } from '@gemsorg/components';
 
 import Content from '../shared/Content';
 

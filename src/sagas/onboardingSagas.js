@@ -27,6 +27,11 @@ export const submitOnboarding = (jobId, response) => ({
 const watchSubmitRequest = takeEveryApiCall(onboardingActionTypes.SUBMIT, onboardingApi.submit);
 
 
+export const removeOnboardingMessage = jobId => ({
+  type: onboardingActionTypes.REMOVE_MESSAGE,
+  payload: { jobId },
+});
+
 export function* onboardingSagas() {
   yield fork(watchFetchRequest);
   yield fork(watchSubmitRequest);

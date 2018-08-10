@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Panel, Button } from '@gigs/components';
+import { Panel, Button } from '@gemsorg/components';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 import { requestStateProps, jobProps } from '../../shared/propTypes';

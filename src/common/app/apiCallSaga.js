@@ -1,7 +1,7 @@
 // @flow
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
-import { validateForm } from '@gigs/components/src/common/validation';
+import { validateForm } from '@gemsorg/components/src/common/validation';
 
 import ApiError from '../api/ApiError';
 

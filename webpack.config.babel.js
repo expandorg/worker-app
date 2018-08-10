@@ -65,7 +65,7 @@ export default (env = {}) => {
             ],
             plugins: dev ? ['react-hot-loader/babel'] : [],
           },
-          exclude: /node_modules\/(?!(@gigs)\/).*/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /^((?!\.module).)*\.styl$/,
@@ -75,7 +75,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gigs)\/).*/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /\.module\.styl$/,
@@ -85,7 +85,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gigs)\/).*/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,

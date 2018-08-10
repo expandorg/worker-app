@@ -1,6 +1,6 @@
 // @flow
 import PropTypes from 'prop-types';
-import { formProps } from '@gigs/components/modules';
+import { formProps } from '@gemsorg/components/modules';
 
 export const userProps = {
   id: PropTypes.number.isRequired,
@@ -55,6 +55,7 @@ export const jobProps = {
 export const onboarding = {
   jobId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
+  message: PropTypes.string,
   form: formProps,
 };
 

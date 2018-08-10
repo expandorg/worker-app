@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@gigs/components';
+import { Button } from '@gemsorg/components';
 
 import Clipboard from 'react-clipboard.js';
 

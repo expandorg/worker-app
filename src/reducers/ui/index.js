@@ -6,13 +6,13 @@ import {
   authActionTypes,
   userActionTypes,
   jobsActionTypes,
+  onboardingActionTypes,
 } from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 
 import depositStage from './depositStageReducer';
 import notification from './notificationReducer';
-import submitOnboarding from './submitOnboardingReducer';
 
 import txState from './txStateReucer';
 
@@ -43,7 +43,7 @@ export default combineReducers({
 
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
-  submitOnboarding,
+  submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 

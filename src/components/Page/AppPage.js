@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { JsScript } from '@gigs/components';
+import { JsScript } from '@gemsorg/components';
 
 import settings from '../../common/settings';
 

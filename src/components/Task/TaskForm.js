@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Module } from '@gigs/components/modules';
+import { Form, Module } from '@gemsorg/components/modules';
 
 import { taskFormProps, requestStateProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';

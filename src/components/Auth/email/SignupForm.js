@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Input, ErrorMessage, Button } from '@gigs/components';
+import { Input, ErrorMessage, Button } from '@gemsorg/components';
 
 import { signup } from '../../../sagas/authSagas';
 

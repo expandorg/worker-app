@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Panel } from '@gigs/components';
-import { formProps } from '@gigs/components/modules';
+import { Panel } from '@gemsorg/components';
+import { formProps } from '@gemsorg/components/modules';
 
 import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';

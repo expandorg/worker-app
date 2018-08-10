@@ -1,6 +1,6 @@
 // @flow
 
-import { ServiceLocator } from '@gigs/components';
+import { ServiceLocator } from '@gemsorg/components';
 
 import settings from '../common/settings';
 

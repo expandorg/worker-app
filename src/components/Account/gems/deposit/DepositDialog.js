@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Dialog, DialogHeadline } from '@gigs/components';
+import { Dialog, DialogHeadline } from '@gemsorg/components';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 

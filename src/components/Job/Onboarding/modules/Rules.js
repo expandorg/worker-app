@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Checkbox } from '@gigs/components';
-import { Alignment, moduleProps } from '@gigs/components/modules';
+import { Button, Checkbox } from '@gemsorg/components';
+import { Alignment, moduleProps } from '@gemsorg/components/modules';
 
 import ArticleModal from './ArticleModal';
 

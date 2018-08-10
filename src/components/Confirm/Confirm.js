@@ -5,7 +5,7 @@ import qs from 'query-string';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Panel } from '@gigs/components';
+import { Panel } from '@gemsorg/components';
 
 
 import Content from '../shared/Content';

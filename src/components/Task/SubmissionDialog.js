@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
-import { Dialog, DialogHeadline } from '@gigs/components';
+import { Dialog, DialogHeadline } from '@gemsorg/components';
 
 import styles from './SubmissionDialog.module.styl';
 

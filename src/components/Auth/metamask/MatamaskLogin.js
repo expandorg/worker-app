@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, ErrorMessage } from '@gigs/components';
+import { Button, ErrorMessage } from '@gemsorg/components';
 
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 

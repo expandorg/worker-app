@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@gigs/components';
+import { Button } from '@gemsorg/components';
 
 import EditPasswordDialog from './EditPasswordDialog';
 import Field from '../shared/Field';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Button } from '@gigs/components';
+import { Button } from '@gemsorg/components';
 
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 import ConfirmEmailDialog from '../../../shared/email/ConfirmEmailDialog';

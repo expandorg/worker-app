@@ -102,6 +102,8 @@ export const onboardingActionTypes = createActionTypes('onboarding', {
   SUBMIT: null,
   SUBMIT_COMPLETE: null,
   SUBMIT_FAILED: null,
+
+  REMOVE_MESSAGE: null,
 });
 
 export const tasksActionTypes = createActionTypes('tasks', {

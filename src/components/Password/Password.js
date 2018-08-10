@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
-import { Button, Input, ErrorMessage } from '@gigs/components';
+import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import withSubmitState from '../hoc/withSubmitState';
 

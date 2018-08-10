@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 
-import { Button, Input, ErrorMessage } from '@gigs/components';
+import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';

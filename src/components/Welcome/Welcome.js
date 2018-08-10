@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Panel, Button } from '@gigs/components';
+import { Panel, Button } from '@gemsorg/components';
 
 import LoginDialog from '../Auth/LoginDialog';
 import Content from '../shared/Content';

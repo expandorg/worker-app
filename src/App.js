@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ServiceProvider } from '@gigs/components';
+import { ServiceProvider } from '@gemsorg/components';
 
 import AppPage from './components/Page/AppPage';
 

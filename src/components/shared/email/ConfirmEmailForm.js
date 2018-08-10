@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Input, ErrorMessage } from '@gigs/components';
+import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 

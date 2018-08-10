@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { Module, moduleProps } from '@gigs/components/modules';
+import { Module, moduleProps } from '@gemsorg/components/modules';
 
 import Rules from './Rules';
 import QA from './QA/QA';

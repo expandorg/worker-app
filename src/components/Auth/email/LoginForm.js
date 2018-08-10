@@ -9,7 +9,7 @@ import {
   Button,
   Input,
   ErrorMessage,
-} from '@gigs/components';
+} from '@gemsorg/components';
 
 import { login } from '../../../sagas/authSagas';
 

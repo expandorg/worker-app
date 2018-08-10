@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog, DialogHeadline } from '@gigs/components';
+import { Dialog, DialogHeadline } from '@gemsorg/components';
 
 import ConfirmEmailForm from './ConfirmEmailForm';
 

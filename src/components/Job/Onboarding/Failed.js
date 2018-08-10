@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Panel } from '@gigs/components';
+import { Panel } from '@gemsorg/components';
 
 import { jobProps } from '../../shared/propTypes';
 
