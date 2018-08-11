@@ -39,7 +39,7 @@ export default class GroupFaildDialog extends Component {
             {onboarding.allowedTries &&
               <div className={styles.message}>
                 <span className={styles.tries}>
-                  {(+onboarding.allowedTries) - (+onboarding.currentTry)}
+                  {(1 + onboarding.allowedTries) - (+onboarding.currentTry)}
                 </span>
                 tries left
               </div>
