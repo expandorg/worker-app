@@ -76,7 +76,6 @@ class Jobs extends Component {
       isFunded, user, jobs, assignments,
     } = this.props;
     const { emailDialog } = this.state;
-
     return (
       <Content title="Browse Jobs">
         <div className={styles.list}>
