@@ -11,13 +11,12 @@ import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import JobItem from './JobItem';
-import DepositPrompt from './DepositPrompt';
 
 import { authenticated } from '../hoc/authRules';
 
 import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 
-import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
+import { userSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 
@@ -25,7 +24,6 @@ import styles from './Jobs.module.styl';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
-  isFunded: isFundedSelector(state),
   jobs: jobsSelector(state),
   assignments: assignmentsSelector(state),
 });
@@ -38,7 +36,6 @@ class Jobs extends Component {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps).isRequired,
     history: PropTypes.shape(historyProps).isRequired,
-    isFunded: PropTypes.bool.isRequired,
     assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
     assignJob: PropTypes.func.isRequired,
@@ -73,8 +70,9 @@ class Jobs extends Component {
 
   render() {
     const {
-      isFunded, user, jobs, assignments,
+      user, jobs, assignments,
     } = this.props;
+
     const { emailDialog } = this.state;
     return (
       <Content title="Browse Jobs">
@@ -83,8 +81,8 @@ class Jobs extends Component {
             <JobItem
               key={job.id}
               job={job}
+              user={user}
               assignment={assignments.find(a => a.jobId === job.id)}
-              isFunded={isFunded}
               onJoin={this.handleSelect}
             />
           ))}
@@ -95,7 +93,6 @@ class Jobs extends Component {
             onHide={() => this.setState({ emailDialog: false })}
           />
         }
-        <DepositPrompt visible={!isFunded} />
         <AssignedJobRedirect />
       </Content>
     );

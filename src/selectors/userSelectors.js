@@ -1,18 +1,11 @@
 // @flow
 import { createSelector } from 'reselect';
 
-import { userBalance } from '../model/balance';
-
 export const userSelector = (state: Object) => state.user;
 
 export const loggedInSelector = createSelector(
   userSelector,
   user => !!user,
-);
-
-export const isFundedSelector = createSelector(
-  userSelector,
-  user => (user ? userBalance.isFunded(user) : false),
 );
 
 

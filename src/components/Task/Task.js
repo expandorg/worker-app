@@ -17,7 +17,6 @@ import SubmissionDialog from './SubmissionDialog';
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
-import { isFundedSelector } from '../../selectors/userSelectors';
 import { makeTaskFormSelector } from '../../selectors/jobsSelectors';
 
 import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
@@ -32,7 +31,6 @@ const makeMapStateToProps = () => {
   return (state, props) => ({
     taskId: props.match.params.taskId,
     form: taskFormSelector(state, props.match.params.taskId),
-    isFunded: isFundedSelector(state),
   });
 };
 
@@ -42,7 +40,6 @@ const mapDispatchToProps = dispatch =>
 class Task extends Component {
   static propTypes = {
     taskId: PropTypes.string.isRequired,
-    isFunded: PropTypes.bool.isRequired,
     form: formProps,
     submitState: PropTypes.shape(requestStateProps).isRequired,
 
@@ -67,9 +64,7 @@ class Task extends Component {
   }
 
   render() {
-    const {
-      isFunded, submitState, form,
-    } = this.props;
+    const { submitState, form } = this.props;
     return (
       <Content title="Question writing and fact checking">
         <Panel className={styles.container}>
@@ -82,7 +77,7 @@ class Task extends Component {
           }
         </Panel>
         {submitState.state === RequestStates.Fetched &&
-          <SubmissionDialog isFunded={isFunded} />
+          <SubmissionDialog />
         }
       </Content>
     );

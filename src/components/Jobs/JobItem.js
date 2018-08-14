@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { jobProps, assignmentProps } from '../shared/propTypes';
+import { userBalance } from '../../model/balance';
+import { jobProps, userProps, assignmentProps } from '../shared/propTypes';
 
 import styles from './JobItem.module.styl';
 
@@ -12,11 +13,19 @@ const getTaskLink = assignment => (
     : `/verify/${assignment.taskId}`
 );
 
+const isSufficientFunds = (user, job) => {
+  if (job.logic.funding.module === 'requirement') {
+    const available = userBalance.availableBalance(user);
+    return userBalance.isGreaterThanOrEqualTo(available, job.logic.funding.requirement);
+  }
+  return true;
+};
+
 export default class JobItem extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
+    user: PropTypes.shape(userProps).isRequired,
     assignment: PropTypes.shape(assignmentProps),
-    isFunded: PropTypes.bool.isRequired,
     onJoin: PropTypes.func.isRequired,
   };
 
@@ -30,8 +39,10 @@ export default class JobItem extends Component {
   }
 
   render() {
-    const { isFunded, assignment, job } = this.props;
+    const { job, user, assignment } = this.props;
     const isJoined = !!assignment;
+    const isFunded = isSufficientFunds(user, job);
+
     return (
       <div className={styles.container}>
         <img
