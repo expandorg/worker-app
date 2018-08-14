@@ -74,11 +74,11 @@ export default class QA extends Component {
         </Alignment>
         <Alignment padding="medium" vertical>
           <Select options={module.answers} onSelect={this.handleChange} value={value} >
-            {({ key, onSelect, option, selected }) => (
+            {({ id, onSelect, option }) => (
               <Choice
-                key={key}
+                key={id}
                 className={styles.choice}
-                selected={selected}
+                selected={value === id}
                 onSelect={onSelect}
                 option={option}
               />
