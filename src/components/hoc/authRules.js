@@ -5,12 +5,9 @@ import { RequestStates } from '../../common/app/requestUiState';
 
 import authContainer from './authContainer';
 
-const notAuthenticatedPredicat = ({ user, isFunded }) => {
+const notAuthenticatedPredicat = ({ user }) => {
   if (user) {
-    if (isFunded) {
-      return <Redirect to="/jobs" />;
-    }
-    return <Redirect to="/account" />;
+    return <Redirect to="/jobs" />;
   }
   return true;
 };

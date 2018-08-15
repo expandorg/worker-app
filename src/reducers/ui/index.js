@@ -6,6 +6,7 @@ import {
   authActionTypes,
   userActionTypes,
   jobsActionTypes,
+  onboardingActionTypes,
 } from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
@@ -41,6 +42,8 @@ export default combineReducers({
   depositStage,
 
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
+
+  submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 

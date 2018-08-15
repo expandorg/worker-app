@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Button, Input, Dialog, DialogHeadline, ErrorMessage } from '@gemsorg/components';
+
 import { RequestStates } from '../../../common/app/requestUiState';
-import ErrorMessage from '../../common/ErrorMessage';
-import Dialog, { DialogHeadline } from '../../common/Dialog';
 
 import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
 import { editEmail } from '../../../sagas/userSagas';
@@ -80,16 +80,16 @@ class EditEmailDialog extends Component {
           </div>
           <form className={styles.form} onSubmit={this.handleSubmit}>
             <div className={styles.row}>
-              <input
+              <Input
                 className={styles.input}
                 onChange={({ target }) => this.setState({ email: target.value })}
                 type="text"
                 value={email}
                 placeholder="Email Address"
               />
-              <button type="submit" className={styles.submit}>
+              <Button size="large" type="submit" className={styles.submit}>
                 {fetching ? 'Saving...' : 'Save'}
-              </button>
+              </Button>
             </div>
           </form>
           <ErrorMessage error={error} />

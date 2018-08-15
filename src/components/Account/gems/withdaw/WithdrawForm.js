@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorMessage from '../../../common/ErrorMessage';
+
+import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';
@@ -55,16 +56,16 @@ export default class WithdrawForm extends Component {
         <form className={styles.form} onSubmit={this.handleSubmit} >
           {available &&
             <div className={styles.row}>
-              <input
+              <Input
                 className={styles.input}
                 type="number"
                 value={value}
                 onChange={this.handleChange}
                 placeholder="Amount of Gems to withdraw"
               />
-              <button type="submit" className={styles.submit} disabled={disabled}>
+              <Button type="submit" size="large" className={styles.submit} disabled={disabled}>
                 {isFetching ? 'Withdrawing' : 'Withdraw'}
-              </button>
+              </Button>
             </div>
           }
           {!available &&

@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import ErrorMessage from '../../common/ErrorMessage';
+import {
+  Button,
+  Input,
+  ErrorMessage,
+} from '@gemsorg/components';
 
 import { login } from '../../../sagas/authSagas';
 
@@ -69,7 +73,7 @@ class LoginForm extends Component {
           Login with email
         </h2>
         <form className={styles.form} onSubmit={this.handleSubmit}>
-          <input
+          <Input
             className={styles.input}
             type="email"
             required
@@ -77,7 +81,7 @@ class LoginForm extends Component {
             value={email}
             onChange={evt => this.handleChangeField('email', evt)}
           />
-          <input
+          <Input
             className={styles.input}
             type="password"
             required
@@ -86,9 +90,13 @@ class LoginForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <button type="submit" className={styles.submit}>
+          <Button
+            suze="large"
+            type="submit"
+            className={styles.submit}
+          >
             {isFetching ? 'Signing in...' : 'Sign in'}
-          </button>
+          </Button>
         </form>
         <div className={styles.footer}>
           <Link className={styles.forgot} to="/password" >

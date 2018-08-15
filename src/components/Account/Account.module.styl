@@ -1,7 +1,6 @@
-@import 'common/uikit/layout';
-@import 'common/uikit/colors';
-@import 'common/uikit/font';
-@import 'common/uikit/components';
+@import '~@gemsorg/components/src/uikit/font'
+@import '~@gemsorg/components/src/uikit/colors'
+@import '~@gemsorg/components/src/uikit/consts'
 
 .container
   padding-bottom:  5em
@@ -32,10 +31,6 @@
     flex-direction: column;
     align-items: stretch;
 
-
 .logout
-  button('medium','white')
-  padding: 0 20px;
-
   @media(max-width: 660px)
     margin-top: 30px;

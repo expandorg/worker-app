@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Button } from '@gemsorg/components';
+
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 
 import DepositDialog from './DepositDialog';
@@ -13,8 +15,6 @@ import { fetchBalanceStateSelector, transactionStateSelector } from '../../../..
 
 import { userProps, requestStateProps } from '../../../shared/propTypes';
 import { RequestStates } from '../../../../common/app/requestUiState';
-
-import styles from './Deposit.module.styl';
 
 const mapStateToProps = state => ({
   fetchState: fetchBalanceStateSelector(state),
@@ -78,9 +78,9 @@ class Deposit extends Component {
     const disabled = txState === RequestStates.Fetching;
     return (
       <Fragment>
-        <button className={styles.deposit} onClick={this.handleToggle} disabled={disabled}>
+        <Button onClick={this.handleToggle} disabled={disabled}>
           Deposit
-        </button>
+        </Button>
         {dialog &&
           <DepositDialog fetchBalanceState={fetchState} onHide={this.handleToggle} />
         }

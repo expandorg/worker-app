@@ -4,31 +4,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Panel } from '@gemsorg/components';
+import { formProps } from '@gemsorg/components/modules';
+
 import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';
 
 import Content from '../shared/Content';
-import Form from './form/Form';
+import TaskForm from './TaskForm';
 import SubmissionDialog from './SubmissionDialog';
-
 
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
-import { isFundedSelector } from '../../selectors/userSelectors';
 import { makeTaskFormSelector } from '../../selectors/jobsSelectors';
 
 import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
 
-import { taskFormProps, requestStateProps } from '../shared/propTypes';
+import { requestStateProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
+
+import styles from './Task.module.styl';
 
 const makeMapStateToProps = () => {
   const taskFormSelector = makeTaskFormSelector();
   return (state, props) => ({
     taskId: props.match.params.taskId,
-    taskForm: taskFormSelector(state, props.match.params.taskId),
-    isFunded: isFundedSelector(state),
+    form: taskFormSelector(state, props.match.params.taskId),
   });
 };
 
@@ -38,8 +40,7 @@ const mapDispatchToProps = dispatch =>
 class Task extends Component {
   static propTypes = {
     taskId: PropTypes.string.isRequired,
-    isFunded: PropTypes.bool.isRequired,
-    taskForm: PropTypes.shape(taskFormProps),
+    form: formProps,
     submitState: PropTypes.shape(requestStateProps).isRequired,
 
     submitTask: PropTypes.func.isRequired,
@@ -49,7 +50,7 @@ class Task extends Component {
   };
 
   static defaultProps = {
-    taskForm: null,
+    form: null,
   };
 
   componentDidMount() {
@@ -57,26 +58,26 @@ class Task extends Component {
     this.props.fetchTask(this.props.taskId);
   }
 
-  handleSubmit = (form, rules) => {
+  handleSubmit = (form) => {
     const { taskId, onSubmit } = this.props;
-    onSubmit(() => this.props.submitTask(taskId, form, rules));
+    onSubmit(() => this.props.submitTask(taskId, form));
   }
 
   render() {
-    const {
-      isFunded, submitState, taskForm,
-    } = this.props;
+    const { submitState, form } = this.props;
     return (
       <Content title="Question writing and fact checking">
-        {taskForm &&
-          <Form
-            taskForm={taskForm}
-            submitState={submitState}
-            onSubmit={this.handleSubmit}
-          />
-        }
+        <Panel className={styles.container}>
+          {form &&
+            <TaskForm
+              form={form}
+              submitState={submitState}
+              onSubmit={this.handleSubmit}
+            />
+          }
+        </Panel>
         {submitState.state === RequestStates.Fetched &&
-          <SubmissionDialog isFunded={isFunded} />
+          <SubmissionDialog />
         }
       </Content>
     );

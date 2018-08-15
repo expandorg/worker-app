@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import Hamburger from '../common/Hamburger';
+import { Hamburger } from '@gemsorg/components';
 
 import './Header.styl';
 
@@ -21,7 +21,11 @@ export default class Header extends Component {
           active={collapsed}
           onToggle={onToggle}
         />
-        <img className="gem-header-logo" src="/images/mobile-logo.png" alt="Gems" />
+        <img
+          className="gem-header-logo"
+          src="/images/mobile-logo.png"
+          alt="Gems"
+        />
       </div>
     );
   }

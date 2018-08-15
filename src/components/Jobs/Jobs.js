@@ -4,20 +4,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps, assignmentProps } from '../shared/propTypes';
+import { userProps, jobProps, assignmentProps, historyProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
+import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
-import Job from './Job/Job';
-import AssignDialog from './AssignDialog';
-import DepositPrompt from './DepositPrompt';
+import JobItem from './JobItem';
 
 import { authenticated } from '../hoc/authRules';
 
-import { fetchJobs } from '../../sagas/jobsSagas';
+import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 
-import { userSelector, isFundedSelector } from '../../selectors/userSelectors';
+import { userSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 
@@ -25,21 +24,21 @@ import styles from './Jobs.module.styl';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
-  isFunded: isFundedSelector(state),
   jobs: jobsSelector(state),
   assignments: assignmentsSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchJobs }, dispatch);
+  bindActionCreators({ fetchJobs, assignJob }, dispatch);
 
 class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
     user: PropTypes.shape(userProps).isRequired,
-    isFunded: PropTypes.bool.isRequired,
+    history: PropTypes.shape(historyProps).isRequired,
     assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
+    assignJob: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -50,7 +49,6 @@ class Jobs extends Component {
     super(props);
 
     this.state = {
-      selected: null,
       emailDialog: false,
     };
   }
@@ -60,43 +58,42 @@ class Jobs extends Component {
   }
 
   handleSelect = (job) => {
-    if (!this.props.user.emailConfirmed) {
+    const { user, history } = this.props;
+    if (!user.emailConfirmed) {
       this.setState({ emailDialog: true });
+    } else if (job.onboarding.enabled) {
+      history.push(`/jobs/${job.id}`);
     } else {
-      this.setState({ selected: job });
+      this.props.assignJob(job.id);
     }
-  }
-
-  handleCancel = () => {
-    this.setState({ selected: null });
   }
 
   render() {
     const {
-      isFunded, user, jobs, assignments,
+      user, jobs, assignments,
     } = this.props;
-    const { selected, emailDialog } = this.state;
 
+    const { emailDialog } = this.state;
     return (
       <Content title="Browse Jobs">
         <div className={styles.list}>
           {jobs.map(job => (
-            <Job
+            <JobItem
               key={job.id}
               job={job}
+              user={user}
               assignment={assignments.find(a => a.jobId === job.id)}
-              isFunded={isFunded}
               onJoin={this.handleSelect}
             />
           ))}
         </div>
-        {selected &&
-          <AssignDialog job={selected} onHide={this.handleCancel} onAssign={this.handleAssign} />
-        }
         {emailDialog &&
-          <ConfirmEmailDialog user={user} onHide={() => this.setState({ emailDialog: false })} />
+          <ConfirmEmailDialog
+            user={user}
+            onHide={() => this.setState({ emailDialog: false })}
+          />
         }
-        <DepositPrompt visible={!isFunded} />
+        <AssignedJobRedirect />
       </Content>
     );
   }

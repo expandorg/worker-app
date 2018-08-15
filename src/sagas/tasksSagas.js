@@ -16,12 +16,11 @@ export const fetchTask = taskId => ({
 
 const watchFetchRequest = takeEveryApiCall(tasksActionTypes.FETCH, tasksApi.fetch);
 
-export const submitTask = (taskId, form, rules) => ({
+export const submitTask = (taskId, form) => ({
   type: tasksActionTypes.SUBMIT,
   payload: { taskId, form, response: JSON.stringify(form) },
   meta: {
     schema: { assignedTasks: [taskSchema] },
-    validation: { form: rules },
     track: {
       action: GtmActions.TaskSubmit,
     },

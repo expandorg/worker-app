@@ -93,6 +93,19 @@ export const jobsActionTypes = createActionTypes('jobs', {
   ASSIGN_FAILED: null,
 });
 
+
+export const onboardingActionTypes = createActionTypes('onboarding', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+
+  SUBMIT: null,
+  SUBMIT_COMPLETE: null,
+  SUBMIT_FAILED: null,
+
+  REMOVE_MESSAGE: null,
+});
+
 export const tasksActionTypes = createActionTypes('tasks', {
   FETCH: null,
   FETCH_COMPLETE: null,

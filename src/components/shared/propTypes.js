@@ -1,5 +1,6 @@
 // @flow
 import PropTypes from 'prop-types';
+import { formProps } from '@gemsorg/components/modules';
 
 export const userProps = {
   id: PropTypes.number.isRequired,
@@ -35,6 +36,11 @@ export const jobProps = {
   form: PropTypes.string,
   requesterId: PropTypes.number,
   isActive: PropTypes.bool,
+  onboarding: PropTypes.shape({
+    enabled: PropTypes.bool,
+    successMessage: PropTypes.string,
+    failureMessage: PropTypes.string,
+  }),
   logic: PropTypes.shape({
     funding: PropTypes.shape({
       reward: PropTypes.number,
@@ -46,6 +52,12 @@ export const jobProps = {
   }),
 };
 
+export const onboarding = {
+  jobId: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  message: PropTypes.string,
+  form: formProps,
+};
 
 export const assignmentProps = {
   jobId: PropTypes.number,
@@ -56,11 +68,6 @@ export const assignmentProps = {
 export const taskProps = {
   id: PropTypes.number,
   jobId: PropTypes.number,
-};
-
-export const taskFormProps = {
-  description: PropTypes.string.isRequired,
-  fields: PropTypes.array,
 };
 
 

@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { Panel } from '@gemsorg/components';
+
 import Content from '../shared/Content';
-import Panel from '../shared/Panel';
 
 import { authenticated } from '../hoc/authRules';
 

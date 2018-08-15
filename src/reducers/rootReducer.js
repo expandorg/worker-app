@@ -5,6 +5,7 @@ import gemsBalance from './gemsBalanceReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
+import onboardingEntities from './jobs/onboardingEntitiesReducer';
 
 import assignmentEntities from './assignments/assignmentEntitiesReducer';
 import assignmentsList from './assignments/assignmentsListReducer';
@@ -25,6 +26,9 @@ export default combineReducers({
   jobs: combineReducers({
     entities: jobEntities,
     list: jobsList,
+    onboarding: combineReducers({
+      entities: onboardingEntities,
+    }),
   }),
   assignments: combineReducers({
     entities: assignmentEntities,

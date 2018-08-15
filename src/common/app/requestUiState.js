@@ -1,19 +1,30 @@
-import { keyMirror } from '../utils';
+// @flow
+import { type ReduxAction } from './types.flow';
 
-export const RequestStates = keyMirror({
-  NotFetched: null,
-  Fetching: null,
-  Fetched: null,
-  FetchError: null,
-});
+export type RequestStateType = {
+  state: 'NotFetched' | 'Fetching' | 'Fetched' | 'FetchError',
+  error?: ?{ [key: string]: string }
+}
 
-export const initialState = {
+export const RequestStates = {
+  NotFetched: 'NotFetched',
+  Fetching: 'Fetching',
+  Fetched: 'Fetched',
+  FetchError: 'FetchError',
+};
+
+
+export const initialState: RequestStateType = {
   state: RequestStates.NotFetched,
   error: null,
 };
 
-export const requestUiStateReducer = (actionType, preservePayload = false, foldErrors = false) =>
-  (state = initialState, action) => {
+export const requestUiStateReducer = (
+  actionType: string,
+  preservePayload: boolean = false,
+  foldErrors: boolean = false,
+) =>
+  (state: RequestStateType = initialState, action: ReduxAction): RequestStateType => {
     switch (action.type) {
       case actionType:
         return { ...initialState, state: RequestStates.Fetching };

@@ -1,9 +1,4 @@
-/**
- * @func cssModulesProxy captures css-modules function calls & prevent
- *    classNames from transformation
- * @param {string} key represents input className
- */
-const cssModulesProxy = new Proxy({}, {
+export default new Proxy({}, {
   get: function getter(target, key) {
     if (key === '__esModule') {
       return false;
@@ -11,5 +6,3 @@ const cssModulesProxy = new Proxy({}, {
     return key;
   },
 });
-
-export default cssModulesProxy;

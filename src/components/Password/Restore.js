@@ -7,7 +7,8 @@ import { bindActionCreators } from 'redux';
 
 import DocumentTitle from 'react-document-title';
 
-import ErrorMessage from '../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@gemsorg/components';
+
 import withSubmitState from '../hoc/withSubmitState';
 
 import { requestStateProps, locationProps } from '../shared/propTypes';
@@ -63,7 +64,7 @@ class Restore extends Component {
               Change password
             </h2>
             <form className={styles.form} onSubmit={this.handleSubmit}>
-              <input
+              <Input
                 className={styles.input}
                 type="text"
                 required
@@ -71,7 +72,7 @@ class Restore extends Component {
                 value={code}
                 onChange={({ target }) => this.setState({ code: target.value })}
               />
-              <input
+              <Input
                 className={styles.input}
                 type="password"
                 required
@@ -80,9 +81,9 @@ class Restore extends Component {
                 onChange={({ target }) => this.setState({ password: target.value })}
               />
               <ErrorMessage error={submitState.error} className={styles.error} />
-              <button type="submit" className={styles.submit}>
+              <Button type="submit" className={styles.submit}>
                 {isFetching ? 'Changing password...' : 'Change password'}
-              </button>
+              </Button>
             </form>
           </div>
         </div>

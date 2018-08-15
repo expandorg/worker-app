@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Dialog, DialogHeadline } from '@gemsorg/components';
+
 import withSubmitState from '../../../hoc/withSubmitState';
-import Dialog, { DialogHeadline } from '../../../common/Dialog';
+
 
 import WithdrawForm from './WithdrawForm';
 import Transactions from '../../../shared/transactions/Transactions';

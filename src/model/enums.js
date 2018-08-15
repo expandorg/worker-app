@@ -16,14 +16,13 @@ export const TaskType = keyMirror({
   Trivia: null,
 });
 
-export const TaskFieldType = keyMirror({
-  text: null,
-  number: null,
-  email: null,
-  password: null,
-});
-
 export const NotificationType = keyMirror({
   Balance: null,
   TxError: null,
 });
+
+export const OnboardingStatus = {
+  InProgress: 'in-progress',
+  Passed: 'passed',
+  Failed: 'failed',
+};

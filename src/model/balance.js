@@ -9,12 +9,14 @@ export const WITHDRAW_MIN = 1500;
 export const WITHDRAW_MAX = 100000;
 
 export class Balance {
-  isFunded(user: Object) {
+  availableBalance(user: Object) {
     const totalBalance = new BigNumber(user.gems.balance).plus(new BigNumber(user.gems.reserved));
     const pendingPayouts = stake.multipliedBy(new BigNumber(user.stats.pending));
-    const availableBalance = totalBalance.minus(pendingPayouts);
-    return availableBalance.isGreaterThanOrEqualTo(stake);
+    return totalBalance.minus(pendingPayouts).toNumber();
   }
+
+  isGreaterThanOrEqualTo = (a: number, b: number) =>
+    new BigNumber(a).isGreaterThanOrEqualTo(new BigNumber(b))
 
   stakedGems(pending: number) {
     return stake.multipliedBy(new BigNumber(pending)).toNumber();

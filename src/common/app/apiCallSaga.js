@@ -1,8 +1,10 @@
 // @flow
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
+import { validateForm } from '@gemsorg/components/src/common/validation';
 
-import { validate } from '../validation';
+import ApiError from '../api/ApiError';
+
 
 import { type ReduxAction } from './types.flow';
 
@@ -10,7 +12,10 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
   function* request({ payload, meta }: ReduxAction): Iterable<any> {
     try {
       if (meta && meta.validation) {
-        validate(payload, meta.validation);
+        const validationErrors = validateForm(payload, meta.validation);
+        if (validationErrors) {
+          throw ApiError.validation(validationErrors);
+        }
       }
       let result = yield call(asyncCall, payload);
 
@@ -21,6 +26,7 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
         type: `${actionType}_COMPLETE`, payload: result, complete: true, meta,
       });
     } catch (error) {
+      console.log(error);
       yield put({
         type: `${actionType}_FAILED`, payload: error, failed: true, meta,
       });
