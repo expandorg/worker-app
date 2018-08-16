@@ -1,0 +1,31 @@
+@import '~@gemsorg/components/src/uikit/font'
+@import '~@gemsorg/components/src/uikit/colors'
+
+.container
+  width: 100%;
+
+.field
+  margin-top: 20px;
+
+.label
+  font(font-preset[subheader])
+  color: color-text-1
+
+.control
+  margin-top: 5px;
+
+.birthdate
+  font(font-preset[subheader], false, false, 36px)
+  color: color-text-1
+  border: 1px solid color-border-grey;
+  border-radius: 2px;
+
+  :global(.gem-dateinput-dropdown)
+    border-left: 1px solid color-border-grey;
+    padding: 0 20px;
+
+    &:first-child
+      border-left: none;
+
+  :global(.gem-dropdown-select)
+    font(font-preset[subheader])

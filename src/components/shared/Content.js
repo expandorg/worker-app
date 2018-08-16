@@ -5,6 +5,8 @@ import DocumentTitle from 'react-document-title';
 
 import VerifyEmailPopup from './email/VerifyEmailPopup';
 
+import OnboardingSurvey from './profile/OnboardingSurvey';
+
 import './Content.styl';
 
 const Content = ({ children, title }) => (
@@ -15,6 +17,7 @@ const Content = ({ children, title }) => (
         {title}
       </div>
       {children}
+      <OnboardingSurvey />
     </div>
   </DocumentTitle>
 );

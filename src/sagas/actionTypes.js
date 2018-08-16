@@ -77,6 +77,10 @@ export const userActionTypes = createActionTypes('user', {
   RESTORE_PASSWORD_FAILED: null,
 
   UPDATED: null,
+
+  SAVE_PROFILE: null,
+  SAVE_PROFILE_COMPLETE: null,
+  SAVE_PROFILE_FAILED: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {

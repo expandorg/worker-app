@@ -104,6 +104,13 @@ export const userUpdated = (data, params) => ({
   payload: { data, params },
 });
 
+export const saveProfile = (user, profile) => ({
+  type: userActionTypes.SAVE_PROFILE,
+  payload: { userId: user.id, profile },
+});
+
+const watchSaveProfile = takeEveryApiCall(userActionTypes.SAVE_PROFILE, userApi.saveProfile);
+
 
 function* handleUserChangedSaga() {
   const user = yield select(userSelector);
@@ -139,4 +146,5 @@ export function* userSagas() {
   yield fork(watchRestorePassword);
   yield fork(watchConfirmEmail);
   yield fork(watchResendConfirm);
+  yield fork(watchSaveProfile);
 }
