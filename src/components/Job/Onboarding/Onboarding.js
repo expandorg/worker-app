@@ -5,13 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gemsorg/components';
-import { Form } from '@gemsorg/components/modules';
+import { Form, FormDataProvider, moduleControls, Module } from '@gemsorg/components/modules';
+
+import OnboardingModuleTypes from './modules/OnboardingModuleTypes';
+import Rules from './modules/Rules';
+import QA from './modules/QA/QA';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
-import OnboardingModule from './modules/OnboardingModule';
 import GroupFaildDialog from './GroupFaildDialog';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
@@ -22,6 +25,11 @@ import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelecto
 
 import styles from './Onboarding.module.styl';
 
+const controls = {
+  ...moduleControls,
+  [OnboardingModuleTypes.qa]: QA,
+  [OnboardingModuleTypes.rules]: Rules,
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ submitOnboarding, removeOnboardingMessage }, dispatch);
@@ -52,14 +60,16 @@ class Onboarding extends Component {
     return (
       <Panel className={styles.container}>
         <div className={styles.form}>
-          <Form
-            form={onboarding.form}
-            errors={submitState.error}
-            isSubmitting={submitState.state === RequestStates.Fetching}
-            onSubmit={this.handleSaveStep}
-          >
-            {props => <OnboardingModule {...props} contextData={onboarding} />}
-          </Form>
+          <FormDataProvider formData={onboarding}>
+            <Form
+              form={onboarding.form}
+              errors={submitState.error}
+              isSubmitting={submitState.state === RequestStates.Fetching}
+              onSubmit={this.handleSaveStep}
+            >
+              {props => <Module {...props} controls={controls} />}
+            </Form>
+          </FormDataProvider>
         </div>
         {onboarding.message &&
           <GroupFaildDialog
