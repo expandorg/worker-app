@@ -8,7 +8,7 @@ export const WITHDRAW_MAX = 100000;
 
 export class Balance {
   availableBalance(user: Object) {
-    return new BigNumber(user.gems.balance).minus(new BigNumber(user.gems.reserved));
+    return new BigNumber(user.gems.balance).minus(new BigNumber(user.gems.reserved)).toNumber();
   }
 
   isGreaterThanOrEqualTo = (a: number, b: number) =>
