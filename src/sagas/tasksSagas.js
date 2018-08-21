@@ -18,7 +18,7 @@ const watchFetchRequest = takeEveryApiCall(tasksActionTypes.FETCH, tasksApi.fetc
 
 export const submitTask = (taskId, form) => ({
   type: tasksActionTypes.SUBMIT,
-  payload: { taskId, form, response: JSON.stringify(form) },
+  payload: { taskId, form, response: form },
   meta: {
     schema: { assignedTasks: [taskSchema] },
     track: {
