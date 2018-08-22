@@ -12,7 +12,7 @@
     "coverage": "jest --collectCoverage --coverageDirectory ./coverage"
   },
   "dependencies": {
-    "@gemsorg/components": "^0.0.37",
+    "@gemsorg/components": "^0.0.38",
     "@xlnt/scry-one": "0.0.1",
     "bignumber.js": "^7.1.0",
     "classnames": "^2.2.6",
