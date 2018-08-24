@@ -22,7 +22,7 @@ export const jobsSelector = createSelector(
 );
 
 
-export const makeTaskFormSelector = () => {
+export const makeAssignedJobSelector = () => {
   const taskAssignmentSelector = makeTaskAssignmentSelector();
   return createSelector(
     taskAssignmentSelector,
@@ -31,11 +31,7 @@ export const makeTaskFormSelector = () => {
       if (!assignment) {
         return null;
       }
-      const job = jobs[assignment.jobId];
-      if (!job) {
-        return null;
-      }
-      return job.taskForm;
+      return jobs[assignment.jobId];
     },
   );
 };

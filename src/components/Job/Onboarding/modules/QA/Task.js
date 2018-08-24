@@ -9,8 +9,7 @@ export default class Task extends Component {
   };
 
   render() {
-    const { link,
-    } = this.props;
+    const { link } = this.props;
     return (
       <Alignment padding="medium" vCenter>
         <a

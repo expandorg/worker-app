@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gemsorg/components';
-import { formProps } from '@gemsorg/components/modules';
 
 import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';
@@ -17,20 +16,20 @@ import SubmissionDialog from './SubmissionDialog';
 import { submitTask, fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
-import { makeTaskFormSelector } from '../../selectors/jobsSelectors';
+import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
 
 import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
 
-import { requestStateProps } from '../shared/propTypes';
+import { requestStateProps, jobProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
 
 import styles from './Task.module.styl';
 
 const makeMapStateToProps = () => {
-  const taskFormSelector = makeTaskFormSelector();
+  const assignedJobSelector = makeAssignedJobSelector();
   return (state, props) => ({
     taskId: props.match.params.taskId,
-    form: taskFormSelector(state, props.match.params.taskId),
+    job: assignedJobSelector(state, props.match.params.taskId),
   });
 };
 
@@ -40,7 +39,7 @@ const mapDispatchToProps = dispatch =>
 class Task extends Component {
   static propTypes = {
     taskId: PropTypes.string.isRequired,
-    form: formProps,
+    job: PropTypes.shape(jobProps),
     submitState: PropTypes.shape(requestStateProps).isRequired,
 
     submitTask: PropTypes.func.isRequired,
@@ -50,12 +49,13 @@ class Task extends Component {
   };
 
   static defaultProps = {
-    form: null,
+    job: null,
   };
 
   componentDidMount() {
+    const { taskId } = this.props;
     this.props.fetchJobs();
-    this.props.fetchTask(this.props.taskId);
+    this.props.fetchTask(taskId);
   }
 
   handleSubmit = (form) => {
@@ -64,13 +64,14 @@ class Task extends Component {
   }
 
   render() {
-    const { submitState, form } = this.props;
+    const { submitState, job } = this.props;
     return (
       <Content title="Question writing and fact checking">
         <Panel className={styles.container}>
-          {form &&
+          {job &&
             <TaskForm
-              form={form}
+              contextData={job}
+              form={job.taskForm}
               submitState={submitState}
               onSubmit={this.handleSubmit}
             />
