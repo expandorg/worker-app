@@ -68,6 +68,7 @@ export const assignmentProps = {
 export const taskProps = {
   id: PropTypes.number,
   jobId: PropTypes.number,
+  taskData: PropTypes.object,
 };
 
 
