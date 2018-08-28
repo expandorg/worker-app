@@ -17,18 +17,21 @@ import { submitTask, fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
+import { makeTaskSelector } from '../../selectors/tasksSelectors';
 
 import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
 
-import { requestStateProps, jobProps } from '../shared/propTypes';
+import { requestStateProps, jobProps, taskProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
 
 import styles from './Task.module.styl';
 
 const makeMapStateToProps = () => {
   const assignedJobSelector = makeAssignedJobSelector();
+  const taskSelector = makeTaskSelector();
   return (state, props) => ({
     taskId: props.match.params.taskId,
+    task: taskSelector(state, props.match.params.taskId),
     job: assignedJobSelector(state, props.match.params.taskId),
   });
 };
@@ -40,6 +43,7 @@ class Task extends Component {
   static propTypes = {
     taskId: PropTypes.string.isRequired,
     job: PropTypes.shape(jobProps),
+    task: PropTypes.shape(taskProps),
     submitState: PropTypes.shape(requestStateProps).isRequired,
 
     submitTask: PropTypes.func.isRequired,
@@ -50,6 +54,7 @@ class Task extends Component {
 
   static defaultProps = {
     job: null,
+    task: null,
   };
 
   componentDidMount() {
@@ -64,12 +69,13 @@ class Task extends Component {
   }
 
   render() {
-    const { submitState, job } = this.props;
+    const { submitState, job, task } = this.props;
     return (
       <Content title="Question writing and fact checking">
         <Panel className={styles.container}>
-          {job &&
+          {job && task &&
             <TaskForm
+              taskData={task.taskData}
               contextData={job}
               form={job.taskForm}
               submitState={submitState}
