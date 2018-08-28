@@ -19,9 +19,22 @@ export default class OnboardingComplete extends Component {
     onAssign: PropTypes.func.isRequired,
   };
 
-  render() {
+  componentDidMount() {
     const { submitState, job, onAssign } = this.props;
     const isSubmitting = submitState.state === RequestStates.Fetching;
+    if (!job.onboarding.successMessage && !isSubmitting) {
+      onAssign();
+    }
+  }
+
+  render() {
+    const { submitState, job, onAssign } = this.props;
+    if (!job.onboarding.successMessage) {
+      return null;
+    }
+
+    const isSubmitting = submitState.state === RequestStates.Fetching;
+
     return (
       <Panel>
         <div className={styles.form}>
