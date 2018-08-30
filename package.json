@@ -16,6 +16,7 @@
     "@xlnt/scry-one": "0.0.1",
     "bignumber.js": "^7.1.0",
     "classnames": "^2.2.6",
+    "debounce": "^1.2.0",
     "gems-token": "github:gemsorg/gems-token",
     "hoist-non-react-statics": "^3.0.1",
     "normalizr": "^3.2.4",
