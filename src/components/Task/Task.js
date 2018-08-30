@@ -70,8 +70,11 @@ class Task extends Component {
 
   render() {
     const { submitState, job, task } = this.props;
+    if (!job) {
+      return null;
+    }
     return (
-      <Content title={job && job.name}>
+      <Content title={job.name}>
         <Panel className={styles.container}>
           {job && task &&
             <TaskForm
