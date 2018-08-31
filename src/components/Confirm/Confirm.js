@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 import { Panel } from '@gemsorg/components';
 
-
 import Content from '../shared/Content';
 
 import ConfirmEmailForm from '../shared/email/ConfirmEmailForm';
@@ -27,7 +26,7 @@ class Confirm extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     location: PropTypes.shape(locationProps).isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);

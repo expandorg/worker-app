@@ -33,9 +33,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ logout }, dispatch);
-
+const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 
 class Account extends Component {
   static propTypes = {
@@ -47,14 +45,13 @@ class Account extends Component {
     user: null,
   };
 
-
   render() {
     const { user } = this.props;
     if (!user) {
       return null;
     }
     return (
-      <Content title="Account" >
+      <Content title="Account">
         <Panel className={styles.container}>
           <div className={styles.headline}>Your Account</div>
           <Address user={user} />
@@ -77,7 +74,8 @@ class Account extends Component {
             </div>
           </Field>
           <Field>
-            *Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} tokens
+            *Due to high demand, we require a minimum withdrawal of{' '}
+            {WITHDRAW_MIN} tokens
           </Field>
         </Panel>
       </Content>
@@ -85,4 +83,9 @@ class Account extends Component {
   }
 }
 
-export default authenticated(connect(mapStateToProps, mapDispatchToProps)(Account));
+export default authenticated(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Account)
+);

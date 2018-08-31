@@ -9,10 +9,9 @@ export default class MemoryStorage {
     }
   }
 
-  tryGet = (key: string) =>
-    this.store[key];
+  tryGet = (key: string) => this.store[key];
 
   set = (key: string, entity: any) => {
     this.store[key] = entity;
-  }
+  };
 }

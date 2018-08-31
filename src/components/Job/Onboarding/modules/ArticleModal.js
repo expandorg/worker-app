@@ -12,11 +12,11 @@ export default class ArticleModal extends Component {
     content: PropTypes.string.isRequired,
     visible: PropTypes.bool.isRequired,
     onHide: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     image: null,
-  }
+  };
 
   render() {
     const { visible, onHide, headline, hideTitle, ...rest } = this.props;

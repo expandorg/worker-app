@@ -25,30 +25,37 @@ export default class GroupFaildDialog extends Component {
         hideButton
         contentLabel="onboarding group"
       >
-        <DialogHeadline>
-          Answer
-        </DialogHeadline>
+        <DialogHeadline>Answer</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.inner}>
-            <div className={styles.title}>
-              Sorry, wrong answer!
-            </div>
-            <div className={styles.message}>
-              {onboarding.message}
-            </div>
-            {onboarding.allowedRetries &&
+            <div className={styles.title}>Sorry, wrong answer!</div>
+            <div className={styles.message}>{onboarding.message}</div>
+            {onboarding.allowedRetries && (
               <div className={styles.message}>
                 <span className={styles.tries}>
-                  {(1 + onboarding.allowedRetries) - (+onboarding.currentTry)}
+                  {1 + onboarding.allowedRetries - +onboarding.currentTry}
                 </span>
                 tries left
               </div>
-            }
+            )}
             <div className={styles.actions}>
-              <Link className={cn('gem-button', 'gem-button-large', 'gem-button-white', styles.link)} to="/jobs">
+              <Link
+                className={cn(
+                  'gem-button',
+                  'gem-button-large',
+                  'gem-button-white',
+                  styles.link
+                )}
+                to="/jobs"
+              >
                 Give up
               </Link>
-              <Button theme="pink" size="large" className={styles.ok} onClick={onHide}>
+              <Button
+                theme="pink"
+                size="large"
+                className={styles.ok}
+                onClick={onHide}
+              >
                 Try again
               </Button>
             </div>

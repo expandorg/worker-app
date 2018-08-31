@@ -10,12 +10,14 @@ export const encodeUrlParams = (query: Object) => {
     .join('&');
 };
 
-export const keyMirror = (object: Object, transformKey: Function = (key => key)): Object =>
+export const keyMirror = (
+  object: Object,
+  transformKey: Function = key => key
+): Object =>
   Reflect.ownKeys(object).reduce((result, key) => {
     result[key] = transformKey(key);
     return result;
   }, {});
-
 
 export function promisify(original: Function, ctx: any): Function {
   return function decoated(...args) {

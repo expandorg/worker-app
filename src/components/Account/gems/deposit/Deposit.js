@@ -11,7 +11,10 @@ import EditAddressDialoig from '../../address/EditAddressDialoig';
 import DepositDialog from './DepositDialog';
 
 import { fetchGemsBalance } from '../../../../sagas/gemsSagas';
-import { fetchBalanceStateSelector, transactionStateSelector } from '../../../../selectors/uiStateSelectors';
+import {
+  fetchBalanceStateSelector,
+  transactionStateSelector,
+} from '../../../../selectors/uiStateSelectors';
 
 import { userProps, requestStateProps } from '../../../shared/propTypes';
 import { RequestStates } from '../../../../common/app/requestUiState';
@@ -30,12 +33,12 @@ class Deposit extends Component {
     fetchState: PropTypes.shape(requestStateProps).isRequired,
     txState: PropTypes.string.isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     dialog: false,
     addressDialog: false,
-  }
+  };
 
   componentDidMount() {
     const { user } = this.props;
@@ -62,14 +65,14 @@ class Deposit extends Component {
     } else {
       this.setState({ dialog: !dialog });
     }
-  }
+  };
 
   handleHideAddress = () => {
     this.setState({ addressDialog: false });
     if (this.props.user.address) {
       this.handleToggle();
     }
-  }
+  };
 
   render() {
     const { user, fetchState, txState } = this.props;
@@ -81,16 +84,21 @@ class Deposit extends Component {
         <Button onClick={this.handleToggle} disabled={disabled}>
           Deposit
         </Button>
-        {dialog &&
-          <DepositDialog fetchBalanceState={fetchState} onHide={this.handleToggle} />
-        }
-        {addressDialog &&
+        {dialog && (
+          <DepositDialog
+            fetchBalanceState={fetchState}
+            onHide={this.handleToggle}
+          />
+        )}
+        {addressDialog && (
           <EditAddressDialoig user={user} onHide={this.handleHideAddress} />
-        }
+        )}
       </Fragment>
     );
   }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Deposit);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Deposit);

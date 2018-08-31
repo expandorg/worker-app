@@ -18,7 +18,7 @@ export class PubSub {
 
   notify = (...args: Array<any>) => {
     this.notified = true;
-    this.listeners.forEach((callback) => {
+    this.listeners.forEach(callback => {
       callback(...args);
     });
   };

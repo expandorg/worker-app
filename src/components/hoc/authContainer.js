@@ -15,16 +15,16 @@ const mapStateToProps = state => ({
 });
 
 export default function authContainer(authCallback) {
-  return (Wrapped) => {
+  return Wrapped => {
     class AuthWrapper extends Component {
       static propTypes = {
         user: PropTypes.shape(userProps),
         authState: PropTypes.shape(requestStateProps).isRequired,
-      }
+      };
 
       static defaultProps = {
         user: null,
-      }
+      };
 
       render() {
         const { user, ...rest } = this.props;

@@ -14,13 +14,20 @@ import Onboarding from './Onboarding/Onboarding';
 import Complete from './Onboarding/Complete';
 import Failed from './Onboarding/Failed';
 
-import { requestStateProps, jobProps, onboardingProps } from '../shared/propTypes';
+import {
+  requestStateProps,
+  jobProps,
+  onboardingProps,
+} from '../shared/propTypes';
 
 import { OnboardingStatus } from '../../model/enums';
 import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 import { fetchOnboarding } from '../../sagas/onboardingSagas';
 
-import { makeJobSelector, makeOnboardingSelector } from '../../selectors/jobsSelectors';
+import {
+  makeJobSelector,
+  makeOnboardingSelector,
+} from '../../selectors/jobsSelectors';
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 
 const makeMapStateToProps = () => {
@@ -34,9 +41,14 @@ const makeMapStateToProps = () => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({
-    fetchJobs, assignJob, fetchOnboarding,
-  }, dispatch);
+  bindActionCreators(
+    {
+      fetchJobs,
+      assignJob,
+      fetchOnboarding,
+    },
+    dispatch
+  );
 
 class JobDetails extends Component {
   static propTypes = {
@@ -68,7 +80,7 @@ class JobDetails extends Component {
   handleAssignJob = () => {
     const { jobId, onSubmit } = this.props;
     onSubmit(() => this.props.assignJob(jobId));
-  }
+  };
 
   render() {
     const { job, onboarding, jobId, submitState } = this.props;
@@ -77,19 +89,17 @@ class JobDetails extends Component {
     }
     return (
       <Content title={job.name}>
-        {onboarding.status === OnboardingStatus.InProgress &&
+        {onboarding.status === OnboardingStatus.InProgress && (
           <Onboarding jobId={jobId} onboarding={onboarding} />
-        }
-        {onboarding.status === OnboardingStatus.Failed &&
-          <Failed job={job} />
-        }
-        {onboarding.status === OnboardingStatus.Passed &&
+        )}
+        {onboarding.status === OnboardingStatus.Failed && <Failed job={job} />}
+        {onboarding.status === OnboardingStatus.Passed && (
           <Complete
             job={job}
             submitState={submitState}
             onAssign={this.handleAssignJob}
           />
-        }
+        )}
         <AssignedJobRedirect />
       </Content>
     );
@@ -97,6 +107,9 @@ class JobDetails extends Component {
 }
 export default authenticated(
   withSubmitState(assignJobStateSelector)(
-    connect(makeMapStateToProps, mapDispatchToProps)(JobDetails),
-  ),
+    connect(
+      makeMapStateToProps,
+      mapDispatchToProps
+    )(JobDetails)
+  )
 );

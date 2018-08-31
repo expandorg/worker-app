@@ -5,11 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import {
-  Button,
-  Input,
-  ErrorMessage,
-} from '@gemsorg/components';
+import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import { login } from '../../../sagas/authSagas';
 
@@ -24,23 +20,20 @@ const mapStateToProps = state => ({
   loginState: loginStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ login }, dispatch);
-
+const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
 
 class LoginForm extends Component {
   static propTypes = {
     loginState: PropTypes.shape(requestStateProps).isRequired,
     onToggle: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     email: '',
     password: '',
     error: null,
-  }
-
+  };
 
   componentWillReceiveProps({ loginState: nextState }) {
     const { loginState } = this.props;
@@ -49,18 +42,18 @@ class LoginForm extends Component {
     }
   }
 
-  handleSubmit = (evt) => {
+  handleSubmit = evt => {
     evt.preventDefault();
     if (this.props.loginState.state !== RequestStates.Fetching) {
       const { email, password } = this.state;
       this.setState({ error: null });
       this.props.login(email, password);
     }
-  }
+  };
 
   handleChangeField = (field, { target }) => {
     this.setState({ [field]: target.value, error: null });
-  }
+  };
 
   render() {
     const { onToggle, loginState } = this.props;
@@ -69,9 +62,7 @@ class LoginForm extends Component {
 
     return (
       <div className={styles.container}>
-        <h2 className={styles.title}>
-          Login with email
-        </h2>
+        <h2 className={styles.title}>Login with email</h2>
         <form className={styles.form} onSubmit={this.handleSubmit}>
           <Input
             className={styles.input}
@@ -90,16 +81,12 @@ class LoginForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <Button
-            suze="large"
-            type="submit"
-            className={styles.submit}
-          >
+          <Button suze="large" type="submit" className={styles.submit}>
             {isFetching ? 'Signing in...' : 'Sign in'}
           </Button>
         </form>
         <div className={styles.footer}>
-          <Link className={styles.forgot} to="/password" >
+          <Link className={styles.forgot} to="/password">
             I forgot my password
           </Link>
           <button className={styles.toggle} onClick={onToggle}>
@@ -111,5 +98,7 @@ class LoginForm extends Component {
   }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm);

@@ -30,12 +30,12 @@ class MatamaskLogin extends Component {
     metamaskState: PropTypes.string.isRequired,
     signupState: PropTypes.shape(requestStateProps).isRequired,
     signupMetamask: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     metamaskDialog: false,
     error: null,
-  }
+  };
 
   componentWillReceiveProps({ signupState: nextState }) {
     const { signupState } = this.props;
@@ -46,7 +46,7 @@ class MatamaskLogin extends Component {
 
   handleHide = () => {
     this.setState({ metamaskDialog: false });
-  }
+  };
 
   handleClick = () => {
     if (this.props.metamaskState !== MetamaskState.Authorized) {
@@ -54,7 +54,7 @@ class MatamaskLogin extends Component {
     } else {
       this.props.signupMetamask();
     }
-  }
+  };
 
   render() {
     const { metamaskState } = this.props;
@@ -69,7 +69,7 @@ class MatamaskLogin extends Component {
         >
           <ins className={styles.fox} /> Signup with MetaMask
         </Button>
-        {metamaskDialog &&
+        {metamaskDialog && (
           <MetamaskPromt
             metamaskState={metamaskState}
             onLogin={this.props.signupMetamask}
@@ -77,11 +77,14 @@ class MatamaskLogin extends Component {
             action="Sign up"
             error={error}
           />
-        }
+        )}
         <ErrorMessage error={error} className={styles.error} />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatamaskLogin);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MatamaskLogin);

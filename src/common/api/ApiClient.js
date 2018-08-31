@@ -7,14 +7,14 @@ export default class ApiClient {
   }
 
   get = (url, query) =>
-    this.request.get(`${this.apiUrl}${url}`, query)
-      .then(this.processResponse)
+    this.request.get(`${this.apiUrl}${url}`, query).then(this.processResponse);
 
   post = (url, payload) =>
-    this.request.post(`${this.apiUrl}${url}`, payload)
-      .then(this.processResponse)
+    this.request
+      .post(`${this.apiUrl}${url}`, payload)
+      .then(this.processResponse);
 
-  processResponse = async (response) => {
+  processResponse = async response => {
     const text = await response.text();
     let json = null;
     try {
@@ -30,5 +30,5 @@ export default class ApiClient {
       throw new ApiError(json, response.status);
     }
     return json;
-  }
+  };
 }

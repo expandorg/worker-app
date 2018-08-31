@@ -7,17 +7,16 @@ import { connect } from 'react-redux';
 import { initialState } from '../../common/app/requestUiState';
 import { requestStateProps } from '../shared/propTypes';
 
-
 export default function withSubmitState(submitSelector) {
   const mapStateToProps = state => ({
     submitState: submitSelector(state),
   });
 
-  return (Wrapped) => {
+  return Wrapped => {
     class SumbitState extends Component {
       static propTypes = {
         submitState: PropTypes.shape(requestStateProps).isRequired,
-      }
+      };
 
       /* eslint-disable react/sort-comp, react/no-unused-state */
       static getDerivedStateFromProps({ submitState }, state) {
@@ -32,15 +31,15 @@ export default function withSubmitState(submitSelector) {
       state = {
         submitState: initialState,
         submitted: false,
-      }
+      };
 
-      handleSubmit = (submitCallback) => {
+      handleSubmit = submitCallback => {
         this.setState({ submitted: true }, submitCallback);
-      }
+      };
 
       handleReset = () => {
         this.setState({ submitState: initialState, submitted: false });
-      }
+      };
 
       render() {
         const { submitState, ...rest } = this.props;

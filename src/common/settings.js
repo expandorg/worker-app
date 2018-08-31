@@ -6,8 +6,6 @@ const settings = {
   gtmTrackingId: process.env.GTM_TRACKING_ID,
 };
 
-
 global.gemsBuildInfo = gemsBuildInfo; // eslint-disable-line
-
 
 export default settings;

@@ -1,4 +1,3 @@
-
 // @flow
 
 import BaseApi from '../common/api/BaseApi';
@@ -19,7 +18,8 @@ class EthgasstationInfoClient extends ApiClient {
         headers: new Headers({
           Accept: 'application/json',
         }),
-      }));
+      })
+    );
   }
 }
 
@@ -28,7 +28,6 @@ export class EthgasstationInfoApi extends BaseApi {
 
   cache: ExpirationCache = new ExpirationCache(EXPIRE_IN);
 
-
   getAverage = async () => {
     try {
       const data = await this.cache.invokeCached('data', this.fetchStats);
@@ -36,10 +35,11 @@ export class EthgasstationInfoApi extends BaseApi {
     } catch (e) {
       return EthgasstationInfoApi.fallbackAvg;
     }
-  }
+  };
 
-  fetchStats = () =>
-    this.get('/json/ethgasAPI.json')
+  fetchStats = () => this.get('/json/ethgasAPI.json');
 }
 
-export const etheriumApi = new EthgasstationInfoApi(new EthgasstationInfoClient());
+export const etheriumApi = new EthgasstationInfoApi(
+  new EthgasstationInfoClient()
+);

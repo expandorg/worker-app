@@ -51,14 +51,12 @@ const App = () => {
               <Route path="/signup" component={Signup} />
               <Route path="/password" component={Password} />
               <Route path="/restore" component={Restore} />
-              <Route path="/confirm" component={Confirm} />≥≥
-
+              <Route path="/confirm" component={Confirm} />
+              ≥≥
               <Route path="/account" component={Account} />
               <Route path="/jobs" exact component={Jobs} />
               <Route path="/jobs/:jobId" component={Job} />
-
               <Route path="/tasks/:taskId" component={Task} />
-
               <Route path="/stats" component={Stats} />
               <Route path="/requester" component={Requester} />
               <Route component={NotFound} />

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import { RequestStates } from '../../../../common/app/requestUiState';
 import { requestStateProps, userProps } from '../../../shared/propTypes';
 
-import { userBalance, WITHDRAW_MAX, WITHDRAW_MIN } from '../../../../model/balance';
+import {
+  userBalance,
+  WITHDRAW_MAX,
+  WITHDRAW_MIN,
+} from '../../../../model/balance';
 
 import styles from './WithdrawForm.module.styl';
 
@@ -16,7 +19,7 @@ export default class WithdrawForm extends Component {
     user: PropTypes.shape(userProps).isRequired,
     submitState: PropTypes.shape(requestStateProps).isRequired,
     onWithdraw: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props, ctx) {
     super(props, ctx);
@@ -28,17 +31,20 @@ export default class WithdrawForm extends Component {
 
   handleChange = ({ target }) => {
     this.setState({ value: target.value });
-  }
+  };
 
-  handleSubmit = (evt) => {
+  handleSubmit = evt => {
     evt.preventDefault();
     const { submitState, onWithdraw, user } = this.props;
     const amount = +this.state.value;
 
-    if (submitState.state !== RequestStates.Fetching && userBalance.canWithdraw(user, amount)) {
+    if (
+      submitState.state !== RequestStates.Fetching &&
+      userBalance.canWithdraw(user, amount)
+    ) {
       onWithdraw(amount);
     }
-  }
+  };
 
   render() {
     const { submitState, user } = this.props;
@@ -53,8 +59,8 @@ export default class WithdrawForm extends Component {
 
     return (
       <div className={styles.container}>
-        <form className={styles.form} onSubmit={this.handleSubmit} >
-          {available &&
+        <form className={styles.form} onSubmit={this.handleSubmit}>
+          {available && (
             <div className={styles.row}>
               <Input
                 className={styles.input}
@@ -63,21 +69,30 @@ export default class WithdrawForm extends Component {
                 onChange={this.handleChange}
                 placeholder="Amount of Gems to withdraw"
               />
-              <Button type="submit" size="large" className={styles.submit} disabled={disabled}>
+              <Button
+                type="submit"
+                size="large"
+                className={styles.submit}
+                disabled={disabled}
+              >
                 {isFetching ? 'Withdrawing' : 'Withdraw'}
               </Button>
             </div>
-          }
-          {!available &&
+          )}
+          {!available && (
             <div className={styles.warn}>
               You don&#39;t have enough gems to withdraw. You current balance is
-              &nbsp;<span className={styles.gems}>{balance}</span> Gems.
+              &nbsp;
+              <span className={styles.gems}>{balance}</span> Gems.
             </div>
-          }
+          )}
           <ErrorMessage error={submitState.error} className={styles.error} />
           <div className={styles.description}>
-            Due to high demand, we require a minimum withdrawal of {WITHDRAW_MIN} tokens.<br />
-            The maximum amount of tokens available for withdrawal is {WITHDRAW_MAX}.
+            Due to high demand, we require a minimum withdrawal of{' '}
+            {WITHDRAW_MIN} tokens.
+            <br />
+            The maximum amount of tokens available for withdrawal is{' '}
+            {WITHDRAW_MAX}.
           </div>
         </form>
       </div>

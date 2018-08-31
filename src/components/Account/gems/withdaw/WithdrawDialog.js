@@ -8,7 +8,6 @@ import { Dialog, DialogHeadline } from '@gemsorg/components';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 
-
 import WithdrawForm from './WithdrawForm';
 import Transactions from '../../../shared/transactions/Transactions';
 
@@ -29,37 +28,47 @@ class WithdrawDialog extends Component {
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     withdrawPayments: PropTypes.func.isRequired,
-  }
+  };
 
-  handleWithdraw = (amount) => {
+  handleWithdraw = amount => {
     const { onSubmit, user } = this.props;
     onSubmit(() => this.props.withdrawPayments(user, amount));
-  }
+  };
 
   handleHide = () => {
     if (this.props.submitState.state !== RequestStates.Fetching) {
       this.props.onHide();
     }
-  }
+  };
 
   render() {
     const { submitState, user } = this.props;
     const isFetched = submitState.state === RequestStates.Fetched;
 
     return (
-      <Dialog contentLabel="withdaw" visible onHide={this.handleHide} >
+      <Dialog contentLabel="withdaw" visible onHide={this.handleHide}>
         <DialogHeadline>
           {isFetched ? 'Transactions' : 'Withdaw Gems'}
         </DialogHeadline>
-        {isFetched
-          ? <Transactions transactions={[submitState.payload.user.pendingTx.hash]} />
-          : <WithdrawForm user={user} submitState={submitState} onWithdraw={this.handleWithdraw} />
-        }
+        {isFetched ? (
+          <Transactions
+            transactions={[submitState.payload.user.pendingTx.hash]}
+          />
+        ) : (
+          <WithdrawForm
+            user={user}
+            submitState={submitState}
+            onWithdraw={this.handleWithdraw}
+          />
+        )}
       </Dialog>
     );
   }
 }
 
 export default withSubmitState(withdrawStateSelector)(
-  connect(null, mapDispatchToProps)(WithdrawDialog),
+  connect(
+    null,
+    mapDispatchToProps
+  )(WithdrawDialog)
 );

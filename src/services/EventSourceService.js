@@ -4,10 +4,12 @@ import type EventSourceDefinition from './events/EventSourceDefinition';
 export default class EventSourceService {
   static available = window.EventSource !== undefined;
 
-  dispatch: Function
-  backendUrl: string
+  dispatch: Function;
 
-  clients: Map<string, window.EventSource> = new Map()
+  backendUrl: string;
+
+  clients: Map<string, window.EventSource> = new Map();
+
   definitions: Map<string, EventSourceDefinition> = new Map();
 
   constructor(backendUrl: string) {
@@ -32,7 +34,12 @@ export default class EventSourceService {
 
         if (!this.clients.has(url)) {
           const unsubscribe = () => this.unsubscribe(url);
-          const eventSource = definition.create(url, this.dispatch, unsubscribe, params);
+          const eventSource = definition.create(
+            url,
+            this.dispatch,
+            unsubscribe,
+            params
+          );
 
           this.clients.set(url, eventSource);
         }
@@ -44,5 +51,5 @@ export default class EventSourceService {
     if (this.clients.has(key)) {
       this.clients.delete(key);
     }
-  }
+  };
 }

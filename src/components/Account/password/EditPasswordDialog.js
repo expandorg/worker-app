@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Input, Dialog, DialogHeadline, ErrorMessage } from '@gemsorg/components';
+import {
+  Button,
+  Input,
+  Dialog,
+  DialogHeadline,
+  ErrorMessage,
+} from '@gemsorg/components';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
@@ -14,12 +20,10 @@ import { requestStateProps, userProps } from '../../shared/propTypes';
 import { changePassword } from '../../../sagas/userSagas';
 import { changePasswordStateSelector } from '../../../selectors/uiStateSelectors';
 
-
 import styles from './EditPasswordDialog.module.styl';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ changePassword }, dispatch);
-
 
 class EditPasswordDialog extends Component {
   static propTypes = {
@@ -28,27 +32,29 @@ class EditPasswordDialog extends Component {
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     changePassword: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     password: '',
     currentPassword: '',
-  }
+  };
 
-  handleSubmit = (evt) => {
+  handleSubmit = evt => {
     evt.preventDefault();
     const { onSubmit, user, submitState } = this.props;
     const { password, currentPassword } = this.state;
     if (submitState.state !== RequestStates.Fetching) {
-      onSubmit(() => this.props.changePassword(user, password, currentPassword));
+      onSubmit(() =>
+        this.props.changePassword(user, password, currentPassword)
+      );
     }
-  }
+  };
 
   handleHide = () => {
     if (this.props.submitState.state !== RequestStates.Fetching) {
       this.props.onHide();
     }
-  }
+  };
 
   render() {
     const { submitState } = this.props;
@@ -57,38 +63,41 @@ class EditPasswordDialog extends Component {
     const isFetchied = submitState.state === RequestStates.Fetched;
 
     return (
-      <Dialog contentLabel="change password" visible onHide={this.handleHide} >
-        <DialogHeadline>
-          Change password
-        </DialogHeadline>
+      <Dialog contentLabel="change password" visible onHide={this.handleHide}>
+        <DialogHeadline>Change password</DialogHeadline>
         <div className={styles.container}>
-          {!isFetchied &&
+          {!isFetchied && (
             <form className={styles.form} onSubmit={this.handleSubmit}>
               <Input
                 className={styles.input}
                 type="password"
                 placeholder="Current password"
                 value={currentPassword}
-                onChange={({ target }) => this.setState({ currentPassword: target.value })}
+                onChange={({ target }) =>
+                  this.setState({ currentPassword: target.value })
+                }
               />
               <Input
                 className={styles.input}
                 type="password"
                 placeholder="New password"
                 value={password}
-                onChange={({ target }) => this.setState({ password: target.value })}
+                onChange={({ target }) =>
+                  this.setState({ password: target.value })
+                }
               />
-              <ErrorMessage error={submitState.error} className={styles.error} />
+              <ErrorMessage
+                error={submitState.error}
+                className={styles.error}
+              />
               <Button type="submit" className={styles.submit}>
                 {isFetching ? 'Changing password...' : 'Change password'}
               </Button>
             </form>
-          }
-          {isFetchied &&
-            <div className={styles.result}>
-              Password has been changed
-            </div>
-          }
+          )}
+          {isFetchied && (
+            <div className={styles.result}>Password has been changed</div>
+          )}
         </div>
       </Dialog>
     );
@@ -96,5 +105,8 @@ class EditPasswordDialog extends Component {
 }
 
 export default withSubmitState(changePasswordStateSelector)(
-  connect(null, mapDispatchToProps)(EditPasswordDialog),
+  connect(
+    null,
+    mapDispatchToProps
+  )(EditPasswordDialog)
 );

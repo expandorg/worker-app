@@ -23,20 +23,27 @@ export default class Rules extends Component {
 
   static defaultProps = {
     value: false,
-  }
+  };
 
   state = {
     visible: false,
-  }
+  };
 
   handleToggle = () => {
     this.setState(({ visible }) => ({ visible: !visible }));
-  }
+  };
 
   render() {
     const {
-      value, onChange, buttonTitle, name, checkbox,
-      headline, title, rules, close,
+      value,
+      onChange,
+      buttonTitle,
+      name,
+      checkbox,
+      headline,
+      title,
+      rules,
+      close,
     } = this.props;
     const { visible } = this.state;
     return (

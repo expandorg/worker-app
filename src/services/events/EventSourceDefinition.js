@@ -1,21 +1,23 @@
 // @flow
 
 export default class EventSourceDefinition {
-  eventHandlers: Object
+  eventHandlers: Object;
 
   constructor(events: Object) {
     this.eventHandlers = events;
   }
 
   getUrl(url: string, params?: Object) {
-    throw new Error(`getUrl() not implemented: ${url}, ${params ? params.toString() : ''}`);
+    throw new Error(
+      `getUrl() not implemented: ${url}, ${params ? params.toString() : ''}`
+    );
   }
 
   create = (
     url: string,
     dispatch: Function,
     onClose: Function,
-    params?: Object,
+    params?: Object
   ) => {
     const source = new window.EventSource(url, { withCredentials: true });
 
@@ -23,7 +25,7 @@ export default class EventSourceDefinition {
     this.bindEventHandlers(source, dispatch, params);
 
     return source;
-  }
+  };
 
   errorHandler(source: window.EventSource, onClose: Function) {
     return (e: Object) => {
@@ -34,9 +36,13 @@ export default class EventSourceDefinition {
     };
   }
 
-  bindEventHandlers(source: window.EventSource, dispatch: Function, params?: Object) {
-    Reflect.ownKeys(this.eventHandlers).forEach((eventType) => {
-      source.addEventListener(eventType, (e) => {
+  bindEventHandlers(
+    source: window.EventSource,
+    dispatch: Function,
+    params?: Object
+  ) {
+    Reflect.ownKeys(this.eventHandlers).forEach(eventType => {
+      source.addEventListener(eventType, e => {
         const action = this.eventHandlers[eventType];
         const data = JSON.parse(e.data);
 

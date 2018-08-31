@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@gemsorg/components';
-import { Alignment, Paragraph, Select, Choice, Progress } from '@gemsorg/components/modules';
+import {
+  Alignment,
+  Paragraph,
+  Select,
+  Choice,
+  Progress,
+} from '@gemsorg/components/modules';
 
 import Task from './Task';
 import ArticleModal from '../ArticleModal';
@@ -27,30 +33,38 @@ export default class QA extends Component {
 
   static defaultProps = {
     value: null,
-  }
+  };
 
   state = {
     rules: false,
     instructions: false,
-  }
+  };
 
-  handleChange = (value) => {
+  handleChange = value => {
     const { name, onChange } = this.props;
     onChange(name, value);
-  }
+  };
 
   handleToggleRules = () => {
     this.setState(({ rules }) => ({ rules: !rules }));
-  }
+  };
 
   handleToggleInstructions = () => {
     this.setState(({ instructions }) => ({ instructions: !instructions }));
-  }
+  };
 
   render() {
     const {
-      value, link, number, total, question, answers, rulesTitle,
-      rulesContent, instructionsTitle, instructionsContent,
+      value,
+      link,
+      number,
+      total,
+      question,
+      answers,
+      rulesTitle,
+      rulesContent,
+      instructionsTitle,
+      instructionsContent,
     } = this.props;
     const { rules, instructions } = this.state;
     return (
@@ -58,9 +72,7 @@ export default class QA extends Component {
         <Task link={link} />
         <Progress number={number} total={total} />
         <Alignment vertical vCenter padding="medium">
-          <div className={styles.block}>
-            Question {number}:
-          </div>
+          <div className={styles.block}>Question {number}:</div>
           <Paragraph
             className={styles.question}
             fontSize="medium"
@@ -69,7 +81,7 @@ export default class QA extends Component {
           />
         </Alignment>
         <Alignment padding="medium" vertical>
-          <Select options={answers} onSelect={this.handleChange} value={value} >
+          <Select options={answers} onSelect={this.handleChange} value={value}>
             {({ id, onSelect, option }) => (
               <Choice
                 key={id}
@@ -87,7 +99,11 @@ export default class QA extends Component {
               See rules
             </Button>
             <div className={styles.spacer} />
-            <Button size="small" theme="link" onClick={this.handleToggleInstructions}>
+            <Button
+              size="small"
+              theme="link"
+              onClick={this.handleToggleInstructions}
+            >
               See instructions
             </Button>
           </div>

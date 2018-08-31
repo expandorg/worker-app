@@ -17,5 +17,5 @@ export default class TxEventSource extends EventSourceDefinition {
       throw new Error('params.tx is missing');
     }
     return `${backendAddress}/transactions/subscribe?tx=${params.tx}`;
-  }
+  };
 }

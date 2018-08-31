@@ -1,6 +1,17 @@
-import { takeLatest, takeEvery, call, put, take, race } from 'redux-saga/effects';
+import {
+  takeLatest,
+  takeEvery,
+  call,
+  put,
+  take,
+  race,
+} from 'redux-saga/effects';
 
-import { appActionTypes, userActionTypes, gemsActionTypes } from './actionTypes';
+import {
+  appActionTypes,
+  userActionTypes,
+  gemsActionTypes,
+} from './actionTypes';
 import { NotificationType } from '../model/enums';
 
 import { delay } from '../common/app/apiCallSaga';

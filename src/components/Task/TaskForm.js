@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Module, formProps, FormDataProvider } from '@gemsorg/components/modules';
+import {
+  Form,
+  Module,
+  formProps,
+  FormDataProvider,
+} from '@gemsorg/components/modules';
 
 import { requestStateProps } from '../shared/propTypes';
 import { RequestStates } from '../../common/app/requestUiState';
@@ -20,12 +25,12 @@ export default class TaskForm extends Component {
   static defaultProps = {
     taskData: null,
     contextData: null,
-  }
+  };
 
-  handleSubmit = (values) => {
+  handleSubmit = values => {
     const { onSubmit } = this.props;
     onSubmit(values);
-  }
+  };
 
   render() {
     const { submitState, form, contextData, taskData } = this.props;

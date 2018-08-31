@@ -13,7 +13,7 @@ const defaultSettings = {
 };
 
 export default class ApiRequest {
-  requestSettings: Object
+  requestSettings: Object;
 
   constructor(requestSettings: Object = defaultSettings) {
     this.requestSettings = requestSettings;
@@ -25,13 +25,12 @@ export default class ApiRequest {
       ...this.requestSettings,
       method: 'GET',
     });
-  }
-
+  };
 
   post = (url: string, payload?: Object) =>
     fetch(url, {
       ...this.requestSettings,
       method: 'POST',
       body: JSON.stringify(payload),
-    })
+    });
 }

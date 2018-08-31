@@ -9,22 +9,32 @@ import { envFilePath } from './config';
 
 import packageJson from './package.json';
 
-class EmptyPlugin { apply = () => {} }
+class EmptyPlugin {
+  apply() {}
+}
 
 const entry = {
-  app: ['./index'],
+  app: ['@babel/polyfill', './index'],
 };
+
+const babelPlugins = [
+  '@babel/plugin-proposal-class-properties',
+  '@babel/plugin-proposal-export-default-from',
+  '@babel/plugin-proposal-export-namespace-from',
+  '@babel/plugin-proposal-throw-expressions',
+  '@babel/plugin-syntax-dynamic-import',
+  '@babel/plugin-syntax-import-meta',
+];
 
 export default (env = {}) => {
   const dev = !!env.dev;
   const port = env.port || 3000;
 
-  Reflect.ownKeys(entry).forEach((name) => {
-    entry[name].unshift('babel-polyfill');
+  Reflect.ownKeys(entry).forEach(name => {
     if (dev) {
       entry[name].unshift(
         `webpack-dev-server/client?http://localhost:${port}`,
-        'webpack/hot/only-dev-server',
+        'webpack/hot/only-dev-server'
       );
     }
   });
@@ -57,15 +67,19 @@ export default (env = {}) => {
           options: {
             babelrc: false,
             presets: [
-              ['env', {
-                es2015: {
+              [
+                '@babel/preset-env',
+                {
                   modules: false,
+                  useBuiltIns: 'entry',
                 },
-              }],
-              'react',
-              'stage-0',
+              ],
+              '@babel/preset-flow',
+              '@babel/preset-react',
             ],
-            plugins: dev ? ['react-hot-loader/babel'] : [],
+            plugins: dev
+              ? babelPlugins.concat('react-hot-loader/babel')
+              : babelPlugins,
           },
           exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
@@ -83,7 +97,9 @@ export default (env = {}) => {
           test: /\.module\.styl$/,
           use: [
             dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${dev ? '[local]__[path][name]__' : ''}[hash:base64:5]`,
+            `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${
+              dev ? '[local]__[path][name]__' : ''
+            }[hash:base64:5]`,
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
@@ -108,7 +124,9 @@ export default (env = {}) => {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
         },
         gemsBuildInfo: {
-          components: JSON.stringify(packageJson.dependencies['@gemsorg/components']),
+          components: JSON.stringify(
+            packageJson.dependencies['@gemsorg/components']
+          ),
           buildDate: JSON.stringify(new Date().toUTCString()),
         },
       }),
@@ -126,10 +144,7 @@ export default (env = {}) => {
       minimize: !dev,
     },
     resolve: {
-      modules: [
-        path.resolve('./src'),
-        path.resolve('node_modules'),
-      ],
+      modules: [path.resolve('./src'), path.resolve('node_modules')],
       extensions: ['.js', '.json'],
       symlinks: false,
     },

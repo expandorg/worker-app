@@ -29,7 +29,7 @@ class Restore extends Component {
     location: PropTypes.shape(locationProps).isRequired,
     restorePassword: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -40,15 +40,14 @@ class Restore extends Component {
     };
   }
 
-
-  handleSubmit = (evt) => {
+  handleSubmit = evt => {
     evt.preventDefault();
     const { submitState, onSubmit } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
       const { password, code } = this.state;
       onSubmit(() => this.props.restorePassword(password, code));
     }
-  }
+  };
 
   render() {
     const { submitState } = this.props;
@@ -60,9 +59,7 @@ class Restore extends Component {
       <DocumentTitle title="Change password">
         <div className={styles.container}>
           <div className={styles.panel}>
-            <h2 className={styles.title}>
-              Change password
-            </h2>
+            <h2 className={styles.title}>Change password</h2>
             <form className={styles.form} onSubmit={this.handleSubmit}>
               <Input
                 className={styles.input}
@@ -78,9 +75,14 @@ class Restore extends Component {
                 required
                 placeholder="New password"
                 value={password}
-                onChange={({ target }) => this.setState({ password: target.value })}
+                onChange={({ target }) =>
+                  this.setState({ password: target.value })
+                }
               />
-              <ErrorMessage error={submitState.error} className={styles.error} />
+              <ErrorMessage
+                error={submitState.error}
+                className={styles.error}
+              />
               <Button type="submit" className={styles.submit}>
                 {isFetching ? 'Changing password...' : 'Change password'}
               </Button>
@@ -92,4 +94,9 @@ class Restore extends Component {
   }
 }
 
-export default withSubmitState(restoreState)(connect(null, mapDispatchToProps)(Restore));
+export default withSubmitState(restoreState)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Restore)
+);

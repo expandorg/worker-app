@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Input, Dialog, DialogHeadline, ErrorMessage } from '@gemsorg/components';
+import {
+  Button,
+  Input,
+  Dialog,
+  DialogHeadline,
+  ErrorMessage,
+} from '@gemsorg/components';
 
 import { RequestStates } from '../../../common/app/requestUiState';
 
@@ -38,39 +44,38 @@ class EditEmailDialog extends Component {
     };
   }
 
-
   componentWillReceiveProps({ editState: next, user: nextUser }) {
     const { editState, user } = this.props;
     if (next.error && next.error !== editState.error) {
       this.setState({ error: next.error });
     }
     if (user !== nextUser) {
-      this.setState(({ email: user.email }));
+      this.setState({ email: user.email });
     }
-    if (next.state === RequestStates.Fetched &&
-        editState.state === RequestStates.Fetching) {
+    if (
+      next.state === RequestStates.Fetched &&
+      editState.state === RequestStates.Fetching
+    ) {
       this.props.onHide();
     }
   }
 
-  handleSubmit = (evt) => {
+  handleSubmit = evt => {
     evt.preventDefault();
     const { user, editState } = this.props;
     const { email } = this.state;
     if (editState.state !== RequestStates.Fetching) {
       this.props.editEmail(user, email);
     }
-  }
+  };
 
   render() {
-    const {
-      user, editState, onHide,
-    } = this.props;
+    const { user, editState, onHide } = this.props;
     const { email, error } = this.state;
     const fetching = editState.state === RequestStates.Fetching;
 
     return (
-      <Dialog visible onHide={onHide} contentLabel="edit email" >
+      <Dialog visible onHide={onHide} contentLabel="edit email">
         <DialogHeadline>
           {user.email ? 'Edit Email' : 'Add Email'}
         </DialogHeadline>
@@ -82,7 +87,9 @@ class EditEmailDialog extends Component {
             <div className={styles.row}>
               <Input
                 className={styles.input}
-                onChange={({ target }) => this.setState({ email: target.value })}
+                onChange={({ target }) =>
+                  this.setState({ email: target.value })
+                }
                 type="text"
                 value={email}
                 placeholder="Email Address"
@@ -99,4 +106,7 @@ class EditEmailDialog extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditEmailDialog);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditEmailDialog);

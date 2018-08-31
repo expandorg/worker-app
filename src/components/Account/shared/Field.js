@@ -5,9 +5,7 @@ import styles from './Field.module.styl';
 
 const Field = ({ children, title }) => (
   <div className={styles.container}>
-    {title &&
-      <div className={styles.title}>{title}</div>
-    }
+    {title && <div className={styles.title}>{title}</div>}
     {children}
   </div>
 );

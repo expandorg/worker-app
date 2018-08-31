@@ -10,24 +10,22 @@ import MatamaskSignup from './metamask/MatamaskSignup';
 import LoginForm from './email/LoginForm';
 import SignupForm from './email/SignupForm';
 
-
 import styles from './AuthForm.module.styl';
 
 class AuthForm extends Component {
   static propTypes = {
     signup: PropTypes.bool,
     history: PropTypes.shape(historyProps).isRequired,
-  }
+  };
 
   static defaultProps = {
     signup: false,
-  }
-
+  };
 
   handleToggle = () => {
     const { signup, history } = this.props;
     history.push(signup ? '/login' : '/signup');
-  }
+  };
 
   render() {
     const { signup } = this.props;
@@ -37,14 +35,12 @@ class AuthForm extends Component {
           {!signup ? 'Login' : 'Signup'} to Gems
         </h2>
         <div className={styles.inner}>
-          {signup
-            ? <MatamaskSignup />
-            : <MetamaskLogin />
-          }
-          {signup
-            ? <SignupForm onToggle={this.handleToggle} />
-            : <LoginForm onToggle={this.handleToggle} />
-          }
+          {signup ? <MatamaskSignup /> : <MetamaskLogin />}
+          {signup ? (
+            <SignupForm onToggle={this.handleToggle} />
+          ) : (
+            <LoginForm onToggle={this.handleToggle} />
+          )}
         </div>
       </div>
     );

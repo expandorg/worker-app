@@ -5,16 +5,14 @@ import cn from 'classnames';
 import styles from './Dots.module.styl';
 
 export default class Dots extends Component {
-  static propTypes ={
+  static propTypes = {
     count: PropTypes.number.isRequired,
     active: PropTypes.number.isRequired,
     onSelect: PropTypes.func.isRequired,
-  }
+  };
 
   render() {
-    const {
-      count, active, onSelect,
-    } = this.props;
+    const { count, active, onSelect } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.inner}>

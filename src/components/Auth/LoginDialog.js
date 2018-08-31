@@ -10,7 +10,7 @@ import styles from './LoginDialog.module.styl';
 export default class LoginDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
-  }
+  };
 
   render() {
     const { onHide } = this.props;

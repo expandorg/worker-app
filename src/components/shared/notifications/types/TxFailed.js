@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { notificationPayloadProps } from '../../../shared/propTypes';
+import { notificationPayloadProps } from '../../propTypes';
 
 import styles from './styles.module.styl';
 
@@ -13,10 +13,6 @@ export default class TxFailed extends Component {
   render() {
     const { params } = this.props.payload;
     const op = params.source === 'withdraw' ? 'withdrawal' : 'deposit';
-    return (
-      <div className={styles.content}>
-        Your {op} has failed.
-      </div>
-    );
+    return <div className={styles.content}>Your {op} has failed.</div>;
   }
 }

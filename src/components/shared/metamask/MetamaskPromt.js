@@ -21,34 +21,24 @@ export default class MetamaskPromt extends Component {
     error: PropTypes.string,
     onLogin: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     action: 'Sign in',
     error: null,
-  }
+  };
 
   render() {
-    const {
-      metamaskState, onLogin, onHide, action, error,
-    } = this.props;
+    const { metamaskState, onLogin, onHide, action, error } = this.props;
     const title = headers[metamaskState];
     return (
       <Dialog onHide={onHide} visible contentLabel="matamask">
-        {title &&
-          <DialogHeadline>
-            {title}
-          </DialogHeadline>
-        }
-        {metamaskState === MetamaskState.NotInstalled &&
-          <Install />
-        }
-        {metamaskState === MetamaskState.NotAuthorized &&
-          <Unlock />
-        }
-        {metamaskState === MetamaskState.Authorized &&
+        {title && <DialogHeadline>{title}</DialogHeadline>}
+        {metamaskState === MetamaskState.NotInstalled && <Install />}
+        {metamaskState === MetamaskState.NotAuthorized && <Unlock />}
+        {metamaskState === MetamaskState.Authorized && (
           <Form onLogin={onLogin} action={action} error={error} />
-        }
+        )}
       </Dialog>
     );
   }

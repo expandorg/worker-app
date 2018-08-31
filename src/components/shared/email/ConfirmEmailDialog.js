@@ -17,16 +17,14 @@ export default class ConfirmEmailDialog extends Component {
 
   handleConfirm = () => {
     this.props.onHide();
-  }
+  };
 
   render() {
     const { onHide, user } = this.props;
 
     return (
-      <Dialog visible onHide={onHide} contentLabel="confirm email" >
-        <DialogHeadline>
-          Confirm Email
-        </DialogHeadline>
+      <Dialog visible onHide={onHide} contentLabel="confirm email">
+        <DialogHeadline>Confirm Email</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.description}>
             Enter the confirmation code that was sent to your email

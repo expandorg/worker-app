@@ -6,7 +6,7 @@ import Balance from './types/Balance';
 import TxFailed from './types/TxFailed';
 
 import { NotificationType } from '../../../model/enums';
-import { notificationProps } from '../../shared/propTypes';
+import { notificationProps } from '../propTypes';
 
 export default class Notification extends Component {
   static propTypes = {
@@ -16,7 +16,7 @@ export default class Notification extends Component {
 
   static defaultProps = {
     notification: null,
-  }
+  };
 
   renderContent({ notificationType, payload }) {
     switch (notificationType) {

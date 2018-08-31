@@ -1,5 +1,4 @@
-
-const createAnalyticsMiddlware = services => () => next => (action) => {
+const createAnalyticsMiddlware = services => () => next => action => {
   if (action.meta && action.meta.track) {
     const gtm = services.resolve('gtm');
     if (action.complete) {
