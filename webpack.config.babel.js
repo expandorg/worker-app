@@ -7,6 +7,8 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { envFilePath } from './config';
 
+import packageJson from './package.json';
+
 class EmptyPlugin { apply = () => {} }
 
 const entry = {
@@ -104,6 +106,10 @@ export default (env = {}) => {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
+        },
+        gemsBuildInfo: {
+          components: JSON.stringify(packageJson.dependencies['@gemsorg/components']),
+          buildDate: JSON.stringify(new Date().toUTCString()),
         },
       }),
       new MiniCssExtractPlugin({
