@@ -1,10 +1,4 @@
 // @flow
-import { type ReduxAction } from './types.flow';
-
-export type RequestStateType = {
-  state: 'NotFetched' | 'Fetching' | 'Fetched' | 'FetchError',
-  error?: ?{ [key: string]: string },
-};
 
 export const RequestStates = {
   NotFetched: 'NotFetched',

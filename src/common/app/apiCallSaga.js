@@ -5,8 +5,6 @@ import { validateForm } from '@gemsorg/components/src/common/validation';
 
 import ApiError from '../api/ApiError';
 
-import { type ReduxAction } from './types.flow';
-
 export const apiCallSaga = (
   actionType: string,
   asyncCall: () => Promise<any>
