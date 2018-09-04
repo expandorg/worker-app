@@ -14,7 +14,7 @@
   "dependencies": {
     "@gemsorg/components": "^0.0.46",
     "@xlnt/scry-one": "0.0.1",
-    "bignumber.js": "^7.1.0",
+    "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
     "classnames": "^2.2.6",
     "debounce": "^1.2.0",
     "gems-token": "github:gemsorg/gems-token",

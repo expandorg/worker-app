@@ -12,7 +12,7 @@ export class Balance {
   }
 
   isGreaterThanOrEqualTo = (a: number, b: number) =>
-    new BigNumber(a).isGreaterThanOrEqualTo(new BigNumber(b))
+    new BigNumber(a).greaterThanOrEqualTo(new BigNumber(b))
 
   canDeposit(amount: number, gemsBalance: number) {
     return (gemsBalance >= DEPOSIT_MIN) && (amount >= DEPOSIT_MIN) && (amount <= DEPOSIT_MAX);
