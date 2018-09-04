@@ -100,7 +100,7 @@ class JobDetails extends Component {
             onAssign={this.handleAssignJob}
           />
         )}
-        <AssignedJobRedirect />
+        <AssignedJobRedirect replace jobId={jobId} />
       </Content>
     );
   }
