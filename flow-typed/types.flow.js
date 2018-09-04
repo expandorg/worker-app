@@ -1,6 +1,6 @@
 // @flow
 
-export type ReduxActionMeta = {
+declare type ReduxActionMeta = {
   validation?: Object,
   schema?: Object,
   params?: Object,
@@ -11,7 +11,7 @@ export type ReduxActionMeta = {
   },
 };
 
-export type ReduxAction = {
+declare type ReduxAction = {
   type: string,
   payload: any,
   complete?: boolean,
@@ -20,7 +20,7 @@ export type ReduxAction = {
   [key: string]: any,
 };
 
-export type RequestStateType = {
+declare type RequestStateType = {
   state: 'NotFetched' | 'Fetching' | 'Fetched' | 'FetchError',
   error?: ?{ [key: string]: string },
 };

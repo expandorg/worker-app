@@ -1,4 +1,5 @@
 // @flow
+import type { Saga } from 'redux-saga';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import { validateForm } from '@gemsorg/components/src/common/validation';
@@ -46,11 +47,11 @@ export const takeEveryApiCall = (
   asyncCall: () => Promise<any>
 ) => {
   const request = apiCallSaga(actionType, asyncCall);
-  function* watchGenerator(): Iterable<any> {
+  function* watchGenerator(): Saga<void> {
     yield takeEvery(actionType, request);
   }
   return watchGenerator;
 };
 
-export const delay = (ms: number) =>
+export const delay = (ms: number): Promise<any> =>
   new Promise(resolve => setTimeout(() => resolve(true), ms));

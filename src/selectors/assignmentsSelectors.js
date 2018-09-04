@@ -13,6 +13,19 @@ export const assignmentsSelector = createSelector(
   (entities, list) => list.map(jobId => entities[jobId])
 );
 
+export const makeJobAssignmentSelector = () =>
+  createSelector(
+    assignmentsEntitiesSelector,
+    assignmentsListSelector,
+    (state, list, jobId) => jobId,
+    (entities, list, jobId) => {
+      if (jobId === null || !list.includes(+jobId)) {
+        return null;
+      }
+      return entities[+jobId];
+    }
+  );
+
 export const makeTaskAssignmentSelector = () =>
   createSelector(
     assignmentsSelector,
