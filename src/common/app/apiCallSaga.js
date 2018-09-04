@@ -5,10 +5,10 @@ import { validateForm } from '@gemsorg/components/src/common/validation';
 
 import ApiError from '../api/ApiError';
 
-
-import { type ReduxAction } from './types.flow';
-
-export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) => {
+export const apiCallSaga = (
+  actionType: string,
+  asyncCall: () => Promise<any>
+) => {
   function* request({ payload, meta }: ReduxAction): Iterable<any> {
     try {
       if (meta && meta.validation) {
@@ -23,19 +23,28 @@ export const apiCallSaga = (actionType: string, asyncCall: () => Promise<any>) =
         result = normalize(result, meta.schema);
       }
       yield put({
-        type: `${actionType}_COMPLETE`, payload: result, complete: true, meta,
+        type: `${actionType}_COMPLETE`,
+        payload: result,
+        complete: true,
+        meta,
       });
     } catch (error) {
       console.log(error);
       yield put({
-        type: `${actionType}_FAILED`, payload: error, failed: true, meta,
+        type: `${actionType}_FAILED`,
+        payload: error,
+        failed: true,
+        meta,
       });
     }
   }
   return request;
 };
 
-export const takeEveryApiCall = (actionType: string, asyncCall: () => Promise<any>) => {
+export const takeEveryApiCall = (
+  actionType: string,
+  asyncCall: () => Promise<any>
+) => {
   const request = apiCallSaga(actionType, asyncCall);
   function* watchGenerator(): Iterable<any> {
     yield takeEvery(actionType, request);

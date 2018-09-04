@@ -1,4 +1,8 @@
-import { authActionTypes, jobsActionTypes, tasksActionTypes } from '../../sagas/actionTypes';
+import {
+  authActionTypes,
+  jobsActionTypes,
+  tasksActionTypes,
+} from '../../sagas/actionTypes';
 
 const initialState = [];
 

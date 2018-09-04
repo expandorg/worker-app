@@ -12,9 +12,7 @@ export default class Container extends Component {
     const { children, onClear } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.content}>
-          {children}
-        </div>
+        <div className={styles.content}>{children}</div>
         <button className={styles.clear} onClick={onClear}>
           ✕
         </button>

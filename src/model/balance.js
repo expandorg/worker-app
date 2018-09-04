@@ -8,23 +8,33 @@ export const WITHDRAW_MAX = 100000;
 
 export class Balance {
   availableBalance(user: Object) {
-    return new BigNumber(user.gems.balance).minus(new BigNumber(user.gems.reserved)).toNumber();
+    return new BigNumber(user.gems.balance)
+      .minus(new BigNumber(user.gems.reserved))
+      .toNumber();
   }
 
   isGreaterThanOrEqualTo = (a: number, b: number) =>
-    new BigNumber(a).isGreaterThanOrEqualTo(new BigNumber(b))
+    new BigNumber(a).isGreaterThanOrEqualTo(new BigNumber(b));
 
   canDeposit(amount: number, gemsBalance: number) {
-    return (gemsBalance >= DEPOSIT_MIN) && (amount >= DEPOSIT_MIN) && (amount <= DEPOSIT_MAX);
+    return (
+      gemsBalance >= DEPOSIT_MIN &&
+      amount >= DEPOSIT_MIN &&
+      amount <= DEPOSIT_MAX
+    );
   }
 
   canWithdraw(user: Object, amount: number) {
     const balance = this.get(user);
-    return (amount >= WITHDRAW_MIN) && (amount <= balance) && (amount <= WITHDRAW_MAX);
+    return (
+      amount >= WITHDRAW_MIN && amount <= balance && amount <= WITHDRAW_MAX
+    );
   }
 
   get(user: Object) {
-    const totalBalance = new BigNumber(user.gems.balance).minus(new BigNumber(user.gems.reserved));
+    const totalBalance = new BigNumber(user.gems.balance).minus(
+      new BigNumber(user.gems.reserved)
+    );
     return totalBalance.toNumber();
   }
 }

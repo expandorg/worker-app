@@ -4,10 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Input, Button, Dialog, DialogHeadline, ErrorMessage } from '@gemsorg/components';
+import {
+  Input,
+  Button,
+  Dialog,
+  DialogHeadline,
+  ErrorMessage,
+} from '@gemsorg/components';
 
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
-
 
 import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
@@ -54,14 +59,17 @@ class EditAddressDialoig extends Component {
     if (nextState.error && nextState.error !== assignState.error) {
       this.setState({ error: nextState.error });
     }
-    if (assignState.state === RequestStates.Fetching && nextState.state === RequestStates.Fetched) {
+    if (
+      assignState.state === RequestStates.Fetching &&
+      nextState.state === RequestStates.Fetched
+    ) {
       onHide();
     }
   }
 
   handleHide = () => {
     this.setState({ metamaskDialog: false });
-  }
+  };
 
   handleAssignClick = () => {
     const { user, metamaskState } = this.props;
@@ -70,14 +78,14 @@ class EditAddressDialoig extends Component {
     } else {
       this.props.assignAddress(user);
     }
-  }
+  };
 
   handleSaveClick = () => {
     const { user } = this.props;
     if (this.state.address) {
       this.props.assignAddress(user, this.state.address);
     }
-  }
+  };
 
   render() {
     const { metamaskState, onHide } = this.props;
@@ -85,9 +93,7 @@ class EditAddressDialoig extends Component {
 
     return (
       <Dialog contentLabel="Account Address" visible onHide={onHide}>
-        <DialogHeadline>
-          Edit Address
-        </DialogHeadline>
+        <DialogHeadline>Edit Address</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.form}>
             <div className={styles.field}>
@@ -99,29 +105,26 @@ class EditAddressDialoig extends Component {
               >
                 <ins className={styles.fox} /> Use Metamask Address
               </Button>
-              {metamaskDialog &&
+              {metamaskDialog && (
                 <MetamaskPromt
                   metamaskState={metamaskState}
                   action="Assign address"
                   onLogin={this.props.assignAddress}
                   onHide={this.handleHide}
                 />
-              }
+              )}
             </div>
-            <h2 className={styles.title}>
-              Or enter adress manually
-            </h2>
+            <h2 className={styles.title}>Or enter adress manually</h2>
             <div className={styles.field}>
               <Input
                 type="text"
                 placeholder="Ethereum address"
                 value={address}
-                onChange={({ target }) => this.setState({ address: target.value })}
+                onChange={({ target }) =>
+                  this.setState({ address: target.value })
+                }
               />
-              <Button
-                className={styles.save}
-                onClick={this.handleSaveClick}
-              >
+              <Button className={styles.save} onClick={this.handleSaveClick}>
                 Save
               </Button>
               <ErrorMessage error={error} className={styles.error} />
@@ -133,4 +136,7 @@ class EditAddressDialoig extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditAddressDialoig);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditAddressDialoig);

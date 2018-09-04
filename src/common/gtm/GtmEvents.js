@@ -23,6 +23,12 @@ export const GtmActions = {
   }),
 };
 
-export const ua = (action: string, value?: string | number, label?: string) => ({
-  action, value, label,
+export const ua = (
+  action: string,
+  value?: string | number,
+  label?: string
+) => ({
+  action,
+  value,
+  label,
 });

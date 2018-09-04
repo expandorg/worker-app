@@ -63,10 +63,10 @@ class Task extends Component {
     this.props.fetchTask(taskId);
   }
 
-  handleSubmit = (form) => {
+  handleSubmit = form => {
     const { taskId, onSubmit } = this.props;
     onSubmit(() => this.props.submitTask(taskId, form));
-  }
+  };
 
   render() {
     const { submitState, job, task } = this.props;
@@ -76,19 +76,18 @@ class Task extends Component {
     return (
       <Content title={job.name}>
         <Panel className={styles.container}>
-          {job && task &&
-            <TaskForm
-              form={job.taskForm}
-              taskData={task.taskData}
-              contextData={job}
-              submitState={submitState}
-              onSubmit={this.handleSubmit}
-            />
-          }
+          {job &&
+            task && (
+              <TaskForm
+                form={job.taskForm}
+                taskData={task.taskData}
+                contextData={job}
+                submitState={submitState}
+                onSubmit={this.handleSubmit}
+              />
+            )}
         </Panel>
-        {submitState.state === RequestStates.Fetched &&
-          <SubmissionDialog />
-        }
+        {submitState.state === RequestStates.Fetched && <SubmissionDialog />}
       </Content>
     );
   }
@@ -96,6 +95,9 @@ class Task extends Component {
 
 export default authenticated(
   withSubmitState(submitTaskStateSelector)(
-    connect(makeMapStateToProps, mapDispatchToProps)(Task),
-  ),
+    connect(
+      makeMapStateToProps,
+      mapDispatchToProps
+    )(Task)
+  )
 );

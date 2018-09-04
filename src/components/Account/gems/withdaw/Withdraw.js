@@ -27,13 +27,13 @@ class Withdraw extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     txState: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     dialog: false,
     emailDialog: false,
     addressDialog: false,
-  }
+  };
 
   handleToggle = () => {
     const { user, txState } = this.props;
@@ -54,44 +54,44 @@ class Withdraw extends Component {
     } catch (e) {
       this.setState({ [e.message]: true });
     }
-  }
+  };
 
   handleHideAddress = () => {
     this.setState({ addressDialog: false });
     if (this.props.user.address) {
       this.handleToggle();
     }
-  }
+  };
 
   handleHideEmail = () => {
     this.setState({ emailDialog: false });
     if (this.props.user.emailConfirmed) {
       this.handleToggle();
     }
-  }
+  };
 
   render() {
     const { user, txState } = this.props;
-    const {
-      dialog, emailDialog, addressDialog,
-    } = this.state;
+    const { dialog, emailDialog, addressDialog } = this.state;
     const balance = userBalance.get(user);
 
     const disabled = txState === RequestStates.Fetching;
     return (
       <Fragment>
-        <Button onClick={this.handleToggle} className={styles.withdraw} disabled={disabled}>
+        <Button
+          onClick={this.handleToggle}
+          className={styles.withdraw}
+          disabled={disabled}
+        >
           Withdraw <AvailableFunds balance={balance} />
         </Button>
-        {dialog &&
-          <WithdrawDialog user={user} onHide={this.handleToggle} />
-        }
-        {addressDialog &&
+        {dialog && <WithdrawDialog user={user} onHide={this.handleToggle} />}
+        {addressDialog && (
           <EditAddressDialoig user={user} onHide={this.handleHideAddress} />
-        }
-        {emailDialog &&
+        )}
+        {emailDialog && (
           <ConfirmEmailDialog user={user} onHide={this.handleHideEmail} />
-        }
+        )}
       </Fragment>
     );
   }

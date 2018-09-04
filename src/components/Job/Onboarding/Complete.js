@@ -38,18 +38,19 @@ export default class OnboardingComplete extends Component {
     return (
       <Panel>
         <div className={styles.form}>
-          <h1 className={styles.heading}>
-            Great job!
-          </h1>
-          <p className={styles.description}>
-            {job.onboarding.successMessage}
-          </p>
+          <h1 className={styles.heading}>Great job!</h1>
+          <p className={styles.description}>{job.onboarding.successMessage}</p>
           <p className={styles.description}>
             Continue with the real task and earn some gems!
           </p>
           <div className={styles.actions}>
             <Link
-              className={cn('gem-button', 'gem-button-large', 'gem-button-white', styles.back)}
+              className={cn(
+                'gem-button',
+                'gem-button-large',
+                'gem-button-white',
+                styles.back
+              )}
               to="/jobs"
             >
               Not interesting

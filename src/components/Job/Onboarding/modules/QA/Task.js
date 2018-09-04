@@ -20,9 +20,7 @@ export default class Task extends Component {
         >
           Read article
         </a>
-        <p>
-          Read article and answer the questions!
-        </p>
+        <p>Read article and answer the questions!</p>
       </Alignment>
     );
   }

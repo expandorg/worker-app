@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import { RequestStates } from '../../common/app/requestUiState';
 
-import { requestStateProps, historyProps } from '../shared/propTypes';
+import { requestStateProps, historyProps } from './propTypes';
 
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 
@@ -22,7 +22,10 @@ class AssignedJobRedirect extends Component {
 
   componentDidUpdate({ submitState: prev }) {
     const { submitState, history } = this.props;
-    if (prev.state === RequestStates.Fetching && submitState.state === RequestStates.Fetched) {
+    if (
+      prev.state === RequestStates.Fetching &&
+      submitState.state === RequestStates.Fetched
+    ) {
       history.push(`/tasks/${submitState.payload.result.newAssignment.taskId}`);
     }
   }

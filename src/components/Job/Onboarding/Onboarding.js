@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gemsorg/components';
-import { Form, FormDataProvider, moduleControls, Module } from '@gemsorg/components/modules';
+import {
+  Form,
+  FormDataProvider,
+  moduleControls,
+  Module,
+} from '@gemsorg/components/modules';
 
 import OnboardingModuleTypes from './modules/OnboardingModuleTypes';
 import Rules from './modules/Rules';
@@ -19,9 +24,11 @@ import GroupFaildDialog from './GroupFaildDialog';
 
 import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 
-import { submitOnboarding, removeOnboardingMessage } from '../../../sagas/onboardingSagas';
+import {
+  submitOnboarding,
+  removeOnboardingMessage,
+} from '../../../sagas/onboardingSagas';
 import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
-
 
 import styles from './Onboarding.module.styl';
 
@@ -45,15 +52,15 @@ class Onboarding extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  handleSaveStep = (values) => {
+  handleSaveStep = values => {
     const { onSubmit, jobId } = this.props;
     onSubmit(() => this.props.submitOnboarding(jobId, values));
-  }
+  };
 
   handleHideDialog = () => {
     const { jobId } = this.props;
     this.props.removeOnboardingMessage(jobId);
-  }
+  };
 
   render() {
     const { onboarding, submitState } = this.props;
@@ -71,17 +78,20 @@ class Onboarding extends Component {
             </Form>
           </FormDataProvider>
         </div>
-        {onboarding.message &&
+        {onboarding.message && (
           <GroupFaildDialog
             onboarding={onboarding}
             onHide={this.handleHideDialog}
           />
-        }
+        )}
       </Panel>
     );
   }
 }
 
 export default withSubmitState(submitOnboardingStateSelector)(
-  connect(null, mapDispatchToProps)(Onboarding),
+  connect(
+    null,
+    mapDispatchToProps
+  )(Onboarding)
 );

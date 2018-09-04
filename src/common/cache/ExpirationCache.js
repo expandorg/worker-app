@@ -2,7 +2,7 @@
 import Cache from './Cache';
 
 export default class ExpirationCache extends Cache {
-  expiresIn: number
+  expiresIn: number;
 
   constructor(expiresIn: number) {
     super();
@@ -23,5 +23,5 @@ export default class ExpirationCache extends Cache {
       }
     }
     return data.entity;
-  }
+  };
 }

@@ -13,8 +13,10 @@ export const fetchOnboarding = jobId => ({
   meta: { schema: { onboarding: onboardingSchema } },
 });
 
-const watchFetchRequest = takeEveryApiCall(onboardingActionTypes.FETCH, onboardingApi.fetch);
-
+const watchFetchRequest = takeEveryApiCall(
+  onboardingActionTypes.FETCH,
+  onboardingApi.fetch
+);
 
 export const submitOnboarding = (jobId, response) => ({
   type: onboardingActionTypes.SUBMIT,
@@ -24,8 +26,10 @@ export const submitOnboarding = (jobId, response) => ({
   },
 });
 
-const watchSubmitRequest = takeEveryApiCall(onboardingActionTypes.SUBMIT, onboardingApi.submit);
-
+const watchSubmitRequest = takeEveryApiCall(
+  onboardingActionTypes.SUBMIT,
+  onboardingApi.submit
+);
 
 export const removeOnboardingMessage = jobId => ({
   type: onboardingActionTypes.REMOVE_MESSAGE,

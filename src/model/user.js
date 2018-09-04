@@ -6,9 +6,7 @@ export const loginValidation = {
     [rules.isNotEmpty, 'Email can not be empty'],
     [rules.isEmail, 'Incorrect email format'],
   ],
-  password: [
-    [rules.isNotEmpty, 'Password can not be empty'],
-  ],
+  password: [[rules.isNotEmpty, 'Password can not be empty']],
 };
 
 export const signupValidation = {
@@ -16,7 +14,5 @@ export const signupValidation = {
     [rules.isNotEmpty, 'Email can not be empty'],
     [rules.isEmail, 'Incorrect email format'],
   ],
-  password: [
-    [rules.isNotEmpty, 'Password can not be empty'],
-  ],
+  password: [[rules.isNotEmpty, 'Password can not be empty']],
 };

@@ -8,7 +8,6 @@ import { Dialog, DialogHeadline } from '@gemsorg/components';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 
-
 import DepositForm from './DepositForm';
 import Transactions from '../../../shared/transactions/Transactions';
 
@@ -18,7 +17,10 @@ import { requestStateProps } from '../../../shared/propTypes';
 import { depositGems } from '../../../../sagas/gemsSagas';
 
 import { gemBalanceSelector } from '../../../../selectors/userSelectors';
-import { depositStageSelector, depositStateSelector } from '../../../../selectors/uiStateSelectors';
+import {
+  depositStageSelector,
+  depositStateSelector,
+} from '../../../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
   stage: depositStageSelector(state),
@@ -37,51 +39,53 @@ class DepositDialog extends Component {
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     depositGems: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     gemsBalance: 0,
-  }
+  };
 
-  handleDeposit = (amount) => {
+  handleDeposit = amount => {
     const { onSubmit } = this.props;
     onSubmit(() => this.props.depositGems(amount));
-  }
+  };
 
   handleHide = () => {
     if (this.props.submitState.state !== RequestStates.Fetching) {
       this.props.onHide();
     }
-  }
+  };
 
   render() {
-    const {
-      stage, submitState, fetchBalanceState, gemsBalance,
-    } = this.props;
+    const { stage, submitState, fetchBalanceState, gemsBalance } = this.props;
     const isFetched = submitState.state === RequestStates.Fetched;
 
     return (
-      <Dialog contentLabel="deposit" visible onHide={this.handleHide} >
+      <Dialog contentLabel="deposit" visible onHide={this.handleHide}>
         <DialogHeadline>
           {isFetched ? 'Transactions' : 'Deposit Gems'}
         </DialogHeadline>
-        {isFetched
-          ? <Transactions transactions={[submitState.payload.user.pendingTx.hash]} />
-          : (
-            <DepositForm
-              submitState={submitState}
-              fetchState={fetchBalanceState}
-              stage={stage}
-              gemsBalance={gemsBalance}
-              onDeposit={this.handleDeposit}
-            />
-          )
-        }
+        {isFetched ? (
+          <Transactions
+            transactions={[submitState.payload.user.pendingTx.hash]}
+          />
+        ) : (
+          <DepositForm
+            submitState={submitState}
+            fetchState={fetchBalanceState}
+            stage={stage}
+            gemsBalance={gemsBalance}
+            onDeposit={this.handleDeposit}
+          />
+        )}
       </Dialog>
     );
   }
 }
 
 export default withSubmitState(depositStateSelector)(
-  connect(mapStateToProps, mapDispatchToProps)(DepositDialog),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(DepositDialog)
 );

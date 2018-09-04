@@ -11,7 +11,6 @@ import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 
 import { userProps } from '../../shared/propTypes';
 
-
 const mapStateToProps = state => ({
   metamaskState: metamaskStateSelector(state),
 });
@@ -23,11 +22,11 @@ class Address extends Component {
 
   state = {
     edit: false,
-  }
+  };
 
   handleEdit = () => {
     this.setState(({ edit }) => ({ edit: !edit }));
-  }
+  };
 
   render() {
     const { user } = this.props;
@@ -39,9 +38,7 @@ class Address extends Component {
           placeholder="No ethereum address found"
           onEdit={this.handleEdit}
         />
-        {edit &&
-          <EditAddressDialoig user={user} onHide={this.handleEdit} />
-        }
+        {edit && <EditAddressDialoig user={user} onHide={this.handleEdit} />}
       </Field>
     );
   }

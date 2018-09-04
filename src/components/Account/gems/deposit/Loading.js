@@ -11,7 +11,11 @@ export default function Loading({ stage, value }) {
         <p className={styles.p}>This may take some time,</p>
         <p className={styles.p}>PLEASE DO NOT NAVIGATE AWAY</p>
         <p className={styles.p}>Depositing {value} Gems</p>
-        <img className={styles.spinner} alt="Processing..." src="/images/loading-animation.gif" />
+        <img
+          className={styles.spinner}
+          alt="Processing..."
+          src="/images/loading-animation.gif"
+        />
       </div>
     </div>
   );

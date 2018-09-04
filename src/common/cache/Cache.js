@@ -2,7 +2,7 @@
 import MemoryStorage from './MemoryStorage';
 
 export default class Cache {
-  storage: Object
+  storage: Object;
 
   constructor(storage: Object = new MemoryStorage()) {
     this.storage = storage;
@@ -17,5 +17,5 @@ export default class Cache {
       }
     }
     return entity;
-  }
+  };
 }

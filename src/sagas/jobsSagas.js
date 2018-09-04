@@ -13,8 +13,10 @@ export const fetchJobs = () => ({
   meta: { schema: { jobs: [jobSchema] } },
 });
 
-const watchFetchListRequest = takeEveryApiCall(jobsActionTypes.FETCH_LIST, jobsApi.list);
-
+const watchFetchListRequest = takeEveryApiCall(
+  jobsActionTypes.FETCH_LIST,
+  jobsApi.list
+);
 
 export const fetchJob = jobId => ({
   type: jobsActionTypes.FETCH,
@@ -22,8 +24,10 @@ export const fetchJob = jobId => ({
   meta: { schema: { job: jobSchema } },
 });
 
-const watchFetchRequest = takeEveryApiCall(jobsActionTypes.FETCH, jobsApi.fetch);
-
+const watchFetchRequest = takeEveryApiCall(
+  jobsActionTypes.FETCH,
+  jobsApi.fetch
+);
 
 export const assignJob = jobId => ({
   type: jobsActionTypes.ASSIGN,
@@ -36,8 +40,10 @@ export const assignJob = jobId => ({
   },
 });
 
-const watchAssignRequest = takeEveryApiCall(jobsActionTypes.ASSIGN, jobsApi.assign);
-
+const watchAssignRequest = takeEveryApiCall(
+  jobsActionTypes.ASSIGN,
+  jobsApi.assign
+);
 
 export function* jobsSagas() {
   yield fork(watchFetchRequest);

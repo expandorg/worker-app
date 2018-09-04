@@ -9,16 +9,14 @@ import styles from './SubmissionDialog.module.styl';
 export default class SubmissionDialog extends Component {
   render() {
     return (
-      <Dialog visible hideButton contentLabel="submit task" >
-        <DialogHeadline>
-          Task Submitted
-        </DialogHeadline>
+      <Dialog visible hideButton contentLabel="submit task">
+        <DialogHeadline>Task Submitted</DialogHeadline>
         <div className={styles.container}>
-          <div className={styles.heading}>
-            Submission successful!
-          </div>
+          <div className={styles.heading}>Submission successful!</div>
           <div className={styles.finished}>
-            <Link to="/jobs" className={styles.browse}>Browse available jobs</Link>
+            <Link to="/jobs" className={styles.browse}>
+              Browse available jobs
+            </Link>
           </div>
         </div>
       </Dialog>

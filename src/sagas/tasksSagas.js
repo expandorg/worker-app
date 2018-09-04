@@ -14,7 +14,10 @@ export const fetchTask = taskId => ({
   meta: { schema: { task: taskSchema } },
 });
 
-const watchFetchRequest = takeEveryApiCall(tasksActionTypes.FETCH, tasksApi.fetch);
+const watchFetchRequest = takeEveryApiCall(
+  tasksActionTypes.FETCH,
+  tasksApi.fetch
+);
 
 export const submitTask = (taskId, form) => ({
   type: tasksActionTypes.SUBMIT,
@@ -27,8 +30,10 @@ export const submitTask = (taskId, form) => ({
   },
 });
 
-const watchCreateRequest = takeEveryApiCall(tasksActionTypes.SUBMIT, tasksApi.submitTask);
-
+const watchCreateRequest = takeEveryApiCall(
+  tasksActionTypes.SUBMIT,
+  tasksApi.submitTask
+);
 
 export function* tasksSagas() {
   yield fork(watchFetchRequest);

@@ -1,4 +1,11 @@
-import { fork, takeEvery, put, select, call, getContext } from 'redux-saga/effects';
+import {
+  fork,
+  takeEvery,
+  put,
+  select,
+  call,
+  getContext,
+} from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 
@@ -66,7 +73,10 @@ export const fetchGemsBalance = user => ({
   payload: { userId: user.id },
 });
 
-const watchFetchBalance = takeEveryApiCall(gemsActionTypes.FETCH_BALANCE, userApi.fetchBalance);
+const watchFetchBalance = takeEveryApiCall(
+  gemsActionTypes.FETCH_BALANCE,
+  userApi.fetchBalance
+);
 
 export const withdrawPayments = (user, withdrawal) => ({
   type: gemsActionTypes.WITHDRAW,
@@ -80,14 +90,15 @@ export const withdrawPayments = (user, withdrawal) => ({
   },
 });
 
-
 export const transactionFailed = (data, params) => ({
   type: gemsActionTypes.TRANSACTION_FAILED,
   payload: { data, params },
 });
 
-const watchWithdraw = takeEveryApiCall(gemsActionTypes.WITHDRAW, userApi.withdraw);
-
+const watchWithdraw = takeEveryApiCall(
+  gemsActionTypes.WITHDRAW,
+  userApi.withdraw
+);
 
 export function* gemsSagas() {
   yield takeEvery(gemsActionTypes.DEPOSIT, handleDeposit);

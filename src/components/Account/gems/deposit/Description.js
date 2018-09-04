@@ -11,18 +11,19 @@ const Description = ({ gemsBalance, isFetching }) => (
     </p>
     <p className={styles.p}>
       You will not lose your deposited Gems even if your tasks are not accepted,
-      and you can withdraw them again once your total balance is at least 500 Gems.
+      and you can withdraw them again once your total balance is at least 500
+      Gems.
     </p>
     <p className={styles.p}>
-      {isFetching
-        ? <ins className={styles.loading} />
-        : (
-          <span>
-            Your currently own <span className={styles.balance}>{gemsBalance}</span>
-            &nbsp;Gems that are available to deposit.
-          </span>
-        )
-      }
+      {isFetching ? (
+        <ins className={styles.loading} />
+      ) : (
+        <span>
+          Your currently own{' '}
+          <span className={styles.balance}>{gemsBalance}</span>
+          &nbsp;Gems that are available to deposit.
+        </span>
+      )}
     </p>
   </div>
 );

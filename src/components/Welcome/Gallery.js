@@ -8,22 +8,23 @@ import Dots from './Dots';
 
 import styles from './Gallery.module.styl';
 
-
 const count = 3;
-
 
 export default class Gallery extends Component {
   state = {
     active: 0,
-  }
+  };
 
-  handleSlide = (to) => {
-    this.setState({
+  handleSlide = to => {
+    this.setState(
+      {
       active: to < 0 ? count - 1 : (to >= count ? 0 : to), // eslint-disable-line
-    }, () => {
-      this.parallax.scrollTo(this.state.active);
-    });
-  }
+      },
+      () => {
+        this.parallax.scrollTo(this.state.active);
+      }
+    );
+  };
 
   render() {
     const { active } = this.state;
@@ -32,7 +33,9 @@ export default class Gallery extends Component {
         <div className={styles.inner}>
           <Parallax
             className={styles.gallery}
-            ref={(node) => { this.parallax = node; }}
+            ref={node => {
+              this.parallax = node;
+            }}
             pages={count}
             config={config.gentle}
             horizontal

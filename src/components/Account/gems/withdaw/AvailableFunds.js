@@ -8,13 +8,14 @@ import styles from './AvailableFunds.module.styl';
 export default class AvailableFunds extends Component {
   static propTypes = {
     balance: PropTypes.number.isRequired,
-  }
+  };
   render() {
     const { balance } = this.props;
 
     return (
       <span className={styles.availableFunds}>
-        {balance} tokens{balance < WITHDRAW_MIN && '*'}
+        {balance} tokens
+        {balance < WITHDRAW_MIN && '*'}
       </span>
     );
   }

@@ -1,4 +1,3 @@
-
 import settings from '../settings';
 
 import ApiClient from './ApiClient';
@@ -11,12 +10,9 @@ export default class BaseApi {
     this.client = client;
   }
 
-  get = (...args) =>
-    this.client.get(...args)
+  get = (...args) => this.client.get(...args);
 
-  post = (...args) =>
-    this.client.post(...args)
+  post = (...args) => this.client.post(...args);
 
-  success = data =>
-    Promise.resolve(data)
+  success = data => Promise.resolve(data);
 }

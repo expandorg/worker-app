@@ -17,12 +17,8 @@ const mapStateToProps = state => ({
 const NotFound = ({ isAuthorized }) => (
   <Content title="Page Not Found">
     <Panel>
-      {!isAuthorized &&
-        <Link to="/login">Log in to get started</Link>
-      }
-      {isAuthorized &&
-        <Link to="/jobs">Browse available jobs</Link>
-      }
+      {!isAuthorized && <Link to="/login">Log in to get started</Link>}
+      {isAuthorized && <Link to="/jobs">Browse available jobs</Link>}
     </Panel>
   </Content>
 );
@@ -30,6 +26,5 @@ const NotFound = ({ isAuthorized }) => (
 NotFound.propTypes = {
   isAuthorized: PropTypes.bool.isRequired,
 };
-
 
 export default connect(mapStateToProps)(NotFound);

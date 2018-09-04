@@ -1,7 +1,5 @@
-
 // @flow
 import createActionTypes from '../common/app/createActionTypes';
-
 
 export const appActionTypes = createActionTypes('app', {
   INIT: null,
@@ -45,7 +43,6 @@ export const authActionTypes = createActionTypes('auth', {
   LOGOUT_COMPLETE: null,
   LOGOUT_FAILED: null,
 });
-
 
 export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS: null,
@@ -92,7 +89,6 @@ export const jobsActionTypes = createActionTypes('jobs', {
   ASSIGN_COMPLETE: null,
   ASSIGN_FAILED: null,
 });
-
 
 export const onboardingActionTypes = createActionTypes('onboarding', {
   FETCH: null,
