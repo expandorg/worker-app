@@ -15,7 +15,7 @@
     "@babel/polyfill": "^7.0.0",
     "@gemsorg/components": "^0.0.47",
     "@xlnt/scry-one": "0.0.1",
-    "bignumber.js": "^7.1.0",
+    "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "debounce": "^1.2.0",
