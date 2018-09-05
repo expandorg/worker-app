@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@gemsorg/components": "^0.0.47",
+    "@gemsorg/components": "^0.0.49",
     "@xlnt/scry-one": "0.0.1",
     "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
     "classnames": "^2.2.6",

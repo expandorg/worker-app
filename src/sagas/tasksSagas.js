@@ -35,7 +35,21 @@ const watchCreateRequest = takeEveryApiCall(
   tasksApi.submitTask
 );
 
+export const reportTask = (taskId, reason, message) => ({
+  type: tasksActionTypes.REPORT,
+  payload: { taskId, reason, message },
+  meta: {
+    schema: { assignedTasks: [taskSchema] },
+  },
+});
+
+const watchReportRequest = takeEveryApiCall(
+  tasksActionTypes.REPORT,
+  tasksApi.report
+);
+
 export function* tasksSagas() {
   yield fork(watchFetchRequest);
   yield fork(watchCreateRequest);
+  yield fork(watchReportRequest);
 }

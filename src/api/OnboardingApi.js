@@ -5,6 +5,9 @@ export class OnboardingApi extends BaseApi {
 
   submit = ({ jobId, response }) =>
     this.post(`/jobs/${jobId}/onboarding`, { response });
+
+  report = ({ jobId, reason, message }) =>
+    this.post(`/jobs/${jobId}/onboarding/report`, { reason, message });
 }
 
 export const onboardingApi = new OnboardingApi();
