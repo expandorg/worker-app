@@ -50,10 +50,12 @@ export default combineReducers({
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
   submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
+  reportOnboarding: requestUiStateReducer(onboardingActionTypes.REPORT),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
+  reportTask: requestUiStateReducer(tasksActionTypes.REPORT),
 
   notification,
 });

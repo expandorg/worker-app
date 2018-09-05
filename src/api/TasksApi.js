@@ -5,6 +5,9 @@ export class TasksApi extends BaseApi {
 
   submitTask = ({ taskId, response }) =>
     this.post(`/tasks/${taskId}/submit`, { response });
+
+  report = ({ taskId, reason, message }) =>
+    this.post(`/tasks/${taskId}/report`, { reason, message });
 }
 
 export const tasksApi = new TasksApi();

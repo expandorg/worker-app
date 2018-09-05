@@ -76,11 +76,20 @@ export const submitOnboardingStateSelector = createSelector(
   state => state.submitOnboarding
 );
 
+export const reportOnboardingStateSelector = createSelector(
+  uiStateSelector,
+  state => state.reportOnboarding
+);
+
 export const submitTaskStateSelector = createSelector(
   uiStateSelector,
   state => state.submitTask
 );
 
+export const reportTaskStateSelector = createSelector(
+  uiStateSelector,
+  state => state.reportTask
+);
 export const fetchBalanceStateSelector = createSelector(
   uiStateSelector,
   state => state.gemBalance

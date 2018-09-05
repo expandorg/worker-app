@@ -13,7 +13,7 @@ import Content from '../shared/Content';
 import TaskForm from './TaskForm';
 import SubmissionDialog from './SubmissionDialog';
 
-import { submitTask, fetchTask } from '../../sagas/tasksSagas';
+import { submitTask, fetchTask, reportTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
@@ -37,7 +37,10 @@ const makeMapStateToProps = () => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ submitTask, fetchTask, fetchJobs }, dispatch);
+  bindActionCreators(
+    { submitTask, reportTask, fetchTask, fetchJobs },
+    dispatch
+  );
 
 class Task extends Component {
   static propTypes = {
@@ -47,6 +50,7 @@ class Task extends Component {
     submitState: PropTypes.shape(requestStateProps).isRequired,
 
     submitTask: PropTypes.func.isRequired,
+    reportTask: PropTypes.func.isRequired,
     fetchJobs: PropTypes.func.isRequired,
     fetchTask: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -68,8 +72,14 @@ class Task extends Component {
     onSubmit(() => this.props.submitTask(taskId, form));
   };
 
+  handleReport = (reason, message) => {
+    const { taskId } = this.props;
+    this.props.reportTask(taskId, reason, message);
+  };
+
   render() {
     const { submitState, job, task } = this.props;
+
     return (
       <Content title={(job && job.name) || ''}>
         <Panel className={styles.container}>
@@ -80,6 +90,7 @@ class Task extends Component {
                 taskData={task.taskData}
                 contextData={job}
                 submitState={submitState}
+                onReport={this.handleReport}
                 onSubmit={this.handleSubmit}
               />
             )}

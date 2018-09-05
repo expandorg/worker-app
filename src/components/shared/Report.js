@@ -1,0 +1,52 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { ReportForm } from '@gemsorg/components/modules';
+
+import { RequestStates } from '../../common/app/requestUiState';
+import { requestStateProps } from './propTypes';
+
+export default class Report extends Component {
+  static propTypes = {
+    report: PropTypes.string,
+    reasons: PropTypes.arrayOf(PropTypes.string).isRequired,
+    submitState: PropTypes.shape(requestStateProps).isRequired,
+    onHide: PropTypes.func.isRequired,
+    onReport: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    report: null,
+  };
+
+  componentDidUpdate({ submitState: prev, onHide }) {
+    const { submitState } = this.props;
+    if (
+      prev.state === RequestStates.Fetching &&
+      submitState.state === RequestStates.Fetched
+    ) {
+      onHide();
+    }
+  }
+
+  handleReport = (reason, value) => {
+    const { onSubmit, onReport } = this.props;
+    onSubmit(() => onReport(reason, value));
+  };
+
+  render() {
+    const { report, reasons, onHide, submitState } = this.props;
+    const isReporting = submitState.state === RequestStates.Fetched;
+    return (
+      <ReportForm
+        onHide={onHide}
+        reasons={reasons}
+        report={report}
+        error={submitState.error}
+        isReporting={isReporting}
+        onReport={this.handleReport}
+      />
+    );
+  }
+}

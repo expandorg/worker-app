@@ -16,6 +16,7 @@ export const TaskType = keyMirror({
 export const NotificationType = keyMirror({
   Balance: null,
   TxError: null,
+  Report: null,
 });
 
 export const OnboardingStatus = {
