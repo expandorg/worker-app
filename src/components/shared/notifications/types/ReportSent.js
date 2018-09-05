@@ -11,8 +11,8 @@ import { notificationPayloadProps } from '../../propTypes';
 import styles from './styles.module.styl';
 
 const messages = {
-  [tasksActionTypes.REPORT_COMPLETE]: 'Task reporthas been sent',
-  [onboardingActionTypes.REPORT_COMPLETE]: 'Onbaording reporthas been sent',
+  [tasksActionTypes.REPORT_COMPLETE]: 'Task report has been sent',
+  [onboardingActionTypes.REPORT_COMPLETE]: 'Onboarding report has been sent',
 };
 
 export default class ReportSent extends Component {
