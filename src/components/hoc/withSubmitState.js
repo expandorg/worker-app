@@ -18,7 +18,6 @@ export default function withSubmitState(submitSelector) {
         submitState: PropTypes.shape(requestStateProps).isRequired,
       };
 
-      /* eslint-disable react/sort-comp, react/no-unused-state */
       static getDerivedStateFromProps({ submitState }, state) {
         if (state.submitted) {
           return {
@@ -28,6 +27,7 @@ export default function withSubmitState(submitSelector) {
         return null;
       }
 
+      /* eslint-disable react/no-unused-state */
       state = {
         submitState: initialState,
         submitted: false,

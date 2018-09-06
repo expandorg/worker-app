@@ -2,7 +2,7 @@
 
 .container
   position: relative;
-  padding: 30px 25px 25px;
+  padding: 15px 25px 25px;
 
   background-image: url(./bg.svg);
   background-position: right top;
@@ -15,13 +15,12 @@
 
   color: color-text-1
 
-.report
-  position: absolute;
+.actions
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 
-  display: inline-block;
-
-  right: 20px
-  top: 10px
-
-  @media(max-width: 768px)
-    right: 40px
+.cancel
+  margin-left: 10px
+  padding: 0 5px
+  border: 0

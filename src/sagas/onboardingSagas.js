@@ -44,6 +44,19 @@ const watchReportRequest = takeEveryApiCall(
   onboardingApi.report
 );
 
+export const cancelOnboarding = jobId => ({
+  type: onboardingActionTypes.CANCEL,
+  payload: { jobId },
+  meta: {
+    schema: { onboarding: onboardingSchema },
+  },
+});
+
+const watchCancelRequest = takeEveryApiCall(
+  onboardingActionTypes.CANCEL,
+  onboardingApi.cancel
+);
+
 export const removeOnboardingMessage = jobId => ({
   type: onboardingActionTypes.REMOVE_MESSAGE,
   payload: { jobId },
@@ -53,4 +66,5 @@ export function* onboardingSagas() {
   yield fork(watchFetchRequest);
   yield fork(watchSubmitRequest);
   yield fork(watchReportRequest);
+  yield fork(watchCancelRequest);
 }

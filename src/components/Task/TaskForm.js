@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from '@gemsorg/components';
+
 import {
   Form,
   Module,
@@ -29,6 +31,7 @@ export default class TaskForm extends Component {
     submitState: PropTypes.shape(requestStateProps).isRequired,
     onSubmit: PropTypes.func.isRequired,
     onReport: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -40,21 +43,24 @@ export default class TaskForm extends Component {
     reportMessage: null,
   };
 
-  handleSubmit = values => {
-    const { onSubmit } = this.props;
-    onSubmit(values);
-  };
-
   handleModuleError = reportMessage => {
     this.setState({ reportMessage });
   };
 
   render() {
-    const { submitState, form, contextData, taskData, onReport } = this.props;
+    const {
+      submitState,
+      form,
+      contextData,
+      taskData,
+      onReport,
+      onSubmit,
+      onCancel,
+    } = this.props;
     const { reportMessage } = this.state;
     return (
       <FormDataProvider formData={contextData}>
-        <div className={styles.report}>
+        <div className={styles.actions}>
           <ReportToggle form={form}>
             {({ onHide, reasons }) => (
               <ReportTask
@@ -65,6 +71,14 @@ export default class TaskForm extends Component {
               />
             )}
           </ReportToggle>
+          <Button
+            onClick={onCancel}
+            size="small"
+            theme="white"
+            className={styles.cancel}
+          >
+            cancel
+          </Button>
         </div>
         <Form
           form={form}
@@ -72,7 +86,7 @@ export default class TaskForm extends Component {
           className={styles.form}
           errors={submitState.error}
           isSubmitting={submitState.state === RequestStates.Fetching}
-          onSubmit={this.handleSubmit}
+          onSubmit={onSubmit}
           onModuleError={this.handleModuleError}
         >
           {props => <Module {...props} />}

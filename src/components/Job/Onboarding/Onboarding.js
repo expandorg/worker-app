@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Panel } from '@gemsorg/components';
+import { Panel, Button } from '@gemsorg/components';
+
 import {
   Form,
   FormDataProvider,
@@ -29,6 +30,7 @@ import { requestStateProps, onboardingProps } from '../../shared/propTypes';
 import {
   submitOnboarding,
   reportOnboarding,
+  cancelOnboarding,
   removeOnboardingMessage,
 } from '../../../sagas/onboardingSagas';
 import {
@@ -46,7 +48,12 @@ const controls = {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { submitOnboarding, removeOnboardingMessage, reportOnboarding },
+    {
+      submitOnboarding,
+      removeOnboardingMessage,
+      reportOnboarding,
+      cancelOnboarding,
+    },
     dispatch
   );
 
@@ -60,6 +67,7 @@ class Onboarding extends Component {
 
     submitOnboarding: PropTypes.func.isRequired,
     reportOnboarding: PropTypes.func.isRequired,
+    cancelOnboarding: PropTypes.func.isRequired,
     removeOnboardingMessage: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
@@ -87,13 +95,18 @@ class Onboarding extends Component {
     this.props.reportOnboarding(jobId, reason, message);
   };
 
+  handleCancel = () => {
+    const { jobId } = this.props;
+    this.props.cancelOnboarding(jobId);
+  };
+
   render() {
     const { onboarding, submitState } = this.props;
     const { reportMessage } = this.state;
 
     return (
       <Panel className={styles.container}>
-        <div className={styles.report}>
+        <div className={styles.actions}>
           <ReportToggle form={onboarding.form}>
             {({ onHide, reasons }) => (
               <OnboardingReport
@@ -104,6 +117,14 @@ class Onboarding extends Component {
               />
             )}
           </ReportToggle>
+          <Button
+            onClick={this.handleCancel}
+            size="small"
+            theme="white"
+            className={styles.cancel}
+          >
+            cancel
+          </Button>
         </div>
         <div className={styles.form}>
           <FormDataProvider formData={onboarding}>

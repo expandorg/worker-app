@@ -103,6 +103,10 @@ export const onboardingActionTypes = createActionTypes('onboarding', {
   REPORT_COMPLETE: null,
   REPORT_FAILED: null,
 
+  CANCEL: null,
+  CANCEL_COMPLETE: null,
+  CANCEL_FAILED: null,
+
   REMOVE_MESSAGE: null,
 });
 
@@ -118,6 +122,10 @@ export const tasksActionTypes = createActionTypes('tasks', {
   REPORT: null,
   REPORT_COMPLETE: null,
   REPORT_FAILED: null,
+
+  CANCEL: null,
+  CANCEL_COMPLETE: null,
+  CANCEL_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

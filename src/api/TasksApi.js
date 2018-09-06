@@ -8,6 +8,8 @@ export class TasksApi extends BaseApi {
 
   report = ({ taskId, reason, message }) =>
     this.post(`/tasks/${taskId}/report`, { reason, message });
+
+  cancel = ({ taskId }) => this.post(`/tasks/${taskId}/cancel`);
 }
 
 export const tasksApi = new TasksApi();

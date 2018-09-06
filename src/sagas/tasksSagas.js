@@ -48,8 +48,22 @@ const watchReportRequest = takeEveryApiCall(
   tasksApi.report
 );
 
+export const cancelTask = taskId => ({
+  type: tasksActionTypes.CANCEL,
+  payload: { taskId },
+  meta: {
+    schema: { assignedTasks: [taskSchema] },
+  },
+});
+
+const watchCancelRequest = takeEveryApiCall(
+  tasksActionTypes.CANCEL,
+  tasksApi.cancel
+);
+
 export function* tasksSagas() {
   yield fork(watchFetchRequest);
   yield fork(watchCreateRequest);
   yield fork(watchReportRequest);
+  yield fork(watchCancelRequest);
 }

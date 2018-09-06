@@ -8,6 +8,8 @@ export class OnboardingApi extends BaseApi {
 
   report = ({ jobId, reason, message }) =>
     this.post(`/jobs/${jobId}/onboarding/report`, { reason, message });
+
+  cancel = ({ jobId }) => this.post(`/jobs/${jobId}/onboarding/cancel`);
 }
 
 export const onboardingApi = new OnboardingApi();

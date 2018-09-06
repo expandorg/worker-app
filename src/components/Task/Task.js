@@ -13,7 +13,12 @@ import Content from '../shared/Content';
 import TaskForm from './TaskForm';
 import SubmissionDialog from './SubmissionDialog';
 
-import { submitTask, fetchTask, reportTask } from '../../sagas/tasksSagas';
+import {
+  submitTask,
+  fetchTask,
+  reportTask,
+  cancelTask,
+} from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
 import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
@@ -38,7 +43,7 @@ const makeMapStateToProps = () => {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { submitTask, reportTask, fetchTask, fetchJobs },
+    { submitTask, reportTask, fetchTask, fetchJobs, cancelTask },
     dispatch
   );
 
@@ -51,15 +56,34 @@ class Task extends Component {
 
     submitTask: PropTypes.func.isRequired,
     reportTask: PropTypes.func.isRequired,
+    cancelTask: PropTypes.func.isRequired,
     fetchJobs: PropTypes.func.isRequired,
     fetchTask: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onResetSubmit: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     job: null,
     task: null,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      jobId: (props.job && props.job.id) || null,
+    };
+  }
+
+  static getDerivedStateFromProps({ job }, state) {
+    if (job && state.jobId !== job.id) {
+      return {
+        jobId: job.id,
+      };
+    }
+    return null;
+  }
 
   componentDidMount() {
     const { taskId } = this.props;
@@ -72,13 +96,19 @@ class Task extends Component {
     onSubmit(() => this.props.submitTask(taskId, form));
   };
 
+  handleCancel = () => {
+    const { taskId } = this.props;
+    this.props.cancelTask(taskId);
+  };
+
   handleReport = (reason, message) => {
     const { taskId } = this.props;
     this.props.reportTask(taskId, reason, message);
   };
 
   render() {
-    const { submitState, job, task } = this.props;
+    const { submitState, job, task, onResetSubmit } = this.props;
+    const { jobId } = this.state;
 
     return (
       <Content title={(job && job.name) || ''}>
@@ -90,12 +120,15 @@ class Task extends Component {
                 taskData={task.taskData}
                 contextData={job}
                 submitState={submitState}
-                onReport={this.handleReport}
                 onSubmit={this.handleSubmit}
+                onReport={this.handleReport}
+                onCancel={this.handleCancel}
               />
             )}
         </Panel>
-        {submitState.state === RequestStates.Fetched && <SubmissionDialog />}
+        {submitState.state === RequestStates.Fetched && (
+          <SubmissionDialog jobId={jobId} onAssignComplete={onResetSubmit} />
+        )}
       </Content>
     );
   }
