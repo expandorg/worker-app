@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 
 import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
 
+import Countdown from '../shared/Countdown';
+
 import withSubmitState from '../hoc/withSubmitState';
 import { requestStateProps } from '../shared/propTypes';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
@@ -57,6 +59,20 @@ class SubmissionDialog extends Component {
         <DialogHeadline>Task Submitted</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.heading}>Submission successful!</div>
+          <div className={styles.reassign}>
+            <Countdown
+              interval={1000}
+              expireIn={5000}
+              onFinish={this.handleAssignJob}
+            >
+              {({ timeLeft, finished }) => {
+                const time = Math.ceil(timeLeft / 1000);
+                return finished
+                  ? 'Assigning to task...'
+                  : `You will be automatically assigne to this task in ${time} seconds`;
+              }}
+            </Countdown>
+          </div>
           <div className={styles.actions}>
             <Link to="/jobs" className={styles.browse}>
               Browse available jobs

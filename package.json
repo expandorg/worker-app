@@ -18,6 +18,7 @@
     "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
+    "date-fns": "^1.29.0",
     "debounce": "^1.2.0",
     "gems-token": "github:gemsorg/gems-token",
     "hoist-non-react-statics": "^3.0.1",
