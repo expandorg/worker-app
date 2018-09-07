@@ -20,6 +20,7 @@ export default class TaskForm extends Component {
     contextData: PropTypes.any, // eslint-disable-line
     submitState: PropTypes.shape(requestStateProps).isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onModuleError: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -27,13 +28,15 @@ export default class TaskForm extends Component {
     contextData: null,
   };
 
-  handleSubmit = values => {
-    const { onSubmit } = this.props;
-    onSubmit(values);
-  };
-
   render() {
-    const { submitState, form, contextData, taskData } = this.props;
+    const {
+      submitState,
+      form,
+      contextData,
+      taskData,
+      onSubmit,
+      onModuleError,
+    } = this.props;
     return (
       <FormDataProvider formData={contextData}>
         <Form
@@ -42,7 +45,8 @@ export default class TaskForm extends Component {
           className={styles.form}
           errors={submitState.error}
           isSubmitting={submitState.state === RequestStates.Fetching}
-          onSubmit={this.handleSubmit}
+          onSubmit={onSubmit}
+          onModuleError={onModuleError}
         >
           {props => <Module {...props} />}
         </Form>

@@ -3,7 +3,7 @@ import { fork } from 'redux-saga/effects';
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { tasksActionTypes } from './actionTypes';
 
-import { taskSchema } from '../model/schemas';
+import { taskSchema, authResponseSchema } from '../model/schemas';
 import { GtmActions } from '../common/gtm/GtmEvents';
 
 import { tasksApi } from '../api/TasksApi';
@@ -35,7 +35,35 @@ const watchCreateRequest = takeEveryApiCall(
   tasksApi.submitTask
 );
 
+export const reportTask = (taskId, reason, message) => ({
+  type: tasksActionTypes.REPORT,
+  payload: { taskId, reason, message },
+  meta: {
+    schema: authResponseSchema,
+  },
+});
+
+const watchReportRequest = takeEveryApiCall(
+  tasksActionTypes.REPORT,
+  tasksApi.report
+);
+
+export const cancelTask = taskId => ({
+  type: tasksActionTypes.CANCEL,
+  payload: { taskId },
+  meta: {
+    schema: authResponseSchema,
+  },
+});
+
+const watchCancelRequest = takeEveryApiCall(
+  tasksActionTypes.CANCEL,
+  tasksApi.cancel
+);
+
 export function* tasksSagas() {
   yield fork(watchFetchRequest);
   yield fork(watchCreateRequest);
+  yield fork(watchReportRequest);
+  yield fork(watchCancelRequest);
 }

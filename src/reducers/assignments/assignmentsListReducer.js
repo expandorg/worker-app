@@ -2,6 +2,7 @@ import {
   authActionTypes,
   jobsActionTypes,
   tasksActionTypes,
+  onboardingActionTypes,
 } from '../../sagas/actionTypes';
 
 const initialState = [];
@@ -18,7 +19,14 @@ export default function assignmentsListReducer(state = initialState, action) {
     case jobsActionTypes.ASSIGN_COMPLETE:
       return action.payload.result.assignments;
 
+    case onboardingActionTypes.REPORT_COMPLETE:
+      return action.payload.result.assignments;
+
     case tasksActionTypes.SUBMIT_COMPLETE:
+      return action.payload.result.assignments;
+
+    case tasksActionTypes.REPORT_COMPLETE:
+    case tasksActionTypes.CANCEL_COMPLETE:
       return action.payload.result.assignments;
 
     case authActionTypes.GET_CURRENT_FAILED:
