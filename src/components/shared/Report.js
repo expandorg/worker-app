@@ -20,16 +20,6 @@ export default class Report extends Component {
     report: null,
   };
 
-  componentDidUpdate({ submitState: prev, onHide }) {
-    const { submitState } = this.props;
-    if (
-      prev.state === RequestStates.Fetching &&
-      submitState.state === RequestStates.Fetched
-    ) {
-      onHide();
-    }
-  }
-
   handleReport = (reason, value) => {
     const { onSubmit, onReport } = this.props;
     onSubmit(() => onReport(reason, value));

@@ -26,6 +26,7 @@ export default function assignmentsListReducer(state = initialState, action) {
       return action.payload.result.assignments;
 
     case tasksActionTypes.REPORT_COMPLETE:
+    case tasksActionTypes.CANCEL_COMPLETE:
       return action.payload.result.assignments;
 
     case authActionTypes.GET_CURRENT_FAILED:

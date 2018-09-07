@@ -32,18 +32,7 @@ class SubmissionDialog extends Component {
     submitState: PropTypes.shape(requestStateProps).isRequired,
     assignJob: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    onAssignComplete: PropTypes.func.isRequired,
   };
-
-  componentDidUpdate({ submitState: prev, onAssignComplete }) {
-    const { submitState } = this.props;
-    if (
-      prev.state === RequestStates.Fetching &&
-      submitState.state === RequestStates.Fetched
-    ) {
-      onAssignComplete();
-    }
-  }
 
   handleAssignJob = () => {
     const { jobId, onSubmit, submitState } = this.props;

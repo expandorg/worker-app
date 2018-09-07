@@ -26,6 +26,7 @@ export default function assignedResponsesReducer(state = initialState, action) {
       return action.payload.result.assignedResponses;
 
     case tasksActionTypes.REPORT_COMPLETE:
+    case tasksActionTypes.CANCEL_COMPLETE:
       return action.payload.result.assignedResponses;
 
     case authActionTypes.GET_CURRENT_FAILED:

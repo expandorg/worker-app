@@ -106,6 +106,7 @@ class Onboarding extends Component {
                 reasons={reasons}
                 report={reportMessage}
                 onReport={this.handleReport}
+                onSubmitComplete={onHide}
               />
             )}
           </ReportToggle>

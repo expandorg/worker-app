@@ -7,15 +7,23 @@ import { connect } from 'react-redux';
 import { initialState } from '../../common/app/requestUiState';
 import { requestStateProps } from '../shared/propTypes';
 
+import submitStateEffect from './submitStateEffect';
+
 export default function withSubmitState(submitSelector) {
   const mapStateToProps = state => ({
     submitState: submitSelector(state),
   });
+  const SubmitStateEffect = submitStateEffect(submitSelector);
 
   return Wrapped => {
     class SumbitState extends Component {
       static propTypes = {
         submitState: PropTypes.shape(requestStateProps).isRequired,
+        onSubmitComplete: PropTypes.func,
+      };
+
+      static defaultProps = {
+        onSubmitComplete: Function.prototype,
       };
 
       static getDerivedStateFromProps({ submitState }, state) {
@@ -42,14 +50,16 @@ export default function withSubmitState(submitSelector) {
       };
 
       render() {
-        const { submitState, ...rest } = this.props;
+        const { submitState, onSubmitComplete, ...rest } = this.props;
         return (
-          <Wrapped
-            submitState={this.state.submitState}
-            onSubmit={this.handleSubmit}
-            onResetSubmit={this.handleReset}
-            {...rest}
-          />
+          <SubmitStateEffect onComplete={onSubmitComplete}>
+            <Wrapped
+              submitState={this.state.submitState}
+              onSubmit={this.handleSubmit}
+              onResetSubmit={this.handleReset}
+              {...rest}
+            />
+          </SubmitStateEffect>
         );
       }
     }

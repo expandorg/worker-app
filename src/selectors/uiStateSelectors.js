@@ -90,6 +90,12 @@ export const reportTaskStateSelector = createSelector(
   uiStateSelector,
   state => state.reportTask
 );
+
+export const cancelTaskStateSelector = createSelector(
+  uiStateSelector,
+  state => state.cancelTask
+);
+
 export const fetchBalanceStateSelector = createSelector(
   uiStateSelector,
   state => state.gemBalance

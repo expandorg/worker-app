@@ -29,7 +29,7 @@ export default class Countdown extends Component {
   }
 
   componentWillUnmount() {
-    if (typeof this.timerId === 'undefined') {
+    if (typeof this.timerId !== 'undefined') {
       clearInterval(this.timerId);
     }
   }

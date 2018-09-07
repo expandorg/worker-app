@@ -40,6 +40,7 @@ export default function userReducer(state = initialState, action) {
       return action.payload.result.user;
 
     case tasksActionTypes.REPORT_COMPLETE:
+    case tasksActionTypes.CANCEL_COMPLETE:
       return action.payload.result.user;
 
     case gemsActionTypes.WITHDRAW_COMPLETE:
