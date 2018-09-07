@@ -3,7 +3,7 @@ import { fork } from 'redux-saga/effects';
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
 import { tasksActionTypes } from './actionTypes';
 
-import { taskSchema } from '../model/schemas';
+import { taskSchema, authResponseSchema } from '../model/schemas';
 import { GtmActions } from '../common/gtm/GtmEvents';
 
 import { tasksApi } from '../api/TasksApi';
@@ -39,7 +39,7 @@ export const reportTask = (taskId, reason, message) => ({
   type: tasksActionTypes.REPORT,
   payload: { taskId, reason, message },
   meta: {
-    schema: { assignedTasks: [taskSchema] },
+    schema: authResponseSchema,
   },
 });
 
@@ -52,7 +52,7 @@ export const cancelTask = taskId => ({
   type: tasksActionTypes.CANCEL,
   payload: { taskId },
   meta: {
-    schema: { assignedTasks: [taskSchema] },
+    schema: authResponseSchema,
   },
 });
 

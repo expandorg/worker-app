@@ -4,6 +4,7 @@ import {
   jobsActionTypes,
   tasksActionTypes,
   gemsActionTypes,
+  onboardingActionTypes,
 } from '../sagas/actionTypes';
 
 const initialState = null;
@@ -32,7 +33,13 @@ export default function userReducer(state = initialState, action) {
     case jobsActionTypes.ASSIGN_COMPLETE:
       return action.payload.result.user;
 
+    case onboardingActionTypes.REPORT_COMPLETE:
+      return action.payload.result.user;
+
     case tasksActionTypes.SUBMIT_COMPLETE:
+      return action.payload.result.user;
+
+    case tasksActionTypes.REPORT_COMPLETE:
       return action.payload.result.user;
 
     case gemsActionTypes.WITHDRAW_COMPLETE:

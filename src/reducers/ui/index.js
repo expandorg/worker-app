@@ -51,7 +51,6 @@ export default combineReducers({
 
   submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
   reportOnboarding: requestUiStateReducer(onboardingActionTypes.REPORT),
-  cancelOnboarding: requestUiStateReducer(onboardingActionTypes.CANCEL),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
