@@ -1,96 +1,159 @@
-import { fork, call, put, takeEvery } from 'redux-saga/effects';
+import {
+  takeEvery,
+  fork,
+  call,
+  select,
+  put,
+  getContext,
+} from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
-import { userActionTypes } from './actionTypes';
+import {
+  authActionTypes,
+  jobsActionTypes,
+  tasksActionTypes,
+  userActionTypes,
+  gemsActionTypes,
+} from './actionTypes';
+
+import { userSelector } from '../selectors/userSelectors';
 
 import { userApi } from '../api/UserApi';
-import { gemsService } from '../services/GemsService';
+import { GtmActions } from '../common/gtm/GtmEvents';
 
-import settings from '../common/settings';
-
-export const login = () => ({
-  type: userActionTypes.LOGIN,
-  payload: null,
+export const editEmail = (user, email) => ({
+  type: userActionTypes.EDIT_EMAIL,
+  payload: { userId: user.id, email },
 });
 
-function* handleLogin() {
-  try {
-    const address = gemsService.getDefaultAccount();
+const watchEditEmail = takeEveryApiCall(
+  userActionTypes.EDIT_EMAIL,
+  userApi.editEmail
+);
 
-    const { result } = yield call(gemsService.getAccountSingature, address);
-    const payload = yield call(userApi.login, { address, signature: result });
-
-    yield put(({ type: userActionTypes.LOGIN_COMPLETE, payload }));
-  } catch (error) {
-    yield put(({ type: userActionTypes.LOGIN_FAILED, payload: error }));
-  }
-}
-
-
-export const logout = () => ({
-  type: userActionTypes.LOGOUT,
-  payload: null,
-});
-
-function* handleLogout() {
-  document.cookie = `JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${settings.cookieDomain}; path=/;`;
-  yield put(({ type: userActionTypes.LOGOUT_COMPLETE, payload: null }));
-}
-
-
-export const fetchAuth = () => ({
-  type: userActionTypes.AUTHORIZE,
-  payload: null,
-});
-
-function* handleAuthorize() {
-  try {
-    const payload = yield call(userApi.authorize);
-
-    // verify that worked id correspond to metamask account
-    yield call(gemsService.verifyAccount, payload.worker.id);
-    yield put(({ type: userActionTypes.AUTHORIZE_COMPLETE, payload }));
-  } catch (error) {
-    yield put(({ type: userActionTypes.AUTHORIZE_FAILED, payload: error }));
-  }
-}
-
-
-export const setEmail = email => ({
-  type: userActionTypes.SET_EMAIL,
-  payload: { email },
-});
-
-const watchSetEmail = takeEveryApiCall(userActionTypes.SET_EMAIL, userApi.setEmail);
-
-export const confirmEmail = code => ({
+export const confirmEmail = (user, code) => ({
   type: userActionTypes.CONFIRM_EMAIL,
-  payload: { code },
+  payload: { userId: user.id, code },
 });
 
-const watchConfirmEmail = takeEveryApiCall(userActionTypes.CONFIRM_EMAIL, userApi.confirmEmail);
+const watchConfirmEmail = takeEveryApiCall(
+  userActionTypes.CONFIRM_EMAIL,
+  userApi.confirmEmail
+);
 
-
-export const resendConfirmEmail = () => ({
+export const resendConfirmEmail = user => ({
   type: userActionTypes.RESEND_CONFIRM_EMAIL,
-  payload: null,
+  payload: { userId: user.id },
 });
 
 const watchResendConfirm = takeEveryApiCall(
   userActionTypes.RESEND_CONFIRM_EMAIL,
-  userApi.resendConfirmEmail,
+  userApi.resendConfirmEmail
 );
 
+export const changePassword = (user, newPassword, oldPassword) => ({
+  type: userActionTypes.CHANGE_PASSWORD,
+  payload: { userId: user.id, newPassword, oldPassword },
+  meta: {
+    track: { action: GtmActions.ChangePassword },
+  },
+});
+
+const watchChangePassword = takeEveryApiCall(
+  userActionTypes.CHANGE_PASSWORD,
+  userApi.changePassword
+);
+
+export const resetPassword = email => ({
+  type: userActionTypes.RESET_PASSWORD,
+  payload: { email },
+  meta: {
+    track: { action: GtmActions.ForgotPassword },
+  },
+});
+
+const watchResetPassword = takeEveryApiCall(
+  userActionTypes.RESET_PASSWORD,
+  userApi.resetPassword
+);
+
+export const restorePassword = (password, code) => ({
+  type: userActionTypes.RESTORE_PASSWORD,
+  payload: { password, code },
+});
+
+const watchRestorePassword = takeEveryApiCall(
+  userActionTypes.RESTORE_PASSWORD,
+  userApi.restorePassword
+);
+
+export const assignAddress = (user, address = null) => ({
+  type: userActionTypes.ASSIGN_ADDRESS,
+  payload: { user, address },
+});
+
+function* handleAssignAddress({ payload: { user, address } }) {
+  try {
+    let params = { userId: user.id, address };
+    if (!address) {
+      const services = yield getContext('services');
+      const gemsService = services.resolve('gems');
+
+      const defaultAccount = gemsService.getDefaultAccount();
+      const { result: signature } = yield call(
+        gemsService.getAccountSingature,
+        defaultAccount
+      );
+      params = { ...params, address: defaultAccount, signature };
+    }
+    const payload = yield call(userApi.assignAddress, params);
+
+    yield put({ type: userActionTypes.ASSIGN_ADDRESS_COMPLETE, payload });
+  } catch (error) {
+    yield put({ type: userActionTypes.ASSIGN_ADDRESS_FAILED, payload: error });
+  }
+}
+
+export const userUpdated = (data, params) => ({
+  type: userActionTypes.UPDATED,
+  payload: { data, params },
+});
+
+function* handleUserChangedSaga() {
+  const user = yield select(userSelector);
+  if (user.pendingTx) {
+    const services = yield getContext('services');
+    const eventSources = services.resolve('eventSources');
+    eventSources.subscribe('tx', {
+      tx: user.pendingTx.hash,
+      source: user.pendingTx.type,
+    });
+  }
+}
+
+const actionsThatChangesUser = [
+  authActionTypes.GET_CURRENT_COMPLETE,
+  authActionTypes.LOGIN_COMPLETE,
+  authActionTypes.SIGNUP_COMPLETE,
+  authActionTypes.LOGIN_METAMASK_COMPLETE,
+  authActionTypes.SIGNUP_METAMASK_COMPLETE,
+  userActionTypes.ASSIGN_ADDRESS_COMPLETE,
+  userActionTypes.CONFIRM_EMAIL_COMPLETE,
+  userActionTypes.EDIT_EMAIL_COMPLETE,
+  jobsActionTypes.ASSIGN_COMPLETE,
+  tasksActionTypes.SUBMIT_COMPLETE,
+  gemsActionTypes.WITHDRAW_COMPLETE,
+  gemsActionTypes.DEPOSIT_COMPLETE,
+];
+
 export function* userSagas() {
-  yield takeEvery(userActionTypes.LOGIN, handleLogin);
-  yield takeEvery(userActionTypes.LOGOUT, handleLogout);
+  yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
+  yield takeEvery(actionsThatChangesUser, handleUserChangedSaga);
 
-  yield takeEvery(userActionTypes.AUTHORIZE, handleAuthorize);
-
-  // logout when authorisation falied
-  yield takeEvery(userActionTypes.AUTHORIZE_FAILED, handleLogout);
-
-  yield fork(watchSetEmail);
+  yield fork(watchEditEmail);
+  yield fork(watchChangePassword);
+  yield fork(watchResetPassword);
+  yield fork(watchRestorePassword);
   yield fork(watchConfirmEmail);
   yield fork(watchResendConfirm);
 }

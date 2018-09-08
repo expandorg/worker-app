@@ -1,0 +1,36 @@
+@import '~@gemsorg/components/src/uikit/colors'
+@import '~@gemsorg/components/src/uikit/consts'
+
+.gem-header
+  box-sizing: border-box;
+  position relative
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%
+  height: s-header-height
+
+  background-color: color-blue
+  padding: 0 20px;
+
+  display: none
+
+  @media(max-width: 1150px)
+    display: flex
+
+  &-logo
+    height: 30px
+    width: 30px
+
+  &-toggle
+    position: absolute;
+    left: 20px
+    top: calc(50% - 12px)
+
+    transition-property: left
+    transition-duration: 0.3s
+    transition-timing-function: ease;
+
+  &-opened
+    left: 'calc(%s +  20px)' % s-sidebar-width

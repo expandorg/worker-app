@@ -1,86 +1,110 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {
+  userProps,
+  jobProps,
+  assignmentProps,
+  historyProps,
+} from '../shared/propTypes';
+
 import Content from '../shared/Content';
-import EmailSubmission from '../shared/EmailSubmission/EmailSubmission';
+import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
+import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
-import Job from './Job/Job';
-import ConfirmModal from './ConfirmModal';
-import Disabled from './Disabled';
-import DepositPrompt from './DepositPrompt';
+import JobItem from './JobItem';
 
-import { workerProps, statsProps, routerProps, jobProps } from '../shared/propTypes';
-import { isWorkerFunded } from '../../model/worker';
+import { authenticated } from '../hoc/authRules';
 
-import { JOB_DISABLED } from '../../model/consts';
+import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
 
+import { userSelector } from '../../selectors/userSelectors';
+import { jobsSelector } from '../../selectors/jobsSelectors';
+import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 
-export default class Jobs extends Component {
+import styles from './Jobs.module.styl';
+
+const mapStateToProps = state => ({
+  user: userSelector(state),
+  jobs: jobsSelector(state),
+  assignments: assignmentsSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchJobs, assignJob }, dispatch);
+
+class Jobs extends Component {
   static propTypes = {
     jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
-    worker: PropTypes.shape(workerProps),
-    stats: PropTypes.shape(statsProps).isRequired,
-    router: PropTypes.shape(routerProps).isRequired,
-    setIsJoined: PropTypes.func.isRequired,
+    user: PropTypes.shape(userProps).isRequired,
+    history: PropTypes.shape(historyProps).isRequired,
+    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
     fetchJobs: PropTypes.func.isRequired,
-  }
+    assignJob: PropTypes.func.isRequired,
+  };
 
   static defaultProps = {
     jobs: [],
-    worker: null,
-  }
+  };
 
-  state = {
-    selected: null,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      emailDialog: false,
+    };
   }
 
   componentDidMount() {
     this.props.fetchJobs();
   }
 
-  handleSelect = (job) => {
-    this.setState({ selected: job });
-  }
-  handleCancel = () => {
-    this.setState({ selected: null });
-  }
-
-  handleConfirm = () => {
-    this.props.setIsJoined(true);
-    this.props.router.replace('/task');
-  }
+  handleSelect = job => {
+    const { user, history } = this.props;
+    if (!user.emailConfirmed) {
+      this.setState({ emailDialog: true });
+    } else if (job.onboarding.enabled) {
+      history.push(`/jobs/${job.id}`);
+    } else {
+      this.props.assignJob(job.id);
+    }
+  };
 
   render() {
-    const { stats, worker, jobs } = this.props;
-    const { selected } = this.state;
+    const { user, jobs, assignments } = this.props;
 
-    if (JOB_DISABLED) {
-      return <Disabled />;
-    }
-    const confirmedEmail = (worker.email && worker.confirmed) || process.env.NODE_ENV !== 'production';
-    const isFunded = isWorkerFunded(worker, stats);
+    const { emailDialog } = this.state;
     return (
       <Content title="Browse Jobs">
-        {!confirmedEmail &&
-          <EmailSubmission worker={worker} />
-        }
-        {jobs.map(job => (
-          <Job
-            key={job.id}
-            job={job}
-            isFunded={isFunded}
-            onJoin={this.handleSelect}
+        <div className={styles.list}>
+          {jobs.map(job => (
+            <JobItem
+              key={job.id}
+              job={job}
+              user={user}
+              assignment={assignments.find(a => a.jobId === job.id)}
+              onJoin={this.handleSelect}
+            />
+          ))}
+        </div>
+        {emailDialog && (
+          <ConfirmEmailDialog
+            user={user}
+            onHide={() => this.setState({ emailDialog: false })}
           />
-        ))}
-        <DepositPrompt visible={!isFunded} />
-        {selected &&
-          <ConfirmModal
-            job={selected}
-            onClose={this.handleCancel}
-            onConfirm={this.handleConfirm}
-          />
-        }
+        )}
+        <AssignedJobRedirect />
       </Content>
     );
   }
 }
+
+export default authenticated(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Jobs)
+);

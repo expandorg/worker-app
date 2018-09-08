@@ -1,5 +1,6 @@
+// @flow
 
-export const encodeUrlParams = (query) => {
+export const encodeUrlParams = (query: Object) => {
   if (query === null || query === undefined) {
     return '';
   }
@@ -9,14 +10,16 @@ export const encodeUrlParams = (query) => {
     .join('&');
 };
 
-export const keyMirror = (object, transformKey = (key => key)) =>
+export const keyMirror = (
+  object: Object,
+  transformKey: Function = key => key
+): Object =>
   Reflect.ownKeys(object).reduce((result, key) => {
     result[key] = transformKey(key);
     return result;
   }, {});
 
-
-export function promisify(original, ctx) {
+export function promisify(original: Function, ctx: any): Function {
   return function decoated(...args) {
     return new Promise((resolve, reject) => {
       args.push((err, ...values) => {
@@ -30,3 +33,5 @@ export function promisify(original, ctx) {
     });
   };
 }
+
+export const canUseDom = typeof window !== 'undefined';

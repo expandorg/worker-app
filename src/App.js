@@ -2,57 +2,68 @@ import { hot } from 'react-hot-loader';
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import { browserHistory, Router, Route, IndexRoute } from 'react-router';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { ServiceProvider } from '@gemsorg/components';
 
-import Page from './components/Page/PageContainer';
+import AppPage from './components/Page/AppPage';
 
-import Private from './components/shared/PrivateContainer';
-import Funded from './components/shared/FundedContainer';
+import Welcome from './components/Welcome/Welcome';
 
-import Login from './components/Login/LoginContainer';
-import Account from './components/Account/AccountContainer';
-import Jobs from './components/Jobs/JobsContainer';
-import Stats from './components/Stats/StatsContainer';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+
+import Password from './components/Password/Password';
+import Restore from './components/Password/Restore';
+
+import Account from './components/Account/Account';
+import Jobs from './components/Jobs/Jobs';
+import Job from './components/Job/Job';
+
+import Stats from './components/Stats/Stats';
 import Requester from './components/Requester/Requester';
-import Task from './components/Task/TaskContainer';
-import Confirm from './components/Confirm/ConfirmContainer';
+import Task from './components/Task/Task';
+import Confirm from './components/Confirm/Confirm';
 
-import NotFound from './components/shared/pages/NotFoundContainer';
+import NotFound from './components/shared/pages/NotFound';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 
 import store from './reducers/store';
+import services from './services/services';
 
 import { init } from './sagas/appSagas';
 
-const MAINTENANCE_MODE = false;
+import settings from './common/settings';
 
 store.dispatch(init());
 
-
 const App = () => {
-  if (MAINTENANCE_MODE) {
+  if (settings.maintenanceMode) {
     return <MaintenanceMode />;
   }
   return (
-    <Provider store={store}>
-      <Router history={browserHistory}>
-        <Route path="/" component={Page}>
-          <IndexRoute component={Login} />
-          <Route path="login" component={Login} />
-          <Route component={Private}>
-            <Route path="account" component={Account} />
-            <Route path="confirm" component={Confirm} />
-            <Route path="jobs" component={Jobs} />
-            <Route path="stats" component={Stats} />
-            <Route path="requester" component={Requester} />
-            <Route component={Funded}>
-              <Route path="task" component={Task} />
-            </Route>
-          </Route>
-          <Route path="*" component={NotFound} />
-        </Route>
-      </Router>
-    </Provider>
+    <ServiceProvider services={services}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <AppPage>
+            <Switch>
+              <Route path="/" exact component={Welcome} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/password" component={Password} />
+              <Route path="/restore" component={Restore} />
+              <Route path="/confirm" component={Confirm} />
+              <Route path="/account" component={Account} />
+              <Route path="/jobs" exact component={Jobs} />
+              <Route path="/jobs/:jobId" component={Job} />
+              <Route path="/tasks/:taskId" component={Task} />
+              <Route path="/stats" component={Stats} />
+              <Route path="/requester" component={Requester} />
+              <Route component={NotFound} />
+            </Switch>
+          </AppPage>
+        </BrowserRouter>
+      </Provider>
+    </ServiceProvider>
   );
 };
 

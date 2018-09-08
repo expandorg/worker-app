@@ -3,25 +3,38 @@ import webpack from 'webpack';
 
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { envFilePath } from './config';
 
-class EmptyPlugin { apply = () => {} }
+import packageJson from './package.json';
+
+class EmptyPlugin {
+  apply() {}
+}
 
 const entry = {
-  app: ['./index'],
+  app: ['@babel/polyfill', './index'],
 };
+
+const babelPlugins = [
+  '@babel/plugin-proposal-class-properties',
+  '@babel/plugin-proposal-export-default-from',
+  '@babel/plugin-proposal-export-namespace-from',
+  '@babel/plugin-proposal-throw-expressions',
+  '@babel/plugin-syntax-dynamic-import',
+  '@babel/plugin-syntax-import-meta',
+];
 
 export default (env = {}) => {
   const dev = !!env.dev;
   const port = env.port || 3000;
-  Reflect.ownKeys(entry).forEach((name) => {
-    entry[name].unshift('babel-polyfill');
+
+  Reflect.ownKeys(entry).forEach(name => {
     if (dev) {
       entry[name].unshift(
         `webpack-dev-server/client?http://localhost:${port}`,
-        'webpack/hot/only-dev-server',
+        'webpack/hot/only-dev-server'
       );
     }
   });
@@ -31,6 +44,7 @@ export default (env = {}) => {
     mode: dev ? 'development' : 'production',
     output: {
       filename: dev ? '[name].js' : '[name]-[chunkhash].js',
+      publicPath: '/',
       path: path.join(__dirname, 'public'),
       pathinfo: dev,
       hotUpdateChunkFilename: '[hash].hot-update.js',
@@ -53,51 +67,43 @@ export default (env = {}) => {
           options: {
             babelrc: false,
             presets: [
-              ['env', {
-                es2015: {
+              [
+                '@babel/preset-env',
+                {
                   modules: false,
+                  useBuiltIns: 'entry',
                 },
-              }],
-              'react',
-              'stage-0',
+              ],
+              '@babel/preset-flow',
+              '@babel/preset-react',
             ],
-            plugins: dev ? ['react-hot-loader/babel'] : [],
+            plugins: dev
+              ? babelPlugins.concat('react-hot-loader/babel')
+              : babelPlugins,
           },
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /^((?!\.module).)*\.styl$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              'css-loader?sourceMap&importLoaders=2',
-              'postcss-loader?sourceMap',
-              'stylus-loader?paths[]=src',
-            ],
-          }),
-          exclude: /node_modules/,
+          use: [
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader?sourceMap&importLoaders=2',
+            'postcss-loader?sourceMap',
+            'stylus-loader?paths[]=src',
+          ],
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /\.module\.styl$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${dev ? '[local]__[path][name]__' : ''}[hash:base64:5]`,
-              'postcss-loader?sourceMap',
-              'stylus-loader?paths[]=src',
-            ],
-          }),
-          exclude: /node_modules/,
-        },
-        {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              'css-loader?sourceMap&importLoaders=2',
-              'postcss-loader?sourceMap',
-            ],
-          }),
+          use: [
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${
+              dev ? '[local]__[path][name]__' : ''
+            }[hash:base64:5]`,
+            'postcss-loader?sourceMap',
+            'stylus-loader?paths[]=src',
+          ],
+          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
@@ -117,11 +123,15 @@ export default (env = {}) => {
         'process.env': {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
         },
+        gemsBuildInfo: {
+          components: JSON.stringify(
+            packageJson.dependencies['@gemsorg/components']
+          ),
+          buildDate: JSON.stringify(new Date().toUTCString()),
+        },
       }),
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: dev ? '[name].css' : '[name]-[chunkhash].css',
-        allChunks: true,
-        disable: dev,
       }),
       new DotenvWebpackPlugin({ path: envFilePath }),
       new HTMLWebpackPlugin({
@@ -132,19 +142,11 @@ export default (env = {}) => {
     ],
     optimization: {
       minimize: !dev,
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            name: 'app-common',
-            chunks: 'initial',
-            minChunks: 2,
-          },
-        },
-      },
     },
     resolve: {
-      modules: [path.resolve('./src'), 'node_modules'],
-      extensions: ['.js', '.json', '.jsx'],
+      modules: [path.resolve('./src'), path.resolve('node_modules')],
+      extensions: ['.js', '.json'],
+      symlinks: false,
     },
     devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
     bail: !dev,

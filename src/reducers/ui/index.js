@@ -1,19 +1,62 @@
 import { combineReducers } from 'redux';
-import { tasksActionTypes, gemsActionTypes } from '../../sagas/actionTypes';
+import {
+  web3ActionTypes,
+  tasksActionTypes,
+  gemsActionTypes,
+  authActionTypes,
+  userActionTypes,
+  jobsActionTypes,
+  onboardingActionTypes,
+} from '../../sagas/actionTypes';
 
 import { requestUiStateReducer } from '../../common/app/requestUiState';
 
-import errors from './errorsReducer';
 import depositStage from './depositStageReducer';
-import metamask from './metamaskReducer';
-import locked from './lockedReducer';
+import notification from './notificationReducer';
+
+import txState from './txStateReucer';
 
 export default combineReducers({
-  errors,
+  initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
+  tx: txState,
+
+  auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
+
+  login: requestUiStateReducer(authActionTypes.LOGIN, false, true),
+  signup: requestUiStateReducer(authActionTypes.SIGNUP, false, true),
+
+  loginMetamask: requestUiStateReducer(authActionTypes.LOGIN_METAMASK),
+  signupMetamask: requestUiStateReducer(authActionTypes.SIGNUP_METAMASK),
+
+  assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
+  editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
+  confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
+  resendConfirmEmail: requestUiStateReducer(
+    userActionTypes.RESEND_CONFIRM_EMAIL
+  ),
+
+  changePassword: requestUiStateReducer(
+    userActionTypes.CHANGE_PASSWORD,
+    false,
+    true
+  ),
+  resetPassword: requestUiStateReducer(userActionTypes.RESET_PASSWORD),
+  restorePassword: requestUiStateReducer(userActionTypes.RESTORE_PASSWORD),
+
+  gemBalance: requestUiStateReducer(gemsActionTypes.FETCH_BALANCE),
+  deposit: requestUiStateReducer(gemsActionTypes.DEPOSIT, true),
   depositStage,
-  depositGems: requestUiStateReducer(gemsActionTypes.DEPOSIT),
-  withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW),
-  metamask,
-  locked,
-  createTask: requestUiStateReducer(tasksActionTypes.CREATE),
+
+  withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
+
+  submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
+  reportOnboarding: requestUiStateReducer(onboardingActionTypes.REPORT),
+
+  assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
+
+  submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
+  reportTask: requestUiStateReducer(tasksActionTypes.REPORT),
+  cancelTask: requestUiStateReducer(tasksActionTypes.CANCEL),
+
+  notification,
 });

@@ -1,29 +1,46 @@
-import { keyMirror } from '../utils';
+// @flow
 
-export const RequestStates = keyMirror({
-  NotFetched: null,
-  Fetching: null,
-  Fetched: null,
-  FetchError: null,
-});
+export const RequestStates = {
+  NotFetched: 'NotFetched',
+  Fetching: 'Fetching',
+  Fetched: 'Fetched',
+  FetchError: 'FetchError',
+};
 
-export const initialState = {
+export const initialState: RequestStateType = {
   state: RequestStates.NotFetched,
   error: null,
 };
 
-export const requestUiStateReducer = actionType =>
-  (state = initialState, action) => {
-    switch (action.type) {
-      case actionType:
-        return { ...initialState, state: RequestStates.Fetching };
-      case `${actionType}_COMPLETE`: {
-        return { ...initialState, state: RequestStates.Fetched }; }
-      case `${actionType}_FAILED`: {
-        return { state: RequestStates.FetchError, error: action.payload };
-      }
-      default:
-        break;
+export const requestUiStateReducer = (
+  actionType: string,
+  preservePayload: boolean = false,
+  foldErrors: boolean = false
+) => (
+  state: RequestStateType = initialState,
+  action: ReduxAction
+): RequestStateType => {
+  switch (action.type) {
+    case actionType:
+      return { ...initialState, state: RequestStates.Fetching };
+    case `${actionType}_COMPLETE`: {
+      return {
+        ...initialState,
+        state: RequestStates.Fetched,
+        payload: preservePayload ? action.payload : undefined,
+      };
     }
-    return state;
-  };
+    case `${actionType}_FAILED`: {
+      const { errors, message } = action.payload;
+      const commonMessage =
+        !message && foldErrors ? errors[Reflect.ownKeys(errors)[0]] : message;
+      return {
+        state: RequestStates.FetchError,
+        error: { ...errors, commonMessage },
+      };
+    }
+    default:
+      break;
+  }
+  return state;
+};

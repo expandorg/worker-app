@@ -1,162 +1,206 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import Modal from '../common/Modal';
-import { workerProps, statsProps } from '../shared/propTypes';
-import { isWorkerFunded } from '../../model/worker';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Panel, Button } from '@gemsorg/components';
+import { ReportToggle } from '@gemsorg/components/modules';
+
+import withSubmitState from '../hoc/withSubmitState';
+import { authenticated } from '../hoc/authRules';
 
 import Content from '../shared/Content';
+import Report from '../shared/Report';
+
+import TaskForm from './TaskForm';
+
+import SubmissionDialog from './SubmissionDialog';
+import CancelConfirmationDialog from './CancelConfirmationDialog';
+import Cancelled from './Cancelled';
+import submitStateEffect from '../hoc/submitStateEffect';
+
+import {
+  submitTask,
+  fetchTask,
+  reportTask,
+  cancelTask,
+} from '../../sagas/tasksSagas';
+import { fetchJobs } from '../../sagas/jobsSagas';
+
+import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
+import { makeTaskSelector } from '../../selectors/tasksSelectors';
+
+import {
+  submitTaskStateSelector,
+  reportTaskStateSelector,
+} from '../../selectors/uiStateSelectors';
+
+import { requestStateProps, jobProps, taskProps } from '../shared/propTypes';
+import { RequestStates } from '../../common/app/requestUiState';
 
 import styles from './Task.module.styl';
 
-export default class Task extends Component {
+const ReportTask = withSubmitState(reportTaskStateSelector)(Report);
+const ReportTaskStateEffect = submitStateEffect(reportTaskStateSelector);
+
+const makeMapStateToProps = () => {
+  const assignedJobSelector = makeAssignedJobSelector();
+  const taskSelector = makeTaskSelector();
+  return (state, props) => ({
+    taskId: +props.match.params.taskId,
+    task: taskSelector(state, +props.match.params.taskId),
+    job: assignedJobSelector(state, +props.match.params.taskId),
+  });
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { submitTask, reportTask, fetchTask, fetchJobs, cancelTask },
+    dispatch
+  );
+
+class Task extends Component {
   static propTypes = {
+    taskId: PropTypes.number.isRequired,
+    job: PropTypes.shape(jobProps),
+    task: PropTypes.shape(taskProps),
+    submitState: PropTypes.shape(requestStateProps).isRequired,
+
     submitTask: PropTypes.func.isRequired,
-    fetchAuth: PropTypes.func.isRequired,
-    isSubmitting: PropTypes.bool.isRequired,
-    stats: PropTypes.shape(statsProps).isRequired,
-    worker: PropTypes.shape(workerProps),
-    error: PropTypes.string,
+    reportTask: PropTypes.func.isRequired,
+    fetchJobs: PropTypes.func.isRequired,
+    fetchTask: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onResetSubmit: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    error: null,
-    worker: null,
+    job: null,
+    task: null,
   };
 
-  state = {
-    loading: false,
-    question: null,
-    correctAnswer: null,
-    incorrectAnswerA: null,
-    incorrectAnswerB: null,
-    submitted: false,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      jobId: (props.job && props.job.id) || null,
+      cancelDialog: false,
+      reportMessage: null,
+      canceled: false,
+    };
+  }
+
+  static getDerivedStateFromProps({ job }, state) {
+    if (job && state.jobId !== job.id) {
+      return {
+        jobId: job.id,
+      };
+    }
+    return null;
   }
 
   componentDidMount() {
-    this.props.fetchAuth();
+    const { taskId } = this.props;
+    this.props.fetchJobs();
+    this.props.fetchTask(taskId);
   }
 
-  getHandleChange = key => (e) => {
-    this.setState({ [key]: e.target.value });
-  }
+  handleSubmit = form => {
+    const { taskId, onSubmit } = this.props;
+    onSubmit(() => this.props.submitTask(taskId, form));
+  };
 
-  getSubmissionStatus() {
-    return this.props.error || 'Submission successful!';
-  }
+  handleAssignComplete = () => {
+    const { onResetSubmit } = this.props;
+    onResetSubmit();
+    this.setState({ reportMessage: null });
+  };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.submitTask({
-      question: this.state.question,
-      correctAnswer: this.state.correctAnswer,
-      incorrectAnswerA: this.state.incorrectAnswerA,
-      incorrectAnswerB: this.state.incorrectAnswerB,
-    });
-    this.setState({
-      question: null,
-      correctAnswer: null,
-      incorrectAnswerA: null,
-      incorrectAnswerB: null,
-      submitted: true,
-    });
-  }
+  handleModuleError = reportMessage => {
+    this.setState({ reportMessage });
+  };
+
+  handleReport = (reason, message) => {
+    const { taskId } = this.props;
+    this.props.reportTask(taskId, reason, message);
+  };
+
+  handleToggleCancel = () => {
+    this.setState(({ cancelDialog }) => ({ cancelDialog: !cancelDialog }));
+  };
+
+  handleCanceled = () => {
+    this.setState({ canceled: true, cancelDialog: false });
+  };
 
   render() {
-    const {
-      worker, stats, error, isSubmitting,
-    } = this.props;
-    const { loading } = this.state;
-    const isFunded = isWorkerFunded(worker, stats);
+    const { submitState, job, taskId, task } = this.props;
+    const { jobId, cancelDialog, reportMessage, canceled } = this.state;
 
-    if (this.state.submitted) {
-      return (
-        <Modal heading="Task Submitted">
-          {isSubmitting &&
-            <div>Submitting task...</div>
-          }
-          {!isSubmitting && (
-            <div>
-              <div className={styles.heading}>{this.getSubmissionStatus()}</div>
-              {isFunded && (
-                this.props.error === null &&
-                  <button
-                    className={styles.btn}
-                    onClick={() => this.setState({ submitted: false })}
-                    disabled={this.state.gettingTask}
-                  >
-                    Next task
-                  </button>
-              )}
-              {isFunded ||
-                <div>
-                  Your Gems balance is not high enough to submit more tasks.<br />
-                  Please deposit more Gems to submit again.
-                </div>
-              }
-              <div className={styles.heading}>
-                <Link to="/jobs">Browse available jobs</Link>
-              </div>
-            </div>
-          )}
-        </Modal>
-      );
-    }
+    const formVisible = job && task && !canceled;
+
+    const title = canceled ? 'Task cancelled' : (job && job.name) || '';
 
     return (
-      <Content title="Question writing and fact checking">
-        <div className={styles.container}>
-          <div className={styles.task}>
-            Write a trivia question with three multiple-choice answers.
-            One answer should be correct and fact-checked, and two answers should be incorrect.
-          </div>
-          <form onSubmit={this.handleSubmit} className={styles.submitForm}>
-            <label htmlFor="question">
-              <input
-                className={styles.input}
-                onChange={this.getHandleChange('question')}
-                id="question"
-                value={this.state.question || ''}
-                placeholder="Question"
-              />
-            </label>
-            <label htmlFor="correctAnswer">
-              <input
-                className={styles.input}
-                onChange={this.getHandleChange('correctAnswer')}
-                id="correctAnswer"
-                value={this.state.correctAnswer || ''}
-                placeholder="Correct Answer"
-              />
-            </label>
-            <label htmlFor="incorrectAnswerA">
-              <input
-                className={styles.input}
-                onChange={this.getHandleChange('incorrectAnswerA')}
-                id="incorrectAnswerA"
-                value={this.state.incorrectAnswerA || ''}
-                placeholder="Incorrect Answer"
-              />
-            </label>
-            <label htmlFor="incorrectAnswerB">
-              <input
-                className={styles.input}
-                onChange={this.getHandleChange('incorrectAnswerB')}
-                id="incorrectAnswerB"
-                value={this.state.incorrectAnswerB || ''}
-                placeholder="Incorrect Answer"
-              />
-            </label>
-            <button
-              className={styles.submit}
-              onClick={this.handleSubmit}
-              disabled={this.state.value === null || this.state.value === '' || (this.state.loading && !this.props.error)}
-            >
-              {loading && !error ? 'Loading' : 'Submit'}
-            </button>
-          </form>
-        </div>
+      <Content title={title}>
+        {formVisible && (
+          <Panel className={styles.container}>
+            <div className={styles.actions}>
+              <ReportToggle form={job.taskForm}>
+                {({ onHide, reasons }) => (
+                  <ReportTask
+                    onHide={onHide}
+                    reasons={reasons}
+                    report={reportMessage}
+                    onReport={this.handleReport}
+                  />
+                )}
+              </ReportToggle>
+              <Button
+                onClick={this.handleToggleCancel}
+                size="small"
+                theme="white"
+                className={styles.cancel}
+              >
+                cancel
+              </Button>
+            </div>
+            <TaskForm
+              form={job.taskForm}
+              taskData={task.taskData}
+              contextData={job}
+              submitState={submitState}
+              onSubmit={this.handleSubmit}
+              onModuleError={this.handleModuleError}
+            />
+          </Panel>
+        )}
+        {canceled && <Cancelled />}
+        {cancelDialog && (
+          <CancelConfirmationDialog
+            taskId={taskId}
+            onHide={this.handleToggleCancel}
+            onSubmitComplete={this.handleCanceled}
+          />
+        )}
+        <ReportTaskStateEffect onComplete={this.handleCanceled} />
+        {submitState.state === RequestStates.Fetched && (
+          <SubmissionDialog
+            jobId={jobId}
+            onSubmitComplete={this.handleAssignComplete}
+          />
+        )}
       </Content>
     );
   }
 }
+
+export default authenticated(
+  withSubmitState(submitTaskStateSelector)(
+    connect(
+      makeMapStateToProps,
+      mapDispatchToProps
+    )(Task)
+  )
+);

@@ -1,12 +1,16 @@
 import React from 'react';
 
+import { Panel } from '@gemsorg/components';
+
 import Content from '../shared/Content';
+
+import { authenticated } from '../hoc/authRules';
 
 import styles from './Requester.module.styl';
 
 const Requester = () => (
   <Content title="Post a job to Gems">
-    <div className={styles.container}>
+    <Panel className={styles.container}>
       <span>Have an organization or company that can use Gems?</span>
       <a
         className={styles.formLink}
@@ -16,8 +20,8 @@ const Requester = () => (
       >
         Please submit this form
       </a>
-    </div>
+    </Panel>
   </Content>
 );
 
-export default Requester;
+export default authenticated(Requester);

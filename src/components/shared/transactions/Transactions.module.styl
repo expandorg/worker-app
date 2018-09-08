@@ -1,0 +1,23 @@
+@import '~@gemsorg/components/src/uikit/colors'
+@import '~@gemsorg/components/src/uikit/font'
+@import '~@gemsorg/components/src/uikit/consts'
+
+.container
+  box-sizing: border-box;
+  padding: 0 60px 30px
+  max-width: 800px;
+
+  @media(max-width: 660px)
+    width: 100%;
+    padding: 0 10px
+
+.description
+  font(font-preset[subheader])
+  color: color-text-1
+  margin-top: 20px;
+
+  @media(max-width: 660px)
+    padding: 0 20px
+
+.list
+  margin-top: s-margin-big

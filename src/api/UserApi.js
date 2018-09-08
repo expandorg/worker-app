@@ -1,20 +1,33 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class UserApi extends BaseApi {
-  authorize = () =>
-    this.get('/auth')
+  assignAddress = ({ userId, address, signature }) =>
+    this.post(`/users/${userId}/address`, { address, signature });
 
-  login = ({ address, signature }) =>
-    this.post('/login', { address, signature })
+  fetchBalance = ({ userId }) => this.get(`/users/${userId}/gems`);
 
-  setEmail = ({ email }) =>
-    this.postForm('/account/email/update', email)
+  editEmail = ({ userId, email }) =>
+    this.post(`/users/${userId}/email`, { email });
 
-  confirmEmail = ({ code }) =>
-    this.postForm('/account/email/confirm', code)
+  confirmEmail = ({ code, userId }) =>
+    this.post('/email/confirm', { code, userId });
 
-  resendConfirmEmail = () =>
-    this.get('/account/email/confirm/resend')
+  resendConfirmEmail = ({ userId }) =>
+    this.post(`/users/${userId}/email/resend`);
+
+  changePassword = ({ userId, newPassword, oldPassword }) =>
+    this.post(`/users/${userId}/password`, { newPassword, oldPassword });
+
+  resetPassword = ({ email }) => this.post('/password/reset', { email });
+
+  restorePassword = ({ password, code }) =>
+    this.post('/password/restore', { password, code });
+
+  deposit = ({ userId, deposit }) =>
+    this.post(`/users/${userId}/deposit`, { deposit });
+
+  withdraw = ({ userId, withdrawal }) =>
+    this.post(`/users/${userId}/withdraw`, { withdrawal });
 }
 
 export const userApi = new UserApi();

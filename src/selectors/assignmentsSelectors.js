@@ -1,0 +1,47 @@
+// @flow
+import { createSelector } from 'reselect';
+
+export const assignmentsEntitiesSelector = (state: Object) =>
+  state.assignments.entities;
+
+export const assignmentsListSelector = (state: Object) =>
+  state.assignments.list;
+
+export const assignmentsSelector = createSelector(
+  assignmentsEntitiesSelector,
+  assignmentsListSelector,
+  (entities, list) => list.map(jobId => entities[jobId])
+);
+
+export const makeJobAssignmentSelector = () =>
+  createSelector(
+    assignmentsEntitiesSelector,
+    assignmentsListSelector,
+    (state, list, jobId) => jobId,
+    (entities, list, jobId) => {
+      if (jobId === null || !list.includes(+jobId)) {
+        return null;
+      }
+      return entities[+jobId];
+    }
+  );
+
+export const makeTaskAssignmentSelector = () =>
+  createSelector(
+    assignmentsSelector,
+    (state, taskId) => +taskId,
+    (assignments, taskId) =>
+      assignments.find(assignment => assignment.taskId === taskId)
+  );
+
+export const taskAssignmentsSelector = createSelector(
+  assignmentsSelector,
+  assignments =>
+    assignments.filter(assignment => assignment.responseId === null)
+);
+
+export const verificationAssignmentsSelector = createSelector(
+  assignmentsSelector,
+  assignments =>
+    assignments.filter(assignment => assignment.responseId !== null)
+);

@@ -1,33 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { statsProps } from '../shared/propTypes';
+import { connect } from 'react-redux';
+
+import { Panel } from '@gemsorg/components';
 
 import Content from '../shared/Content';
 
+import { userProps } from '../shared/propTypes';
+import { userSelector } from '../../selectors/userSelectors';
+import { authenticated } from '../hoc/authRules';
+
 import styles from './Stats.module.styl';
 
-const Stats = ({ stats }) => (
+const mapStateToProps = state => ({
+  user: userSelector(state),
+});
+
+const Stats = ({ user }) => (
   <Content title="Submission Stats">
-    <div className={styles.container}>
+    <Panel className={styles.container}>
       <div className={styles.completed}>
-        {stats.pending || 0}
+        {user.stats.pending}
         <span className={styles.span}>Tasks Pending*</span>
       </div>
       <div className={styles.completed}>
-        {stats.accepted || 0}
+        {user.stats.accepted}
         <span className={styles.span}>Tasks Accepted</span>
       </div>
       <div className={styles.completed}>
-        {stats.rejected || 0}
+        {user.stats.rejected}
         <span className={styles.span}>Tasks Rejected</span>
       </div>
       <span>*Tasks are pending acceptance</span>
-    </div>
+    </Panel>
   </Content>
 );
 
 Stats.propTypes = {
-  stats: PropTypes.shape(statsProps).isRequired,
+  user: PropTypes.shape(userProps).isRequired,
 };
 
-export default Stats;
+export default authenticated(connect(mapStateToProps)(Stats));

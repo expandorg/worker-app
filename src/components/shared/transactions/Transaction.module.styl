@@ -1,0 +1,47 @@
+@import '~@gemsorg/components/src/uikit/colors'
+@import '~@gemsorg/components/src/uikit/font'
+@import '~@gemsorg/components/src/uikit/consts'
+
+.container
+  margin-bottom: s-margin-big
+
+.content
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-grow: 1
+  box-sizing: border-box;
+
+  font(font-preset[normal], false, false, 40px)
+  height: 40px
+
+  padding: 0 s-padding-medium
+
+  border: solid 1px color-border-grey
+  border-radius: 4px
+  color: color-text-1
+
+.tx
+  flex-grow: 1
+  text-overflow: ellipsis
+  overflow: hidden
+
+.copy
+  box-sizing: border-box;
+  padding: 0
+  margin-left: s-margin-big;
+
+  font(font-preset[body])
+  text-transform: uppercase
+  border: none
+
+  color: color-text-1
+  background-color: transparent
+  cursor: pointer
+
+.link
+  font(font-preset[normal])
+  color: color-pink
+
+  margin-top 10px;

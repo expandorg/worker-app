@@ -1,21 +1,57 @@
+// @flow
+import type { Saga } from 'redux-saga';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { normalize } from 'normalizr';
+import { validateForm } from '@gemsorg/components/src/common/validation';
 
-export const apiCallSaga = (actionType, asyncCall) => {
-  function* request({ payload, meta }) {
+import ApiError from '../api/ApiError';
+
+export const apiCallSaga = (
+  actionType: string,
+  asyncCall: () => Promise<any>
+) => {
+  function* request({ payload, meta }: ReduxAction): Iterable<any> {
     try {
-      const result = yield call(asyncCall, payload);
-      yield put({ type: `${actionType}_COMPLETE`, payload: result, meta });
+      if (meta && meta.validation) {
+        const validationErrors = validateForm(payload, meta.validation);
+        if (validationErrors) {
+          throw ApiError.validation(validationErrors);
+        }
+      }
+      let result = yield call(asyncCall, payload);
+
+      if (meta && meta.schema) {
+        result = normalize(result, meta.schema);
+      }
+      yield put({
+        type: `${actionType}_COMPLETE`,
+        payload: result,
+        complete: true,
+        meta,
+      });
     } catch (error) {
-      yield put({ type: `${actionType}_FAILED`, payload: error, meta });
+      console.log(error);
+      yield put({
+        type: `${actionType}_FAILED`,
+        payload: error,
+        failed: true,
+        meta,
+      });
     }
   }
   return request;
 };
 
-export const takeEveryApiCall = (actionType, asyncCall) => {
+export const takeEveryApiCall = (
+  actionType: string,
+  asyncCall: () => Promise<any>
+) => {
   const request = apiCallSaga(actionType, asyncCall);
-  function* watchGenerator() {
+  function* watchGenerator(): Saga<void> {
     yield takeEvery(actionType, request);
   }
   return watchGenerator;
 };
+
+export const delay = (ms: number): Promise<any> =>
+  new Promise(resolve => setTimeout(() => resolve(true), ms));

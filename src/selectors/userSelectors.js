@@ -1,21 +1,10 @@
+// @flow
 import { createSelector } from 'reselect';
 
-export const userStateSelector = state => state.user;
+export const userSelector = (state: Object) => state.user;
 
-export const isAuthorizedSelector = createSelector(
-  userStateSelector,
-  user => user.isAuthorized,
-);
+export const loggedInSelector = createSelector(userSelector, user => !!user);
 
-export const isJoinedSelector = createSelector(
-  userStateSelector,
-  user => user.isJoined,
-);
+export const gemBalanceSelector = (state: Object) => state.gemsBalance;
 
-export const statsSelector = state => state.stats;
-
-export const workerSelector = state => state.worker;
-
-export const balanceSelector = state => state.gemsBalance;
-
-export const transactionsSelector = state => state.transactions;
+export const transactionsSelector = (state: Object) => state.transactions;
