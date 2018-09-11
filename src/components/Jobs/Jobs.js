@@ -19,7 +19,7 @@ import JobItem from './JobItem';
 
 import { authenticated } from '../hoc/authRules';
 
-import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
+import { assignJob } from '../../sagas/jobsSagas';
 
 import { userSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchJobs, assignJob }, dispatch);
+  bindActionCreators({ assignJob }, dispatch);
 
 class Jobs extends Component {
   static propTypes = {
@@ -42,7 +42,6 @@ class Jobs extends Component {
     user: PropTypes.shape(userProps).isRequired,
     history: PropTypes.shape(historyProps).isRequired,
     assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
-    fetchJobs: PropTypes.func.isRequired,
     assignJob: PropTypes.func.isRequired,
   };
 
@@ -56,10 +55,6 @@ class Jobs extends Component {
     this.state = {
       emailDialog: false,
     };
-  }
-
-  componentDidMount() {
-    this.props.fetchJobs();
   }
 
   handleSelect = job => {
