@@ -61,6 +61,7 @@ class Restore extends Component {
           <div className={styles.panel}>
             <h2 className={styles.title}>Change password</h2>
             <form className={styles.form} onSubmit={this.handleSubmit}>
+              <div className={styles.label}>Confirmation code:</div>
               <Input
                 className={styles.input}
                 type="text"
@@ -69,6 +70,7 @@ class Restore extends Component {
                 value={code}
                 onChange={({ target }) => this.setState({ code: target.value })}
               />
+              <div className={styles.label}>New password:</div>
               <Input
                 className={styles.input}
                 type="password"
