@@ -1,12 +1,14 @@
-import { fork } from 'redux-saga/effects';
+import { fork, takeEvery, call, put } from 'redux-saga/effects';
+import { normalize } from 'normalizr';
 
 import { takeEveryApiCall } from '../common/app/apiCallSaga';
-import { tasksActionTypes } from './actionTypes';
+import { tasksActionTypes, jobsActionTypes } from './actionTypes';
 
-import { taskSchema, authResponseSchema } from '../model/schemas';
+import { taskSchema, jobSchema, authResponseSchema } from '../model/schemas';
 import { GtmActions } from '../common/gtm/GtmEvents';
 
 import { tasksApi } from '../api/TasksApi';
+import { jobsApi } from '../api/JobsApi';
 
 export const fetchTask = taskId => ({
   type: tasksActionTypes.FETCH,
@@ -19,21 +21,43 @@ const watchFetchRequest = takeEveryApiCall(
   tasksApi.fetch
 );
 
-export const submitTask = (taskId, form) => ({
+export const submitTask = (taskId, response) => ({
   type: tasksActionTypes.SUBMIT,
-  payload: { taskId, form, response: form },
+  payload: { taskId, response },
   meta: {
-    schema: { assignedTasks: [taskSchema] },
     track: {
       action: GtmActions.TaskSubmit,
     },
   },
 });
 
-const watchCreateRequest = takeEveryApiCall(
-  tasksActionTypes.SUBMIT,
-  tasksApi.submitTask
-);
+function* handleSubmitTask({ payload, meta }) {
+  try {
+    const submitResponse = yield call(tasksApi.submitTask, payload);
+    try {
+      const jobs = yield call(jobsApi.list);
+      yield put({
+        type: jobsActionTypes.FETCH_LIST_COMPLETE,
+        payload: normalize(jobs, { jobs: [jobSchema] }),
+      });
+    } catch (e) {
+      yield put({ type: tasksActionTypes.FETCH_LIST_FAILED, payload: e });
+    }
+    yield put({
+      type: tasksActionTypes.SUBMIT_COMPLETE,
+      payload: normalize(submitResponse, authResponseSchema),
+      complete: true,
+      meta,
+    });
+  } catch (error) {
+    yield put({
+      type: tasksActionTypes.SUBMIT_FAILED,
+      payload: error,
+      failed: true,
+      meta,
+    });
+  }
+}
 
 export const reportTask = (taskId, reason, message) => ({
   type: tasksActionTypes.REPORT,
@@ -63,7 +87,7 @@ const watchCancelRequest = takeEveryApiCall(
 
 export function* tasksSagas() {
   yield fork(watchFetchRequest);
-  yield fork(watchCreateRequest);
   yield fork(watchReportRequest);
   yield fork(watchCancelRequest);
+  yield takeEvery(tasksActionTypes.SUBMIT, handleSubmitTask);
 }
