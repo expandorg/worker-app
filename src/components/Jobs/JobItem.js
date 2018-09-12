@@ -44,7 +44,6 @@ export default class JobItem extends Component {
     const { job, user, assignment } = this.props;
     const isJoined = !!assignment;
     const isFunded = isSufficientFunds(user, job);
-
     return (
       <div className={styles.container}>
         <img className={styles.logo} src={job.logo} alt={job.requester} />

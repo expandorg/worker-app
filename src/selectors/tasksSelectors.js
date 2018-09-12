@@ -6,6 +6,8 @@ import {
   verificationAssignmentsSelector,
 } from './assignmentsSelectors';
 
+import { jobEntitiesSelector } from './jobsSelectors';
+
 export const tasksEntitiesSelector = (state: Object) => state.tasks.entities;
 export const responsesEntitiesSelector = (state: Object) =>
   state.responses.entities;
@@ -19,18 +21,24 @@ export const makeTaskSelector = () =>
 
 export const assignedTasksSelector = createSelector(
   tasksEntitiesSelector,
+  jobEntitiesSelector,
   taskAssignmentsSelector,
-  (entities, assignments) =>
-    assignments.map(assignment => entities[assignment.taskId])
+  (entities, jobEntities, assignments) =>
+    assignments.map(assignment => ({
+      ...entities[assignment.taskId],
+      job: jobEntities[assignment.jobId],
+    }))
 );
 
 export const assignedVerificationsSelector = createSelector(
   tasksEntitiesSelector,
   responsesEntitiesSelector,
+  jobEntitiesSelector,
   verificationAssignmentsSelector,
-  (taskEntities, responseEntities, assignments) =>
+  (taskEntities, responseEntities, jobEntities, assignments) =>
     assignments.map(assignment => ({
-      task: taskEntities[assignment.taskId],
+      ...taskEntities[assignment.taskId],
+      job: jobEntities[assignment.jobId],
       response: responseEntities[assignment.responseId],
     }))
 );
