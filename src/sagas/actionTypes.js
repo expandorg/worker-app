@@ -1,7 +1,5 @@
-
 // @flow
 import createActionTypes from '../common/app/createActionTypes';
-
 
 export const appActionTypes = createActionTypes('app', {
   INIT: null,
@@ -45,7 +43,6 @@ export const authActionTypes = createActionTypes('auth', {
   LOGOUT_COMPLETE: null,
   LOGOUT_FAILED: null,
 });
-
 
 export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS: null,
@@ -97,7 +94,6 @@ export const jobsActionTypes = createActionTypes('jobs', {
   ASSIGN_FAILED: null,
 });
 
-
 export const onboardingActionTypes = createActionTypes('onboarding', {
   FETCH: null,
   FETCH_COMPLETE: null,
@@ -106,6 +102,10 @@ export const onboardingActionTypes = createActionTypes('onboarding', {
   SUBMIT: null,
   SUBMIT_COMPLETE: null,
   SUBMIT_FAILED: null,
+
+  REPORT: null,
+  REPORT_COMPLETE: null,
+  REPORT_FAILED: null,
 
   REMOVE_MESSAGE: null,
 });
@@ -118,6 +118,14 @@ export const tasksActionTypes = createActionTypes('tasks', {
   SUBMIT: null,
   SUBMIT_COMPLETE: null,
   SUBMIT_FAILED: null,
+
+  REPORT: null,
+  REPORT_COMPLETE: null,
+  REPORT_FAILED: null,
+
+  CANCEL: null,
+  CANCEL_COMPLETE: null,
+  CANCEL_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

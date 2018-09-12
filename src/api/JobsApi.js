@@ -1,14 +1,11 @@
 import BaseApi from '../common/api/BaseApi';
 
 export class JobsApi extends BaseApi {
-  list = () =>
-    this.get('/jobs')
+  list = () => this.get('/jobs');
 
-  fetch = ({ jobId }) =>
-    this.get(`/jobs/${jobId}`)
+  fetch = ({ jobId }) => this.get(`/jobs/${jobId}`);
 
-  assign = ({ jobId }) =>
-    this.post(`/jobs/${jobId}/assign`)
+  assign = ({ jobId }) => this.post(`/jobs/${jobId}/assign`);
 }
 
 export const jobsApi = new JobsApi();

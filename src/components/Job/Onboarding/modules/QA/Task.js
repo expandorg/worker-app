@@ -9,8 +9,7 @@ export default class Task extends Component {
   };
 
   render() {
-    const { link,
-    } = this.props;
+    const { link } = this.props;
     return (
       <Alignment padding="medium" vCenter>
         <a
@@ -21,9 +20,7 @@ export default class Task extends Component {
         >
           Read article
         </a>
-        <p>
-          Read article and answer the questions!
-        </p>
+        <p>Read article and answer the questions!</p>
       </Alignment>
     );
   }

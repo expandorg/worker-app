@@ -6,7 +6,7 @@ export default class ScriptsLoader extends PubSubMap {
     src: string,
     async?: boolean = false,
     defer?: boolean = false,
-    onLoad: Function,
+    onLoad: Function
   ) => {
     if (!this.hasKey(src)) {
       const script = this.createScript(src, async, defer);

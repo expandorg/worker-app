@@ -1,6 +1,19 @@
-import { takeLatest, takeEvery, call, put, take, race } from 'redux-saga/effects';
+import {
+  takeLatest,
+  takeEvery,
+  call,
+  put,
+  take,
+  race,
+} from 'redux-saga/effects';
 
-import { appActionTypes, userActionTypes, gemsActionTypes } from './actionTypes';
+import {
+  appActionTypes,
+  userActionTypes,
+  gemsActionTypes,
+  onboardingActionTypes,
+  tasksActionTypes,
+} from './actionTypes';
 import { NotificationType } from '../model/enums';
 
 import { delay } from '../common/app/apiCallSaga';
@@ -37,9 +50,18 @@ function* handleTxFailed({ payload }) {
   yield put(addNotification(NotificationType.TxError, payload));
 }
 
+function* handleReport({ type }) {
+  yield put(addNotification(NotificationType.Report, { type }));
+}
+
 export function* notificationsSagas() {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
 
   yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);
   yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
+
+  yield takeEvery(
+    [onboardingActionTypes.REPORT_COMPLETE, tasksActionTypes.REPORT_COMPLETE],
+    handleReport
+  );
 }

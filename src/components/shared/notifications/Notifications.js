@@ -11,7 +11,7 @@ import Notification from './Notification';
 import { clearNotification } from '../../../sagas/notificationsSagas';
 import { notificationSelector } from '../../../selectors/uiStateSelectors';
 
-import { notificationProps } from '../../shared/propTypes';
+import { notificationProps } from '../propTypes';
 
 const mapStateToProps = state => ({
   notification: notificationSelector(state),
@@ -28,7 +28,7 @@ class Notifications extends Component {
 
   static defaultProps = {
     notification: null,
-  }
+  };
 
   render() {
     const { notification } = this.props;
@@ -43,4 +43,7 @@ class Notifications extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notifications);

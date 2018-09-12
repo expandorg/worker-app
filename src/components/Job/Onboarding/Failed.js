@@ -20,15 +20,16 @@ export default class OnboardingFailed extends Component {
     return (
       <Panel>
         <div className={styles.form}>
-          <h1 className={styles.heading}>
-            Sorry you are out of tries
-          </h1>
-          <p className={styles.description}>
-            {job.onboarding.failureMessage}
-          </p>
+          <h1 className={styles.heading}>Sorry you are out of tries</h1>
+          <p className={styles.description}>{job.onboarding.failureMessage}</p>
           <div className={styles.actions}>
             <Link
-              className={cn('gem-button', 'gem-button-large', 'gem-button-pink', styles.back)}
+              className={cn(
+                'gem-button',
+                'gem-button-large',
+                'gem-button-pink',
+                styles.back
+              )}
               to="/jobs"
             >
               Ok

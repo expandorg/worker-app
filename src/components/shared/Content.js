@@ -13,9 +13,7 @@ const Content = ({ children, title }) => (
   <DocumentTitle title={`${title} - Gems`}>
     <div className="gem-content">
       <VerifyEmailPopup />
-      <div className="gem-content-title">
-        {title}
-      </div>
+      <div className="gem-content-title">{title}</div>
       {children}
       <OnboardingSurvey />
     </div>

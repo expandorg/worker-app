@@ -52,7 +52,7 @@ export const jobProps = {
   }),
 };
 
-export const onboarding = {
+export const onboardingProps = {
   jobId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   message: PropTypes.string,
@@ -68,8 +68,8 @@ export const assignmentProps = {
 export const taskProps = {
   id: PropTypes.number,
   jobId: PropTypes.number,
+  taskData: PropTypes.object,
 };
-
 
 export const historyProps = {
   replace: PropTypes.func.isRequired,
@@ -82,12 +82,10 @@ export const locationProps = {
   hash: PropTypes.string.isRequired,
 };
 
-
 export const requestStateProps = {
   state: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
-
 
 export const notificationPayloadProps = {
   data: PropTypes.object,

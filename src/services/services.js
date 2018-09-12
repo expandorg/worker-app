@@ -15,9 +15,10 @@ import TxEventSource from './events/TxEventSource';
 import LocationService from './LocationService';
 import ReverseGeocoder from './ReverseGeocoder';
 
-
-const eventSources = new EventSourceService(settings.apiUrl)
-  .definition('tx', new TxEventSource());
+const eventSources = new EventSourceService(settings.apiUrl).definition(
+  'tx',
+  new TxEventSource()
+);
 
 const services = new ServiceLocator()
   .register('gtm', new GoogleTagManager(settings.gtmTrackingId))

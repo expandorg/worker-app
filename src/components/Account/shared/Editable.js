@@ -16,8 +16,7 @@ export default class Editable extends Component {
 
   static defaultProps = {
     value: null,
-  }
-
+  };
 
   render() {
     const { value, placeholder, onEdit } = this.props;
@@ -25,14 +24,12 @@ export default class Editable extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.value}>
-            {value || placeholder}
-          </div>
-          {value &&
+          <div className={styles.value}>{value || placeholder}</div>
+          {value && (
             <Clipboard className={styles.copy} data-clipboard-text={value}>
               Copy
             </Clipboard>
-          }
+          )}
         </div>
         <Button className={styles.edit} onClick={onEdit}>
           Edit

@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import Container from './Container';
 import Balance from './types/Balance';
 import TxFailed from './types/TxFailed';
+import ReportSent from './types/ReportSent';
 
 import { NotificationType } from '../../../model/enums';
-import { notificationProps } from '../../shared/propTypes';
+import { notificationProps } from '../propTypes';
 
 export default class Notification extends Component {
   static propTypes = {
@@ -16,7 +17,7 @@ export default class Notification extends Component {
 
   static defaultProps = {
     notification: null,
-  }
+  };
 
   renderContent({ notificationType, payload }) {
     switch (notificationType) {
@@ -24,6 +25,8 @@ export default class Notification extends Component {
         return <Balance payload={payload} />;
       case NotificationType.TxError:
         return <TxFailed payload={payload} />;
+      case NotificationType.Report:
+        return <ReportSent payload={payload} />;
       default:
         break;
     }

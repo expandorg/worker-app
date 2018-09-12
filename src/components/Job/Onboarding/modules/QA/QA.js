@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@gemsorg/components';
-import { Alignment, Paragraph, Select, Choice, moduleProps } from '@gemsorg/components/modules';
+import {
+  Alignment,
+  Paragraph,
+  Select,
+  Choice,
+  Progress,
+} from '@gemsorg/components/modules';
 
-import Progress from './Progress';
 import Task from './Task';
 import ArticleModal from '../ArticleModal';
 
@@ -12,68 +17,71 @@ import styles from './QA.module.styl';
 
 export default class QA extends Component {
   static propTypes = {
-    module: moduleProps.isRequired,
-    contextData: PropTypes.object.isRequired, // eslint-disable-line
     value: PropTypes.string,
-    isSubmitting: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+    question: PropTypes.string.isRequired,
+    answers: PropTypes.arrayOf(PropTypes.object).isRequired,
+    rulesTitle: PropTypes.string.isRequired,
+    rulesContent: PropTypes.string.isRequired,
+    instructionsTitle: PropTypes.string.isRequired,
+    instructionsContent: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: null,
-  }
+  };
 
   state = {
-    disabled: true,
     rules: false,
     instructions: false,
-  }
+  };
 
-  handleChange = (value) => {
-    const { module, onChange } = this.props;
-    this.setState({ disabled: false });
-    onChange(module.name, value);
-  }
+  handleChange = value => {
+    const { name, onChange } = this.props;
+    onChange(name, value);
+  };
 
   handleToggleRules = () => {
     this.setState(({ rules }) => ({ rules: !rules }));
-  }
+  };
 
   handleToggleInstructions = () => {
     this.setState(({ instructions }) => ({ instructions: !instructions }));
-  }
-
-  handleSubmit = (evt) => {
-    const { isSubmitting, value, onSubmit } = this.props;
-    if (value && !isSubmitting) {
-      onSubmit(evt);
-    }
-  }
+  };
 
   render() {
     const {
-      module, isSubmitting, value, contextData,
+      value,
+      link,
+      number,
+      total,
+      question,
+      answers,
+      rulesTitle,
+      rulesContent,
+      instructionsTitle,
+      instructionsContent,
     } = this.props;
-    const { disabled, rules, instructions } = this.state;
-    const triesLeft = (+contextData.allowedTries || 0) - (+contextData.currentTry || 0);
+    const { rules, instructions } = this.state;
     return (
       <Alignment vertical className={styles.container}>
-        <Task link={module.link} />
-        <Progress number={module.number} total={module.total} triesLeft={triesLeft} />
+        <Task link={link} />
+        <Progress number={number} total={total} />
         <Alignment vertical vCenter padding="medium">
-          <div className={styles.block}>
-            Question {module.number}:
-          </div>
+          <div className={styles.block}>Question {number}:</div>
           <Paragraph
             className={styles.question}
             fontSize="medium"
             centered
-            content={module.question}
+            content={question}
           />
         </Alignment>
         <Alignment padding="medium" vertical>
-          <Select options={module.answers} onSelect={this.handleChange} value={value} >
+          <Select options={answers} onSelect={this.handleChange} value={value}>
             {({ id, onSelect, option }) => (
               <Choice
                 key={id}
@@ -91,38 +99,31 @@ export default class QA extends Component {
               See rules
             </Button>
             <div className={styles.spacer} />
-            <Button size="small" theme="link" onClick={this.handleToggleInstructions}>
+            <Button
+              size="small"
+              theme="link"
+              onClick={this.handleToggleInstructions}
+            >
               See instructions
             </Button>
           </div>
-          <div>
-            {module.submit && (
-              <Button
-                onClick={this.handleSubmit}
-                size="large"
-                theme="aqua"
-                disabled={isSubmitting || disabled}
-              >
-                {module.submit}
-              </Button>
-            )}
-          </div>
+          <div />
         </Alignment>
         <ArticleModal
           visible={rules}
           onHide={this.handleToggleRules}
           headline="Rules"
           hideTitle="Close"
-          title={module.rulesTitle}
-          content={module.rulesContent}
+          title={rulesTitle}
+          content={rulesContent}
         />
         <ArticleModal
           visible={instructions}
           onHide={this.handleToggleInstructions}
           headline="Instructions"
           hideTitle="Close"
-          title={module.instructionsTitle}
-          content={module.instructionsContent}
+          title={instructionsTitle}
+          content={instructionsContent}
         />
       </Alignment>
     );

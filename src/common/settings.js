@@ -7,4 +7,6 @@ const settings = {
   googleMapsKey: process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyC_tVILLYrsPVZbJxBbJmJyxiC6vG9CB0I',
 };
 
+global.gemsBuildInfo = gemsBuildInfo; // eslint-disable-line
+
 export default settings;

@@ -7,19 +7,25 @@ import { connect } from 'react-redux';
 import { initialState } from '../../common/app/requestUiState';
 import { requestStateProps } from '../shared/propTypes';
 
+import submitStateEffect from './submitStateEffect';
 
 export default function withSubmitState(submitSelector) {
   const mapStateToProps = state => ({
     submitState: submitSelector(state),
   });
+  const SubmitStateEffect = submitStateEffect(submitSelector);
 
-  return (Wrapped) => {
+  return Wrapped => {
     class SumbitState extends Component {
       static propTypes = {
         submitState: PropTypes.shape(requestStateProps).isRequired,
-      }
+        onSubmitComplete: PropTypes.func,
+      };
 
-      /* eslint-disable react/sort-comp, react/no-unused-state */
+      static defaultProps = {
+        onSubmitComplete: Function.prototype,
+      };
+
       static getDerivedStateFromProps({ submitState }, state) {
         if (state.submitted) {
           return {
@@ -29,28 +35,31 @@ export default function withSubmitState(submitSelector) {
         return null;
       }
 
+      /* eslint-disable react/no-unused-state */
       state = {
         submitState: initialState,
         submitted: false,
-      }
+      };
 
-      handleSubmit = (submitCallback) => {
+      handleSubmit = submitCallback => {
         this.setState({ submitted: true }, submitCallback);
-      }
+      };
 
       handleReset = () => {
         this.setState({ submitState: initialState, submitted: false });
-      }
+      };
 
       render() {
-        const { submitState, ...rest } = this.props;
+        const { submitState, onSubmitComplete, ...rest } = this.props;
         return (
-          <Wrapped
-            submitState={this.state.submitState}
-            onSubmit={this.handleSubmit}
-            onResetSubmit={this.handleReset}
-            {...rest}
-          />
+          <SubmitStateEffect onComplete={onSubmitComplete}>
+            <Wrapped
+              submitState={this.state.submitState}
+              onSubmit={this.handleSubmit}
+              onResetSubmit={this.handleReset}
+              {...rest}
+            />
+          </SubmitStateEffect>
         );
       }
     }

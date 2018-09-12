@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Checkbox } from '@gemsorg/components';
-import { Alignment, moduleProps } from '@gemsorg/components/modules';
+import { Alignment } from '@gemsorg/components/modules';
 
 import ArticleModal from './ArticleModal';
 
@@ -10,25 +10,41 @@ import styles from './Rules.module.styl';
 
 export default class Rules extends Component {
   static propTypes = {
-    module: moduleProps.isRequired,
     value: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    buttonTitle: PropTypes.string.isRequired,
+    checkbox: PropTypes.string.isRequired,
+    headline: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    rules: PropTypes.string.isRequired,
+    close: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: false,
-  }
+  };
 
   state = {
     visible: false,
-  }
+  };
 
   handleToggle = () => {
     this.setState(({ visible }) => ({ visible: !visible }));
-  }
+  };
 
   render() {
-    const { module, value, onChange } = this.props;
+    const {
+      value,
+      onChange,
+      buttonTitle,
+      name,
+      checkbox,
+      headline,
+      title,
+      rules,
+      close,
+    } = this.props;
     const { visible } = this.state;
     return (
       <Alignment padding="medium">
@@ -38,21 +54,21 @@ export default class Rules extends Component {
           className={styles.button}
           onClick={this.handleToggle}
         >
-          {module.buttonTitle}
+          {buttonTitle}
         </Button>
         <Checkbox
-          name={module.name}
-          label={module.checkbox}
+          name={name}
+          label={checkbox}
           value={value}
-          onChange={changed => onChange(module.name, changed)}
+          onChange={changed => onChange(name, changed)}
         />
         <ArticleModal
           onHide={this.handleToggle}
           visible={visible}
-          headline={module.headline}
-          title={module.title}
-          content={module.rules}
-          hideTitle={module.close}
+          headline={headline}
+          title={title}
+          content={rules}
+          hideTitle={close}
         />
       </Alignment>
     );

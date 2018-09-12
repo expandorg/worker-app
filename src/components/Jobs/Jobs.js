@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps, jobProps, assignmentProps, historyProps } from '../shared/propTypes';
+import {
+  userProps,
+  jobProps,
+  assignmentProps,
+  historyProps,
+} from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
@@ -14,7 +19,7 @@ import JobItem from './JobItem';
 
 import { authenticated } from '../hoc/authRules';
 
-import { fetchJobs, assignJob } from '../../sagas/jobsSagas';
+import { assignJob } from '../../sagas/jobsSagas';
 
 import { userSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
@@ -29,7 +34,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchJobs, assignJob }, dispatch);
+  bindActionCreators({ assignJob }, dispatch);
 
 class Jobs extends Component {
   static propTypes = {
@@ -37,13 +42,12 @@ class Jobs extends Component {
     user: PropTypes.shape(userProps).isRequired,
     history: PropTypes.shape(historyProps).isRequired,
     assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
-    fetchJobs: PropTypes.func.isRequired,
     assignJob: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     jobs: [],
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -53,11 +57,7 @@ class Jobs extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchJobs();
-  }
-
-  handleSelect = (job) => {
+  handleSelect = job => {
     const { user, history } = this.props;
     if (!user.emailConfirmed) {
       this.setState({ emailDialog: true });
@@ -66,12 +66,10 @@ class Jobs extends Component {
     } else {
       this.props.assignJob(job.id);
     }
-  }
+  };
 
   render() {
-    const {
-      user, jobs, assignments,
-    } = this.props;
+    const { user, jobs, assignments } = this.props;
 
     const { emailDialog } = this.state;
     return (
@@ -87,16 +85,21 @@ class Jobs extends Component {
             />
           ))}
         </div>
-        {emailDialog &&
+        {emailDialog && (
           <ConfirmEmailDialog
             user={user}
             onHide={() => this.setState({ emailDialog: false })}
           />
-        }
+        )}
         <AssignedJobRedirect />
       </Content>
     );
   }
 }
 
-export default authenticated(connect(mapStateToProps, mapDispatchToProps)(Jobs));
+export default authenticated(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Jobs)
+);

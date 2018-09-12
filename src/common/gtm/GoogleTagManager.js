@@ -2,14 +2,18 @@
 
 export default class GoogleTagManager {
   static inited: boolean = false;
+
   static queue: Array<Object> = [];
 
   static init() {
     if (!GoogleTagManager.inited) {
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      window.dataLayer.push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js',
+      });
       if (GoogleTagManager.queue.length !== 0) {
-        GoogleTagManager.queue.forEach((event) => {
+        GoogleTagManager.queue.forEach(event => {
           window.dataLayer.push(event);
         });
         GoogleTagManager.queue = [];
@@ -18,7 +22,7 @@ export default class GoogleTagManager {
     }
   }
 
-  trackingId: string
+  trackingId: string;
 
   constructor(trackingId: string) {
     this.trackingId = trackingId;
@@ -50,12 +54,12 @@ export default class GoogleTagManager {
       return undefined;
     }
     return { event: 'uaEvent', ua: uaLayer };
-  }
+  };
 
   event = (action: ?string | ?Object) => {
     const event = this.createUAEvent(action);
     if (event) {
       this.track(event);
     }
-  }
+  };
 }

@@ -5,11 +5,12 @@ import Clipboard from 'react-clipboard.js';
 import styles from './Transaction.module.styl';
 
 const Transaction = ({ tx }) => (
-
   <div className={styles.container}>
     <div className={styles.content}>
       <div className={styles.tx}>{tx}</div>
-      <Clipboard className={styles.copy} data-clipboard-text={tx}>Copy</Clipboard>
+      <Clipboard className={styles.copy} data-clipboard-text={tx}>
+        Copy
+      </Clipboard>
     </div>
     <a
       className={styles.link}

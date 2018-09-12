@@ -1,4 +1,11 @@
-import { fork, takeEvery, call, put, select, getContext } from 'redux-saga/effects';
+import {
+  fork,
+  takeEvery,
+  call,
+  put,
+  select,
+  getContext,
+} from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
 import { authActionTypes, appActionTypes } from './actionTypes';
@@ -19,8 +26,10 @@ export const getCurrentUser = () => ({
   meta: { schema: authResponseSchema },
 });
 
-const watchGetCurrent = takeEveryApiCall(authActionTypes.GET_CURRENT, authApi.getCurrentUser);
-
+const watchGetCurrent = takeEveryApiCall(
+  authActionTypes.GET_CURRENT,
+  authApi.getCurrentUser
+);
 
 export const login = (email, password) => ({
   type: authActionTypes.LOGIN,
@@ -36,7 +45,6 @@ export const login = (email, password) => ({
 
 const watchLogin = takeEveryApiCall(authActionTypes.LOGIN, authApi.loginUser);
 
-
 export const signup = form => ({
   type: authActionTypes.SIGNUP,
   payload: form,
@@ -49,7 +57,10 @@ export const signup = form => ({
   },
 });
 
-const watchSignup = takeEveryApiCall(authActionTypes.SIGNUP, authApi.signupUser);
+const watchSignup = takeEveryApiCall(
+  authActionTypes.SIGNUP,
+  authApi.signupUser
+);
 
 export const logout = () => ({
   type: authActionTypes.LOGOUT,
@@ -62,7 +73,6 @@ export const logout = () => ({
 });
 
 const watchLogout = takeEveryApiCall(authActionTypes.LOGOUT, authApi.logout);
-
 
 export const loginMetamask = () => ({
   type: authActionTypes.LOGIN_METAMASK,
@@ -79,15 +89,17 @@ function* handleLoginMetamask() {
     const gemsService = services.resolve('gems');
     const address = gemsService.getDefaultAccount();
 
-    const { result: signature } = yield call(gemsService.getAccountSingature, address);
+    const { result: signature } = yield call(
+      gemsService.getAccountSingature,
+      address
+    );
     const data = yield call(authApi.loginMetamask, { address, signature });
     const payload = normalize(data, authResponseSchema);
-    yield put(({ type: authActionTypes.LOGIN_METAMASK_COMPLETE, payload }));
+    yield put({ type: authActionTypes.LOGIN_METAMASK_COMPLETE, payload });
   } catch (error) {
-    yield put(({ type: authActionTypes.LOGIN_METAMASK_FAILED, payload: error }));
+    yield put({ type: authActionTypes.LOGIN_METAMASK_FAILED, payload: error });
   }
 }
-
 
 export const signupMetamask = () => ({
   type: authActionTypes.SIGNUP_METAMASK,
@@ -103,15 +115,17 @@ function* handleSignupMetamask() {
     const gemsService = services.resolve('gems');
 
     const address = gemsService.getDefaultAccount();
-    const { result: signature } = yield call(gemsService.getAccountSingature, address);
+    const { result: signature } = yield call(
+      gemsService.getAccountSingature,
+      address
+    );
     const data = yield call(authApi.signupMetamask, { address, signature });
     const payload = normalize(data, authResponseSchema);
-    yield put(({ type: authActionTypes.SIGNUP_METAMASK_COMPLETE, payload }));
+    yield put({ type: authActionTypes.SIGNUP_METAMASK_COMPLETE, payload });
   } catch (error) {
-    yield put(({ type: authActionTypes.SIGNUP_METAMASK_FAILED, payload: error }));
+    yield put({ type: authActionTypes.SIGNUP_METAMASK_FAILED, payload: error });
   }
 }
-
 
 function* watchAppInit() {
   yield takeEvery(appActionTypes.INIT, function* handleAuth() {

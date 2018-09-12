@@ -10,14 +10,16 @@ export default class Header extends Component {
   static propTypes = {
     collapsed: PropTypes.bool.isRequired,
     onToggle: PropTypes.func.isRequired,
-  }
+  };
 
   render() {
     const { collapsed, onToggle } = this.props;
     return (
-      <div className="gem-header" >
+      <div className="gem-header">
         <Hamburger
-          className={cn('gem-header-toggle', { 'gem-header-opened': collapsed })}
+          className={cn('gem-header-toggle', {
+            'gem-header-opened': collapsed,
+          })}
           active={collapsed}
           onToggle={onToggle}
         />

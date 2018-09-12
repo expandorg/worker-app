@@ -26,11 +26,11 @@ class VerifyEmailPopup extends Component {
 
   state = {
     dialog: false,
-  }
+  };
 
   handleToggle = () => {
     this.setState(({ dialog }) => ({ dialog: !dialog }));
-  }
+  };
 
   render() {
     const { user } = this.props;
@@ -43,9 +43,9 @@ class VerifyEmailPopup extends Component {
         <button className={styles.confirm} onClick={this.handleToggle}>
           You need confirm email address
         </button>
-        {dialog &&
+        {dialog && (
           <ConfirmEmailDialog user={user} onHide={this.handleToggle} />
-        }
+        )}
       </div>
     );
   }

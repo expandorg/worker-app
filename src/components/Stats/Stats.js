@@ -12,11 +12,9 @@ import { authenticated } from '../hoc/authRules';
 
 import styles from './Stats.module.styl';
 
-
 const mapStateToProps = state => ({
   user: userSelector(state),
 });
-
 
 const Stats = ({ user }) => (
   <Content title="Submission Stats">

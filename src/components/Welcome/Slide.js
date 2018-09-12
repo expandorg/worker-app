@@ -11,12 +11,12 @@ export default class Slide extends Component {
     onClick: PropTypes.func.isRequired,
     image: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-  }
+  };
 
   handleClick = () => {
     const { onClick, page } = this.props;
     onClick(page + 1);
-  }
+  };
 
   render() {
     const { image, text, page } = this.props;
@@ -27,10 +27,11 @@ export default class Slide extends Component {
         speed={0.4}
         onClick={this.handleClick}
       >
-        <div className={styles.content} style={{ backgroundImage: `url(${image})` }} />
-        <div className={styles.text}>
-          {text}
-        </div>
+        <div
+          className={styles.content}
+          style={{ backgroundImage: `url(${image})` }}
+        />
+        <div className={styles.text}>{text}</div>
       </ParallaxLayer>
     );
   }

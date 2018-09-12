@@ -31,9 +31,15 @@ export default combineReducers({
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
   editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
   confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
-  resendConfirmEmail: requestUiStateReducer(userActionTypes.RESEND_CONFIRM_EMAIL),
+  resendConfirmEmail: requestUiStateReducer(
+    userActionTypes.RESEND_CONFIRM_EMAIL
+  ),
 
-  changePassword: requestUiStateReducer(userActionTypes.CHANGE_PASSWORD, false, true),
+  changePassword: requestUiStateReducer(
+    userActionTypes.CHANGE_PASSWORD,
+    false,
+    true
+  ),
   resetPassword: requestUiStateReducer(userActionTypes.RESET_PASSWORD),
   restorePassword: requestUiStateReducer(userActionTypes.RESTORE_PASSWORD),
 
@@ -44,10 +50,13 @@ export default combineReducers({
   withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
   submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
+  reportOnboarding: requestUiStateReducer(onboardingActionTypes.REPORT),
 
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
+  reportTask: requestUiStateReducer(tasksActionTypes.REPORT),
+  cancelTask: requestUiStateReducer(tasksActionTypes.CANCEL),
 
   notification,
 });

@@ -8,8 +8,8 @@ export type ReduxActionMeta = {
     action?: string | Object,
     complete?: string | Object,
     failed?: string | Object,
-  }
-}
+  },
+};
 
 export type ReduxAction = {
   type: string,
@@ -17,5 +17,5 @@ export type ReduxAction = {
   complete?: boolean,
   failed?: boolean,
   meta: ?ReduxActionMeta,
-  [key: string]: any
-}
+  [key: string]: any,
+};

@@ -13,10 +13,10 @@ import styles from './Welcome.module.styl';
 class Welcome extends Component {
   state = {
     opened: false,
-  }
+  };
   handleToggle = () => {
     this.setState(({ opened }) => ({ opened: !opened }));
-  }
+  };
 
   render() {
     const { opened } = this.state;
@@ -35,9 +35,7 @@ class Welcome extends Component {
               </Button>
             </div>
           </Panel>
-          {opened &&
-            <LoginDialog onHide={this.handleToggle} />
-          }
+          {opened && <LoginDialog onHide={this.handleToggle} />}
         </div>
       </Content>
     );

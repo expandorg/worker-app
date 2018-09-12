@@ -17,11 +17,11 @@ export default class Password extends Component {
 
   state = {
     dialog: false,
-  }
+  };
 
   handleChabge = () => {
     this.setState(({ dialog }) => ({ dialog: !dialog }));
-  }
+  };
 
   render() {
     const { user } = this.props;
@@ -34,13 +34,17 @@ export default class Password extends Component {
     return (
       <Field title="Password">
         <div className={styles.container}>
-          <Button theme="white" className={styles.edit} onClick={this.handleChabge}>
+          <Button
+            theme="white"
+            className={styles.edit}
+            onClick={this.handleChabge}
+          >
             Change password
           </Button>
         </div>
-        {dialog &&
+        {dialog && (
           <EditPasswordDialog user={user} onHide={this.handleChabge} />
-        }
+        )}
       </Field>
     );
   }
