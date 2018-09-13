@@ -70,7 +70,7 @@ class SubmissionDialog extends Component {
                   const time = Math.ceil(timeLeft / 1000);
                   return finished
                     ? 'Assigning to task...'
-                    : `You will be automatically assigne to this task in ${time} seconds`;
+                    : `You will be automatically assigned to this task in ${time} seconds`;
                 }}
               </Countdown>
             </div>
