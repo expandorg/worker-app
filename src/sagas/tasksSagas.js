@@ -1,10 +1,11 @@
 import { fork } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '../common/app/apiCallSaga';
+import { takeEveryApiCall } from '@gemsorg/app-utils';
+
 import { tasksActionTypes } from './actionTypes';
 
 import { taskSchema, authResponseSchema } from '../model/schemas';
-import { GtmActions } from '../common/gtm/GtmEvents';
+import { GtmActions } from '../common/GtmEvents';
 
 import { tasksApi } from '../api/TasksApi';
 

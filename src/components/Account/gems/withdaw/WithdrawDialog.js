@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Dialog, DialogHeadline } from '@gemsorg/components';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 
 import WithdrawForm from './WithdrawForm';
 import Transactions from '../../../shared/transactions/Transactions';
 
-import { RequestStates } from '../../../../common/app/requestUiState';
-import { userProps, requestStateProps } from '../../../shared/propTypes';
+import { userProps } from '../../../shared/propTypes';
 
 import { withdrawPayments } from '../../../../sagas/gemsSagas';
 
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch =>
 class WithdrawDialog extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     withdrawPayments: PropTypes.func.isRequired,

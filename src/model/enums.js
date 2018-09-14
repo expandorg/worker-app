@@ -1,5 +1,5 @@
 // @flow
-import { keyMirror } from '../common/utils';
+import { keyMirror } from '@gemsorg/utils';
 
 export const UserRoles = keyMirror({});
 

@@ -1,4 +1,4 @@
-import BaseApi from '../common/api/BaseApi';
+import { BaseApi } from '@gemsorg/api-client';
 
 export class UserApi extends BaseApi {
   assignAddress = ({ userId, address, signature }) =>

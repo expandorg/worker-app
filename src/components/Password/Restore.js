@@ -8,11 +8,11 @@ import { bindActionCreators } from 'redux';
 import DocumentTitle from 'react-document-title';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../hoc/withSubmitState';
 
-import { requestStateProps, locationProps } from '../shared/propTypes';
-import { RequestStates } from '../../common/app/requestUiState';
+import { locationProps } from '../shared/propTypes';
 
 import { restorePassword } from '../../sagas/userSagas';
 
@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch =>
 
 class Restore extends Component {
   static propTypes = {
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     location: PropTypes.shape(locationProps).isRequired,
     restorePassword: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,

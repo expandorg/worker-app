@@ -8,11 +8,9 @@ import { Link } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../hoc/withSubmitState';
-
-import { requestStateProps } from '../shared/propTypes';
-import { RequestStates } from '../../common/app/requestUiState';
 
 import { resetPassword } from '../../sagas/userSagas';
 
@@ -25,7 +23,7 @@ const mapDispatchToProps = dispatch =>
 
 class Password extends Component {
   static propTypes = {
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     resetPassword: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };

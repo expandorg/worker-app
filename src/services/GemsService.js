@@ -2,7 +2,7 @@
 import { GemsToken, events as tokenEvents } from 'gems-token';
 import Watcher from '@xlnt/scry-one';
 
-import { promisify } from '../common/utils';
+import { promisify } from '@gemsorg/utils';
 
 const GAS_PRICE_FACTOR = 1e8;
 

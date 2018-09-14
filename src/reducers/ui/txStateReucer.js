@@ -1,5 +1,6 @@
+import { RequestStates } from '@gemsorg/app-utils';
+
 import { gemsActionTypes, userActionTypes } from '../../sagas/actionTypes';
-import { RequestStates } from '../../common/app/requestUiState';
 
 const initialState = RequestStates.NotFetched;
 

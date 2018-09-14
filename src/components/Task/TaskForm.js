@@ -8,8 +8,7 @@ import {
   FormDataProvider,
 } from '@gemsorg/components/modules';
 
-import { requestStateProps } from '../shared/propTypes';
-import { RequestStates } from '../../common/app/requestUiState';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import styles from './TaskForm.module.styl';
 
@@ -18,7 +17,7 @@ export default class TaskForm extends Component {
     form: formProps.isRequired,
     taskData: PropTypes.object, // eslint-disable-line
     contextData: PropTypes.any, // eslint-disable-line
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onModuleError: PropTypes.func.isRequired,
   };

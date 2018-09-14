@@ -7,19 +7,17 @@ import {
   getContext,
 } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '../common/app/apiCallSaga';
+import { takeEveryApiCall, RequestStates } from '@gemsorg/app-utils';
 
 import { gemsActionTypes } from './actionTypes';
 
 import { userApi } from '../api/UserApi';
 import { etheriumApi } from '../api/EthgasstationInfoApi';
 
-import { RequestStates } from '../common/app/requestUiState';
-
 import { userSelector } from '../selectors/userSelectors';
 import { initGemsStateSelector } from '../selectors/uiStateSelectors';
 
-import { ua, GtmActions } from '../common/gtm/GtmEvents';
+import { ua, GtmActions } from '../common/GtmEvents';
 
 export const depositGems = deposit => ({
   type: gemsActionTypes.DEPOSIT,

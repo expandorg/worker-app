@@ -14,18 +14,18 @@ import {
   ReportToggle,
 } from '@gemsorg/components/modules';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import OnboardingModuleTypes from './modules/OnboardingModuleTypes';
 import Rules from './modules/Rules';
 import QA from './modules/QA/QA';
-
-import { RequestStates } from '../../../common/app/requestUiState';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
 import GroupFaildDialog from './GroupFaildDialog';
 import Report from '../../shared/Report';
 
-import { requestStateProps, onboardingProps } from '../../shared/propTypes';
+import { onboardingProps } from '../../shared/propTypes';
 
 import {
   submitOnboarding,
@@ -61,7 +61,7 @@ class Onboarding extends Component {
   static propTypes = {
     jobId: PropTypes.number.isRequired,
     onboarding: PropTypes.shape(onboardingProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
 
     submitOnboarding: PropTypes.func.isRequired,
     reportOnboarding: PropTypes.func.isRequired,

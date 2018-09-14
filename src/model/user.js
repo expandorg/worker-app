@@ -1,5 +1,5 @@
 // @flow
-import { rules } from '@gemsorg/components/src/common/validation';
+import { rules } from '@gemsorg/app-utils/validation';
 
 export const loginValidation = {
   email: [

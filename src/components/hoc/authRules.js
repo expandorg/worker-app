@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { RequestStates } from '../../common/app/requestUiState';
+import { RequestStates } from '@gemsorg/app-utils';
 
 import authContainer from './authContainer';
 

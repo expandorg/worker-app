@@ -1,4 +1,4 @@
-import BaseApi from '../common/api/BaseApi';
+import { BaseApi } from '@gemsorg/api-client';
 
 export class OnboardingApi extends BaseApi {
   fetch = ({ jobId }) => this.get(`/jobs/${jobId}/onboarding`);

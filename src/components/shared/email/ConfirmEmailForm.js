@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
-import { RequestStates } from '../../../common/app/requestUiState';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import {
   confirmEmailStateSelector,
@@ -14,7 +14,7 @@ import {
 } from '../../../selectors/uiStateSelectors';
 import { confirmEmail, resendConfirmEmail } from '../../../sagas/userSagas';
 
-import { userProps, requestStateProps } from '../propTypes';
+import { userProps } from '../propTypes';
 
 import styles from './styles.module.styl';
 
@@ -30,8 +30,8 @@ class ConfirmEmailForm extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     code: PropTypes.string,
-    confirmState: PropTypes.shape(requestStateProps).isRequired,
-    resendState: PropTypes.shape(requestStateProps).isRequired,
+    confirmState: requestStateProps.isRequired,
+    resendState: requestStateProps.isRequired,
     confirmEmail: PropTypes.func.isRequired,
     resendConfirmEmail: PropTypes.func.isRequired,
     onComplete: PropTypes.func,
