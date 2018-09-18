@@ -7,15 +7,16 @@ import { Link } from 'react-router-dom';
 
 import { Panel, Button } from '@gemsorg/components';
 
-import { RequestStates } from '../../../common/app/requestUiState';
-import { requestStateProps, jobProps } from '../../shared/propTypes';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
+import { jobProps } from '../../shared/propTypes';
 
 import styles from './Complete.module.styl';
 
 export default class OnboardingComplete extends Component {
   static propTypes = {
     job: PropTypes.shape(jobProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     onAssign: PropTypes.func.isRequired,
   };
 

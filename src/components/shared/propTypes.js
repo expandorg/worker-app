@@ -82,11 +82,6 @@ export const locationProps = {
   hash: PropTypes.string.isRequired,
 };
 
-export const requestStateProps = {
-  state: PropTypes.string.isRequired,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-};
-
 export const notificationPayloadProps = {
   data: PropTypes.object,
   params: PropTypes.object,

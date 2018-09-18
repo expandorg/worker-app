@@ -5,14 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
 import { login } from '../../../sagas/authSagas';
 
 import { loginStateSelector } from '../../../selectors/uiStateSelectors';
-
-import { requestStateProps } from '../../shared/propTypes';
-import { RequestStates } from '../../../common/app/requestUiState';
 
 import styles from './styles.module.styl';
 
@@ -24,7 +23,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
 
 class LoginForm extends Component {
   static propTypes = {
-    loginState: PropTypes.shape(requestStateProps).isRequired,
+    loginState: requestStateProps.isRequired,
     onToggle: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
   };

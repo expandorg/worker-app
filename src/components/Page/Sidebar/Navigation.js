@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 
 import { NavLink, withRouter } from 'react-router-dom';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import Loading from './Loading';
 import AnonimousNav from './AnonimousNav';
 
@@ -19,8 +21,7 @@ import {
 
 import { fetchJobs } from '../../../sagas/jobsSagas';
 
-import { taskProps, requestStateProps } from '../../shared/propTypes';
-import { RequestStates } from '../../../common/app/requestUiState';
+import { taskProps } from '../../shared/propTypes';
 
 import './Navigation.styl';
 
@@ -78,7 +79,7 @@ Tasks.propTypes = {
 class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
-    authState: PropTypes.shape(requestStateProps).isRequired,
+    authState: requestStateProps.isRequired,
     assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
     assignedVerifications: PropTypes.arrayOf(PropTypes.shape(taskProps))
       .isRequired,

@@ -2,10 +2,10 @@
 
 import { ServiceLocator } from '@gemsorg/components';
 
-import settings from '../common/settings';
+import { GoogleTagManager } from '@gemsorg/app-utils/gtm';
+import { ScriptsLoader } from '@gemsorg/utils';
 
-import GoogleTagManager from '../common/gtm/GoogleTagManager';
-import ScriptsLoader from '../common/ScriptsLoader';
+import settings from '../common/settings';
 
 import GemsService from './GemsService';
 

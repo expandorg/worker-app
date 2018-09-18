@@ -12,15 +12,16 @@ import {
   ErrorMessage,
 } from '@gemsorg/components';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
 import { assignAddress } from '../../../sagas/userSagas';
 
-import { userProps, requestStateProps } from '../../shared/propTypes';
+import { userProps } from '../../shared/propTypes';
 import { MetamaskState } from '../../../model/enums';
-import { RequestStates } from '../../../common/app/requestUiState';
 
 import styles from './EditAddressDialoig.module.styl';
 
@@ -36,7 +37,7 @@ class EditAddressDialoig extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
     metamaskState: PropTypes.string.isRequired,
-    assignState: PropTypes.shape(requestStateProps).isRequired,
+    assignState: requestStateProps.isRequired,
     assignAddress: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };

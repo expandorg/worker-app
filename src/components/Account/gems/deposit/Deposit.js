@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { Button } from '@gemsorg/components';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 
 import DepositDialog from './DepositDialog';
@@ -16,8 +17,7 @@ import {
   transactionStateSelector,
 } from '../../../../selectors/uiStateSelectors';
 
-import { userProps, requestStateProps } from '../../../shared/propTypes';
-import { RequestStates } from '../../../../common/app/requestUiState';
+import { userProps } from '../../../shared/propTypes';
 
 const mapStateToProps = state => ({
   fetchState: fetchBalanceStateSelector(state),
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch =>
 class Deposit extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    fetchState: PropTypes.shape(requestStateProps).isRequired,
+    fetchState: requestStateProps.isRequired,
     txState: PropTypes.string.isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,
   };

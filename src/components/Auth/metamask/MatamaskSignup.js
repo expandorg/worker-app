@@ -6,13 +6,14 @@ import { bindActionCreators } from 'redux';
 
 import { Button, ErrorMessage } from '@gemsorg/components';
 
+import { requestStateProps } from '@gemsorg/app-utils';
+
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 import { signupMetamaskStateSelector } from '../../../selectors/uiStateSelectors';
 import { signupMetamask } from '../../../sagas/authSagas';
 
-import { requestStateProps } from '../../shared/propTypes';
 import { MetamaskState } from '../../../model/enums';
 
 import styles from './styles.module.styl';
@@ -28,7 +29,7 @@ const mapDispatchToProps = dispatch =>
 class MatamaskLogin extends Component {
   static propTypes = {
     metamaskState: PropTypes.string.isRequired,
-    signupState: PropTypes.shape(requestStateProps).isRequired,
+    signupState: requestStateProps.isRequired,
     signupMetamask: PropTypes.func.isRequired,
   };
 

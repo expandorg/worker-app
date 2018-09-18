@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 import { ReportForm } from '@gemsorg/components/modules';
 
-import { RequestStates } from '../../common/app/requestUiState';
-import { requestStateProps } from './propTypes';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 export default class Report extends Component {
   static propTypes = {
     report: PropTypes.string,
     reasons: PropTypes.arrayOf(PropTypes.string).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
     onReport: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,

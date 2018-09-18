@@ -1,11 +1,12 @@
 import { fork } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '../common/app/apiCallSaga';
+import { takeEveryApiCall } from '@gemsorg/app-utils';
+
 import { jobsActionTypes } from './actionTypes';
 
 import { jobsApi } from '../api/JobsApi';
 import { jobSchema, authResponseSchema } from '../model/schemas';
-import { GtmActions } from '../common/gtm/GtmEvents';
+import { GtmActions } from '../common/GtmEvents';
 
 export const fetchJobs = () => ({
   type: jobsActionTypes.FETCH_LIST,

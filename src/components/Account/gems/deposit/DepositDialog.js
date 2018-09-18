@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import { Dialog, DialogHeadline } from '@gemsorg/components';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 
 import DepositForm from './DepositForm';
 import Transactions from '../../../shared/transactions/Transactions';
-
-import { RequestStates } from '../../../../common/app/requestUiState';
-import { requestStateProps } from '../../../shared/propTypes';
 
 import { depositGems } from '../../../../sagas/gemsSagas';
 
@@ -32,8 +31,8 @@ const mapDispatchToProps = dispatch =>
 
 class DepositDialog extends Component {
   static propTypes = {
-    submitState: PropTypes.shape(requestStateProps).isRequired,
-    fetchBalanceState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
+    fetchBalanceState: requestStateProps.isRequired,
     stage: PropTypes.number.isRequired,
     gemsBalance: PropTypes.number,
     onHide: PropTypes.func.isRequired,

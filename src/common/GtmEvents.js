@@ -1,5 +1,5 @@
 // @flow
-import createActionTypes from '../app/createActionTypes';
+import { createActionTypes } from '@gemsorg/app-utils';
 
 export const GtmActions = {
   ...createActionTypes('Auth', {

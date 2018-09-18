@@ -6,15 +6,17 @@ import {
   select,
   getContext,
 } from 'redux-saga/effects';
+
 import { normalize } from 'normalizr';
 
+import { takeEveryApiCall } from '@gemsorg/app-utils';
+
 import { authActionTypes, appActionTypes } from './actionTypes';
-import { takeEveryApiCall } from '../common/app/apiCallSaga';
 
 import { authApi } from '../api/AuthApi';
 
 import { loginValidation, signupValidation } from '../model/user';
-import { GtmActions, ua } from '../common/gtm/GtmEvents';
+import { GtmActions, ua } from '../common/GtmEvents';
 
 import { userSelector } from '../selectors/userSelectors';
 

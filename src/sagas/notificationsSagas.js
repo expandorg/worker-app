@@ -7,6 +7,8 @@ import {
   race,
 } from 'redux-saga/effects';
 
+import { delay } from '@gemsorg/utils';
+
 import {
   appActionTypes,
   userActionTypes,
@@ -14,9 +16,8 @@ import {
   onboardingActionTypes,
   tasksActionTypes,
 } from './actionTypes';
-import { NotificationType } from '../model/enums';
 
-import { delay } from '../common/app/apiCallSaga';
+import { NotificationType } from '../model/enums';
 
 const NOTIFICATION_TIMEOUT = 3000;
 

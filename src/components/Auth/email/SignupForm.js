@@ -6,12 +6,11 @@ import { bindActionCreators } from 'redux';
 
 import { Input, ErrorMessage, Button } from '@gemsorg/components';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import { signup } from '../../../sagas/authSagas';
 
 import { signupStateSelector } from '../../../selectors/uiStateSelectors';
-
-import { requestStateProps } from '../../shared/propTypes';
-import { RequestStates } from '../../../common/app/requestUiState';
 
 import styles from './styles.module.styl';
 
@@ -23,7 +22,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({ signup }, dispatch);
 
 class SignupForm extends Component {
   static propTypes = {
-    signupState: PropTypes.shape(requestStateProps).isRequired,
+    signupState: requestStateProps.isRequired,
     onToggle: PropTypes.func.isRequired,
     signup: PropTypes.func.isRequired,
   };

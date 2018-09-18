@@ -8,13 +8,11 @@ import { Link } from 'react-router-dom';
 
 import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 import Countdown from '../shared/Countdown';
 
 import withSubmitState from '../hoc/withSubmitState';
-import { requestStateProps } from '../shared/propTypes';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
-
-import { RequestStates } from '../../common/app/requestUiState';
 
 import { assignJob } from '../../sagas/jobsSagas';
 
@@ -35,7 +33,7 @@ class SubmissionDialog extends Component {
     jobId: PropTypes.number.isRequired,
     jobs: PropTypes.arrayOf(PropTypes.number),
 
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     assignJob: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };

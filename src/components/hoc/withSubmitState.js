@@ -4,8 +4,7 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import { connect } from 'react-redux';
 
-import { initialState } from '../../common/app/requestUiState';
-import { requestStateProps } from '../shared/propTypes';
+import { initialRequestState, requestStateProps } from '@gemsorg/app-utils';
 
 import submitStateEffect from './submitStateEffect';
 
@@ -18,7 +17,7 @@ export default function withSubmitState(submitSelector) {
   return Wrapped => {
     class SumbitState extends Component {
       static propTypes = {
-        submitState: PropTypes.shape(requestStateProps).isRequired,
+        submitState: requestStateProps.isRequired,
         onSubmitComplete: PropTypes.func,
       };
 
@@ -37,7 +36,7 @@ export default function withSubmitState(submitSelector) {
 
       /* eslint-disable react/no-unused-state */
       state = {
-        submitState: initialState,
+        submitState: initialRequestState,
         submitted: false,
       };
 
@@ -46,7 +45,7 @@ export default function withSubmitState(submitSelector) {
       };
 
       handleReset = () => {
-        this.setState({ submitState: initialState, submitted: false });
+        this.setState({ submitState: initialRequestState, submitted: false });
       };
 
       render() {

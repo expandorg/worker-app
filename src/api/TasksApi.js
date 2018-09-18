@@ -1,4 +1,4 @@
-import BaseApi from '../common/api/BaseApi';
+import { BaseApi } from '@gemsorg/api-client';
 
 export class TasksApi extends BaseApi {
   fetch = ({ taskId }) => this.get(`/tasks/${taskId}`);

@@ -7,7 +7,8 @@ import {
   getContext,
 } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '../common/app/apiCallSaga';
+import { takeEveryApiCall } from '@gemsorg/app-utils';
+
 import {
   authActionTypes,
   jobsActionTypes,
@@ -19,7 +20,7 @@ import {
 import { userSelector } from '../selectors/userSelectors';
 
 import { userApi } from '../api/UserApi';
-import { GtmActions } from '../common/gtm/GtmEvents';
+import { GtmActions } from '../common/GtmEvents';
 
 export const editEmail = (user, email) => ({
   type: userActionTypes.EDIT_EMAIL,

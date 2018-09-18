@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { RequestStates } from '../../common/app/requestUiState';
-import { requestStateProps } from '../shared/propTypes';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 export default function submitStateEffect(submitSelector) {
   const mapStateToProps = state => ({
@@ -13,7 +12,7 @@ export default function submitStateEffect(submitSelector) {
 
   class SubmitStateEffect extends Component {
     static propTypes = {
-      submitState: PropTypes.shape(requestStateProps).isRequired,
+      submitState: requestStateProps.isRequired,
       onStart: PropTypes.func,
       onComplete: PropTypes.func,
       onFailed: PropTypes.func,
