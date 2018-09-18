@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { rules as validationRules } from '@gemsorg/app-utils/validation';
+
 import { Button, Checkbox } from '@gemsorg/components';
 import { Alignment } from '@gemsorg/components/modules';
 
@@ -23,6 +25,14 @@ export default class Rules extends Component {
 
   static defaultProps = {
     value: false,
+  };
+
+  static module = {
+    type: 'rules',
+    validation: {
+      isTrue: validationRules.isTrue,
+      isRequired: validationRules.isRequired,
+    },
   };
 
   state = {
