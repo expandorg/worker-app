@@ -18,9 +18,14 @@ import { RequestStates } from '../../common/app/requestUiState';
 
 import { assignJob } from '../../sagas/jobsSagas';
 
+import { jobListSelector } from '../../selectors/jobsSelectors';
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 
 import styles from './SubmissionDialog.module.styl';
+
+const mapStateToProps = state => ({
+  jobs: jobListSelector(state),
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ assignJob }, dispatch);
@@ -28,10 +33,15 @@ const mapDispatchToProps = dispatch =>
 class SubmissionDialog extends Component {
   static propTypes = {
     jobId: PropTypes.number.isRequired,
+    jobs: PropTypes.arrayOf(PropTypes.number),
 
     submitState: PropTypes.shape(requestStateProps).isRequired,
     assignJob: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    jobs: [],
   };
 
   handleAssignJob = () => {
@@ -42,33 +52,38 @@ class SubmissionDialog extends Component {
   };
 
   render() {
-    const { jobId } = this.props;
+    const { jobId, jobs } = this.props;
+    const assignable = jobs.includes(jobId);
     return (
       <Dialog visible hideButton contentLabel="submit task">
         <DialogHeadline>Task Submitted</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.heading}>Submission successful!</div>
-          <div className={styles.reassign}>
-            <Countdown
-              interval={1000}
-              expireIn={5000}
-              onFinish={this.handleAssignJob}
-            >
-              {({ timeLeft, finished }) => {
-                const time = Math.ceil(timeLeft / 1000);
-                return finished
-                  ? 'Assigning to task...'
-                  : `You will be automatically assigned to this task in ${time} seconds`;
-              }}
-            </Countdown>
-          </div>
+          {assignable && (
+            <div className={styles.reassign}>
+              <Countdown
+                interval={1000}
+                expireIn={5000}
+                onFinish={this.handleAssignJob}
+              >
+                {({ timeLeft, finished }) => {
+                  const time = Math.ceil(timeLeft / 1000);
+                  return finished
+                    ? 'Assigning to task...'
+                    : `You will be automatically assigned to this task in ${time} seconds`;
+                }}
+              </Countdown>
+            </div>
+          )}
           <div className={styles.actions}>
             <Link to="/jobs" className={styles.browse}>
               Browse available jobs
             </Link>
-            <Button theme="pink" onClick={this.handleAssignJob}>
-              Start this task
-            </Button>
+            {assignable && (
+              <Button theme="pink" onClick={this.handleAssignJob}>
+                Start this task
+              </Button>
+            )}
           </div>
           <AssignedJobRedirect jobId={jobId} />
         </div>
@@ -79,7 +94,7 @@ class SubmissionDialog extends Component {
 
 export default withSubmitState(assignJobStateSelector)(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(SubmissionDialog)
 );
