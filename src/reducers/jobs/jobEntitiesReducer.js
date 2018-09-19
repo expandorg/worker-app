@@ -1,3 +1,3 @@
-import normiziedItemsReducer from '../../common/app/normiziedItemsReducer';
+import { normalizedItemsReducer } from '@gemsorg/app-utils';
 
-export default normiziedItemsReducer('jobs');
+export default normalizedItemsReducer('jobs');

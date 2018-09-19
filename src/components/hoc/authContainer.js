@@ -4,10 +4,12 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import { connect } from 'react-redux';
 
+import { requestStateProps } from '@gemsorg/app-utils';
+
 import { userSelector } from '../../selectors/userSelectors';
 import { authStateSelector } from '../../selectors/uiStateSelectors';
 
-import { requestStateProps, userProps } from '../shared/propTypes';
+import { userProps } from '../shared/propTypes';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
@@ -19,7 +21,7 @@ export default function authContainer(authCallback) {
     class AuthWrapper extends Component {
       static propTypes = {
         user: PropTypes.shape(userProps),
-        authState: PropTypes.shape(requestStateProps).isRequired,
+        authState: requestStateProps.isRequired,
       };
 
       static defaultProps = {

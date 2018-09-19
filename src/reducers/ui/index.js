@@ -1,4 +1,7 @@
 import { combineReducers } from 'redux';
+
+import { requestUiStateReducer } from '@gemsorg/app-utils';
+
 import {
   web3ActionTypes,
   tasksActionTypes,
@@ -8,8 +11,6 @@ import {
   jobsActionTypes,
   onboardingActionTypes,
 } from '../../sagas/actionTypes';
-
-import { requestUiStateReducer } from '../../common/app/requestUiState';
 
 import depositStage from './depositStageReducer';
 import notification from './notificationReducer';

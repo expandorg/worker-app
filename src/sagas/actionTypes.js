@@ -1,5 +1,5 @@
 // @flow
-import createActionTypes from '../common/app/createActionTypes';
+import { createActionTypes } from '@gemsorg/app-utils';
 
 export const appActionTypes = createActionTypes('app', {
   INIT: null,

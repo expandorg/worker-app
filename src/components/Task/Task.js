@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { Panel, Button } from '@gemsorg/components';
 import { ReportToggle } from '@gemsorg/components/modules';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import withSubmitState from '../hoc/withSubmitState';
 import { authenticated } from '../hoc/authRules';
 
@@ -36,8 +38,7 @@ import {
   reportTaskStateSelector,
 } from '../../selectors/uiStateSelectors';
 
-import { requestStateProps, jobProps, taskProps } from '../shared/propTypes';
-import { RequestStates } from '../../common/app/requestUiState';
+import { jobProps, taskProps } from '../shared/propTypes';
 
 import styles from './Task.module.styl';
 
@@ -65,7 +66,7 @@ class Task extends Component {
     taskId: PropTypes.number.isRequired,
     job: PropTypes.shape(jobProps),
     task: PropTypes.shape(taskProps),
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
 
     submitTask: PropTypes.func.isRequired,
     reportTask: PropTypes.func.isRequired,

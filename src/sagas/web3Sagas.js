@@ -1,7 +1,8 @@
 import { takeEvery, put, call, getContext } from 'redux-saga/effects';
-import { appActionTypes, web3ActionTypes } from './actionTypes';
 
-import { delay } from '../common/app/apiCallSaga';
+import { delay } from '@gemsorg/utils';
+
+import { appActionTypes, web3ActionTypes } from './actionTypes';
 
 function* handleInitWeb3() {
   try {

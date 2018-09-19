@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { rules as validationRules } from '@gemsorg/app-utils/validation';
+
 import { Button } from '@gemsorg/components';
 import {
   Alignment,
@@ -33,6 +35,14 @@ export default class QA extends Component {
 
   static defaultProps = {
     value: null,
+  };
+
+  static module = {
+    type: 'qa',
+    validation: {
+      isNotEmpty: validationRules.isNotEmpty,
+      isRequired: validationRules.isRequired,
+    },
   };
 
   state = {

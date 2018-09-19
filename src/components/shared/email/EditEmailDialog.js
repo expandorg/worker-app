@@ -12,12 +12,12 @@ import {
   ErrorMessage,
 } from '@gemsorg/components';
 
-import { RequestStates } from '../../../common/app/requestUiState';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
 import { editEmail } from '../../../sagas/userSagas';
 
-import { userProps, requestStateProps } from '../propTypes';
+import { userProps } from '../propTypes';
 
 import styles from './styles.module.styl';
 
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch =>
 class EditEmailDialog extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    editState: PropTypes.shape(requestStateProps).isRequired,
+    editState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
     editEmail: PropTypes.func.isRequired,
   };

@@ -1,7 +1,7 @@
+import { normalizedItemsReducer } from '@gemsorg/app-utils';
 import { onboardingActionTypes } from '../../sagas/actionTypes';
-import normiziedItemsReducer from '../../common/app/normiziedItemsReducer';
 
-const normalizedOnboarding = normiziedItemsReducer('onboarding');
+const normalizedOnboarding = normalizedItemsReducer('onboarding');
 
 export default function onboardingEntitiesReducer(state = {}, action) {
   switch (action.type) {

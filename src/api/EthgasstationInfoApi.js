@@ -1,10 +1,7 @@
 // @flow
 
-import BaseApi from '../common/api/BaseApi';
-import ApiClient from '../common/api/ApiClient';
-import ApiRequest from '../common/api/ApiRequest';
-
-import ExpirationCache from '../common/cache/ExpirationCache';
+import { BaseApi, ApiClient, ApiRequest } from '@gemsorg/api-client';
+import { ExpirationCache } from '@gemsorg/utils/cache';
 
 const EXPIRE_IN = 5 * 60 * 1000; // 5 mins
 

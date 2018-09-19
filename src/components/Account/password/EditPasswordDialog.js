@@ -12,10 +12,11 @@ import {
   ErrorMessage,
 } from '@gemsorg/components';
 
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import withSubmitState from '../../hoc/withSubmitState';
 
-import { RequestStates } from '../../../common/app/requestUiState';
-import { requestStateProps, userProps } from '../../shared/propTypes';
+import { userProps } from '../../shared/propTypes';
 
 import { changePassword } from '../../../sagas/userSagas';
 import { changePasswordStateSelector } from '../../../selectors/uiStateSelectors';
@@ -28,7 +29,7 @@ const mapDispatchToProps = dispatch =>
 class EditPasswordDialog extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     changePassword: PropTypes.func.isRequired,

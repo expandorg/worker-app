@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { Prompt } from 'react-router-dom';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
-
-import { RequestStates } from '../../../../common/app/requestUiState';
-import { requestStateProps } from '../../../shared/propTypes';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import Loading from './Loading';
 import Description from './Description';
@@ -20,8 +18,8 @@ const message = () =>
 
 export default class DepositForm extends Component {
   static propTypes = {
-    submitState: PropTypes.shape(requestStateProps).isRequired,
-    fetchState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
+    fetchState: requestStateProps.isRequired,
     gemsBalance: PropTypes.number.isRequired,
     stage: PropTypes.number.isRequired,
     onDeposit: PropTypes.func.isRequired,

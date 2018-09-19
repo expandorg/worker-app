@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
-import { RequestStates } from '../../../../common/app/requestUiState';
-import { requestStateProps, userProps } from '../../../shared/propTypes';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
+import { userProps } from '../../../shared/propTypes';
 
 import {
   userBalance,
@@ -17,7 +18,7 @@ import styles from './WithdrawForm.module.styl';
 export default class WithdrawForm extends Component {
   static propTypes = {
     user: PropTypes.shape(userProps).isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     onWithdraw: PropTypes.func.isRequired,
   };
 

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { RequestStates } from '../../common/app/requestUiState';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import { requestStateProps, historyProps, assignmentProps } from './propTypes';
+import { historyProps, assignmentProps } from './propTypes';
 
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 import { makeJobAssignmentSelector } from '../../selectors/assignmentsSelectors';
@@ -24,7 +24,7 @@ class AssignedJobRedirect extends Component {
     assignment: PropTypes.shape(assignmentProps),
     history: PropTypes.shape(historyProps).isRequired,
     replace: PropTypes.bool,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
   };
 
   static defaultProps = {

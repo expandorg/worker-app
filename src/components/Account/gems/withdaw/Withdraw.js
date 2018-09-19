@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { Button } from '@gemsorg/components';
 
+import { RequestStates } from '@gemsorg/app-utils';
+
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 import ConfirmEmailDialog from '../../../shared/email/ConfirmEmailDialog';
 
@@ -15,7 +17,6 @@ import { transactionStateSelector } from '../../../../selectors/uiStateSelectors
 
 import { userBalance } from '../../../../model/balance';
 import { userProps } from '../../../shared/propTypes';
-import { RequestStates } from '../../../../common/app/requestUiState';
 
 import styles from './Withdraw.module.styl';
 

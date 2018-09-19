@@ -6,10 +6,9 @@ import { bindActionCreators } from 'redux';
 
 import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
 
-import withSubmitState from '../hoc/withSubmitState';
-import { requestStateProps } from '../shared/propTypes';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import { RequestStates } from '../../common/app/requestUiState';
+import withSubmitState from '../hoc/withSubmitState';
 
 import { cancelTask } from '../../sagas/tasksSagas';
 
@@ -23,7 +22,7 @@ const mapDispatchToProps = dispatch =>
 class CancelConfirmationDialog extends Component {
   static propTypes = {
     taskId: PropTypes.number.isRequired,
-    submitState: PropTypes.shape(requestStateProps).isRequired,
+    submitState: requestStateProps.isRequired,
     cancelTask: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
