@@ -16,7 +16,6 @@ import {
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import OnboardingModuleTypes from './modules/OnboardingModuleTypes';
 import Rules from './modules/Rules';
 import QA from './modules/QA/QA';
 
@@ -39,11 +38,7 @@ import {
 
 import styles from './Onboarding.module.styl';
 
-const controls = {
-  ...moduleControls,
-  [OnboardingModuleTypes.qa]: QA,
-  [OnboardingModuleTypes.rules]: Rules,
-};
+const controls = [...moduleControls, QA, Rules];
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -99,7 +94,7 @@ class Onboarding extends Component {
     return (
       <Panel className={styles.container}>
         <div className={styles.actions}>
-          <ReportToggle form={onboarding.form}>
+          <ReportToggle form={onboarding.form} controls={controls}>
             {({ onHide, reasons }) => (
               <OnboardingReport
                 onHide={onHide}
@@ -116,11 +111,12 @@ class Onboarding extends Component {
             <Form
               form={onboarding.form}
               errors={submitState.error}
+              controls={controls}
               isSubmitting={submitState.state === RequestStates.Fetching}
               onSubmit={this.handleSaveStep}
               onModuleError={this.handleModuleError}
             >
-              {props => <Module {...props} controls={controls} />}
+              {props => <Module {...props} />}
             </Form>
           </FormDataProvider>
         </div>
