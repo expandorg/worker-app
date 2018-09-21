@@ -1,8 +1,8 @@
 import { BaseApi } from '@gemsorg/api-client';
 
 export class ResponsesApi extends BaseApi {
-  verify = ({ taskId, score }) =>
-    this.post(`/tasks/${taskId}/verify`, { score });
+  verify = ({ responseId, score }) =>
+    this.post(`/responses/${responseId}/verify`, { score });
 }
 
 export const responsesApi = new ResponsesApi();

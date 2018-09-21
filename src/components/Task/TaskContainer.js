@@ -10,20 +10,27 @@ import { fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
 import Task from './Task';
+import Verification from './Verification';
 
+import { makeTaskAssignmentSelector } from '../../selectors/assignmentsSelectors';
 import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
 import { makeTaskSelector } from '../../selectors/tasksSelectors';
 
-import { jobProps, taskProps } from '../shared/propTypes';
+import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
 const makeMapStateToProps = () => {
   const assignedJobSelector = makeAssignedJobSelector();
+  const assignmentsSelector = makeTaskAssignmentSelector();
   const taskSelector = makeTaskSelector();
-  return (state, props) => ({
-    taskId: +props.match.params.taskId,
-    task: taskSelector(state, +props.match.params.taskId),
-    job: assignedJobSelector(state, +props.match.params.taskId),
-  });
+  return (state, props) => {
+    const taskId = +props.match.params.taskId;
+    return {
+      taskId,
+      assignment: assignmentsSelector(state, taskId),
+      task: taskSelector(state, taskId),
+      job: assignedJobSelector(state, taskId),
+    };
+  };
 };
 
 const mapDispatchToProps = dispatch =>
@@ -32,6 +39,7 @@ const mapDispatchToProps = dispatch =>
 class TaskContainer extends Component {
   static propTypes = {
     taskId: PropTypes.number.isRequired,
+    assignment: assignmentProps,
     job: jobProps,
     task: taskProps,
     fetchJobs: PropTypes.func.isRequired,
@@ -39,6 +47,7 @@ class TaskContainer extends Component {
   };
 
   static defaultProps = {
+    assignment: null,
     job: null,
     task: null,
   };
@@ -47,14 +56,15 @@ class TaskContainer extends Component {
     super(props);
 
     this.state = {
-      jobId: (props.job && props.job.id) || null,
+      assignment: props.assignment,
     };
   }
 
-  static getDerivedStateFromProps({ job }, state) {
-    if (job && state.jobId !== job.id) {
+  static getDerivedStateFromProps({ assignment }, state) {
+    // keep assignment even if it's gone
+    if (assignment && state.assignment !== assignment) {
       return {
-        jobId: job.id,
+        assignment,
       };
     }
     return null;
@@ -68,9 +78,17 @@ class TaskContainer extends Component {
 
   render() {
     const { job, task, taskId } = this.props;
-    const { jobId } = this.state;
-
-    return <Task job={job} task={task} taskId={taskId} jobId={jobId} />;
+    const { assignment } = this.state;
+    return assignment.responseId === null ? (
+      <Task key={taskId} job={job} task={task} assignment={assignment} />
+    ) : (
+      <Verification
+        key={taskId}
+        job={job}
+        task={task}
+        assignment={assignment}
+      />
+    );
   }
 }
 

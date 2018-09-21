@@ -41,7 +41,7 @@ function* handleSubmitTask({ payload, meta }) {
         payload: normalize(jobs, { jobs: [jobSchema] }),
       });
     } catch (e) {
-      yield put({ type: tasksActionTypes.FETCH_LIST_FAILED, payload: e });
+      yield put({ type: jobsActionTypes.FETCH_LIST_FAILED, payload: e });
     }
     yield put({
       type: tasksActionTypes.SUBMIT_COMPLETE,

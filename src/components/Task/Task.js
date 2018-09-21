@@ -28,9 +28,9 @@ import {
   cancelTaskStateSelector,
 } from '../../selectors/uiStateSelectors';
 
-import { jobProps, taskProps } from '../shared/propTypes';
+import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
-import styles from './Task.module.styl';
+import styles from './styles.module.styl';
 
 const ReportTaskStateEffect = submitStateEffect(reportTaskStateSelector);
 const CancelTaskStateEffect = submitStateEffect(cancelTaskStateSelector);
@@ -40,9 +40,7 @@ const mapDispatchToProps = dispatch =>
 
 class Task extends Component {
   static propTypes = {
-    jobId: PropTypes.number,
-    taskId: PropTypes.number.isRequired,
-
+    assignment: assignmentProps,
     job: jobProps,
     task: taskProps,
 
@@ -54,7 +52,7 @@ class Task extends Component {
   };
 
   static defaultProps = {
-    jobId: null,
+    assignment: null,
     job: null,
     task: null,
   };
@@ -69,8 +67,8 @@ class Task extends Component {
   }
 
   handleSubmit = form => {
-    const { taskId, onSubmit } = this.props;
-    onSubmit(() => this.props.submitTask(taskId, form));
+    const { assignment, onSubmit } = this.props;
+    onSubmit(() => this.props.submitTask(assignment.taskId, form));
   };
 
   handleAssignComplete = () => {
@@ -88,7 +86,7 @@ class Task extends Component {
   };
 
   render() {
-    const { submitState, job, taskId, task, jobId } = this.props;
+    const { submitState, job, task, assignment } = this.props;
     const { reportMessage, cancelled } = this.state;
 
     const formVisible = job && task && !cancelled;
@@ -100,15 +98,15 @@ class Task extends Component {
         {formVisible && (
           <Panel className={styles.container}>
             <TaskActions
-              taskId={taskId}
+              taskId={assignment.taskId}
               form={job.taskForm}
               reportMessage={reportMessage}
             />
             <FormDataProvider formData={job}>
               <Form
+                className={styles.form}
                 form={job.taskForm}
                 variables={task.taskData}
-                className={styles.form}
                 errors={submitState.error}
                 isSubmitting={submitState.state === RequestStates.Fetching}
                 onSubmit={this.handleSubmit}
@@ -124,7 +122,7 @@ class Task extends Component {
         <CancelTaskStateEffect onComplete={this.handleCancelled} />
         {submitState.state === RequestStates.Fetched && (
           <SubmissionDialog
-            jobId={jobId}
+            jobId={assignment.jobId}
             onSubmitComplete={this.handleAssignComplete}
           />
         )}

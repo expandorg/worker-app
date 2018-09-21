@@ -96,6 +96,11 @@ export const cancelTaskStateSelector = createSelector(
   state => state.cancelTask
 );
 
+export const verifyResponseStateSelector = createSelector(
+  uiStateSelector,
+  state => state.verifyResponse
+);
+
 export const fetchBalanceStateSelector = createSelector(
   uiStateSelector,
   state => state.gemBalance

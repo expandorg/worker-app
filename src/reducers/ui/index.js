@@ -4,12 +4,13 @@ import { requestUiStateReducer } from '@gemsorg/app-utils';
 
 import {
   web3ActionTypes,
-  tasksActionTypes,
   gemsActionTypes,
   authActionTypes,
   userActionTypes,
   jobsActionTypes,
   onboardingActionTypes,
+  tasksActionTypes,
+  responsesActionTypes,
 } from '../../sagas/actionTypes';
 
 import depositStage from './depositStageReducer';
@@ -58,6 +59,8 @@ export default combineReducers({
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
   reportTask: requestUiStateReducer(tasksActionTypes.REPORT),
   cancelTask: requestUiStateReducer(tasksActionTypes.CANCEL),
+
+  verifyResponse: requestUiStateReducer(responsesActionTypes.VERIFY),
 
   notification,
 });
