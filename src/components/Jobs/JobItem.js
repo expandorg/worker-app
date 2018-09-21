@@ -7,11 +7,6 @@ import { jobProps, userProps, assignmentProps } from '../shared/propTypes';
 
 import styles from './JobItem.module.styl';
 
-const getTaskLink = assignment =>
-  assignment.responseId === null
-    ? `/tasks/${assignment.taskId}`
-    : `/verify/${assignment.taskId}`;
-
 const isSufficientFunds = (user, job) => {
   if (job.logic.funding.module === 'requirement') {
     const available = userBalance.availableBalance(user);
@@ -44,6 +39,7 @@ export default class JobItem extends Component {
     const { job, user, assignment } = this.props;
     const isJoined = !!assignment;
     const isFunded = isSufficientFunds(user, job);
+
     return (
       <div className={styles.container}>
         <img className={styles.logo} src={job.logo} alt={job.requester} />
@@ -58,7 +54,7 @@ export default class JobItem extends Component {
                 </button>
               )}
             {isJoined && (
-              <Link className={styles.link} to={getTaskLink(assignment)}>
+              <Link className={styles.link} to={`/tasks/${assignment.taskId}`}>
                 You have already joined this task
               </Link>
             )}

@@ -33,15 +33,3 @@ export const makeTaskAssignmentSelector = () =>
     (assignments, taskId) =>
       assignments.find(assignment => assignment.taskId === taskId)
   );
-
-export const taskAssignmentsSelector = createSelector(
-  assignmentsSelector,
-  assignments =>
-    assignments.filter(assignment => assignment.responseId === null)
-);
-
-export const verificationAssignmentsSelector = createSelector(
-  assignmentsSelector,
-  assignments =>
-    assignments.filter(assignment => assignment.responseId !== null)
-);

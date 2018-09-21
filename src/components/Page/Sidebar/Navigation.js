@@ -14,10 +14,7 @@ import AnonimousNav from './AnonimousNav';
 import { loggedInSelector } from '../../../selectors/userSelectors';
 import { authStateSelector } from '../../../selectors/uiStateSelectors';
 
-import {
-  assignedTasksSelector,
-  assignedVerificationsSelector,
-} from '../../../selectors/tasksSelectors';
+import { assignedTasksSelector } from '../../../selectors/tasksSelectors';
 
 import { fetchJobs } from '../../../sagas/jobsSagas';
 
@@ -32,7 +29,6 @@ const mapStateToProps = state => ({
   isLoggedIn: loggedInSelector(state),
   authState: authStateSelector(state),
   assignedTasks: assignedTasksSelector(state),
-  assignedVerifications: assignedVerificationsSelector(state),
 });
 
 const items = [
@@ -54,35 +50,11 @@ const items = [
   },
 ];
 
-const Tasks = ({ title, tasks, url }) => (
-  <Fragment>
-    <span className="gem-nav-group">{title}</span>
-    {tasks.map(task => (
-      <NavLink
-        key={task.id}
-        to={`/${url}/${task.id}`}
-        className="gem-nav-task"
-        activeClassName="gem-nav-activeTask"
-      >
-        {task.job ? task.job.name : `#${task.id}`}
-      </NavLink>
-    ))}
-  </Fragment>
-);
-
-Tasks.propTypes = {
-  title: PropTypes.string.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
-  url: PropTypes.string.isRequired,
-};
-
 class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     authState: requestStateProps.isRequired,
     assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
-    assignedVerifications: PropTypes.arrayOf(PropTypes.shape(taskProps))
-      .isRequired,
     fetchJobs: PropTypes.func.isRequired,
   };
 
@@ -101,12 +73,7 @@ class Navigation extends Component {
   }
 
   render() {
-    const {
-      isLoggedIn,
-      assignedTasks,
-      authState,
-      assignedVerifications,
-    } = this.props;
+    const { isLoggedIn, assignedTasks, authState } = this.props;
 
     if (authState.state === RequestStates.Fetching) {
       return <Loading />;
@@ -118,14 +85,19 @@ class Navigation extends Component {
     return (
       <div className="gem-nav">
         {assignedTasks.length > 0 && (
-          <Tasks tasks={assignedTasks} title="My Tasks" url="tasks" />
-        )}
-        {assignedVerifications.length > 0 && (
-          <Tasks
-            tasks={assignedVerifications}
-            title="My Verifications"
-            url="verify"
-          />
+          <Fragment>
+            <span className="gem-nav-group">My Tasks</span>
+            {assignedTasks.map(task => (
+              <NavLink
+                key={task.id}
+                to={`/tasks/${task.id}`}
+                className="gem-nav-task"
+                activeClassName="gem-nav-activeTask"
+              >
+                {task.job ? task.job.name : `#${task.id}`}
+              </NavLink>
+            ))}
+          </Fragment>
         )}
         {items.map(({ link, text }) => (
           <NavLink

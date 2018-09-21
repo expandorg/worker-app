@@ -8,11 +8,11 @@ import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import withSubmitState from '../hoc/withSubmitState';
+import withSubmitState from '../../hoc/withSubmitState';
 
-import { cancelTask } from '../../sagas/tasksSagas';
+import { cancelTask } from '../../../sagas/tasksSagas';
 
-import { cancelTaskStateSelector } from '../../selectors/uiStateSelectors';
+import { cancelTaskStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from './CancelConfirmationDialog.module.styl';
 
