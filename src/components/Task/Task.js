@@ -9,7 +9,6 @@ import { Panel } from '@gemsorg/components';
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../hoc/withSubmitState';
-import { authenticated } from '../hoc/authRules';
 
 import Content from '../shared/Content';
 
@@ -21,11 +20,7 @@ import SubmissionDialog from './SubmissionDialog';
 
 import submitStateEffect from '../hoc/submitStateEffect';
 
-import { submitTask, fetchTask, cancelTask } from '../../sagas/tasksSagas';
-import { fetchJobs } from '../../sagas/jobsSagas';
-
-import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
-import { makeTaskSelector } from '../../selectors/tasksSelectors';
+import { submitTask } from '../../sagas/tasksSagas';
 
 import {
   submitTaskStateSelector,
@@ -40,32 +35,18 @@ import styles from './Task.module.styl';
 const ReportTaskStateEffect = submitStateEffect(reportTaskStateSelector);
 const CancelTaskStateEffect = submitStateEffect(cancelTaskStateSelector);
 
-const makeMapStateToProps = () => {
-  const assignedJobSelector = makeAssignedJobSelector();
-  const taskSelector = makeTaskSelector();
-  return (state, props) => ({
-    taskId: +props.match.params.taskId,
-    task: taskSelector(state, +props.match.params.taskId),
-    job: assignedJobSelector(state, +props.match.params.taskId),
-  });
-};
-
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    { submitTask, fetchTask, fetchJobs, cancelTask },
-    dispatch
-  );
+  bindActionCreators({ submitTask }, dispatch);
 
 class Task extends Component {
   static propTypes = {
+    jobId: PropTypes.number.isRequired,
     taskId: PropTypes.number.isRequired,
     job: PropTypes.shape(jobProps),
     task: PropTypes.shape(taskProps),
     submitState: requestStateProps.isRequired,
 
     submitTask: PropTypes.func.isRequired,
-    fetchJobs: PropTypes.func.isRequired,
-    fetchTask: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onResetSubmit: PropTypes.func.isRequired,
   };
@@ -79,25 +60,9 @@ class Task extends Component {
     super(props);
 
     this.state = {
-      jobId: (props.job && props.job.id) || null,
       reportMessage: null,
       cancelled: false,
     };
-  }
-
-  static getDerivedStateFromProps({ job }, state) {
-    if (job && state.jobId !== job.id) {
-      return {
-        jobId: job.id,
-      };
-    }
-    return null;
-  }
-
-  componentDidMount() {
-    const { taskId } = this.props;
-    this.props.fetchJobs();
-    this.props.fetchTask(taskId);
   }
 
   handleSubmit = form => {
@@ -120,8 +85,8 @@ class Task extends Component {
   };
 
   render() {
-    const { submitState, job, taskId, task } = this.props;
-    const { jobId, reportMessage, cancelled } = this.state;
+    const { submitState, job, taskId, task, jobId } = this.props;
+    const { reportMessage, cancelled } = this.state;
 
     const formVisible = job && task && !cancelled;
 
@@ -160,11 +125,9 @@ class Task extends Component {
   }
 }
 
-export default authenticated(
-  withSubmitState(submitTaskStateSelector)(
-    connect(
-      makeMapStateToProps,
-      mapDispatchToProps
-    )(Task)
-  )
+export default withSubmitState(submitTaskStateSelector)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Task)
 );
