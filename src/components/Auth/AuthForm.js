@@ -15,7 +15,7 @@ import styles from './AuthForm.module.styl';
 class AuthForm extends Component {
   static propTypes = {
     signup: PropTypes.bool,
-    history: PropTypes.shape(historyProps).isRequired,
+    history: historyProps.isRequired,
   };
 
   static defaultProps = {

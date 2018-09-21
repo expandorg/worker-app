@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch =>
 
 class EditPasswordDialog extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     submitState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,

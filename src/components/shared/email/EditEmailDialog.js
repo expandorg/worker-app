@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch =>
 
 class EditEmailDialog extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     editState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
     editEmail: PropTypes.func.isRequired,

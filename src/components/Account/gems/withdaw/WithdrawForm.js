@@ -17,7 +17,7 @@ import styles from './WithdrawForm.module.styl';
 
 export default class WithdrawForm extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     submitState: requestStateProps.isRequired,
     onWithdraw: PropTypes.func.isRequired,
   };

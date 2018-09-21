@@ -20,9 +20,9 @@ const isSufficientFunds = (user, job) => {
 
 export default class JobItem extends Component {
   static propTypes = {
-    job: PropTypes.shape(jobProps).isRequired,
-    user: PropTypes.shape(userProps).isRequired,
-    assignment: PropTypes.shape(assignmentProps),
+    job: jobProps.isRequired,
+    user: userProps.isRequired,
+    assignment: assignmentProps,
     onJoin: PropTypes.func.isRequired,
   };
 

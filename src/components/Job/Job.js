@@ -52,8 +52,8 @@ class JobDetails extends Component {
   static propTypes = {
     jobId: PropTypes.number.isRequired,
 
-    job: PropTypes.shape(jobProps),
-    onboarding: PropTypes.shape(onboardingProps),
+    job: jobProps,
+    onboarding: onboardingProps,
 
     submitState: requestStateProps.isRequired,
 

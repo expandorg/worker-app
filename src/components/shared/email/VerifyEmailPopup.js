@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
@@ -17,7 +16,7 @@ const mapStateToProps = state => ({
 
 class VerifyEmailPopup extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps),
+    user: userProps,
   };
 
   static defaultProps = {

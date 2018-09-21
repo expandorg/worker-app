@@ -29,7 +29,7 @@ const mapDispatchToProps = dispatch =>
 
 class Deposit extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     fetchState: requestStateProps.isRequired,
     txState: PropTypes.string.isRequired,
     fetchGemsBalance: PropTypes.func.isRequired,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { notificationPayloadProps } from '../../propTypes';
 
@@ -7,7 +6,7 @@ import styles from './styles.module.styl';
 
 export default class TxFailed extends Component {
   static propTypes = {
-    payload: PropTypes.shape(notificationPayloadProps).isRequired,
+    payload: notificationPayloadProps.isRequired,
   };
 
   render() {

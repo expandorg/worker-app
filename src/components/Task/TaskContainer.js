@@ -32,8 +32,8 @@ const mapDispatchToProps = dispatch =>
 class TaskContainer extends Component {
   static propTypes = {
     taskId: PropTypes.number.isRequired,
-    job: PropTypes.shape(jobProps),
-    task: PropTypes.shape(taskProps),
+    job: jobProps,
+    task: taskProps,
     fetchJobs: PropTypes.func.isRequired,
     fetchTask: PropTypes.func.isRequired,
   };

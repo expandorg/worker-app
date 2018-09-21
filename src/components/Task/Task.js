@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Panel } from '@gemsorg/components';
+import { Form, Module, FormDataProvider } from '@gemsorg/components/modules';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
@@ -15,7 +16,6 @@ import Content from '../shared/Content';
 import TaskActions from './actions/TaskActions';
 import Cancelled from './actions/Cancelled';
 
-import TaskForm from './TaskForm';
 import SubmissionDialog from './SubmissionDialog';
 
 import submitStateEffect from '../hoc/submitStateEffect';
@@ -40,10 +40,12 @@ const mapDispatchToProps = dispatch =>
 
 class Task extends Component {
   static propTypes = {
-    jobId: PropTypes.number.isRequired,
+    jobId: PropTypes.number,
     taskId: PropTypes.number.isRequired,
-    job: PropTypes.shape(jobProps),
-    task: PropTypes.shape(taskProps),
+
+    job: jobProps,
+    task: taskProps,
+
     submitState: requestStateProps.isRequired,
 
     submitTask: PropTypes.func.isRequired,
@@ -52,6 +54,7 @@ class Task extends Component {
   };
 
   static defaultProps = {
+    jobId: null,
     job: null,
     task: null,
   };
@@ -101,14 +104,19 @@ class Task extends Component {
               form={job.taskForm}
               reportMessage={reportMessage}
             />
-            <TaskForm
-              form={job.taskForm}
-              taskData={task.taskData}
-              contextData={job}
-              submitState={submitState}
-              onSubmit={this.handleSubmit}
-              onModuleError={this.handleModuleError}
-            />
+            <FormDataProvider formData={job}>
+              <Form
+                form={job.taskForm}
+                variables={task.taskData}
+                className={styles.form}
+                errors={submitState.error}
+                isSubmitting={submitState.state === RequestStates.Fetching}
+                onSubmit={this.handleSubmit}
+                onModuleError={this.handleModuleError}
+              >
+                {props => <Module {...props} />}
+              </Form>
+            </FormDataProvider>
           </Panel>
         )}
         {cancelled && <Cancelled />}

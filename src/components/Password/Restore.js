@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch =>
 class Restore extends Component {
   static propTypes = {
     submitState: requestStateProps.isRequired,
-    location: PropTypes.shape(locationProps).isRequired,
+    location: locationProps.isRequired,
     restorePassword: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };

@@ -15,7 +15,7 @@ import styles from './Complete.module.styl';
 
 export default class OnboardingComplete extends Component {
   static propTypes = {
-    job: PropTypes.shape(jobProps).isRequired,
+    job: jobProps.isRequired,
     submitState: requestStateProps.isRequired,
     onAssign: PropTypes.func.isRequired,
   };

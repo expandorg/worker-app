@@ -55,7 +55,7 @@ const OnboardingReport = withSubmitState(reportOnboardingStateSelector)(Report);
 class Onboarding extends Component {
   static propTypes = {
     jobId: PropTypes.number.isRequired,
-    onboarding: PropTypes.shape(onboardingProps).isRequired,
+    onboarding: onboardingProps.isRequired,
     submitState: requestStateProps.isRequired,
 
     submitOnboarding: PropTypes.func.isRequired,

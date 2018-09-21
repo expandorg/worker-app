@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { Button } from '@gemsorg/components';
 
@@ -12,7 +11,7 @@ import styles from './Password.module.styl';
 
 export default class Password extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
   };
 
   state = {

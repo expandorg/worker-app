@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Panel } from '@gemsorg/components';
@@ -37,7 +36,7 @@ const Stats = ({ user }) => (
 );
 
 Stats.propTypes = {
-  user: PropTypes.shape(userProps).isRequired,
+  user: userProps.isRequired,
 };
 
 export default authenticated(connect(mapStateToProps)(Stats));

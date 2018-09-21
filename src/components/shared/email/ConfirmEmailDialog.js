@@ -11,7 +11,7 @@ import styles from './styles.module.styl';
 
 export default class ConfirmEmailDialog extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 

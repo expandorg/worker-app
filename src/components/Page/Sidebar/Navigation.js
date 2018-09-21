@@ -54,7 +54,7 @@ class Navigation extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     authState: requestStateProps.isRequired,
-    assignedTasks: PropTypes.arrayOf(PropTypes.shape(taskProps)).isRequired,
+    assignedTasks: PropTypes.arrayOf(taskProps).isRequired,
     fetchJobs: PropTypes.func.isRequired,
   };
 

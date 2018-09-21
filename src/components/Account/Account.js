@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 
 class Account extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps),
+    user: userProps,
     logout: PropTypes.func.isRequired,
   };
 

@@ -11,7 +11,7 @@ import { notificationProps } from '../propTypes';
 
 export default class Notification extends Component {
   static propTypes = {
-    notification: PropTypes.shape(notificationProps),
+    notification: notificationProps,
     onClear: PropTypes.func.isRequired,
   };
 

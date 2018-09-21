@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import Field from '../shared/Field';
 
@@ -7,7 +6,7 @@ import { userProps } from '../../shared/propTypes';
 
 export default class Reserved extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
   };
 
   render() {
