@@ -65,11 +65,12 @@ export const assignmentProps = PropTypes.shape({
   responseId: PropTypes.number,
 });
 
+export const responseProps = PropTypes.shape({});
+
 export const taskProps = PropTypes.shape({
   id: PropTypes.number,
   jobId: PropTypes.number,
   taskData: PropTypes.object,
-  verificationData: PropTypes.object,
 });
 
 export const historyProps = PropTypes.shape({

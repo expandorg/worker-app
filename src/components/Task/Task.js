@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch =>
 
 class Task extends Component {
   static propTypes = {
-    assignment: assignmentProps,
+    assignment: assignmentProps.isRequired,
     job: jobProps,
     task: taskProps,
 
@@ -52,7 +52,6 @@ class Task extends Component {
   };
 
   static defaultProps = {
-    assignment: null,
     job: null,
     task: null,
   };

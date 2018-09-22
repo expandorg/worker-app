@@ -79,6 +79,9 @@ class TaskContainer extends Component {
   render() {
     const { job, task, taskId } = this.props;
     const { assignment } = this.state;
+    if (!assignment) {
+      return null;
+    }
     return assignment.responseId === null ? (
       <Task key={taskId} job={job} task={task} assignment={assignment} />
     ) : (

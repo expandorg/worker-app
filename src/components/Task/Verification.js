@@ -23,20 +23,29 @@ import SubmissionDialog from './SubmissionDialog';
 
 import { verifyResponse } from '../../sagas/responsesSagas';
 
+import { makeVerficationVarsSelector } from '../../selectors/responsesSelectors';
 import { verifyResponseStateSelector } from '../../selectors/uiStateSelectors';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
 import styles from './styles.module.styl';
 
+const makeMapStateToProps = () => {
+  const varsSelector = makeVerficationVarsSelector();
+  return (state, props) => ({
+    variables: varsSelector(state, props.task, props.assignment),
+  });
+};
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ verifyResponse }, dispatch);
 
 class Task extends Component {
   static propTypes = {
-    assignment: assignmentProps,
+    assignment: assignmentProps.isRequired,
     job: jobProps,
     task: taskProps,
+    variables: PropTypes.shape({}),
 
     submitState: requestStateProps.isRequired,
 
@@ -47,15 +56,15 @@ class Task extends Component {
   };
 
   static defaultProps = {
-    assignment: null,
+    variables: null,
     job: null,
     task: null,
   };
 
-  handleSubmit = response => {
+  handleSubmit = result => {
     const { job, assignment, onSubmit } = this.props;
     const score = calculateVerificationScore(
-      response,
+      result,
       job.verificationForm.modules,
       moduleControls
     );
@@ -68,11 +77,10 @@ class Task extends Component {
   };
 
   render() {
-    const { submitState, assignment, job, task } = this.props;
+    const { submitState, assignment, job, task, variables } = this.props;
 
     const formVisible = job && task;
     const title = (job && job.name) || '';
-
     return (
       <Content title={title}>
         {formVisible && (
@@ -81,7 +89,7 @@ class Task extends Component {
               <Form
                 className={styles.form}
                 form={job.verificationForm}
-                variables={task.verificationData}
+                variables={variables}
                 errors={submitState.error}
                 isSubmitting={submitState.state === RequestStates.Fetching}
                 onSubmit={this.handleSubmit}
@@ -104,7 +112,7 @@ class Task extends Component {
 
 export default withSubmitState(verifyResponseStateSelector)(
   connect(
-    null,
+    makeMapStateToProps,
     mapDispatchToProps
   )(Task)
 );
