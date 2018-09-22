@@ -10,6 +10,7 @@ import { Form, Module, FormDataProvider } from '@gemsorg/components/modules';
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../hoc/withSubmitState';
+import submitStateEffect from '../hoc/submitStateEffect';
 
 import Content from '../shared/Content';
 
@@ -17,8 +18,6 @@ import TaskActions from './actions/TaskActions';
 import Cancelled from './actions/Cancelled';
 
 import SubmissionDialog from './SubmissionDialog';
-
-import submitStateEffect from '../hoc/submitStateEffect';
 
 import { submitTask } from '../../sagas/tasksSagas';
 
@@ -56,14 +55,10 @@ class Task extends Component {
     task: null,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      reportMessage: null,
-      cancelled: false,
-    };
-  }
+  state = {
+    reportMessage: null,
+    cancelled: false,
+  };
 
   handleSubmit = form => {
     const { assignment, onSubmit } = this.props;
