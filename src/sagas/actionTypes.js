@@ -115,6 +115,10 @@ export const tasksActionTypes = createActionTypes('tasks', {
   SUBMIT_COMPLETE: null,
   SUBMIT_FAILED: null,
 
+  VERIFY: null,
+  VERIFY_COMPLETE: null,
+  VERIFY_FAILED: null,
+
   REPORT: null,
   REPORT_COMPLETE: null,
   REPORT_FAILED: null,
@@ -122,6 +126,12 @@ export const tasksActionTypes = createActionTypes('tasks', {
   CANCEL: null,
   CANCEL_COMPLETE: null,
   CANCEL_FAILED: null,
+});
+
+export const responsesActionTypes = createActionTypes('responses', {
+  VERIFY: null,
+  VERIFY_COMPLETE: null,
+  VERIFY_FAILED: null,
 });
 
 export const gemsActionTypes = createActionTypes('gems', {

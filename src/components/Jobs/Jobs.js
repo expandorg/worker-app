@@ -38,10 +38,10 @@ const mapDispatchToProps = dispatch =>
 
 class Jobs extends Component {
   static propTypes = {
-    jobs: PropTypes.arrayOf(PropTypes.shape(jobProps)),
-    user: PropTypes.shape(userProps).isRequired,
-    history: PropTypes.shape(historyProps).isRequired,
-    assignments: PropTypes.arrayOf(PropTypes.shape(assignmentProps)).isRequired,
+    jobs: PropTypes.arrayOf(jobProps),
+    user: userProps.isRequired,
+    history: historyProps.isRequired,
+    assignments: PropTypes.arrayOf(assignmentProps).isRequired,
     assignJob: PropTypes.func.isRequired,
   };
 

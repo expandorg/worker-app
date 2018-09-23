@@ -39,7 +39,7 @@
     "react/prefer-stateless-function": ["off"],
     "react/prop-types": [2, { "ignore": ["children"] }]
   },
-  plugins: [
+  "plugins": [
     "react",
     "prettier",
     "flowtype"

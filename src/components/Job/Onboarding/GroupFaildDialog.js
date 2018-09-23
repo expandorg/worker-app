@@ -12,7 +12,7 @@ import styles from './GroupFaildDialog.module.styl';
 
 export default class GroupFaildDialog extends Component {
   static propTypes = {
-    onboarding: PropTypes.shape(onboardingProps).isRequired,
+    onboarding: onboardingProps.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 

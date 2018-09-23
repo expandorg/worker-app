@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
@@ -12,7 +11,7 @@ import styles from './Failed.module.styl';
 
 export default class OnboardingFailed extends Component {
   static propTypes = {
-    job: PropTypes.shape(jobProps).isRequired,
+    job: jobProps.isRequired,
   };
 
   render() {

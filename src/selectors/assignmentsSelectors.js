@@ -15,15 +15,10 @@ export const assignmentsSelector = createSelector(
 
 export const makeJobAssignmentSelector = () =>
   createSelector(
-    assignmentsEntitiesSelector,
-    assignmentsListSelector,
-    (state, list, jobId) => jobId,
-    (entities, list, jobId) => {
-      if (jobId === null || !list.includes(+jobId)) {
-        return null;
-      }
-      return entities[+jobId];
-    }
+    assignmentsSelector,
+    (state, jobId) => +jobId,
+    (assignments, jobId) =>
+      assignments.find(assignment => assignment.jobId === jobId)
   );
 
 export const makeTaskAssignmentSelector = () =>
@@ -33,15 +28,3 @@ export const makeTaskAssignmentSelector = () =>
     (assignments, taskId) =>
       assignments.find(assignment => assignment.taskId === taskId)
   );
-
-export const taskAssignmentsSelector = createSelector(
-  assignmentsSelector,
-  assignments =>
-    assignments.filter(assignment => assignment.responseId === null)
-);
-
-export const verificationAssignmentsSelector = createSelector(
-  assignmentsSelector,
-  assignments =>
-    assignments.filter(assignment => assignment.responseId !== null)
-);

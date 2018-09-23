@@ -4,74 +4,48 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Panel, Button } from '@gemsorg/components';
-import { ReportToggle } from '@gemsorg/components/modules';
+import { Panel } from '@gemsorg/components';
+import { Form, Module, FormDataProvider } from '@gemsorg/components/modules';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../hoc/withSubmitState';
-import { authenticated } from '../hoc/authRules';
-
-import Content from '../shared/Content';
-import Report from '../shared/Report';
-
-import TaskForm from './TaskForm';
-
-import SubmissionDialog from './SubmissionDialog';
-import CancelConfirmationDialog from './CancelConfirmationDialog';
-import Cancelled from './Cancelled';
 import submitStateEffect from '../hoc/submitStateEffect';
 
-import {
-  submitTask,
-  fetchTask,
-  reportTask,
-  cancelTask,
-} from '../../sagas/tasksSagas';
-import { fetchJobs } from '../../sagas/jobsSagas';
+import Content from '../shared/Content';
 
-import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
-import { makeTaskSelector } from '../../selectors/tasksSelectors';
+import TaskActions from './actions/TaskActions';
+import Cancelled from './actions/Cancelled';
+
+import SubmissionDialog from './SubmissionDialog';
+
+import { submitTask } from '../../sagas/tasksSagas';
 
 import {
   submitTaskStateSelector,
   reportTaskStateSelector,
+  cancelTaskStateSelector,
 } from '../../selectors/uiStateSelectors';
 
-import { jobProps, taskProps } from '../shared/propTypes';
+import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
-import styles from './Task.module.styl';
+import styles from './styles.module.styl';
 
-const ReportTask = withSubmitState(reportTaskStateSelector)(Report);
 const ReportTaskStateEffect = submitStateEffect(reportTaskStateSelector);
-
-const makeMapStateToProps = () => {
-  const assignedJobSelector = makeAssignedJobSelector();
-  const taskSelector = makeTaskSelector();
-  return (state, props) => ({
-    taskId: +props.match.params.taskId,
-    task: taskSelector(state, +props.match.params.taskId),
-    job: assignedJobSelector(state, +props.match.params.taskId),
-  });
-};
+const CancelTaskStateEffect = submitStateEffect(cancelTaskStateSelector);
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    { submitTask, reportTask, fetchTask, fetchJobs, cancelTask },
-    dispatch
-  );
+  bindActionCreators({ submitTask }, dispatch);
 
 class Task extends Component {
   static propTypes = {
-    taskId: PropTypes.number.isRequired,
-    job: PropTypes.shape(jobProps),
-    task: PropTypes.shape(taskProps),
+    assignment: assignmentProps.isRequired,
+    job: jobProps,
+    task: taskProps,
+
     submitState: requestStateProps.isRequired,
 
     submitTask: PropTypes.func.isRequired,
-    reportTask: PropTypes.func.isRequired,
-    fetchJobs: PropTypes.func.isRequired,
-    fetchTask: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onResetSubmit: PropTypes.func.isRequired,
   };
@@ -81,35 +55,14 @@ class Task extends Component {
     task: null,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      jobId: (props.job && props.job.id) || null,
-      cancelDialog: false,
-      reportMessage: null,
-      canceled: false,
-    };
-  }
-
-  static getDerivedStateFromProps({ job }, state) {
-    if (job && state.jobId !== job.id) {
-      return {
-        jobId: job.id,
-      };
-    }
-    return null;
-  }
-
-  componentDidMount() {
-    const { taskId } = this.props;
-    this.props.fetchJobs();
-    this.props.fetchTask(taskId);
-  }
+  state = {
+    reportMessage: null,
+    cancelled: false,
+  };
 
   handleSubmit = form => {
-    const { taskId, onSubmit } = this.props;
-    onSubmit(() => this.props.submitTask(taskId, form));
+    const { assignment, onSubmit } = this.props;
+    onSubmit(() => this.props.submitTask(assignment.taskId, form));
   };
 
   handleAssignComplete = () => {
@@ -122,73 +75,48 @@ class Task extends Component {
     this.setState({ reportMessage });
   };
 
-  handleReport = (reason, message) => {
-    const { taskId } = this.props;
-    this.props.reportTask(taskId, reason, message);
-  };
-
-  handleToggleCancel = () => {
-    this.setState(({ cancelDialog }) => ({ cancelDialog: !cancelDialog }));
-  };
-
-  handleCanceled = () => {
-    this.setState({ canceled: true, cancelDialog: false });
+  handleCancelled = () => {
+    this.setState({ cancelled: true });
   };
 
   render() {
-    const { submitState, job, taskId, task } = this.props;
-    const { jobId, cancelDialog, reportMessage, canceled } = this.state;
+    const { submitState, job, task, assignment } = this.props;
+    const { reportMessage, cancelled } = this.state;
 
-    const formVisible = job && task && !canceled;
+    const formVisible = job && task && !cancelled;
 
-    const title = canceled ? 'Task cancelled' : (job && job.name) || '';
+    const title = cancelled ? 'Task cancelled' : (job && job.name) || '';
 
     return (
       <Content title={title}>
         {formVisible && (
           <Panel className={styles.container}>
-            <div className={styles.actions}>
-              <ReportToggle form={job.taskForm}>
-                {({ onHide, reasons }) => (
-                  <ReportTask
-                    onHide={onHide}
-                    reasons={reasons}
-                    report={reportMessage}
-                    onReport={this.handleReport}
-                  />
-                )}
-              </ReportToggle>
-              <Button
-                onClick={this.handleToggleCancel}
-                size="small"
-                theme="white"
-                className={styles.cancel}
-              >
-                cancel
-              </Button>
-            </div>
-            <TaskForm
+            <TaskActions
+              taskId={assignment.taskId}
               form={job.taskForm}
-              taskData={task.taskData}
-              contextData={job}
-              submitState={submitState}
-              onSubmit={this.handleSubmit}
-              onModuleError={this.handleModuleError}
+              reportMessage={reportMessage}
             />
+            <FormDataProvider formData={job}>
+              <Form
+                className={styles.form}
+                form={job.taskForm}
+                variables={task.taskData}
+                errors={submitState.error}
+                isSubmitting={submitState.state === RequestStates.Fetching}
+                onSubmit={this.handleSubmit}
+                onModuleError={this.handleModuleError}
+              >
+                {props => <Module {...props} />}
+              </Form>
+            </FormDataProvider>
           </Panel>
         )}
-        {canceled && <Cancelled />}
-        {cancelDialog && (
-          <CancelConfirmationDialog
-            taskId={taskId}
-            onHide={this.handleToggleCancel}
-            onSubmitComplete={this.handleCanceled}
-          />
-        )}
-        <ReportTaskStateEffect onComplete={this.handleCanceled} />
+        {cancelled && <Cancelled />}
+        <ReportTaskStateEffect onComplete={this.handleCancelled} />
+        <CancelTaskStateEffect onComplete={this.handleCancelled} />
         {submitState.state === RequestStates.Fetched && (
           <SubmissionDialog
-            jobId={jobId}
+            jobId={assignment.jobId}
             onSubmitComplete={this.handleAssignComplete}
           />
         )}
@@ -197,11 +125,9 @@ class Task extends Component {
   }
 }
 
-export default authenticated(
-  withSubmitState(submitTaskStateSelector)(
-    connect(
-      makeMapStateToProps,
-      mapDispatchToProps
-    )(Task)
-  )
+export default withSubmitState(submitTaskStateSelector)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Task)
 );

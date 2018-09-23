@@ -26,7 +26,7 @@ const mapStateToProps = state => ({
 
 class Withdraw extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     txState: PropTypes.string.isRequired,
   };
 

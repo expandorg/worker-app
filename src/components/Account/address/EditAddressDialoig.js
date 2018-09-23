@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch =>
 
 class EditAddressDialoig extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     metamaskState: PropTypes.string.isRequired,
     assignState: requestStateProps.isRequired,
     assignAddress: PropTypes.func.isRequired,

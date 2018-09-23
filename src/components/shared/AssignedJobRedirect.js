@@ -21,8 +21,8 @@ const makeMapStateToProps = () => {
 
 class AssignedJobRedirect extends Component {
   static propTypes = {
-    assignment: PropTypes.shape(assignmentProps),
-    history: PropTypes.shape(historyProps).isRequired,
+    assignment: assignmentProps,
+    history: historyProps.isRequired,
     replace: PropTypes.bool,
     submitState: requestStateProps.isRequired,
   };

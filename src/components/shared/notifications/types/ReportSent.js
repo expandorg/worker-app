@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import {
   tasksActionTypes,
@@ -17,7 +16,7 @@ const messages = {
 
 export default class ReportSent extends Component {
   static propTypes = {
-    payload: PropTypes.shape(notificationPayloadProps).isRequired,
+    payload: notificationPayloadProps.isRequired,
   };
 
   render() {

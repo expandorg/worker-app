@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import { formProps } from '@gemsorg/components/modules';
 
-export const userProps = {
+export const userProps = PropTypes.shape({
   id: PropTypes.number.isRequired,
 
   email: PropTypes.string,
@@ -25,9 +25,9 @@ export const userProps = {
     accepted: PropTypes.number.isRequired,
     rejected: PropTypes.number.isRequired,
   }),
-};
+});
 
-export const jobProps = {
+export const jobProps = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,
   description: PropTypes.string,
@@ -50,44 +50,46 @@ export const jobProps = {
     balance: PropTypes.number,
     reserved: PropTypes.number,
   }),
-};
+});
 
-export const onboardingProps = {
+export const onboardingProps = PropTypes.shape({
   jobId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   message: PropTypes.string,
   form: formProps,
-};
+});
 
-export const assignmentProps = {
+export const assignmentProps = PropTypes.shape({
   jobId: PropTypes.number,
   taskId: PropTypes.number,
   responseId: PropTypes.number,
-};
+});
 
-export const taskProps = {
+export const responseProps = PropTypes.shape({});
+
+export const taskProps = PropTypes.shape({
   id: PropTypes.number,
   jobId: PropTypes.number,
   taskData: PropTypes.object,
-};
+});
 
-export const historyProps = {
+export const historyProps = PropTypes.shape({
   replace: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
-};
+});
 
-export const locationProps = {
+export const locationProps = PropTypes.shape({
   pathname: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
   hash: PropTypes.string.isRequired,
-};
+});
 
-export const notificationPayloadProps = {
+export const notificationPayloadProps = PropTypes.shape({
   data: PropTypes.object,
   params: PropTypes.object,
-};
+});
 
-export const notificationProps = {
+export const notificationProps = PropTypes.shape({
   notificationType: PropTypes.string.isRequired,
-  payload: PropTypes.shape(notificationPayloadProps),
-};
+  payload: notificationPayloadProps,
+});

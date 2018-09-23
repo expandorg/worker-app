@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
 import hoistStatics from 'hoist-non-react-statics';
 
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ export default function authContainer(authCallback) {
   return Wrapped => {
     class AuthWrapper extends Component {
       static propTypes = {
-        user: PropTypes.shape(userProps),
+        user: userProps,
         authState: requestStateProps.isRequired,
       };
 

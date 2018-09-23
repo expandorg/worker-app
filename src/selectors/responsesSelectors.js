@@ -1,21 +1,30 @@
 // @flow
 import { createSelector } from 'reselect';
 
-import { verificationAssignmentsSelector } from './assignmentsSelectors';
+import {} from './tasksSelectors';
 
 export const responsesEntitiesSelector = (state: Object) =>
   state.responses.entities;
 
-export const makeResponseSelector = () =>
+export const assigedResponseListSelector = (state: Object) =>
+  state.responses.assigned;
+
+export const makeVerficationVarsSelector = () =>
   createSelector(
     responsesEntitiesSelector,
-    verificationAssignmentsSelector,
-    (state, taskId) => taskId,
-    (entities, assignemnts, taskId) => {
-      const assignemnt = assignemnts.find(a => a.taskId === taskId);
-      if (!assignemnt) {
+    (state, task) => task,
+    (state, task, assignment) => assignment,
+    (responsesEntities, task, assignment) => {
+      if (!task || !assignment) {
         return null;
       }
-      return entities[assignemnt.responseId];
+      const response = responsesEntities[assignment.responseId];
+      if (!response) {
+        return null;
+      }
+      return {
+        ...(task.taskData || {}),
+        ...(response.value || {}),
+      };
     }
   );

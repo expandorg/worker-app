@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch =>
 
 class ConfirmEmailForm extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
+    user: userProps.isRequired,
     code: PropTypes.string,
     confirmState: requestStateProps.isRequired,
     resendState: requestStateProps.isRequired,

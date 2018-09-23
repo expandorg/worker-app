@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch =>
 
 class Notifications extends Component {
   static propTypes = {
-    notification: PropTypes.shape(notificationProps),
+    notification: notificationProps,
     clearNotification: PropTypes.func.isRequired,
   };
 

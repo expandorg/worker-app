@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import qs from 'query-string';
 
 import { Redirect } from 'react-router-dom';
@@ -24,8 +23,8 @@ const mapStateToProps = state => ({
 
 class Confirm extends Component {
   static propTypes = {
-    user: PropTypes.shape(userProps).isRequired,
-    location: PropTypes.shape(locationProps).isRequired,
+    user: userProps.isRequired,
+    location: locationProps.isRequired,
   };
 
   constructor(props) {
