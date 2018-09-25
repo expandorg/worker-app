@@ -15,7 +15,7 @@
     "@babel/polyfill": "^7.0.0",
     "@gemsorg/api-client": "0.0.5",
     "@gemsorg/app-utils": "0.0.5",
-    "@gemsorg/components": "^0.0.65",
+    "@gemsorg/components": "^0.0.66",
     "@gemsorg/utils": "0.0.4",
     "@xlnt/scry-one": "0.0.1",
     "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
