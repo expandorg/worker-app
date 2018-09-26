@@ -31,7 +31,7 @@ export default class Rules extends Component {
     type: 'rules',
     validation: {
       isTrue: validationRules.isTrue,
-      isRequired: validationRules.isRequired,
+      isRequired: validationRules.isTrue,
     },
   };
 
