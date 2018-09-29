@@ -9,14 +9,28 @@ import { authenticated } from '../hoc/authRules';
 import { fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
+import Cancelled from './actions/Cancelled';
+
+import Content from '../shared/Content';
+
 import Task from './Task';
 import Verification from './Verification';
+import TaskVerificationNotification from './TaskVerificationNotification';
 
 import { makeTaskAssignmentSelector } from '../../selectors/assignmentsSelectors';
 import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
 import { makeTaskSelector } from '../../selectors/tasksSelectors';
+import {
+  reportTaskStateSelector,
+  cancelTaskStateSelector,
+} from '../../selectors/uiStateSelectors';
+
+import submitStateEffect from '../hoc/submitStateEffect';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
+
+const ReportTaskStateEffect = submitStateEffect(reportTaskStateSelector);
+const CancelTaskStateEffect = submitStateEffect(cancelTaskStateSelector);
 
 const makeMapStateToProps = () => {
   const assignedJobSelector = makeAssignedJobSelector();
@@ -36,7 +50,7 @@ const makeMapStateToProps = () => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ fetchTask, fetchJobs }, dispatch);
 
-class TaskContainer extends Component {
+class TaskPage extends Component {
   static propTypes = {
     taskId: PropTypes.number.isRequired,
     assignment: assignmentProps,
@@ -57,6 +71,7 @@ class TaskContainer extends Component {
 
     this.state = {
       assignment: props.assignment,
+      cancelled: false,
     };
   }
 
@@ -65,6 +80,7 @@ class TaskContainer extends Component {
     if (assignment && state.assignment !== assignment) {
       return {
         assignment,
+        cancelled: false,
       };
     }
     return null;
@@ -72,25 +88,42 @@ class TaskContainer extends Component {
 
   componentDidMount() {
     const { taskId } = this.props;
+
     this.props.fetchJobs();
     this.props.fetchTask(taskId);
   }
 
+  handleCancelled = () => {
+    this.setState({ cancelled: true });
+  };
+
   render() {
     const { job, task, taskId } = this.props;
-    const { assignment } = this.state;
+    const { assignment, cancelled } = this.state;
     if (!assignment) {
       return null;
     }
-    return assignment.responseId === null ? (
-      <Task key={taskId} job={job} task={task} assignment={assignment} />
-    ) : (
-      <Verification
-        key={taskId}
-        job={job}
-        task={task}
-        assignment={assignment}
-      />
+
+    const title = cancelled ? 'Task cancelled' : (job && job.name) || '';
+
+    return (
+      <Content title={title}>
+        {!cancelled &&
+          (assignment.responseId === null ? (
+            <Task key={taskId} job={job} task={task} assignment={assignment} />
+          ) : (
+            <Verification
+              key={taskId}
+              job={job}
+              task={task}
+              assignment={assignment}
+            />
+          ))}
+        {cancelled && <Cancelled />}
+        <ReportTaskStateEffect onComplete={this.handleCancelled} />
+        <CancelTaskStateEffect onComplete={this.handleCancelled} />
+        <TaskVerificationNotification assignment={assignment} />
+      </Content>
     );
   }
 }
@@ -99,5 +132,5 @@ export default authenticated(
   connect(
     makeMapStateToProps,
     mapDispatchToProps
-  )(TaskContainer)
+  )(TaskPage)
 );

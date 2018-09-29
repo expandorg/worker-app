@@ -39,6 +39,7 @@ export default class QA extends Component {
 
   static module = {
     type: 'qa',
+    report: ['Incorrect question'],
     validation: {
       isNotEmpty: validationRules.isNotEmpty,
       isRequired: validationRules.isRequired,
@@ -92,11 +93,11 @@ export default class QA extends Component {
         </Alignment>
         <Alignment padding="medium" vertical>
           <Select options={answers} onSelect={this.handleChange} value={value}>
-            {({ id, onSelect, option }) => (
+            {({ onSelect, option }) => (
               <Choice
-                key={id}
+                key={option.value}
                 className={styles.choice}
-                selected={value === id}
+                selected={value === option.value}
                 onSelect={onSelect}
                 option={option}
               />
