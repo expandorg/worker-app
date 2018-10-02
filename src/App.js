@@ -21,7 +21,7 @@ import Job from './components/Job/Job';
 
 import Stats from './components/Stats/Stats';
 import Requester from './components/Requester/Requester';
-import Task from './components/Task/TaskContainer';
+import Task from './components/Task/TaskPage';
 import Confirm from './components/Confirm/Confirm';
 
 import NotFound from './components/shared/pages/NotFound';

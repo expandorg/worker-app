@@ -43,7 +43,7 @@ class CancelConfirmationDialog extends Component {
         <DialogHeadline>Cancel task</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.message}>
-            Are you sure that you want to cancel qurrent task?
+            Are you sure that you want to cancel current task?
           </div>
           <div className={styles.actions}>
             <Button theme="white" onClick={onHide} className={styles.cancel}>
