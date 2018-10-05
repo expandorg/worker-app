@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  tasksActionTypes,
+  assignmentActionTypes,
   onboardingActionTypes,
 } from '../../../../sagas/actionTypes';
 
@@ -10,7 +10,7 @@ import { notificationPayloadProps } from '../../propTypes';
 import styles from './styles.module.styl';
 
 const messages = {
-  [tasksActionTypes.REPORT_COMPLETE]: 'Task report has been sent',
+  [assignmentActionTypes.REPORT_COMPLETE]: 'Task report has been sent',
   [onboardingActionTypes.REPORT_COMPLETE]: 'Onboarding report has been sent',
 };
 

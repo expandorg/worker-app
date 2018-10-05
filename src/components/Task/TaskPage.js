@@ -21,16 +21,20 @@ import { makeTaskAssignmentSelector } from '../../selectors/assignmentsSelectors
 import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
 import { makeTaskSelector } from '../../selectors/tasksSelectors';
 import {
-  reportTaskStateSelector,
-  cancelTaskStateSelector,
+  reportAssignmentStateSelector,
+  cancelAssignmentStateSelector,
 } from '../../selectors/uiStateSelectors';
 
 import submitStateEffect from '../hoc/submitStateEffect';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
-const ReportTaskStateEffect = submitStateEffect(reportTaskStateSelector);
-const CancelTaskStateEffect = submitStateEffect(cancelTaskStateSelector);
+const ReportAssignmentStateEffect = submitStateEffect(
+  reportAssignmentStateSelector
+);
+const CancelAssignmentStateEffect = submitStateEffect(
+  cancelAssignmentStateSelector
+);
 
 const makeMapStateToProps = () => {
   const assignedJobSelector = makeAssignedJobSelector();
@@ -120,8 +124,8 @@ class TaskPage extends Component {
             />
           ))}
         {cancelled && <Cancelled />}
-        <ReportTaskStateEffect onComplete={this.handleCancelled} />
-        <CancelTaskStateEffect onComplete={this.handleCancelled} />
+        <ReportAssignmentStateEffect onComplete={this.handleCancelled} />
+        <CancelAssignmentStateEffect onComplete={this.handleCancelled} />
         <TaskVerificationNotification assignment={assignment} />
       </Content>
     );

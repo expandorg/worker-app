@@ -14,7 +14,7 @@ import {
   userActionTypes,
   gemsActionTypes,
   onboardingActionTypes,
-  tasksActionTypes,
+  assignmentActionTypes,
 } from './actionTypes';
 
 import { NotificationType } from '../model/enums';
@@ -62,7 +62,10 @@ export function* notificationsSagas() {
   yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
 
   yield takeEvery(
-    [onboardingActionTypes.REPORT_COMPLETE, tasksActionTypes.REPORT_COMPLETE],
+    [
+      onboardingActionTypes.REPORT_COMPLETE,
+      assignmentActionTypes.REPORT_COMPLETE,
+    ],
     handleReport
   );
 }

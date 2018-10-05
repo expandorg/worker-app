@@ -12,23 +12,27 @@ import withSubmitState from '../../hoc/withSubmitState';
 import Report from '../../shared/Report';
 import CancelConfirmationDialog from './CancelConfirmationDialog';
 
-import { reportTask, cancelTask } from '../../../sagas/tasksSagas';
+import {
+  reportAssignment,
+  cancelAssignment,
+} from '../../../sagas/assignmentsSagas';
 
-import { reportTaskStateSelector } from '../../../selectors/uiStateSelectors';
+import { reportAssignmentStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from './TaskActions.module.styl';
 
-const ReportTask = withSubmitState(reportTaskStateSelector)(Report);
+const ReportAssignment = withSubmitState(reportAssignmentStateSelector)(Report);
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ reportTask, cancelTask }, dispatch);
+  bindActionCreators({ reportAssignment, cancelAssignment }, dispatch);
 
 class TaskActions extends Component {
   static propTypes = {
-    taskId: PropTypes.number.isRequired,
+    assignmentId: PropTypes.number.isRequired,
     form: formProps.isRequired,
     reportMessage: PropTypes.string,
-    reportTask: PropTypes.func.isRequired,
+    reportAssignment: PropTypes.func.isRequired,
+    cancelAssignment: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -40,8 +44,8 @@ class TaskActions extends Component {
   };
 
   handleReport = (reason, message) => {
-    const { taskId } = this.props;
-    this.props.reportTask(taskId, reason, message);
+    const { assignmentId } = this.props;
+    this.props.reportAssignment(assignmentId, reason, message);
   };
 
   handleToggleCancel = () => {
@@ -49,13 +53,13 @@ class TaskActions extends Component {
   };
 
   render() {
-    const { reportMessage, form, taskId } = this.props;
+    const { reportMessage, form, assignmentId } = this.props;
     const { cancelDialog } = this.state;
     return (
       <div className={styles.actions}>
         <ReportToggle form={form}>
           {({ onHide, reasons }) => (
-            <ReportTask
+            <ReportAssignment
               onHide={onHide}
               reasons={reasons}
               report={reportMessage}
@@ -73,7 +77,8 @@ class TaskActions extends Component {
         </Button>
         {cancelDialog && (
           <CancelConfirmationDialog
-            taskId={taskId}
+            assignmentId={assignmentId}
+            onCancel={this.props.cancelAssignment}
             onHide={this.handleToggleCancel}
           />
         )}

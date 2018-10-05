@@ -63,7 +63,7 @@ export default class TaskFrom extends Component {
         {visible && (
           <Panel className={styles.container}>
             <TaskActions
-              taskId={assignment.taskId}
+              assignmentId={assignment.id}
               form={form}
               reportMessage={reportMessage}
             />

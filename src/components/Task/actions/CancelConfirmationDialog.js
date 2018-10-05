@@ -1,37 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
-import { cancelTask } from '../../../sagas/tasksSagas';
-
-import { cancelTaskStateSelector } from '../../../selectors/uiStateSelectors';
+import { cancelAssignmentStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from './CancelConfirmationDialog.module.styl';
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ cancelTask }, dispatch);
-
 class CancelConfirmationDialog extends Component {
   static propTypes = {
-    taskId: PropTypes.number.isRequired,
+    assignmentId: PropTypes.number.isRequired,
     submitState: requestStateProps.isRequired,
-    cancelTask: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
   handleSubmit = () => {
-    const { taskId, onSubmit, submitState } = this.props;
+    const { assignmentId, onSubmit, onCancel, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      onSubmit(() => this.props.cancelTask(taskId));
+      onSubmit(() => onCancel(assignmentId));
     }
   };
 
@@ -63,9 +55,6 @@ class CancelConfirmationDialog extends Component {
   }
 }
 
-export default withSubmitState(cancelTaskStateSelector)(
-  connect(
-    null,
-    mapDispatchToProps
-  )(CancelConfirmationDialog)
+export default withSubmitState(cancelAssignmentStateSelector)(
+  CancelConfirmationDialog
 );
