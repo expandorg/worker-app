@@ -8,6 +8,7 @@ import { authSagas } from './authSagas';
 import { web3Sagas } from './web3Sagas';
 import { notificationsSagas } from './notificationsSagas';
 import { responsesSagas } from './responsesSagas';
+import { assignmentsSagas } from './assignmentsSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -19,4 +20,5 @@ export default function* sagas() {
   yield fork(gemsSagas);
   yield fork(notificationsSagas);
   yield fork(responsesSagas);
+  yield fork(assignmentsSagas);
 }

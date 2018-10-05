@@ -59,35 +59,7 @@ function* handleSubmitTask({ payload, meta }) {
   }
 }
 
-export const reportTask = (taskId, reason, message) => ({
-  type: tasksActionTypes.REPORT,
-  payload: { taskId, reason, message },
-  meta: {
-    schema: authResponseSchema,
-  },
-});
-
-const watchReportRequest = takeEveryApiCall(
-  tasksActionTypes.REPORT,
-  tasksApi.report
-);
-
-export const cancelTask = taskId => ({
-  type: tasksActionTypes.CANCEL,
-  payload: { taskId },
-  meta: {
-    schema: authResponseSchema,
-  },
-});
-
-const watchCancelRequest = takeEveryApiCall(
-  tasksActionTypes.CANCEL,
-  tasksApi.cancel
-);
-
 export function* tasksSagas() {
   yield fork(watchFetchRequest);
-  yield fork(watchReportRequest);
-  yield fork(watchCancelRequest);
   yield takeEvery(tasksActionTypes.SUBMIT, handleSubmitTask);
 }

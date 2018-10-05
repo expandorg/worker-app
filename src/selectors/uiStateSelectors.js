@@ -86,14 +86,14 @@ export const submitTaskStateSelector = createSelector(
   state => state.submitTask
 );
 
-export const reportTaskStateSelector = createSelector(
+export const reportAssignmentStateSelector = createSelector(
   uiStateSelector,
-  state => state.reportTask
+  state => state.reportAssignment
 );
 
-export const cancelTaskStateSelector = createSelector(
+export const cancelAssignmentStateSelector = createSelector(
   uiStateSelector,
-  state => state.cancelTask
+  state => state.cancelAssignment
 );
 
 export const verifyResponseStateSelector = createSelector(

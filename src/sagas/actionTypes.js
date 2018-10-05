@@ -118,7 +118,9 @@ export const tasksActionTypes = createActionTypes('tasks', {
   VERIFY: null,
   VERIFY_COMPLETE: null,
   VERIFY_FAILED: null,
+});
 
+export const assignmentActionTypes = createActionTypes('assignments', {
   REPORT: null,
   REPORT_COMPLETE: null,
   REPORT_FAILED: null,

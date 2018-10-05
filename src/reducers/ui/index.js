@@ -10,6 +10,7 @@ import {
   jobsActionTypes,
   onboardingActionTypes,
   tasksActionTypes,
+  assignmentActionTypes,
   responsesActionTypes,
 } from '../../sagas/actionTypes';
 
@@ -57,8 +58,9 @@ export default combineReducers({
   assignJob: requestUiStateReducer(jobsActionTypes.ASSIGN, true),
 
   submitTask: requestUiStateReducer(tasksActionTypes.SUBMIT),
-  reportTask: requestUiStateReducer(tasksActionTypes.REPORT),
-  cancelTask: requestUiStateReducer(tasksActionTypes.CANCEL),
+
+  reportAssignment: requestUiStateReducer(assignmentActionTypes.REPORT),
+  cancelAssignment: requestUiStateReducer(assignmentActionTypes.CANCEL),
 
   verifyResponse: requestUiStateReducer(responsesActionTypes.VERIFY),
 
