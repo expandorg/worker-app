@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { rules as validationRules } from '@gemsorg/app-utils/validation';
+import { rules as validationRules } from '@gemsorg/validation';
 
 import { Button } from '@gemsorg/components';
 import {
@@ -10,7 +10,7 @@ import {
   Select,
   Choice,
   Progress,
-} from '@gemsorg/components/modules';
+} from '@gemsorg/modules';
 
 import Task from './Task';
 import ArticleModal from '../ArticleModal';

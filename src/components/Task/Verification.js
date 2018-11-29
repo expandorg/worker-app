@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  calculateVerificationScore,
-  moduleControls,
-} from '@gemsorg/components/modules';
+import { calculateVerificationScore, moduleControls } from '@gemsorg/modules';
 
 import { requestStateProps } from '@gemsorg/app-utils';
 

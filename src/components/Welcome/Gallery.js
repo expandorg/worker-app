@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
-import { Parallax, config } from 'react-spring';
+import { config } from 'react-spring';
+import { Parallax } from 'react-spring/dist/addons';
 
 import Slide from './Slide';
 import Dots from './Dots';

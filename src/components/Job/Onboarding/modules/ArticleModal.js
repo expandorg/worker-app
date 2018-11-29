@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Modal, Article } from '@gemsorg/components/modules';
+import { Modal, Article } from '@gemsorg/modules';
 
 export default class ArticleModal extends Component {
   static propTypes = {

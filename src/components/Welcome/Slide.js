@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { ParallaxLayer } from 'react-spring';
+import { ParallaxLayer } from 'react-spring/dist/addons';
 
 import styles from './Slide.module.styl';
 

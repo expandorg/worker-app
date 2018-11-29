@@ -1,6 +1,6 @@
 // @flow
 import PropTypes from 'prop-types';
-import { formProps } from '@gemsorg/components/modules';
+import { formProps } from '@gemsorg/modules';
 
 export const userProps = PropTypes.shape({
   id: PropTypes.number.isRequired,

@@ -80,7 +80,7 @@ class LoginForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <Button suze="large" type="submit" className={styles.submit}>
+          <Button size="large" type="submit" className={styles.submit}>
             {isFetching ? 'Signing in...' : 'Sign in'}
           </Button>
         </form>

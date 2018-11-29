@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReportForm } from '@gemsorg/components/modules';
+import { ReportForm } from '@gemsorg/modules';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 

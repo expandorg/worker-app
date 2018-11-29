@@ -60,32 +60,28 @@ export default class DepositForm extends Component {
     return (
       <div className={styles.container}>
         <Description gemsBalance={gemsBalance} isFetching={isFetching} />
-        {!isSubmitting &&
-          available && (
-            <form className={styles.form} onSubmit={this.handleSubmit}>
-              <div className={styles.row}>
-                <Input
-                  className={styles.input}
-                  type="number"
-                  value={value}
-                  onChange={this.handleChange}
-                  placeholder="Amount of Gems to deposit"
-                />
-                <Button
-                  size="large"
-                  type="submit"
-                  className={styles.submit}
-                  disabled={disabled}
-                >
-                  Deposit
-                </Button>
-              </div>
-              <ErrorMessage
-                error={submitState.error}
-                className={styles.error}
+        {!isSubmitting && available && (
+          <form className={styles.form} onSubmit={this.handleSubmit}>
+            <div className={styles.row}>
+              <Input
+                className={styles.input}
+                type="number"
+                value={value}
+                onChange={this.handleChange}
+                placeholder="Amount of Gems to deposit"
               />
-            </form>
-          )}
+              <Button
+                size="large"
+                type="submit"
+                className={styles.submit}
+                disabled={disabled}
+              >
+                Deposit
+              </Button>
+            </div>
+            <ErrorMessage error={submitState.error} className={styles.error} />
+          </form>
+        )}
         {isSubmitting && <Loading value={value} stage={stage} />}
         <Prompt when={isSubmitting} message={message} />
       </div>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button } from '@gemsorg/components';
-import { ReportToggle, formProps } from '@gemsorg/components/modules';
+import { ReportToggle, formProps } from '@gemsorg/modules';
 
 import withSubmitState from '../../hoc/withSubmitState';
 
