@@ -1,4 +1,4 @@
-import { appActionTypes } from '../../sagas/actionTypes';
+import { appActionTypes } from '@gemsorg/app-utils/app';
 
 const initialState = null;
 

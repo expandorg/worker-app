@@ -11,7 +11,8 @@ import { normalize } from 'normalizr';
 
 import { takeEveryApiCall } from '@gemsorg/app-utils';
 
-import { authActionTypes, appActionTypes } from './actionTypes';
+import { appActionTypes } from '@gemsorg/app-utils/app';
+import { authActionTypes } from './actionTypes';
 
 import { authApi } from '../api/AuthApi';
 

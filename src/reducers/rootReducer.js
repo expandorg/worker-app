@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import { metamaskReducer as metamask } from '@gemsorg/app-web3';
+
 import user from './userReducer';
 import gemsBalance from './gemsBalanceReducer';
 
@@ -15,8 +17,6 @@ import assignedTasks from './tasks/assignedTasksReducer';
 
 import responseEntities from './responses/responseEntitiesReducer';
 import assignedResponses from './responses/assignedResponsesReducer';
-
-import metamask from './web3/metamaskReducer';
 
 import ui from './ui';
 

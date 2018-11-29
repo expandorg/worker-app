@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import { requestUiStateReducer } from '@gemsorg/app-utils';
+import { web3ActionTypes } from '@gemsorg/app-web3';
 
 import {
-  web3ActionTypes,
   gemsActionTypes,
   authActionTypes,
   userActionTypes,

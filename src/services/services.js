@@ -4,11 +4,11 @@ import { ServiceLocator } from '@gemsorg/components';
 
 import { GoogleTagManager } from '@gemsorg/app-utils/gtm';
 import { ScriptsLoader } from '@gemsorg/utils';
+import { GemsService } from '@gemsorg/app-web3';
+
 import { validateForm } from '@gemsorg/validation';
 
 import settings from '../common/settings';
-
-import GemsService from './GemsService';
 
 import EventSourceService from './EventSourceService';
 import TxEventSource from './events/TxEventSource';

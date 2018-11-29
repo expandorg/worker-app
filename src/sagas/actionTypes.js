@@ -1,23 +1,6 @@
 // @flow
 import { createActionTypes } from '@gemsorg/app-utils';
 
-export const appActionTypes = createActionTypes('app', {
-  INIT: null,
-  REFRESH: null,
-
-  NOTIFICATION_ADD: null,
-  NOTIFICATION_REMOVE: null,
-});
-
-export const web3ActionTypes = createActionTypes('web3', {
-  INIT_WEB3_COMPLETE: null,
-  INIT_WEB3_FAILED: null,
-
-  INIT_GEMS: null,
-  INIT_GEMS_COMPLETE: null,
-  INIT_GEMS_FAILED: null,
-});
-
 export const authActionTypes = createActionTypes('auth', {
   GET_CURRENT: null,
   GET_CURRENT_COMPLETE: null,
