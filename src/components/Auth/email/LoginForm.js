@@ -9,9 +9,8 @@ import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
-import { login } from '../../../sagas/authSagas';
-
-import { loginStateSelector } from '../../../selectors/uiStateSelectors';
+import { loginStateSelector } from '@gemsorg/app-auth/selectors';
+import { login } from '@gemsorg/app-auth/sagas';
 
 import styles from './styles.module.styl';
 

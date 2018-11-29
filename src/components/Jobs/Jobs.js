@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { userSelector } from '@gemsorg/app-auth/selectors';
+
 import {
   userProps,
   jobProps,
@@ -21,7 +23,6 @@ import { authenticated } from '../hoc/authRules';
 
 import { assignJob } from '../../sagas/jobsSagas';
 
-import { userSelector } from '../../selectors/userSelectors';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 

@@ -6,6 +6,9 @@ import { bindActionCreators } from 'redux';
 
 import { Button, Panel } from '@gemsorg/components';
 
+import { userSelector } from '@gemsorg/app-auth/selectors';
+import { logout } from '@gemsorg/app-auth/sagas';
+
 import Content from '../shared/Content';
 
 import Field from './shared/Field';
@@ -23,9 +26,6 @@ import { WITHDRAW_MIN } from '../../model/balance';
 
 import { authenticated } from '../hoc/authRules';
 import { userProps } from '../shared/propTypes';
-
-import { logout } from '../../sagas/authSagas';
-import { userSelector } from '../../selectors/userSelectors';
 
 import styles from './Account.module.styl';
 

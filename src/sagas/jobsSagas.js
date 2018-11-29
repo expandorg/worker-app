@@ -2,10 +2,11 @@ import { fork } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '@gemsorg/app-utils';
 
+import { authResponseSchema } from '@gemsorg/app-auth';
 import { jobsActionTypes } from './actionTypes';
 
 import { jobsApi } from '../api/JobsApi';
-import { jobSchema, authResponseSchema } from '../model/schemas';
+import { jobSchema } from '../model/schemas';
 import { GtmActions } from '../common/GtmEvents';
 
 export const fetchJobs = () => ({

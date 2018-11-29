@@ -6,13 +6,14 @@ import { connect } from 'react-redux';
 
 import { Panel } from '@gemsorg/components';
 
+import { userSelector } from '@gemsorg/app-auth/selectors';
+
 import Content from '../shared/Content';
 
 import ConfirmEmailForm from '../shared/email/ConfirmEmailForm';
 
 import { authenticated } from '../hoc/authRules';
 
-import { userSelector } from '../../selectors/userSelectors';
 import { userProps, locationProps } from '../shared/propTypes';
 
 import styles from './Confirm.module.styl';

@@ -8,11 +8,13 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
+import {
+  loggedInSelector,
+  authStateSelector,
+} from '@gemsorg/app-auth/selectors';
+
 import Loading from './Loading';
 import AnonimousNav from './AnonimousNav';
-
-import { loggedInSelector } from '../../../selectors/userSelectors';
-import { authStateSelector } from '../../../selectors/uiStateSelectors';
 
 import { assignedTasksSelector } from '../../../selectors/tasksSelectors';
 

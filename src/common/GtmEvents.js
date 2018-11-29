@@ -2,13 +2,6 @@
 import { createActionTypes } from '@gemsorg/app-utils';
 
 export const GtmActions = {
-  ...createActionTypes('Auth', {
-    Login: null,
-    Signup: null,
-    Logout: null,
-    ForgotPassword: null,
-    ChangePassword: null,
-  }),
   ...createActionTypes('Tasks', {
     JobAssign: null,
     TaskSubmit: null,

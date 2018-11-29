@@ -8,9 +8,8 @@ import { Input, ErrorMessage, Button } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import { signup } from '../../../sagas/authSagas';
-
-import { signupStateSelector } from '../../../selectors/uiStateSelectors';
+import { signupStateSelector } from '@gemsorg/app-auth/selectors';
+import { signup } from '@gemsorg/app-auth/sagas';
 
 import styles from './styles.module.styl';
 

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
+import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
+
 import Field from '../shared/Field';
 import Editable from '../shared/Editable';
 import EditAddressDialoig from './EditAddressDialoig';
-
-import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 
 import { userProps } from '../../shared/propTypes';
 

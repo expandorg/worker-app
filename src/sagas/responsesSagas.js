@@ -1,9 +1,10 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
+import { authResponseSchema } from '@gemsorg/app-auth';
 
 import { responsesActionTypes, jobsActionTypes } from './actionTypes';
 
-import { jobSchema, authResponseSchema } from '../model/schemas';
+import { jobSchema } from '../model/schemas';
 
 import { responsesApi } from '../api/ResponsesApi';
 import { jobsApi } from '../api/JobsApi';

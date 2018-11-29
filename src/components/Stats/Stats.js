@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 
 import { Panel } from '@gemsorg/components';
 
+import { userSelector } from '@gemsorg/app-auth/selectors';
+
 import Content from '../shared/Content';
 
 import { userProps } from '../shared/propTypes';
-import { userSelector } from '../../selectors/userSelectors';
+
 import { authenticated } from '../hoc/authRules';
 
 import styles from './Stats.module.styl';
