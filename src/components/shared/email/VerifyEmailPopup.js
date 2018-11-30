@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { userSelector } from '../../../selectors/userSelectors';
+import { userSelector } from '@gemsorg/app-auth/selectors';
 
 import ConfirmEmailDialog from './ConfirmEmailDialog';
 

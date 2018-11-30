@@ -1,10 +1,11 @@
 import { fork } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '@gemsorg/app-utils';
+import { authResponseSchema } from '@gemsorg/app-auth';
 
 import { onboardingActionTypes } from './actionTypes';
 
-import { onboardingSchema, authResponseSchema } from '../model/schemas';
+import { onboardingSchema } from '../model/schemas';
 
 import { onboardingApi } from '../api/OnboardingApi';
 

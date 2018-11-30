@@ -13,15 +13,16 @@ import {
 } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { MetamaskState } from '@gemsorg/app-web3';
+
+import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
 
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
-import { metamaskStateSelector } from '../../../selectors/web3Selectors';
 import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
 import { assignAddress } from '../../../sagas/userSagas';
 
 import { userProps } from '../../shared/propTypes';
-import { MetamaskState } from '../../../model/enums';
 
 import styles from './EditAddressDialoig.module.styl';
 

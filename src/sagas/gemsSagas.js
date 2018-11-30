@@ -8,14 +8,13 @@ import {
 } from 'redux-saga/effects';
 
 import { takeEveryApiCall, RequestStates } from '@gemsorg/app-utils';
+import { initGemsStateSelector } from '@gemsorg/app-web3/selectors';
+import { userSelector } from '@gemsorg/app-auth/selectors';
 
 import { gemsActionTypes } from './actionTypes';
 
 import { userApi } from '../api/UserApi';
 import { etheriumApi } from '../api/EthgasstationInfoApi';
-
-import { userSelector } from '../selectors/userSelectors';
-import { initGemsStateSelector } from '../selectors/uiStateSelectors';
 
 import { ua, GtmActions } from '../common/GtmEvents';
 

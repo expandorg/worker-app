@@ -1,49 +1,6 @@
 // @flow
 import { createActionTypes } from '@gemsorg/app-utils';
 
-export const appActionTypes = createActionTypes('app', {
-  INIT: null,
-  REFRESH: null,
-
-  NOTIFICATION_ADD: null,
-  NOTIFICATION_REMOVE: null,
-});
-
-export const web3ActionTypes = createActionTypes('web3', {
-  INIT_WEB3_COMPLETE: null,
-  INIT_WEB3_FAILED: null,
-
-  INIT_GEMS: null,
-  INIT_GEMS_COMPLETE: null,
-  INIT_GEMS_FAILED: null,
-});
-
-export const authActionTypes = createActionTypes('auth', {
-  GET_CURRENT: null,
-  GET_CURRENT_COMPLETE: null,
-  GET_CURRENT_FAILED: null,
-
-  LOGIN: null,
-  LOGIN_COMPLETE: null,
-  LOGIN_FAILED: null,
-
-  LOGIN_METAMASK: null,
-  LOGIN_METAMASK_COMPLETE: null,
-  LOGIN_METAMASK_FAILED: null,
-
-  SIGNUP: null,
-  SIGNUP_COMPLETE: null,
-  SIGNUP_FAILED: null,
-
-  SIGNUP_METAMASK: null,
-  SIGNUP_METAMASK_COMPLETE: null,
-  SIGNUP_METAMASK_FAILED: null,
-
-  LOGOUT: null,
-  LOGOUT_COMPLETE: null,
-  LOGOUT_FAILED: null,
-});
-
 export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS: null,
   ASSIGN_ADDRESS_COMPLETE: null,

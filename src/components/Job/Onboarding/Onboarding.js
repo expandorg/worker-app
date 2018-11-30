@@ -12,7 +12,7 @@ import {
   moduleControls,
   Module,
   ReportToggle,
-} from '@gemsorg/components/modules';
+} from '@gemsorg/modules';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 

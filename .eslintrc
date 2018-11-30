@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@gemsorg/eslint-config"
+    "@gemsorg/eslint-config/react"
   ],
   "globals": {
     "Web3": true

@@ -19,17 +19,10 @@ const onboardingSchema = new schema.Entity(
   { idAttribute: 'jobId' }
 );
 
-const authResponseSchema = {
-  assignments: [assignmentSchema],
-  assignedTasks: [taskSchema],
-  assignedResponses: [responseSchema],
-};
-
 export {
   jobSchema,
   onboardingSchema,
   assignmentSchema,
   taskSchema,
   responseSchema,
-  authResponseSchema,
 };

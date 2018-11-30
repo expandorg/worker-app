@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import { requestUiStateReducer } from '@gemsorg/app-utils';
+import { authStateReducers } from '@gemsorg/app-auth';
+import { web3ActionTypes } from '@gemsorg/app-web3';
 
 import {
-  web3ActionTypes,
   gemsActionTypes,
-  authActionTypes,
   userActionTypes,
   jobsActionTypes,
   onboardingActionTypes,
@@ -17,20 +17,14 @@ import {
 import depositStage from './depositStageReducer';
 import notification from './notificationReducer';
 
-import txState from './txStateReucer';
+import tx from './txStateReucer';
 
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
-  tx: txState,
+  ...authStateReducers,
+  notification,
 
-  auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
-
-  login: requestUiStateReducer(authActionTypes.LOGIN, false, true),
-  signup: requestUiStateReducer(authActionTypes.SIGNUP, false, true),
-
-  loginMetamask: requestUiStateReducer(authActionTypes.LOGIN_METAMASK),
-  signupMetamask: requestUiStateReducer(authActionTypes.SIGNUP_METAMASK),
-
+  tx,
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
   editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
   confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
@@ -63,6 +57,4 @@ export default combineReducers({
   cancelAssignment: requestUiStateReducer(assignmentActionTypes.CANCEL),
 
   verifyResponse: requestUiStateReducer(responsesActionTypes.VERIFY),
-
-  notification,
 });

@@ -1,35 +1,6 @@
-// @flow
 import { createSelector } from 'reselect';
 
-export const uiStateSelector = (state: Object) => state.ui;
-
-export const initGemsStateSelector = createSelector(
-  uiStateSelector,
-  state => state.initGems
-);
-
-export const authStateSelector = createSelector(
-  uiStateSelector,
-  state => state.auth
-);
-export const loginStateSelector = createSelector(
-  uiStateSelector,
-  state => state.login
-);
-export const signupStateSelector = createSelector(
-  uiStateSelector,
-  state => state.signup
-);
-
-export const loginMetamaskStateSelector = createSelector(
-  uiStateSelector,
-  state => state.loginMetamask
-);
-
-export const signupMetamaskStateSelector = createSelector(
-  uiStateSelector,
-  state => state.signupMetamask
-);
+export const uiStateSelector = state => state.ui;
 
 export const assignAddressStateSelector = createSelector(
   uiStateSelector,

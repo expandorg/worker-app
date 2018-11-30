@@ -1,5 +1,5 @@
+import { authActionTypes } from '@gemsorg/app-auth';
 import {
-  authActionTypes,
   jobsActionTypes,
   tasksActionTypes,
   assignmentActionTypes,

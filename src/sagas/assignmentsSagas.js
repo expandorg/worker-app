@@ -1,9 +1,9 @@
 import { fork } from 'redux-saga/effects';
 
 import { takeEveryApiCall } from '@gemsorg/app-utils';
-import { assignmentActionTypes } from './actionTypes';
+import { authResponseSchema } from '@gemsorg/app-auth';
 
-import { authResponseSchema } from '../model/schemas';
+import { assignmentActionTypes } from './actionTypes';
 
 import { assignmentsApi } from '../api/AssignmentsApi';
 

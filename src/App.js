@@ -4,6 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@gemsorg/components';
+import { initSaga } from '@gemsorg/app-utils/app';
 
 import AppPage from './components/Page/AppPage';
 
@@ -30,11 +31,9 @@ import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 import store from './reducers/store';
 import services from './services/services';
 
-import { init } from './sagas/appSagas';
-
 import settings from './common/settings';
 
-store.dispatch(init());
+store.dispatch(initSaga());
 
 const App = () => {
   if (settings.maintenanceMode) {

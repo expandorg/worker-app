@@ -1,10 +1,12 @@
 import { fork, takeEvery, call, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
+import { authResponseSchema } from '@gemsorg/app-auth';
 import { takeEveryApiCall } from '@gemsorg/app-utils';
+
 import { tasksActionTypes, jobsActionTypes } from './actionTypes';
 
-import { taskSchema, jobSchema, authResponseSchema } from '../model/schemas';
+import { taskSchema, jobSchema } from '../model/schemas';
 import { GtmActions } from '../common/GtmEvents';
 
 import { tasksApi } from '../api/TasksApi';

@@ -47,19 +47,19 @@ export default class JobItem extends Component {
           <div className={styles.heading}>{job.name}</div>
           <div className={styles.requester}>{job.requester}</div>
           <div>
-            {isFunded &&
-              !isJoined && (
-                <button onClick={this.handleJoin} className={styles.join}>
-                  Join
-                </button>
-              )}
+            {isFunded && !isJoined && (
+              <button onClick={this.handleJoin} className={styles.join}>
+                Join
+              </button>
+            )}
             {isJoined && (
               <Link className={styles.link} to={`/tasks/${assignment.taskId}`}>
                 You have already joined this task
               </Link>
             )}
-            {!isJoined &&
-              !isFunded && <div>Please deposit Gems to participate*</div>}
+            {!isJoined && !isFunded && (
+              <div>Please deposit Gems to participate*</div>
+            )}
             <div className={styles.rewardMobile}>
               <span className={styles.rewardNumber}>
                 {job.logic.funding.reward}

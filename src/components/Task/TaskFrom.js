@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { Panel } from '@gemsorg/components';
-import { Form, Module, formProps } from '@gemsorg/components/modules';
+import { Form, Module, formProps } from '@gemsorg/modules';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 

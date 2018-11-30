@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Dialog, DialogHeadline } from '@gemsorg/components';
 
+import { MetamaskState } from '@gemsorg/app-web3';
+
 import Install from './Install';
 import Unlock from './Unlock';
 import Form from './Form';
-
-import { MetamaskState } from '../../../model/enums';
 
 const headers = {
   [MetamaskState.NotInstalled]: 'Please Install MetaMask',

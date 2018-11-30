@@ -9,9 +9,8 @@ import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import { Button, Input, ErrorMessage } from '@gemsorg/components';
 
-import { login } from '../../../sagas/authSagas';
-
-import { loginStateSelector } from '../../../selectors/uiStateSelectors';
+import { loginStateSelector } from '@gemsorg/app-auth/selectors';
+import { login } from '@gemsorg/app-auth/sagas';
 
 import styles from './styles.module.styl';
 
@@ -80,7 +79,7 @@ class LoginForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <Button suze="large" type="submit" className={styles.submit}>
+          <Button size="large" type="submit" className={styles.submit}>
             {isFetching ? 'Signing in...' : 'Sign in'}
           </Button>
         </form>

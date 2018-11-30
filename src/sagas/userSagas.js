@@ -9,15 +9,15 @@ import {
 
 import { takeEveryApiCall } from '@gemsorg/app-utils';
 
+import { userSelector } from '@gemsorg/app-auth/selectors';
+import { authActionTypes } from '@gemsorg/app-auth';
+
 import {
-  authActionTypes,
   jobsActionTypes,
   tasksActionTypes,
   userActionTypes,
   gemsActionTypes,
 } from './actionTypes';
-
-import { userSelector } from '../selectors/userSelectors';
 
 import { userApi } from '../api/UserApi';
 import { GtmActions } from '../common/GtmEvents';

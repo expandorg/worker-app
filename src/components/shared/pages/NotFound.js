@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 
 import { Panel } from '@gemsorg/components';
 
-import Content from '../Content';
+import { loggedInSelector } from '@gemsorg/app-auth/selectors';
 
-import { loggedInSelector } from '../../../selectors/userSelectors';
+import Content from '../Content';
 
 const mapStateToProps = state => ({
   isAuthorized: loggedInSelector(state),
