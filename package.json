@@ -16,7 +16,7 @@
     "@gemsorg/api-client": "^0.0.12",
     "@gemsorg/app-auth": "^0.0.5",
     "@gemsorg/app-utils": "^0.0.16",
-    "@gemsorg/app-web3": "^0.0.3",
+    "@gemsorg/app-web3": "0.0.4",
     "@gemsorg/components": "^0.1.9",
     "@gemsorg/modules": "^0.1.20",
     "@gemsorg/uikit": "^0.1.2",
