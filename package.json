@@ -18,7 +18,7 @@
     "@gemsorg/app-utils": "^0.0.18",
     "@gemsorg/app-web3": "^0.0.8",
     "@gemsorg/components": "^0.1.9",
-    "@gemsorg/modules": "^0.1.24",
+    "@gemsorg/modules": "^0.1.25",
     "@gemsorg/uikit": "^0.1.2",
     "@gemsorg/utils": "^0.0.5",
     "@gemsorg/validation": "^0.1.3",
