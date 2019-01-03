@@ -11,7 +11,7 @@ import styles from './Requester.module.styl';
 const Requester = () => (
   <Content title="Post a job to Gems">
     <Panel className={styles.container}>
-      <span>Have an organization or company that can use Gems?</span>
+      <span>Have an organization or company that can use Expand?</span>
       <a
         className={styles.formLink}
         href="https://gemscommunity.typeform.com/to/YRcICm"
