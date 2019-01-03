@@ -8,7 +8,7 @@ import VerifyEmailPopup from './email/VerifyEmailPopup';
 import './Content.styl';
 
 const Content = ({ children, title }) => (
-  <DocumentTitle title={`${title} - Gems`}>
+  <DocumentTitle title={`${title} - Expand`}>
     <div className="gem-content">
       <VerifyEmailPopup />
       <div className="gem-content-title">{title}</div>
