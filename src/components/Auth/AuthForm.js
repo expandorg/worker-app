@@ -32,7 +32,7 @@ class AuthForm extends Component {
     return (
       <div className={styles.container}>
         <h2 className={styles.header}>
-          {!signup ? 'Login' : 'Signup'} to Gems
+          {!signup ? 'Login' : 'Signup'} to Expand
         </h2>
         <div className={styles.inner}>
           {signup ? <MatamaskSignup /> : <MetamaskLogin />}
