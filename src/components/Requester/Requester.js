@@ -14,7 +14,7 @@ const Requester = () => (
       <span>Have an organization or company that can use Expand?</span>
       <a
         className={styles.formLink}
-        href="https://gemscommunity.typeform.com/to/YRcICm"
+        href="https://expand.typeform.com/to/YRcICm"
         target="_blank"
         rel="noopener noreferrer"
       >
