@@ -15,10 +15,10 @@ import {
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { userProps } from '@expandorg/app-auth';
 
-import withSubmitState from '../../hoc/withSubmitState';
+import { changePassword } from '@expandorg/app-account/sagas';
+import { changePasswordStateSelector } from '@expandorg/app-account/selectors';
 
-import { changePassword } from '../../../sagas/userSagas';
-import { changePasswordStateSelector } from '../../../selectors/uiStateSelectors';
+import withSubmitState from '../../hoc/withSubmitState';
 
 import styles from './EditPasswordDialog.module.styl';
 

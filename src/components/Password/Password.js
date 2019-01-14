@@ -10,11 +10,10 @@ import DocumentTitle from 'react-document-title';
 import { Button, Input, ErrorMessage } from '@expandorg/components';
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
+import { resetPassword } from '@expandorg/app-auth/sagas';
+import { resetPasswordStateSelector as resetState } from '@expandorg/app-auth/selectors';
+
 import withSubmitState from '../hoc/withSubmitState';
-
-import { resetPassword } from '../../sagas/userSagas';
-
-import { resetPasswordStateSelector as resetState } from '../../selectors/uiStateSelectors';
 
 import styles from './styles.module.styl';
 

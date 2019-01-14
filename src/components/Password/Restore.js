@@ -16,12 +16,11 @@ import {
   locationProps,
 } from '@expandorg/app-utils';
 
+import { restorePassword } from '@expandorg/app-auth/sagas';
+import { restorePasswordStateSelector as restoreState } from '@expandorg/app-auth/selectors';
+
 import withSubmitState from '../hoc/withSubmitState';
 import submitStateEffect from '../hoc/submitStateEffect';
-
-import { restorePassword } from '../../sagas/userSagas';
-
-import { restorePasswordStateSelector as restoreState } from '../../selectors/uiStateSelectors';
 
 import styles from './styles.module.styl';
 

@@ -18,10 +18,11 @@ import { MetamaskState } from '@expandorg/app-web3';
 import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 
 import { userProps } from '@expandorg/app-auth';
-import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
-import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
-import { assignAddress } from '../../../sagas/userSagas';
+import { assignAddressStateSelector } from '@expandorg/app-account/selectors';
+import { assignAddress } from '@expandorg/app-account/sagas';
+
+import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import styles from './EditAddressDialoig.module.styl';
 
