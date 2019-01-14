@@ -4,19 +4,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Dialog, DialogHeadline } from '@gemsorg/components';
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { Dialog, DialogHeadline } from '@expandorg/components';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { withdrawPayments } from '@expandorg/app-gemtokens/sagas';
+
+import { userProps } from '@expandorg/app-auth';
+
+import { withdrawStateSelector } from '@expandorg/app-gemtokens/selectors';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 
 import WithdrawForm from './WithdrawForm';
 import Transactions from '../../../shared/transactions/Transactions';
-
-import { userProps } from '../../../shared/propTypes';
-
-import { withdrawPayments } from '../../../../sagas/gemsSagas';
-
-import { withdrawStateSelector } from '../../../../selectors/uiStateSelectors';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ withdrawPayments }, dispatch);

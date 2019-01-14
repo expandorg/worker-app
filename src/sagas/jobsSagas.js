@@ -1,8 +1,8 @@
-import { fork } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '@gemsorg/app-utils';
+import { handleAsyncCall } from '@expandorg/app-utils';
 
-import { authResponseSchema } from '@gemsorg/app-auth';
+import { authResponseSchema } from '@expandorg/app-auth';
 import { jobsActionTypes } from './actionTypes';
 
 import { jobsApi } from '../api/JobsApi';
@@ -12,28 +12,21 @@ import { GtmActions } from '../common/GtmEvents';
 export const fetchJobs = () => ({
   type: jobsActionTypes.FETCH_LIST,
   payload: null,
+  asyncCall: jobsApi.list,
   meta: { schema: { jobs: [jobSchema] } },
 });
-
-const watchFetchListRequest = takeEveryApiCall(
-  jobsActionTypes.FETCH_LIST,
-  jobsApi.list
-);
 
 export const fetchJob = jobId => ({
   type: jobsActionTypes.FETCH,
   payload: { jobId },
+  asyncCall: jobsApi.fetch,
   meta: { schema: { job: jobSchema } },
 });
-
-const watchFetchRequest = takeEveryApiCall(
-  jobsActionTypes.FETCH,
-  jobsApi.fetch
-);
 
 export const assignJob = jobId => ({
   type: jobsActionTypes.ASSIGN,
   payload: { jobId },
+  asyncCall: jobsApi.assign,
   meta: {
     schema: authResponseSchema,
     track: {
@@ -42,13 +35,9 @@ export const assignJob = jobId => ({
   },
 });
 
-const watchAssignRequest = takeEveryApiCall(
-  jobsActionTypes.ASSIGN,
-  jobsApi.assign
-);
-
 export function* jobsSagas() {
-  yield fork(watchFetchRequest);
-  yield fork(watchFetchListRequest);
-  yield fork(watchAssignRequest);
+  yield takeEvery(
+    [jobsActionTypes.FETCH, jobsActionTypes.FETCH_LIST, jobsActionTypes.ASSIGN],
+    handleAsyncCall
+  );
 }

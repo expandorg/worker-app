@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
+import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
+import { userProps } from '@expandorg/app-auth';
 
 import Field from '../shared/Field';
 import Editable from '../shared/Editable';
 import EditAddressDialoig from './EditAddressDialoig';
-
-import { userProps } from '../../shared/propTypes';
 
 const mapStateToProps = state => ({
   metamaskState: metamaskStateSelector(state),

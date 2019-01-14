@@ -72,32 +72,7 @@ export const verifyResponseStateSelector = createSelector(
   state => state.verifyResponse
 );
 
-export const fetchBalanceStateSelector = createSelector(
-  uiStateSelector,
-  state => state.gemBalance
-);
-
-export const depositStateSelector = createSelector(
-  uiStateSelector,
-  state => state.deposit
-);
-
-export const depositStageSelector = createSelector(
-  uiStateSelector,
-  state => state.depositStage
-);
-
-export const withdrawStateSelector = createSelector(
-  uiStateSelector,
-  state => state.withdraw
-);
-
 export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification
-);
-
-export const transactionStateSelector = createSelector(
-  uiStateSelector,
-  state => state.tx
 );

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Panel } from '@gemsorg/components';
+import { Panel } from '@expandorg/components';
 
 import {
   Form,
@@ -12,9 +12,9 @@ import {
   moduleControls,
   Module,
   ReportToggle,
-} from '@gemsorg/modules';
+} from '@expandorg/modules';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import Rules from './modules/Rules';
 import QA from './modules/QA/QA';

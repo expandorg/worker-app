@@ -6,12 +6,12 @@ import { bindActionCreators } from 'redux';
 
 import { NavLink, withRouter } from 'react-router-dom';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import {
   loggedInSelector,
   authStateSelector,
-} from '@gemsorg/app-auth/selectors';
+} from '@expandorg/app-auth/selectors';
 
 import Loading from './Loading';
 import AnonimousNav from './AnonimousNav';

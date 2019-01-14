@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
+import { userProps } from '@expandorg/app-auth';
+
 import Editable from '../shared/Editable';
 import Field from '../shared/Field';
 
 import EditEmailDialog from '../../shared/email/EditEmailDialog';
-import { userProps } from '../../shared/propTypes';
 
 export default class Email extends Component {
   static propTypes = {

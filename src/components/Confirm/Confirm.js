@@ -4,17 +4,17 @@ import qs from 'query-string';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Panel } from '@gemsorg/components';
+import { Panel } from '@expandorg/components';
 
-import { userSelector } from '@gemsorg/app-auth/selectors';
+import { userProps } from '@expandorg/app-auth';
+import { userSelector } from '@expandorg/app-auth/selectors';
+import { locationProps } from '@expandorg/app-utils';
 
 import Content from '../shared/Content';
 
 import ConfirmEmailForm from '../shared/email/ConfirmEmailForm';
 
 import { authenticated } from '../hoc/authRules';
-
-import { userProps, locationProps } from '../shared/propTypes';
 
 import styles from './Confirm.module.styl';
 

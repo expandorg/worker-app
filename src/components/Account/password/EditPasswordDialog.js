@@ -10,13 +10,12 @@ import {
   Dialog,
   DialogHeadline,
   ErrorMessage,
-} from '@gemsorg/components';
+} from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
 import withSubmitState from '../../hoc/withSubmitState';
-
-import { userProps } from '../../shared/propTypes';
 
 import { changePassword } from '../../../sagas/userSagas';
 import { changePasswordStateSelector } from '../../../selectors/uiStateSelectors';

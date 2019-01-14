@@ -2,11 +2,11 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { createAnalyticsMiddlware } from '@gemsorg/app-utils/gtm';
+import { createAnalyticsMiddlware } from '@expandorg/app-utils/gtm';
 
 import settings from '../common/settings';
 import sagas from '../sagas';
-import services from '../services/services';
+import services from '../services';
 
 import rootReducer from './rootReducer';
 

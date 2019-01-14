@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import { historyProps } from '../shared/propTypes';
+import { historyProps } from '@expandorg/app-utils';
 
 import MetamaskLogin from './metamask/MatamaskLogin';
 import MatamaskSignup from './metamask/MatamaskSignup';

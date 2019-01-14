@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userSelector } from '@gemsorg/app-auth/selectors';
+import { userProps } from '@expandorg/app-auth';
+import { historyProps } from '@expandorg/app-utils';
+import { userSelector } from '@expandorg/app-auth/selectors';
 
-import {
-  userProps,
-  jobProps,
-  assignmentProps,
-  historyProps,
-} from '../shared/propTypes';
+import { jobProps, assignmentProps } from '../shared/propTypes';
 
 import Content from '../shared/Content';
 import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';

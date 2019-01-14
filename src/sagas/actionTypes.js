@@ -1,5 +1,5 @@
 // @flow
-import { createActionTypes } from '@gemsorg/app-utils';
+import { createActionTypes } from '@expandorg/app-utils';
 
 export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS: null,
@@ -29,8 +29,6 @@ export const userActionTypes = createActionTypes('user', {
   RESTORE_PASSWORD: null,
   RESTORE_PASSWORD_COMPLETE: null,
   RESTORE_PASSWORD_FAILED: null,
-
-  UPDATED: null,
 });
 
 export const jobsActionTypes = createActionTypes('jobs', {
@@ -91,22 +89,4 @@ export const responsesActionTypes = createActionTypes('responses', {
   VERIFY: null,
   VERIFY_COMPLETE: null,
   VERIFY_FAILED: null,
-});
-
-export const gemsActionTypes = createActionTypes('gems', {
-  DEPOSIT: null,
-  DEPOSIT_COMPLETE: null,
-  DEPOSIT_FAILED: null,
-
-  DEPOSIT_STAGE: null,
-
-  WITHDRAW: null,
-  WITHDRAW_COMPLETE: null,
-  WITHDRAW_FAILED: null,
-
-  FETCH_BALANCE: null,
-  FETCH_BALANCE_COMPLETE: null,
-  FETCH_BALANCE_FAILED: null,
-
-  TRANSACTION_FAILED: null,
 });

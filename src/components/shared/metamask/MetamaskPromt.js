@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog, DialogHeadline } from '@gemsorg/components';
+import { Dialog, DialogHeadline } from '@expandorg/components';
 
-import { MetamaskState } from '@gemsorg/app-web3';
+import { MetamaskState } from '@expandorg/app-web3';
 
 import Install from './Install';
 import Unlock from './Unlock';
