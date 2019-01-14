@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
-import { Button, Input, ErrorMessage } from '@gemsorg/components';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
 
-import { loginStateSelector } from '@gemsorg/app-auth/selectors';
-import { login } from '@gemsorg/app-auth/sagas';
+import { loginStateSelector } from '@expandorg/app-auth/selectors';
+import { login } from '@expandorg/app-auth/sagas';
 
 import styles from './styles.module.styl';
 

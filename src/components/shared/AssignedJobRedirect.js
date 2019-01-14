@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import {
+  RequestStates,
+  requestStateProps,
+  historyProps,
+} from '@expandorg/app-utils';
 
-import { historyProps, assignmentProps } from './propTypes';
+import { assignmentProps } from './propTypes';
 
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 import { makeJobAssignmentSelector } from '../../selectors/assignmentsSelectors';

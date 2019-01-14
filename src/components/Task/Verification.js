@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { calculateVerificationScore, moduleControls } from '@gemsorg/modules';
+import { calculateVerificationScore, moduleControls } from '@expandorg/modules';
 
-import { requestStateProps } from '@gemsorg/app-utils';
+import { requestStateProps } from '@expandorg/app-utils';
 
 import withSubmitState from '../hoc/withSubmitState';
 

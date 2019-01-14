@@ -3,8 +3,8 @@ import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ServiceProvider } from '@gemsorg/components';
-import { initSaga } from '@gemsorg/app-utils/app';
+import { ServiceProvider } from '@expandorg/components';
+import { initSaga } from '@expandorg/app-utils/app';
 
 import AppPage from './components/Page/AppPage';
 
@@ -29,7 +29,7 @@ import NotFound from './components/shared/pages/NotFound';
 import MaintenanceMode from './components/shared/pages/MaintenanceMode';
 
 import store from './reducers/store';
-import services from './services/services';
+import services from './services';
 
 import settings from './common/settings';
 

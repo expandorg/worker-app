@@ -1,30 +1,27 @@
 import { combineReducers } from 'redux';
 
-import { requestUiStateReducer } from '@gemsorg/app-utils';
-import { authStateReducers } from '@gemsorg/app-auth';
-import { web3ActionTypes } from '@gemsorg/app-web3';
+import { requestUiStateReducer } from '@expandorg/app-utils';
+import { notificationReducer as notification } from '@expandorg/app-utils/app';
+
+import { authStateReducers } from '@expandorg/app-auth';
+import { web3ActionTypes } from '@expandorg/app-web3';
+import { uiStateReducers as gemsState } from '@expandorg/app-gemtokens';
 
 import {
-  gemsActionTypes,
   userActionTypes,
   jobsActionTypes,
   onboardingActionTypes,
   tasksActionTypes,
   assignmentActionTypes,
   responsesActionTypes,
-} from '../../sagas/actionTypes';
-
-import depositStage from './depositStageReducer';
-import notification from './notificationReducer';
-
-import tx from './txStateReucer';
+} from '../sagas/actionTypes';
 
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
-  ...authStateReducers,
   notification,
+  ...authStateReducers,
+  ...gemsState,
 
-  tx,
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
   editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
   confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
@@ -39,12 +36,6 @@ export default combineReducers({
   ),
   resetPassword: requestUiStateReducer(userActionTypes.RESET_PASSWORD),
   restorePassword: requestUiStateReducer(userActionTypes.RESTORE_PASSWORD),
-
-  gemBalance: requestUiStateReducer(gemsActionTypes.FETCH_BALANCE),
-  deposit: requestUiStateReducer(gemsActionTypes.DEPOSIT, true),
-  depositStage,
-
-  withdraw: requestUiStateReducer(gemsActionTypes.WITHDRAW, true),
 
   submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
   reportOnboarding: requestUiStateReducer(onboardingActionTypes.REPORT),

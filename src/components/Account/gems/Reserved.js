@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Field from '../shared/Field';
+import { userProps } from '@expandorg/app-auth';
 
-import { userProps } from '../../shared/propTypes';
+import Field from '../shared/Field';
 
 export default class Reserved extends Component {
   static propTypes = {

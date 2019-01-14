@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReportForm } from '@gemsorg/modules';
+import { ReportForm } from '@expandorg/modules';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 export default class Report extends Component {
   static propTypes = {

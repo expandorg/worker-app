@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Input, ErrorMessage } from '@gemsorg/components';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
-
-import { userProps } from '../../../shared/propTypes';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import {
   userBalance,
   WITHDRAW_MAX,
   WITHDRAW_MIN,
-} from '../../../../model/balance';
+} from '@expandorg/app-gemtokens';
+
+import { userProps } from '@expandorg/app-auth';
 
 import styles from './WithdrawForm.module.styl';
 

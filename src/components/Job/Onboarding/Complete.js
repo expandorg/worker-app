@@ -5,9 +5,9 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Panel, Button } from '@gemsorg/components';
+import { Panel, Button } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import { jobProps } from '../../shared/propTypes';
 

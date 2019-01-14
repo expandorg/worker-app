@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { WITHDRAW_MIN } from '../../../../model/balance';
+import { WITHDRAW_MIN } from '@expandorg/app-gemtokens';
 
 import styles from './AvailableFunds.module.styl';
 

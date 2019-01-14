@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import { Button } from '@gemsorg/components';
+import { Button } from '@expandorg/components';
+
+import { userProps } from '@expandorg/app-auth';
 
 import EditPasswordDialog from './EditPasswordDialog';
 import Field from '../shared/Field';
-
-import { userProps } from '../../shared/propTypes';
 
 import styles from './Password.module.styl';
 

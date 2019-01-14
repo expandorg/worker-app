@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
+import { Dialog, DialogHeadline, Button } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import Countdown from '../shared/Countdown';
 
 import withSubmitState from '../hoc/withSubmitState';

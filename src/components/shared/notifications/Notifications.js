@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { ToastAnimated } from '@gemsorg/components';
+import { ToastAnimated } from '@expandorg/components';
 
 import Notification from './Notification';
 

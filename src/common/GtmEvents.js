@@ -1,18 +1,10 @@
 // @flow
-import { createActionTypes } from '@gemsorg/app-utils';
+import { createActionTypes } from '@expandorg/app-utils';
 
 export const GtmActions = {
   ...createActionTypes('Tasks', {
     JobAssign: null,
     TaskSubmit: null,
-  }),
-  ...createActionTypes('Gems', {
-    Deposit: null,
-    DepositSuccess: null,
-    DepositFailed: null,
-    Withdraw: null,
-    WithdrawSuccess: null,
-    WithdrawFailed: null,
   }),
 };
 

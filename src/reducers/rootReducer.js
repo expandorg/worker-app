@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { metamaskReducer as metamask } from '@gemsorg/app-web3';
+import { metamaskReducer as metamask } from '@expandorg/app-web3';
+import { gemsBalanceReducer as gemsBalance } from '@expandorg/app-gemtokens';
 
 import user from './userReducer';
-import gemsBalance from './gemsBalanceReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';

@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Panel } from '@gemsorg/components';
+import { Panel } from '@expandorg/components';
 
-import { userSelector } from '@gemsorg/app-auth/selectors';
+import { userSelector } from '@expandorg/app-auth/selectors';
+import { userProps } from '@expandorg/app-auth';
 
 import Content from '../shared/Content';
-
-import { userProps } from '../shared/propTypes';
 
 import { authenticated } from '../hoc/authRules';
 

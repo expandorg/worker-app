@@ -1,17 +1,17 @@
 // @flow
 
-import { ServiceLocator } from '@gemsorg/components';
+import { ServiceLocator } from '@expandorg/components';
 
-import { GoogleTagManager } from '@gemsorg/app-utils/gtm';
-import { ScriptsLoader } from '@gemsorg/utils';
-import { GemsService } from '@gemsorg/app-web3';
+import { EventSourceService } from '@expandorg/app-utils';
+import { TxEventSource } from '@expandorg/app-gemtokens';
 
-import { validateForm } from '@gemsorg/validation';
+import { GoogleTagManager } from '@expandorg/app-utils/gtm';
+import { ScriptsLoader } from '@expandorg/utils';
+import { GemsService } from '@expandorg/app-web3';
 
-import settings from '../common/settings';
+import { validateForm } from '@expandorg/validation';
 
-import EventSourceService from './EventSourceService';
-import TxEventSource from './events/TxEventSource';
+import settings from './common/settings';
 
 const eventSources = new EventSourceService(settings.apiUrl).definition(
   'tx',

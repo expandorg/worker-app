@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ToastAnimated } from '@gemsorg/components';
+import { ToastAnimated } from '@expandorg/components';
 
 import { assignmentProps } from '../shared/propTypes';
 

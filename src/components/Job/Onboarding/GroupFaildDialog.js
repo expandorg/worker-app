@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
+import { Dialog, DialogHeadline, Button } from '@expandorg/components';
 
 import { onboardingProps } from '../../shared/propTypes';
 

@@ -1,4 +1,4 @@
-import { BaseApi } from '@gemsorg/api-client';
+import { BaseApi } from '@expandorg/api-client';
 
 export class JobsApi extends BaseApi {
   list = () => this.get('/jobs');

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
+import { Dialog, DialogHeadline, Button } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import withSubmitState from '../../hoc/withSubmitState';
 

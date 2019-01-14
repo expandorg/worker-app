@@ -4,22 +4,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { depositGems } from '@expandorg/app-gemtokens/sagas';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
-import { Dialog, DialogHeadline } from '@gemsorg/components';
+import { Dialog, DialogHeadline } from '@expandorg/components';
+
+import {
+  gemBalanceSelector,
+  depositStageSelector,
+  depositStateSelector,
+} from '@expandorg/app-gemtokens/selectors';
 
 import withSubmitState from '../../../hoc/withSubmitState';
 
 import DepositForm from './DepositForm';
 import Transactions from '../../../shared/transactions/Transactions';
-
-import { depositGems } from '../../../../sagas/gemsSagas';
-
-import { gemBalanceSelector } from '../../../../selectors/userSelectors';
-import {
-  depositStageSelector,
-  depositStateSelector,
-} from '../../../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
   stage: depositStageSelector(state),

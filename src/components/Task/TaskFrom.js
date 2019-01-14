@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { Panel } from '@gemsorg/components';
-import { Form, Module, formProps } from '@gemsorg/modules';
+import { Panel } from '@expandorg/components';
+import { Form, Module, formProps } from '@expandorg/modules';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import TaskActions from './actions/TaskActions';
 

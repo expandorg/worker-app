@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { rules as validationRules } from '@gemsorg/validation';
+import { rules as validationRules } from '@expandorg/validation';
 
-import { Button, Checkbox } from '@gemsorg/components';
-import { Alignment } from '@gemsorg/modules';
+import { Button, Checkbox } from '@expandorg/components';
+import { Alignment } from '@expandorg/modules';
 
 import ArticleModal from './ArticleModal';
 

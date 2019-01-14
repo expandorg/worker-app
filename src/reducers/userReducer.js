@@ -1,11 +1,12 @@
-import { userReducer as reducer } from '@gemsorg/app-auth';
+import { userReducer as reducer } from '@expandorg/app-auth';
+import { gemsActionTypes } from '@expandorg/app-gemtokens';
+import { userActionTypes as baseUserActions } from '@expandorg/app-utils/app';
 
 import {
   userActionTypes,
   jobsActionTypes,
   tasksActionTypes,
   assignmentActionTypes,
-  gemsActionTypes,
   onboardingActionTypes,
 } from '../sagas/actionTypes';
 
@@ -18,7 +19,7 @@ export default function userReducer(state = initialState, action) {
     case userActionTypes.EDIT_EMAIL_COMPLETE:
       return action.payload.user;
 
-    case userActionTypes.UPDATED:
+    case baseUserActions.UPDATED:
       return action.payload.data.user;
 
     case jobsActionTypes.ASSIGN_COMPLETE:

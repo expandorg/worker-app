@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { userBalance } from '../../model/balance';
-import { jobProps, userProps, assignmentProps } from '../shared/propTypes';
+import { userBalance } from '@expandorg/app-gemtokens';
+import { userProps } from '@expandorg/app-auth';
+import { jobProps, assignmentProps } from '../shared/propTypes';
 
 import styles from './JobItem.module.styl';
 

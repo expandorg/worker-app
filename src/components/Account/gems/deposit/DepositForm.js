@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import { Prompt } from 'react-router-dom';
 
-import { Button, Input, ErrorMessage } from '@gemsorg/components';
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+
+import { userBalance, DEPOSIT_MIN } from '@expandorg/app-gemtokens';
 
 import Loading from './Loading';
 import Description from './Description';
-
-import { userBalance, DEPOSIT_MIN } from '../../../../model/balance';
 
 import styles from './DepositForm.module.styl';
 

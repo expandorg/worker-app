@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Panel } from '@gemsorg/components';
+import { Panel } from '@expandorg/components';
 
 import styles from './Cancelled.module.styl';
 
