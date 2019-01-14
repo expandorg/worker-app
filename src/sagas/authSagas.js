@@ -18,6 +18,8 @@ export function* authSagas() {
     authActionTypes.LOGIN,
     authActionTypes.SIGNUP,
     authActionTypes.LOGOUT,
+    authActionTypes.RESET_PASSWORD,
+    authActionTypes.RESTORE_PASSWORD,
   ];
   yield takeEvery(actions, handleAsyncCall);
 

@@ -1,36 +1,6 @@
 // @flow
 import { createActionTypes } from '@expandorg/app-utils';
 
-export const userActionTypes = createActionTypes('user', {
-  ASSIGN_ADDRESS: null,
-  ASSIGN_ADDRESS_COMPLETE: null,
-  ASSIGN_ADDRESS_FAILED: null,
-
-  EDIT_EMAIL: null,
-  EDIT_EMAIL_COMPLETE: null,
-  EDIT_EMAIL_FAILED: null,
-
-  CONFIRM_EMAIL: null,
-  CONFIRM_EMAIL_COMPLETE: null,
-  CONFIRM_EMAIL_FAILED: null,
-
-  RESEND_CONFIRM_EMAIL: null,
-  RESEND_CONFIRM_EMAIL_COMPLETE: null,
-  RESEND_CONFIRM_EMAIL_FAILED: null,
-
-  CHANGE_PASSWORD: null,
-  CHANGE_PASSWORD_COMPLETE: null,
-  CHANGE_PASSWORD_FAILED: null,
-
-  RESET_PASSWORD: null,
-  RESET_PASSWORD_COMPLETE: null,
-  RESET_PASSWORD_FAILED: null,
-
-  RESTORE_PASSWORD: null,
-  RESTORE_PASSWORD_COMPLETE: null,
-  RESTORE_PASSWORD_FAILED: null,
-});
-
 export const jobsActionTypes = createActionTypes('jobs', {
   FETCH: null,
   FETCH_COMPLETE: null,

@@ -15,8 +15,8 @@ import {
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { userProps } from '@expandorg/app-auth';
 
-import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
-import { editEmail } from '../../../sagas/userSagas';
+import { editEmailStateSelector } from '@expandorg/app-account/selectors';
+import { editEmail } from '@expandorg/app-account/sagas';
 
 import styles from './styles.module.styl';
 

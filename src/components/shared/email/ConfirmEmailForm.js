@@ -9,12 +9,11 @@ import { Button, Input, ErrorMessage } from '@expandorg/components';
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { userProps } from '@expandorg/app-auth';
 
+import { confirmEmail, resendConfirmEmail } from '@expandorg/app-account/sagas';
 import {
   confirmEmailStateSelector,
   resendConfirmEmailStateSelector,
-} from '../../../selectors/uiStateSelectors';
-
-import { confirmEmail, resendConfirmEmail } from '../../../sagas/userSagas';
+} from '@expandorg/app-account/selectors';
 
 import styles from './styles.module.styl';
 
