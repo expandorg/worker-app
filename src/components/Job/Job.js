@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps } from '@gemsorg/app-utils';
+import { requestStateProps } from '@expandorg/app-utils';
 
 import { authenticated } from '../hoc/authRules';
 import withSubmitState from '../hoc/withSubmitState';

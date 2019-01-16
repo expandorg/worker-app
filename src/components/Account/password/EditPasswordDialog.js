@@ -10,16 +10,15 @@ import {
   Dialog,
   DialogHeadline,
   ErrorMessage,
-} from '@gemsorg/components';
+} from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
+
+import { changePassword } from '@expandorg/app-account/sagas';
+import { changePasswordStateSelector } from '@expandorg/app-account/selectors';
 
 import withSubmitState from '../../hoc/withSubmitState';
-
-import { userProps } from '../../shared/propTypes';
-
-import { changePassword } from '../../../sagas/userSagas';
-import { changePasswordStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from './EditPasswordDialog.module.styl';
 

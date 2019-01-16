@@ -1,4 +1,4 @@
-import { BaseApi } from '@gemsorg/api-client';
+import { BaseApi } from '@expandorg/api-client';
 
 export class AssignmentsApi extends BaseApi {
   report = ({ id, reason, message }) =>

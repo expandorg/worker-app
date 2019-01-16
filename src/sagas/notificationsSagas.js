@@ -7,15 +7,11 @@ import {
   race,
 } from 'redux-saga/effects';
 
-import { delay } from '@gemsorg/utils';
-import { appActionTypes } from '@gemsorg/app-utils/app';
+import { delay } from '@expandorg/utils';
+import { appActionTypes, userActionTypes } from '@expandorg/app-utils/app';
+import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
-import {
-  userActionTypes,
-  gemsActionTypes,
-  onboardingActionTypes,
-  assignmentActionTypes,
-} from './actionTypes';
+import { onboardingActionTypes, assignmentActionTypes } from './actionTypes';
 
 import { NotificationType } from '../model/enums';
 

@@ -10,14 +10,13 @@ import {
   Dialog,
   DialogHeadline,
   ErrorMessage,
-} from '@gemsorg/components';
+} from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
-import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
-import { editEmail } from '../../../sagas/userSagas';
-
-import { userProps } from '../propTypes';
+import { editEmailStateSelector } from '@expandorg/app-account/selectors';
+import { editEmail } from '@expandorg/app-account/sagas';
 
 import styles from './styles.module.styl';
 

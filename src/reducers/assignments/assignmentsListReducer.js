@@ -1,4 +1,4 @@
-import { authActionTypes } from '@gemsorg/app-auth';
+import { authActionTypes } from '@expandorg/app-auth';
 import {
   jobsActionTypes,
   assignmentActionTypes,

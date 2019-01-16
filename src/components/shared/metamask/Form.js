@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, ErrorMessage } from '@gemsorg/components';
+import { Button, ErrorMessage } from '@expandorg/components';
 
 import styles from './Form.module.styl';
 

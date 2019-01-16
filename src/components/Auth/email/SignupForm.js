@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Input, ErrorMessage, Button } from '@gemsorg/components';
+import { Input, ErrorMessage, Button } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
-import { signupStateSelector } from '@gemsorg/app-auth/selectors';
-import { signup } from '@gemsorg/app-auth/sagas';
+import { signupStateSelector } from '@expandorg/app-auth/selectors';
+import { signup } from '@expandorg/app-auth/sagas';
 
 import styles from './styles.module.styl';
 

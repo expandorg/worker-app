@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Panel } from '@gemsorg/components';
+import { Panel } from '@expandorg/components';
 
-import { loggedInSelector } from '@gemsorg/app-auth/selectors';
+import { loggedInSelector } from '@expandorg/app-auth/selectors';
 
 import Content from '../Content';
 

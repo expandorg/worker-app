@@ -1,14 +1,14 @@
 import { fork, takeEvery } from 'redux-saga/effects';
 
-import { handleAsyncCall } from '@gemsorg/app-utils';
+import { handleAsyncCall } from '@expandorg/app-utils';
 
-import { authActionTypes } from '@gemsorg/app-auth';
+import { authActionTypes } from '@expandorg/app-auth';
 
 import {
   watchAppInit,
   handleLoginMetamask,
   handleSignupMetamask,
-} from '@gemsorg/app-auth/sagas';
+} from '@expandorg/app-auth/sagas';
 
 /* eslint-disable import/prefer-default-export */
 
@@ -18,6 +18,8 @@ export function* authSagas() {
     authActionTypes.LOGIN,
     authActionTypes.SIGNUP,
     authActionTypes.LOGOUT,
+    authActionTypes.RESET_PASSWORD,
+    authActionTypes.RESTORE_PASSWORD,
   ];
   yield takeEvery(actions, handleAsyncCall);
 

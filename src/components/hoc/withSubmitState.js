@@ -4,7 +4,7 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import { connect } from 'react-redux';
 
-import { initialRequestState, requestStateProps } from '@gemsorg/app-utils';
+import { initialRequestState, requestStateProps } from '@expandorg/app-utils';
 
 import submitStateEffect from './submitStateEffect';
 

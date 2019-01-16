@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Hamburger } from '@gemsorg/components';
+import { Hamburger } from '@expandorg/components';
 
 import './Header.styl';
 

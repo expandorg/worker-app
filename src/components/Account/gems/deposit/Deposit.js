@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button } from '@gemsorg/components';
+import { fetchGemsBalance } from '@expandorg/app-gemtokens/sagas';
+import { Button } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
-import EditAddressDialoig from '../../address/EditAddressDialoig';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
-import DepositDialog from './DepositDialog';
-
-import { fetchGemsBalance } from '../../../../sagas/gemsSagas';
 import {
   fetchBalanceStateSelector,
   transactionStateSelector,
-} from '../../../../selectors/uiStateSelectors';
+} from '@expandorg/app-gemtokens/selectors';
 
-import { userProps } from '../../../shared/propTypes';
+import EditAddressDialoig from '../../address/EditAddressDialoig';
+
+import DepositDialog from './DepositDialog';
 
 const mapStateToProps = state => ({
   fetchState: fetchBalanceStateSelector(state),

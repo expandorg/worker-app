@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog, DialogHeadline } from '@gemsorg/components';
+import { Dialog, DialogHeadline } from '@expandorg/components';
+
+import { userProps } from '@expandorg/app-auth';
 
 import ConfirmEmailForm from './ConfirmEmailForm';
-
-import { userProps } from '../propTypes';
 
 import styles from './styles.module.styl';
 

@@ -9,17 +9,18 @@ import { bindActionCreators } from 'redux';
 
 import DocumentTitle from 'react-document-title';
 
-import { Button, Input, ErrorMessage } from '@gemsorg/components';
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
+import {
+  RequestStates,
+  requestStateProps,
+  locationProps,
+} from '@expandorg/app-utils';
+
+import { restorePassword } from '@expandorg/app-auth/sagas';
+import { restorePasswordStateSelector as restoreState } from '@expandorg/app-auth/selectors';
 
 import withSubmitState from '../hoc/withSubmitState';
 import submitStateEffect from '../hoc/submitStateEffect';
-
-import { locationProps } from '../shared/propTypes';
-
-import { restorePassword } from '../../sagas/userSagas';
-
-import { restorePasswordStateSelector as restoreState } from '../../selectors/uiStateSelectors';
 
 import styles from './styles.module.styl';
 

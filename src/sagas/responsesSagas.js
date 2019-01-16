@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
-import { authResponseSchema } from '@gemsorg/app-auth';
+import { authResponseSchema } from '@expandorg/app-auth';
 
 import { responsesActionTypes, jobsActionTypes } from './actionTypes';
 

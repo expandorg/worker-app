@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Panel } from '@gemsorg/components';
+import { Button, Panel } from '@expandorg/components';
 
-import { userSelector } from '@gemsorg/app-auth/selectors';
-import { logout } from '@gemsorg/app-auth/sagas';
+import { userProps } from '@expandorg/app-auth';
+import { userSelector } from '@expandorg/app-auth/selectors';
+import { logout } from '@expandorg/app-auth/sagas';
+
+import { WITHDRAW_MIN } from '@expandorg/app-gemtokens';
 
 import Content from '../shared/Content';
 
@@ -22,10 +25,7 @@ import Withdraw from './gems/withdaw/Withdraw';
 
 import Reserved from './gems/Reserved';
 
-import { WITHDRAW_MIN } from '../../model/balance';
-
 import { authenticated } from '../hoc/authRules';
-import { userProps } from '../shared/propTypes';
 
 import styles from './Account.module.styl';
 

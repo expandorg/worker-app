@@ -1,4 +1,4 @@
-import { settings } from '@gemsorg/utils';
+import { settings } from '@expandorg/utils';
 
 const appSettings = {
   ...settings,

@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Button } from '@gemsorg/components';
+import { Button } from '@expandorg/components';
 
-import { RequestStates } from '@gemsorg/app-utils';
+import { RequestStates } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
+
+import { userBalance } from '@expandorg/app-gemtokens';
+import { transactionStateSelector } from '@expandorg/app-gemtokens/selectors';
 
 import EditAddressDialoig from '../../address/EditAddressDialoig';
 import ConfirmEmailDialog from '../../../shared/email/ConfirmEmailDialog';
 
 import AvailableFunds from './AvailableFunds';
 import WithdrawDialog from './WithdrawDialog';
-
-import { transactionStateSelector } from '../../../../selectors/uiStateSelectors';
-
-import { userBalance } from '../../../../model/balance';
-import { userProps } from '../../../shared/propTypes';
 
 import styles from './Withdraw.module.styl';
 

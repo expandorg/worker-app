@@ -1,41 +1,5 @@
 import { createSelector } from 'reselect';
-
-export const uiStateSelector = state => state.ui;
-
-export const assignAddressStateSelector = createSelector(
-  uiStateSelector,
-  state => state.assignAddress
-);
-
-export const editEmailStateSelector = createSelector(
-  uiStateSelector,
-  state => state.editEmail
-);
-
-export const confirmEmailStateSelector = createSelector(
-  uiStateSelector,
-  state => state.confirmEmail
-);
-
-export const resendConfirmEmailStateSelector = createSelector(
-  uiStateSelector,
-  state => state.resendConfirmEmail
-);
-
-export const changePasswordStateSelector = createSelector(
-  uiStateSelector,
-  state => state.changePassword
-);
-
-export const resetPasswordStateSelector = createSelector(
-  uiStateSelector,
-  state => state.resetPassword
-);
-
-export const restorePasswordStateSelector = createSelector(
-  uiStateSelector,
-  state => state.restorePassword
-);
+import { uiStateSelector } from '@expandorg/app-utils/app';
 
 export const assignJobStateSelector = createSelector(
   uiStateSelector,
@@ -72,32 +36,7 @@ export const verifyResponseStateSelector = createSelector(
   state => state.verifyResponse
 );
 
-export const fetchBalanceStateSelector = createSelector(
-  uiStateSelector,
-  state => state.gemBalance
-);
-
-export const depositStateSelector = createSelector(
-  uiStateSelector,
-  state => state.deposit
-);
-
-export const depositStageSelector = createSelector(
-  uiStateSelector,
-  state => state.depositStage
-);
-
-export const withdrawStateSelector = createSelector(
-  uiStateSelector,
-  state => state.withdraw
-);
-
 export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification
-);
-
-export const transactionStateSelector = createSelector(
-  uiStateSelector,
-  state => state.tx
 );

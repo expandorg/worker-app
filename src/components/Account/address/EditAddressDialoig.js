@@ -10,19 +10,19 @@ import {
   Dialog,
   DialogHeadline,
   ErrorMessage,
-} from '@gemsorg/components';
+} from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
-import { MetamaskState } from '@gemsorg/app-web3';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { MetamaskState } from '@expandorg/app-web3';
 
-import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
+import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
+
+import { userProps } from '@expandorg/app-auth';
+
+import { assignAddressStateSelector } from '@expandorg/app-account/selectors';
+import { assignAddress } from '@expandorg/app-account/sagas';
 
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
-
-import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
-import { assignAddress } from '../../../sagas/userSagas';
-
-import { userProps } from '../../shared/propTypes';
 
 import styles from './EditAddressDialoig.module.styl';
 

@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { userSelector } from '@gemsorg/app-auth/selectors';
+import { userSelector } from '@expandorg/app-auth/selectors';
+import { userProps } from '@expandorg/app-auth';
 
 import ConfirmEmailDialog from './ConfirmEmailDialog';
-
-import { userProps } from '../propTypes';
 
 import styles from './VerifyEmailPopup.module.styl';
 

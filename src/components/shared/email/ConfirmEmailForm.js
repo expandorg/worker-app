@@ -4,17 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Input, ErrorMessage } from '@gemsorg/components';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
+import { confirmEmail, resendConfirmEmail } from '@expandorg/app-account/sagas';
 import {
   confirmEmailStateSelector,
   resendConfirmEmailStateSelector,
-} from '../../../selectors/uiStateSelectors';
-import { confirmEmail, resendConfirmEmail } from '../../../sagas/userSagas';
-
-import { userProps } from '../propTypes';
+} from '@expandorg/app-account/selectors';
 
 import styles from './styles.module.styl';
 

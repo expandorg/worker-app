@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { rules as validationRules } from '@gemsorg/validation';
+import { rules as validationRules } from '@expandorg/validation';
 
-import { Button } from '@gemsorg/components';
+import { Button } from '@expandorg/components';
 import {
   Alignment,
   Paragraph,
   Select,
   Choice,
   Progress,
-} from '@gemsorg/modules';
+} from '@expandorg/modules';
 
 import Task from './Task';
 import ArticleModal from '../ArticleModal';
