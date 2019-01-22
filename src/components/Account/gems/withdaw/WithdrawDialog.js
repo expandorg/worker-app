@@ -48,7 +48,7 @@ class WithdrawDialog extends Component {
     return (
       <Dialog contentLabel="withdaw" visible onHide={this.handleHide}>
         <DialogHeadline>
-          {isFetched ? 'Transactions' : 'Withdaw Gems'}
+          {isFetched ? 'Transactions' : 'Withdaw XPN'}
         </DialogHeadline>
         {isFetched ? (
           <Transactions

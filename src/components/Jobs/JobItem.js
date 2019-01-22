@@ -58,7 +58,7 @@ export default class JobItem extends Component {
               </Link>
             )}
             {!isJoined && !isFunded && (
-              <div>Please deposit Gems to participate*</div>
+              <div>Please deposit XPN to participate*</div>
             )}
             <div className={styles.rewardMobile}>
               <span className={styles.rewardNumber}>
@@ -67,7 +67,7 @@ export default class JobItem extends Component {
               <img
                 className={styles.rewardIcon}
                 src="/images/logo_icon.svg"
-                alt="Gems"
+                alt="Expand"
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ export default class JobItem extends Component {
           <img
             className={styles.rewardIcon}
             src="/images/logo_icon.svg"
-            alt="Gems"
+            alt="Expand"
           />
         </div>
       </div>

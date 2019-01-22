@@ -6,13 +6,13 @@ import styles from './DepositForm.module.styl';
 const Description = ({ gemsBalance, isFetching }) => (
   <div className={styles.description}>
     <p className={styles.p}>
-      In order to submit tasks you will first need to deposit at least 5 Gems
-      (and at most 1000 Gems) via MetaMask.
+      In order to submit tasks you will first need to deposit at least 5 XPN
+      (and at most 1000 XPN) via MetaMask.
     </p>
     <p className={styles.p}>
-      You will not lose your deposited Gems even if your tasks are not accepted,
+      You will not lose your deposited XPN even if your tasks are not accepted,
       and you can withdraw them again once your total balance is at least 500
-      Gems.
+      XPN.
     </p>
     <p className={styles.p}>
       {isFetching ? (
@@ -21,7 +21,7 @@ const Description = ({ gemsBalance, isFetching }) => (
         <span>
           Your currently own{' '}
           <span className={styles.balance}>{gemsBalance}</span>
-          &nbsp;Gems that are available to deposit.
+          &nbsp;XPN that are available to deposit.
         </span>
       )}
     </p>
