@@ -18,7 +18,11 @@ export default class Sidebar extends Component {
     return (
       <div className={cn('gem-sidebar', { 'gem-sidebar-visible': visible })}>
         <Link to="/">
-          <img className="gem-sidebar-logo" src="/images/logo.svg" alt="Expand" />
+          <img
+            className="gem-sidebar-logo"
+            src="/images/logo.svg"
+            alt="Expand"
+          />
         </Link>
         <Navigation />
       </div>
