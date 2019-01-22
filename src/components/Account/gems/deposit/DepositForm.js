@@ -68,7 +68,7 @@ export default class DepositForm extends Component {
                 type="number"
                 value={value}
                 onChange={this.handleChange}
-                placeholder="Amount of Gems to deposit"
+                placeholder="Amount of XPN to deposit"
               />
               <Button
                 size="large"

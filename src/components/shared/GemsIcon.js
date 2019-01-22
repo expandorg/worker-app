@@ -5,7 +5,7 @@ import cn from 'classnames';
 import './GemsIcon.styl';
 
 const GemsIcon = ({ className }) => (
-  <ins className={cn('gem-gemicon', className)} alt="Gems" />
+  <ins className={cn('gem-gemicon', className)} alt="Expand" />
 );
 
 GemsIcon.propTypes = {

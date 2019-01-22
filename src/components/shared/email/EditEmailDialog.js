@@ -81,7 +81,7 @@ class EditEmailDialog extends Component {
         </DialogHeadline>
         <div className={styles.container}>
           <div className={styles.description}>
-            To complete tasks on Gems you will need to add your email address:
+            To complete tasks on Expand you will need to add your email address:
           </div>
           <form className={styles.form} onSubmit={this.handleSubmit}>
             <div className={styles.row}>

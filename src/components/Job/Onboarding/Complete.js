@@ -42,7 +42,7 @@ export default class OnboardingComplete extends Component {
           <h1 className={styles.heading}>Great job!</h1>
           <p className={styles.description}>{job.onboarding.successMessage}</p>
           <p className={styles.description}>
-            Continue with the real task and earn some gems!
+            Continue with the real task and earn some XPN!
           </p>
           <div className={styles.actions}>
             <Link

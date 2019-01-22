@@ -15,7 +15,7 @@ export default class Balance extends Component {
       <div className={styles.content}>
         Your {params.source} has succeeded. Your new balance is&nbsp;
         <span className={styles.important}>{data.user.gems.balance}</span>
-        &nbsp;Gems
+        &nbsp;XPN
       </div>
     );
   }

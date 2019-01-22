@@ -1,4 +1,4 @@
-# Gems Platform Frontend and Dev Environment
+# Expand Platform Frontend and Dev Environment
 
 ## Local Development
 

@@ -26,7 +26,7 @@ export default class Header extends Component {
         <img
           className="gem-header-logo"
           src="/images/mobile-logo.png"
-          alt="Gems"
+          alt="Expand"
         />
       </div>
     );

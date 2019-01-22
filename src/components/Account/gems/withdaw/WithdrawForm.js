@@ -68,7 +68,7 @@ export default class WithdrawForm extends Component {
                 type="number"
                 value={value}
                 onChange={this.handleChange}
-                placeholder="Amount of Gems to withdraw"
+                placeholder="Amount of XPN to withdraw"
               />
               <Button
                 type="submit"
@@ -82,9 +82,9 @@ export default class WithdrawForm extends Component {
           )}
           {!available && (
             <div className={styles.warn}>
-              You don&#39;t have enough gems to withdraw. You current balance is
+              You don&#39;t have enough XPN to withdraw. You current balance is
               &nbsp;
-              <span className={styles.gems}>{balance}</span> Gems.
+              <span className={styles.gems}>{balance}</span> XPN.
             </div>
           )}
           <ErrorMessage error={submitState.error} className={styles.error} />

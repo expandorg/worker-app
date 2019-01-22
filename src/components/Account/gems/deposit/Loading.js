@@ -10,7 +10,7 @@ export default function Loading({ stage, value }) {
         <p className={styles.p}>Approving transaction, step {stage} of 2</p>
         <p className={styles.p}>This may take some time,</p>
         <p className={styles.p}>PLEASE DO NOT NAVIGATE AWAY</p>
-        <p className={styles.p}>Depositing {value} Gems</p>
+        <p className={styles.p}>Depositing {value} XPN</p>
         <img
           className={styles.spinner}
           alt="Processing..."
