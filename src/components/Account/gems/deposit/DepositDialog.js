@@ -62,7 +62,7 @@ class DepositDialog extends Component {
     return (
       <Dialog contentLabel="deposit" visible onHide={this.handleHide}>
         <DialogHeadline>
-          {isFetched ? 'Transactions' : 'Deposit Gems'}
+          {isFetched ? 'Transactions' : 'Deposit XPN'}
         </DialogHeadline>
         {isFetched ? (
           <Transactions
