@@ -2,8 +2,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { NotificationAnimated } from '@expandorg/components/app';
+import { clearNotification } from '@expandorg/app-utils/app';
 
-import { clearNotification } from '../../sagas/notificationsSagas';
 import { notificationSelector } from '../../selectors/uiStateSelectors';
 
 const mapStateToProps = state => ({
