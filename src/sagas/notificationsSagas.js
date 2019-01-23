@@ -1,3 +1,5 @@
+// @flow
+
 import {
   takeLatest,
   takeEvery,
@@ -13,13 +15,13 @@ import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
 import { onboardingActionTypes, assignmentActionTypes } from './actionTypes';
 
-import { NotificationType } from '../model/enums';
-
 const NOTIFICATION_TIMEOUT = 3000;
 
-export const addNotification = (notificationType, payload) => ({
+declare type NotificationType = 'error' | 'success' | 'warning' | 'message';
+
+export const addNotification = (type: NotificationType, message: string) => ({
   type: appActionTypes.NOTIFICATION_ADD,
-  payload: { notificationType, payload },
+  payload: { type, message },
 });
 
 export const clearNotification = () => ({
@@ -37,18 +39,38 @@ function* handldNotificationAdded() {
   }
 }
 
+export const successMessageFactory = message => {
+  function* handler() {
+    yield put(addNotification('success', message));
+  }
+  return handler;
+};
+
 function* handleUserUpdated({ payload }) {
-  if (payload.params.source) {
-    yield put(addNotification(NotificationType.Balance, payload));
+  if (payload.params && payload.params.source) {
+    const {
+      params: { source },
+      data: { user },
+    } = payload;
+
+    yield put(
+      addNotification(
+        'success',
+        `Your ${source} has succeeded. Your new balance is ${user.gems.balance}`
+      )
+    );
   }
 }
 
 function* handleTxFailed({ payload }) {
-  yield put(addNotification(NotificationType.TxError, payload));
+  if (payload.params && payload.params.source) {
+    const op = payload.params.source === 'withdraw' ? 'withdrawal' : 'deposit';
+    yield put(addNotification('error', `Your ${op} has failed`));
+  }
 }
 
-function* handleReport({ type }) {
-  yield put(addNotification(NotificationType.Report, { type }));
+function* handleReport() {
+  yield put(addNotification('success', 'Report has been sent'));
 }
 
 export function* notificationsSagas() {

@@ -5,23 +5,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { userProps } from '@expandorg/app-auth';
-import { historyProps } from '@expandorg/app-utils';
 import { userSelector } from '@expandorg/app-auth/selectors';
+import { historyProps } from '@expandorg/app-utils';
 
-import { jobProps, assignmentProps } from '../shared/propTypes';
+import Navbar from '../shared/Navbar';
+import Sidebar from '../shared/Sidebar';
 
-import Content from '../shared/Content';
-import ConfirmEmailDialog from '../shared/email/ConfirmEmailDialog';
+import Job from './list/Job';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
-import JobItem from './JobItem';
+import { authenticated } from '../shared/auth';
 
-import { authenticated } from '../hoc/authRules';
+import Page from '../shared/Page';
 
-import { assignJob } from '../../sagas/jobsSagas';
-
+import { assignJob, fetchJobs } from '../../sagas/jobsSagas';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
+
+import { assignmentProps, jobProps } from '../shared/propTypes';
 
 import styles from './Jobs.module.styl';
 
@@ -32,34 +33,31 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ assignJob }, dispatch);
+  bindActionCreators({ assignJob, fetchJobs }, dispatch);
 
 class Jobs extends Component {
   static propTypes = {
-    jobs: PropTypes.arrayOf(jobProps),
     user: userProps.isRequired,
     history: historyProps.isRequired,
-    assignments: PropTypes.arrayOf(assignmentProps).isRequired,
+    jobs: PropTypes.arrayOf(jobProps),
+    assignments: PropTypes.arrayOf(assignmentProps),
+
     assignJob: PropTypes.func.isRequired,
+    fetchJobs: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     jobs: [],
+    assignments: [],
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      emailDialog: false,
-    };
+  componentDidMount() {
+    this.props.fetchJobs();
   }
 
-  handleSelect = job => {
-    const { user, history } = this.props;
-    if (!user.emailConfirmed) {
-      this.setState({ emailDialog: true });
-    } else if (job.onboarding.enabled) {
+  handleAssign = job => {
+    const { history } = this.props;
+    if (job.onboarding.enabled) {
       history.push(`/jobs/${job.id}`);
     } else {
       this.props.assignJob(job.id);
@@ -67,30 +65,25 @@ class Jobs extends Component {
   };
 
   render() {
-    const { user, jobs, assignments } = this.props;
+    const { jobs, user, assignments } = this.props;
 
-    const { emailDialog } = this.state;
     return (
-      <Content title="Browse Jobs">
+      <Page title="Browse Jobs">
+        <Navbar title="Browse Jobs" />
+        <Sidebar />
         <div className={styles.list}>
           {jobs.map(job => (
-            <JobItem
+            <Job
               key={job.id}
               job={job}
               user={user}
               assignment={assignments.find(a => a.jobId === job.id)}
-              onJoin={this.handleSelect}
+              onAssign={this.handleAssign}
             />
           ))}
         </div>
-        {emailDialog && (
-          <ConfirmEmailDialog
-            user={user}
-            onHide={() => this.setState({ emailDialog: false })}
-          />
-        )}
         <AssignedJobRedirect />
-      </Content>
+      </Page>
     );
   }
 }

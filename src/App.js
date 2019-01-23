@@ -6,64 +6,57 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@expandorg/components';
 import { initSaga } from '@expandorg/app-utils/app';
 
-import AppPage from './components/Page/AppPage';
+import { NotFound } from '@expandorg/components/app';
 
-import Welcome from './components/Welcome/Welcome';
+import AppContainer from './components/shared/AppContainer';
 
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
-import Password from './components/Password/Password';
-import Restore from './components/Password/Restore';
-
-import Account from './components/Account/Account';
 import Jobs from './components/Jobs/Jobs';
 import Job from './components/Job/Job';
 
-import Stats from './components/Stats/Stats';
-import Requester from './components/Requester/Requester';
-import Task from './components/Task/TaskPage';
-import Confirm from './components/Confirm/Confirm';
+import Task from './components/Task/Task';
 
-import NotFound from './components/shared/pages/NotFound';
-import MaintenanceMode from './components/shared/pages/MaintenanceMode';
+import Stats from './components/Stats/Stats';
+import Account from './components/Account/Account';
+
+import ResetPassword from './components/Password/ResetPassword';
+import RestorePassword from './components/Password/RestorePassword';
+import EmailConfirm from './components/Email/EmailConfirm';
 
 import store from './reducers/store';
 import services from './services';
 
-import settings from './common/settings';
-
 store.dispatch(initSaga());
 
-const App = () => {
-  if (settings.maintenanceMode) {
-    return <MaintenanceMode />;
-  }
-  return (
-    <ServiceProvider services={services}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <AppPage>
-            <Switch>
-              <Route path="/" exact component={Welcome} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/password" component={Password} />
-              <Route path="/restore" component={Restore} />
-              <Route path="/confirm" component={Confirm} />
-              <Route path="/account" component={Account} />
-              <Route path="/jobs" exact component={Jobs} />
-              <Route path="/jobs/:jobId" component={Job} />
-              <Route path="/tasks/:taskId" component={Task} />
-              <Route path="/stats" component={Stats} />
-              <Route path="/requester" component={Requester} />
-              <Route component={NotFound} />
-            </Switch>
-          </AppPage>
-        </BrowserRouter>
-      </Provider>
-    </ServiceProvider>
-  );
-};
+const App = () => (
+  <ServiceProvider services={services}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContainer>
+          <Switch>
+            <Route path="/" exact component={Jobs} />
+
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+
+            <Route path="/jobs/:jobId" component={Job} />
+            <Route path="/tasks/:taskId" component={Task} />
+
+            <Route path="/account" component={Account} />
+            <Route path="/stats" component={Stats} />
+
+            <Route path="/password" component={ResetPassword} />
+            <Route path="/restore" component={RestorePassword} />
+            <Route path="/confirm" component={EmailConfirm} />
+
+            <Route component={NotFound} />
+          </Switch>
+        </AppContainer>
+      </BrowserRouter>
+    </Provider>
+  </ServiceProvider>
+);
 
 export default hot(module)(App);

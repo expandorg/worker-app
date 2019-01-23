@@ -48,12 +48,7 @@ export const taskProps = PropTypes.shape({
   taskData: PropTypes.object,
 });
 
-export const notificationPayloadProps = PropTypes.shape({
-  data: PropTypes.object,
-  params: PropTypes.object,
-});
-
 export const notificationProps = PropTypes.shape({
-  notificationType: PropTypes.string.isRequired,
-  payload: notificationPayloadProps,
+  type: PropTypes.oneOf(['warning', 'error', 'message', 'success']).isRequired,
+  message: PropTypes.string,
 });
