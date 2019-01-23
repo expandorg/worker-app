@@ -1,25 +1,42 @@
 @import '~@expandorg/uikit/colors'
-@import '~@expandorg/uikit/consts'
+@import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/size'
 
 .container
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  height: 'calc(100vh - %s)' % sz-navbar-height
+  width: 100%
 
+  display: flex
+  justify-content: center
+  align-items: center
 
-.completed
-  width: 30%
-  display: inline-block
-  border: solid 1px color-grey
-  border-radius: 4px
-  font-size: 40px
-  color: color-pink
-  text-align: center
-  padding-top: 46px
-  padding-bottom: 46px
-  margin-bottom: s-margin-big
+.content
+  width: 512px
+  height: 214px
 
-.span
-  font-size: 16px
-  color: color-text-1
-  display: block
+  margin-bottom: 60px
+  padding: 0 40px
+
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.item
+  margin-top: 0
+
+.pendingTitle
+  position: relative
+
+  :global(.gem-tooltip)
+    width: 270px
+
+    padding: 20px 30px
+    text-transform: none
+    text-align: left
+    white-space: pre-wrap
+
+    top: -39px
+
+.i
+  margin-left: 4px
+  cursor: pointer

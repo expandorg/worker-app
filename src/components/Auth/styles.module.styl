@@ -1,25 +1,58 @@
 @import '~@expandorg/uikit/colors'
-@import '~@expandorg/uikit/consts'
-
-.container
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box
-
-  @media(max-width: 685px)
-    align-items: stretch;
-    min-height: 'calc(100vh - %s)' % s-header-height
+@import '~@expandorg/uikit/font'
 
 .panel
-  margin-top: 50px;
+  display: flex
+  justify-content: center
+
   box-sizing: border-box;
-  background-color: color-white
-  display: flex;
-  justify-content: center;
 
-  width: 685px;
-  padding-top: 55px;
+  width: 685px
+  margin: 0 auto
+  padding-top: 30px
 
-  @media(max-width: 685px)
+  color: color-white
+
+  @media(max-width: 480px)
     margin-top: 0
     width: 100%
+    padding-top: 20px
+
+.content
+  width: 323px
+  padding-top: 30px
+  padding-bottom: 40px
+
+  box-sizing: border-box
+
+  @media(max-width: 480px)
+    width: 100%
+
+.header
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.title
+  font(h1)
+  margin-top: 20px
+
+.inner
+  box-sizing: border-box
+  border-radius: 8px
+  background: color-white
+  margin-top: 50px
+
+.toggle
+  color: color-white
+  font(body)
+
+  margin-top: 20px
+  text-align: center
+
+.link
+  color: color-white
+  text-decoration: underline
+  font(body-bold)
+
+  margin-left: 5px

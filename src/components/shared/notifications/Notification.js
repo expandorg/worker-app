@@ -1,47 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Container from './Container';
-import Balance from './types/Balance';
-import TxFailed from './types/TxFailed';
-import ReportSent from './types/ReportSent';
+import cn from 'classnames';
 
-import { NotificationType } from '../../../model/enums';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 import { notificationProps } from '../propTypes';
+
+import styles from './Notification.module.styl';
 
 export default class Notification extends Component {
   static propTypes = {
-    notification: notificationProps,
+    notification: notificationProps.isRequired,
     onClear: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    notification: null,
+  handleClick = evt => {
+    evt.preventDefault();
+    const { onClear } = this.props;
+    onClear();
   };
 
-  renderContent({ notificationType, payload }) {
-    switch (notificationType) {
-      case NotificationType.Balance:
-        return <Balance payload={payload} />;
-      case NotificationType.TxError:
-        return <TxFailed payload={payload} />;
-      case NotificationType.Report:
-        return <ReportSent payload={payload} />;
-      default:
-        break;
-    }
-    return null;
-  }
-
   render() {
-    const { notification, onClear } = this.props;
-    if (!notification) {
-      return null;
-    }
+    const { notification } = this.props;
     return (
-      <Container onClear={onClear}>
-        {this.renderContent(notification)}
-      </Container>
+      <div className={cn(styles.container, styles[notification.type])}>
+        <div className={styles.message}>{notification.message}</div>
+        <button onClick={this.handleClick} className={styles.x}>
+          <X />
+        </button>
+      </div>
     );
   }
 }
