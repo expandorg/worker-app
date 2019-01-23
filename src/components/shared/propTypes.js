@@ -47,8 +47,3 @@ export const taskProps = PropTypes.shape({
   jobId: PropTypes.number,
   taskData: PropTypes.object,
 });
-
-export const notificationProps = PropTypes.shape({
-  type: PropTypes.oneOf(['warning', 'error', 'message', 'success']).isRequired,
-  message: PropTypes.string,
-});
