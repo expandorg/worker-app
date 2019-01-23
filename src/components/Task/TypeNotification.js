@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { addNotification } from '../../sagas/notificationsSagas';
+import { addNotification } from '@expandorg/app-utils/app';
 
 import { assignmentProps } from '../shared/propTypes';
 

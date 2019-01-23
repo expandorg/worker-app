@@ -1,43 +1,16 @@
 // @flow
 
+import { takeLatest, takeEvery, put } from 'redux-saga/effects';
+
 import {
-  takeLatest,
-  takeEvery,
-  call,
-  put,
-  take,
-  race,
-} from 'redux-saga/effects';
+  appActionTypes,
+  userActionTypes,
+  addNotification,
+  handldNotificationAdded,
+} from '@expandorg/app-utils/app';
 
-import { delay } from '@expandorg/utils';
-import { appActionTypes, userActionTypes } from '@expandorg/app-utils/app';
 import { gemsActionTypes } from '@expandorg/app-gemtokens';
-
 import { onboardingActionTypes, assignmentActionTypes } from './actionTypes';
-
-const NOTIFICATION_TIMEOUT = 3000;
-
-declare type NotificationType = 'error' | 'success' | 'warning' | 'message';
-
-export const addNotification = (type: NotificationType, message: string) => ({
-  type: appActionTypes.NOTIFICATION_ADD,
-  payload: { type, message },
-});
-
-export const clearNotification = () => ({
-  type: appActionTypes.NOTIFICATION_REMOVE,
-  payload: null,
-});
-
-function* handldNotificationAdded() {
-  const { timeout } = yield race({
-    timeout: call(delay, NOTIFICATION_TIMEOUT),
-    clear: take(appActionTypes.NOTIFICATION_REMOVE),
-  });
-  if (timeout) {
-    yield put(clearNotification());
-  }
-}
 
 export const successMessageFactory = message => {
   function* handler() {
