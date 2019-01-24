@@ -10,6 +10,7 @@ import { EmailConfirmed } from '@expandorg/app-account/components';
 
 import { ReactComponent as GemsIcon } from '../../assets/gem.svg';
 
+import I from '../../shared/I';
 import { jobProps, assignmentProps } from '../../shared/propTypes';
 import { jobHasSufficientFunds } from '../../../model/jobs';
 
@@ -39,6 +40,8 @@ export default class Job extends Component {
 
     const isJoined = !!assignment;
 
+    const sufficientFonds = jobHasSufficientFunds(job, user);
+
     return (
       <div className={styles.container}>
         <div className={styles.info}>
@@ -49,6 +52,18 @@ export default class Job extends Component {
           </div>
         </div>
         <div className={styles.actions}>
+          {!sufficientFonds && (
+            <div className={styles.warning}>
+              {job.logic.funding.requirement}
+              <I
+                tooltipOrientation="right"
+                className={styles.i}
+                tooltip={`You need ${
+                  job.logic.funding.requirement
+                } to qualify for this job.`}
+              />
+            </div>
+          )}
           <div className={styles.reward}>
             {job.logic.funding.reward}
             <GemsIcon viewBox="0 0 18 16" height={15} className={styles.icon} />
@@ -60,7 +75,6 @@ export default class Job extends Component {
           >
             Learn More
           </Button>
-
           {isJoined && (
             <Link
               className={cn('gem-button', 'gem-button-blue', styles.assign)}
@@ -73,7 +87,8 @@ export default class Job extends Component {
             <EmailConfirmed user={user} onConfirmed={this.handleAssign}>
               {({ onToggle }) => (
                 <Button
-                  theme="blue"
+                  theme={sufficientFonds ? 'blue' : 'grey'}
+                  disabled={!sufficientFonds}
                   className={styles.assign}
                   onClick={onToggle}
                 >
