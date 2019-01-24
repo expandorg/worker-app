@@ -45,6 +45,7 @@
   font(h2-title)
   color: color-text-dark
 
+
 .description
   font(h3-bold)
   color: color-text-heavy-blue
@@ -59,8 +60,10 @@
   justify-content: flex-start
 
 .reward
+  margin-left: 30px
   font(body-bold, false, false, 1)
   color: color-text-dark
+  white-space: pre-wrap
 
 .icon
   margin-left: 4px
@@ -80,7 +83,13 @@
 
   border-radius: 2px
 
+  text-overflow: ellipsis
+  overflow: hidden
+  white-space: nowrap
+
+
   margin-left: 30px
+
 
 .assign
   padding: 0 30px
@@ -97,6 +106,30 @@
 
 
 
+.warning
+  box-sizing: border-box
+  position relative
+
+  height 40px
+  width: 100px
+
+  text-align: center
+  font(subtitle, false, false, 40px)
+  color: color-text-yellow-2
+  background-color: color-text-yellow
+
+.i
+  margin-left: 5px
+  path
+    fill: color-white
+
+  &:hover
+    path
+      fill: color-white
+
+  :global(.gem-tooltip)
+    font(h4-bold)
+    letter-spacing: 0
 
 
 
