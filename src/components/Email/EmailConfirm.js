@@ -4,6 +4,7 @@ import qs from 'query-string';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { Panel } from '@expandorg/components';
 import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { locationProps } from '@expandorg/app-utils';
@@ -12,7 +13,6 @@ import { ConfirmEmailForm } from '@expandorg/app-account/components';
 import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
-import Panel from '../shared/Panel';
 
 import { authenticated } from '../shared/auth';
 

@@ -7,12 +7,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import { Button } from '@expandorg/components';
+import { Button, Panel } from '@expandorg/components';
 
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import { jobProps } from '../../shared/propTypes';
-import Panel from '../../shared/Panel';
 
 import { assignJob } from '../../../sagas/jobsSagas';
 import { assignJobStateSelector } from '../../../selectors/uiStateSelectors';

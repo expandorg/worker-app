@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import Panel from '../../shared/Panel';
+import { Panel } from '@expandorg/components';
 
 import { jobProps } from '../../shared/propTypes';
 

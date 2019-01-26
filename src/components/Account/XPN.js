@@ -8,9 +8,9 @@ import { Deposit, Withdraw } from '@expandorg/app-gemtokens/components';
 
 import Hero from '../shared/Hero';
 
-import styles from './Gems.module.styl';
+import styles from './XPN.module.styl';
 
-export default class Gems extends Component {
+export default class XPN extends Component {
   static propTypes = {
     user: userProps.isRequired,
   };
