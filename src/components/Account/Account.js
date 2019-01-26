@@ -8,7 +8,7 @@ import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { logout } from '@expandorg/app-auth/sagas';
 
-import { Button } from '@expandorg/components';
+import { Button, Panel } from '@expandorg/components';
 
 import {
   AddressDialog,
@@ -19,10 +19,10 @@ import {
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 import Page from '../shared/Page';
-import Panel from '../shared/Panel';
 import { authenticated } from '../shared/auth';
 
-import Gems from './Gems';
+import XPN from './XPN';
+
 import Field from './Field';
 import ToggleEmailConfirm from './ToggleEmailConfirm';
 
@@ -70,7 +70,7 @@ class Account extends Component {
         <Sidebar />
         <div className={styles.container}>
           <Panel className={styles.panel}>
-            <Gems user={user} />
+            <XPN user={user} />
           </Panel>
           <Panel className={styles.panel}>
             <div className={styles.title}>Your account</div>

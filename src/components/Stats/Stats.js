@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { userProps } from '@expandorg/app-auth';
 
+import { Panel } from '@expandorg/components';
+
 import I from '../shared/I';
 import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 import Hero from '../shared/Hero';
-import Panel from '../shared/Panel';
 
 import { authenticated } from '../shared/auth';
 

@@ -8,6 +8,8 @@ import { Button } from '@expandorg/components';
 import { userProps } from '@expandorg/app-auth';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
+import InsufficientFundsDialog from './InsufficientFundsDialog';
+
 import { ReactComponent as GemsIcon } from '../../assets/gem.svg';
 
 import I from '../../shared/I';
@@ -28,15 +30,26 @@ export default class Job extends Component {
     assignment: null,
   };
 
+  state = {
+    topup: false,
+  };
+
+  handleTopupToggle = () => {
+    this.setState(({ topup }) => ({ topup: !topup }));
+  };
+
   handleAssign = () => {
     const { onAssign, job, user } = this.props;
     if (jobHasSufficientFunds(job, user)) {
       onAssign(job);
+    } else {
+      this.handleTopupToggle();
     }
   };
 
   render() {
     const { job, assignment, user } = this.props;
+    const { topup } = this.state;
 
     const isJoined = !!assignment;
 
@@ -53,7 +66,7 @@ export default class Job extends Component {
         </div>
         <div className={styles.actions}>
           {!sufficientFonds && (
-            <div className={styles.warning}>
+            <button className={styles.warning} onClick={this.handleTopupToggle}>
               {job.logic.funding.requirement}
               <I
                 tooltipOrientation="right"
@@ -62,19 +75,19 @@ export default class Job extends Component {
                   job.logic.funding.requirement
                 } to qualify for this job.`}
               />
-            </div>
+            </button>
           )}
           <div className={styles.reward}>
             {job.logic.funding.reward}
             <GemsIcon viewBox="0 0 18 16" height={15} className={styles.icon} />
           </div>
-          <Button
+          {/* <Button
             theme="white-blue"
             className={styles.learn}
             onClick={this.handleLearnMoreClick}
           >
             Learn More
-          </Button>
+          </Button> */}
           {isJoined && (
             <Link
               className={cn('gem-button', 'gem-button-blue', styles.assign)}
@@ -87,8 +100,7 @@ export default class Job extends Component {
             <EmailConfirmed user={user} onConfirmed={this.handleAssign}>
               {({ onToggle }) => (
                 <Button
-                  theme={sufficientFonds ? 'blue' : 'grey'}
-                  disabled={!sufficientFonds}
+                  theme="blue"
                   className={styles.assign}
                   onClick={onToggle}
                 >
@@ -98,6 +110,13 @@ export default class Job extends Component {
             </EmailConfirmed>
           )}
         </div>
+        {topup && (
+          <InsufficientFundsDialog
+            user={user}
+            requires={job.logic.funding.requirement}
+            onHide={this.handleTopupToggle}
+          />
+        )}
       </div>
     );
   }

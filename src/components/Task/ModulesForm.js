@@ -8,7 +8,7 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import Panel from '../shared/Panel';
+import { Panel } from '@expandorg/components';
 
 import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';

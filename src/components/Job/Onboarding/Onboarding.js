@@ -12,8 +12,9 @@ import {
   ReportToggle,
 } from '@expandorg/modules';
 
+import { Panel } from '@expandorg/components';
+
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
-import Panel from '../../shared/Panel';
 
 import GroupFaildDialog from './GroupFaildDialog';
 import OnboardingReport from './OnboardingReport';
