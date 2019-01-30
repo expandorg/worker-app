@@ -5,7 +5,7 @@ case $1 in
     subdomain=dev;;
 esac
 
-url=gs://${subdomain}.gems.org
+url=gs://${subdomain}.expand.org
 old_hash=$(gsutil ls $url | sed -nE "s,${url}/app-(.+)\.js$,\1,p")
 
 rm -rf ./public/static ./public/app-* ./public/index.html
