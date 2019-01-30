@@ -1,72 +1,59 @@
 @import '~@expandorg/uikit/colors'
 @import '~@expandorg/uikit/font'
-@import '~@expandorg/uikit/consts'
+@import '~@expandorg/uikit/size'
 
 .container
-  display: flex;
-  justify-content: center;
   box-sizing: border-box
-
-  @media(max-width: 685px)
-    align-items: stretch;
-    min-height: 'calc(100vh - %s)' % s-header-height
+  display: flex
+  align-items: center
+  min-height: 'calc(100vh - %s)' % s-header-height
 
 .panel
-  margin-top: 50px;
-  box-sizing: border-box;
-  background-color: color-white
-
-  width: 685px;
-  padding-top: 55px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media(max-width: 685px)
-    margin-top: 0
-    width: 100%
+  margin: 130px auto 0 auto
+  width 600px
 
 .title
-  font(font-preset[title])
-  color: color-text-1
-  text-align: center;
+  font(h2-bold, 500)
+  color: color-light-blue
+  text-align: center
 
-.label
-  font(font-preset[body])
-  color: color-text-1
-  margin-top: 10px
-
-.form
-  box-sizing: border-box;
-  padding-top: 30px;
-  padding-bottom: 90px;
-  width: 380px;
-
-.error
-  margin-top: 10px;
 
 .input
-  color: color-text-1
-  background-color: color-white
+  margin-top: 30px
+  :global(.gem-input)
+    color: color-light-blue
 
-  border-radius: 4px;
+  :global(.gem-input-label:before)
+    color: darken(color-light-blue, 10%)
+
+
+.error
+  margin-top: 10px
+  color: color-yellow
+
+.actions
+  display: flex
+  justify-content: flex-end
+  margin-top: 30px
 
 .submit
-  width: 100%
-  margin-top: 24px;
+  height: 40px
+  line-height: 38px
+  border-radius: 2px
+  width: auto
+  padding: 0 20px
 
-.sent
-  padding-top: 30px;
-  padding-bottom: 80px;
-  text-align: center;
+.result
+  margin-top: 30px
+  text-align: center
 
 .message
-  font(font-preset[subheader])
-  color: color-text-1
+  font(body)
+  color: color-light-blue
 
 .link
-  display: block;
-  font(font-preset[subheader])
-  color: color-pink
-  margin-top: 10px
+  display inline-block
+  margin-top: 30px
+  font(body-bold)
+  text-decoration: underline
+  color: color-heavy-blue

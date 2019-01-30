@@ -1,17 +1,16 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import {
-  RequestStates,
   requestStateProps,
   historyProps,
+  SubmitStateEffect,
 } from '@expandorg/app-utils';
 
 import { assignmentProps } from './propTypes';
-
 import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
 import { makeJobAssignmentSelector } from '../../selectors/assignmentsSelectors';
 
@@ -37,34 +36,35 @@ class AssignedJobRedirect extends Component {
   };
 
   componentDidMount() {
-    const { assignment, history, replace } = this.props;
+    const { assignment } = this.props;
     if (assignment) {
-      const url = `/tasks/${assignment.taskId}`;
-      if (replace) {
-        history.replace(url);
-      } else {
-        history.push(url);
-      }
+      this.move(assignment.taskId);
     }
   }
 
-  componentDidUpdate({ submitState: prev }) {
-    const { submitState, history, replace } = this.props;
-    if (
-      prev.state === RequestStates.Fetching &&
-      submitState.state === RequestStates.Fetched
-    ) {
-      const url = `/tasks/${submitState.payload.result.newAssignment.taskId}`;
-      if (replace) {
-        history.replace(url);
-      } else {
-        history.push(url);
-      }
+  handleAssignComplete = submitState => {
+    this.move(submitState.payload.result.newAssignment.taskId);
+  };
+
+  move(taskId) {
+    const { history, replace } = this.props;
+
+    const url = `/tasks/${taskId}`;
+    if (replace) {
+      history.replace(url);
+    } else {
+      history.push(url);
     }
   }
 
   render() {
-    return null;
+    const { submitState } = this.props;
+    return (
+      <SubmitStateEffect
+        submitState={submitState}
+        onComplete={this.handleAssignComplete}
+      />
+    );
   }
 }
 

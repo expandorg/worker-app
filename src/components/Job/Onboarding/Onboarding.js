@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Panel } from '@expandorg/components';
-
 import {
   Form,
   FormDataProvider,
@@ -14,43 +12,30 @@ import {
   ReportToggle,
 } from '@expandorg/modules';
 
+import { Panel } from '@expandorg/components';
+
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
-import Rules from './modules/Rules';
-import QA from './modules/QA/QA';
-
-import withSubmitState from '../../hoc/withSubmitState';
-
 import GroupFaildDialog from './GroupFaildDialog';
-import Report from '../../shared/Report';
+import OnboardingReport from './OnboardingReport';
 
 import { onboardingProps } from '../../shared/propTypes';
 
 import {
   submitOnboarding,
-  reportOnboarding,
   removeOnboardingMessage,
 } from '../../../sagas/onboardingSagas';
-import {
-  submitOnboardingStateSelector,
-  reportOnboardingStateSelector,
-} from '../../../selectors/uiStateSelectors';
+
+import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from './Onboarding.module.styl';
 
-const controls = [...moduleControls, QA, Rules];
+const mapStateToProps = state => ({
+  submitState: submitOnboardingStateSelector(state),
+});
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      submitOnboarding,
-      removeOnboardingMessage,
-      reportOnboarding,
-    },
-    dispatch
-  );
-
-const OnboardingReport = withSubmitState(reportOnboardingStateSelector)(Report);
+  bindActionCreators({ submitOnboarding, removeOnboardingMessage }, dispatch);
 
 class Onboarding extends Component {
   static propTypes = {
@@ -59,9 +44,7 @@ class Onboarding extends Component {
     submitState: requestStateProps.isRequired,
 
     submitOnboarding: PropTypes.func.isRequired,
-    reportOnboarding: PropTypes.func.isRequired,
     removeOnboardingMessage: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
   };
 
   state = {
@@ -69,8 +52,8 @@ class Onboarding extends Component {
   };
 
   handleSaveStep = values => {
-    const { onSubmit, jobId } = this.props;
-    onSubmit(() => this.props.submitOnboarding(jobId, values));
+    const { jobId } = this.props;
+    this.props.submitOnboarding(jobId, values);
   };
 
   handleHideDialog = () => {
@@ -82,58 +65,52 @@ class Onboarding extends Component {
     this.setState({ reportMessage });
   };
 
-  handleReport = (reason, message) => {
-    const { jobId } = this.props;
-    this.props.reportOnboarding(jobId, reason, message);
-  };
-
   render() {
-    const { onboarding, submitState } = this.props;
+    const { jobId, onboarding, submitState } = this.props;
     const { reportMessage } = this.state;
 
     return (
-      <Panel className={styles.container}>
-        <div className={styles.actions}>
-          <ReportToggle form={onboarding.form} controls={controls}>
-            {({ onHide, reasons }) => (
-              <OnboardingReport
-                onHide={onHide}
-                reasons={reasons}
-                report={reportMessage}
-                onReport={this.handleReport}
-                onSubmitComplete={onHide}
-              />
-            )}
-          </ReportToggle>
-        </div>
-        <div className={styles.form}>
-          <FormDataProvider formData={onboarding}>
-            <Form
-              form={onboarding.form}
-              errors={submitState.error}
-              controls={controls}
-              isSubmitting={submitState.state === RequestStates.Fetching}
-              onSubmit={this.handleSaveStep}
-              onModuleError={this.handleModuleError}
-            >
-              {props => <Module {...props} />}
-            </Form>
-          </FormDataProvider>
-        </div>
+      <div className={styles.container}>
+        <Panel className={styles.panel}>
+          <div className={styles.actions}>
+            <ReportToggle form={onboarding.form} controls={moduleControls}>
+              {({ onHide, reasons }) => (
+                <OnboardingReport
+                  jobId={jobId}
+                  onHide={onHide}
+                  reasons={reasons}
+                  report={reportMessage}
+                />
+              )}
+            </ReportToggle>
+          </div>
+          <div className={styles.form}>
+            <FormDataProvider formData={onboarding}>
+              <Form
+                form={onboarding.form}
+                errors={submitState.error}
+                controls={moduleControls}
+                isSubmitting={submitState.state === RequestStates.Fetching}
+                onSubmit={this.handleSaveStep}
+                onModuleError={this.handleModuleError}
+              >
+                {props => <Module {...props} />}
+              </Form>
+            </FormDataProvider>
+          </div>
+        </Panel>
         {onboarding.message && (
           <GroupFaildDialog
             onboarding={onboarding}
             onHide={this.handleHideDialog}
           />
         )}
-      </Panel>
+      </div>
     );
   }
 }
 
-export default withSubmitState(submitOnboardingStateSelector)(
-  connect(
-    null,
-    mapDispatchToProps
-  )(Onboarding)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Onboarding);
