@@ -1,4 +1,4 @@
-import { BaseApi } from '@gemsorg/api-client';
+import { BaseApi } from '@expandorg/api-client';
 
 export class ResponsesApi extends BaseApi {
   verify = ({ responseId, score }) =>

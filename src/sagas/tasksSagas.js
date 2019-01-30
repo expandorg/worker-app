@@ -1,8 +1,8 @@
-import { fork, takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
-import { authResponseSchema } from '@gemsorg/app-auth';
-import { takeEveryApiCall } from '@gemsorg/app-utils';
+import { authResponseSchema } from '@expandorg/app-auth';
+import { handleAsyncCall } from '@expandorg/app-utils';
 
 import { tasksActionTypes, jobsActionTypes } from './actionTypes';
 
@@ -15,13 +15,9 @@ import { jobsApi } from '../api/JobsApi';
 export const fetchTask = taskId => ({
   type: tasksActionTypes.FETCH,
   payload: { taskId },
+  asyncCall: tasksApi.fetch,
   meta: { schema: { task: taskSchema } },
 });
-
-const watchFetchRequest = takeEveryApiCall(
-  tasksActionTypes.FETCH,
-  tasksApi.fetch
-);
 
 export const submitTask = (taskId, response) => ({
   type: tasksActionTypes.SUBMIT,
@@ -62,6 +58,6 @@ function* handleSubmitTask({ payload, meta }) {
 }
 
 export function* tasksSagas() {
-  yield fork(watchFetchRequest);
+  yield takeEvery(tasksActionTypes.FETCH, handleAsyncCall);
   yield takeEvery(tasksActionTypes.SUBMIT, handleSubmitTask);
 }

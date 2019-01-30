@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { setAppElement } from '@gemsorg/components';
+import { setAppElement } from '@expandorg/components';
 
 import App from './App';
 

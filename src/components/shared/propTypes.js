@@ -1,31 +1,6 @@
 // @flow
 import PropTypes from 'prop-types';
-import { formProps } from '@gemsorg/modules';
-
-export const userProps = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-
-  email: PropTypes.string,
-  emailConfirmed: PropTypes.bool,
-
-  address: PropTypes.string,
-  addressConfirmed: PropTypes.bool,
-
-  isRequester: PropTypes.bool.isRequired,
-  score: PropTypes.number,
-
-  gems: PropTypes.shape({
-    balance: PropTypes.number,
-    reserved: PropTypes.number,
-    owned: PropTypes.number,
-  }),
-
-  stats: PropTypes.shape({
-    pending: PropTypes.number.isRequired,
-    accepted: PropTypes.number.isRequired,
-    rejected: PropTypes.number.isRequired,
-  }),
-});
+import { formProps } from '@expandorg/modules';
 
 export const jobProps = PropTypes.shape({
   id: PropTypes.number,
@@ -71,25 +46,4 @@ export const taskProps = PropTypes.shape({
   id: PropTypes.number,
   jobId: PropTypes.number,
   taskData: PropTypes.object,
-});
-
-export const historyProps = PropTypes.shape({
-  replace: PropTypes.func.isRequired,
-  push: PropTypes.func.isRequired,
-});
-
-export const locationProps = PropTypes.shape({
-  pathname: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
-  hash: PropTypes.string.isRequired,
-});
-
-export const notificationPayloadProps = PropTypes.shape({
-  data: PropTypes.object,
-  params: PropTypes.object,
-});
-
-export const notificationProps = PropTypes.shape({
-  notificationType: PropTypes.string.isRequired,
-  payload: notificationPayloadProps,
 });

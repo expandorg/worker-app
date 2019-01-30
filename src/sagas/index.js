@@ -1,8 +1,10 @@
 import { fork } from 'redux-saga/effects';
-import { web3Sagas } from '@gemsorg/app-web3';
+
+import { web3Sagas } from '@expandorg/app-web3';
+import { gemsSagas } from '@expandorg/app-gemtokens/sagas';
 
 import { userSagas } from './userSagas';
-import { gemsSagas } from './gemsSagas';
+
 import { tasksSagas } from './tasksSagas';
 import { jobsSagas } from './jobsSagas';
 import { onboardingSagas } from './onboardingSagas';

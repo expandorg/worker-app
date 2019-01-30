@@ -1,3 +1,3 @@
-import { normalizedItemsReducer } from '@gemsorg/app-utils';
+import { normalizedItemsReducer } from '@expandorg/app-utils';
 
 export default normalizedItemsReducer('responses');

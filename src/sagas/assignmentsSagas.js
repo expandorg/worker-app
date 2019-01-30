@@ -1,7 +1,7 @@
-import { fork } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '@gemsorg/app-utils';
-import { authResponseSchema } from '@gemsorg/app-auth';
+import { handleAsyncCall } from '@expandorg/app-utils';
+import { authResponseSchema } from '@expandorg/app-auth';
 
 import { assignmentActionTypes } from './actionTypes';
 
@@ -10,30 +10,24 @@ import { assignmentsApi } from '../api/AssignmentsApi';
 export const reportAssignment = (id, reason, message) => ({
   type: assignmentActionTypes.REPORT,
   payload: { id, reason, message },
+  asyncCall: assignmentsApi.report,
   meta: {
     schema: authResponseSchema,
   },
 });
-
-const watchReportRequest = takeEveryApiCall(
-  assignmentActionTypes.REPORT,
-  assignmentsApi.report
-);
 
 export const cancelAssignment = id => ({
   type: assignmentActionTypes.CANCEL,
   payload: { id },
+  asyncCall: assignmentsApi.cancel,
   meta: {
     schema: authResponseSchema,
   },
 });
 
-const watchCancelRequest = takeEveryApiCall(
-  assignmentActionTypes.CANCEL,
-  assignmentsApi.cancel
-);
-
 export function* assignmentsSagas() {
-  yield fork(watchReportRequest);
-  yield fork(watchCancelRequest);
+  yield takeEvery(
+    [assignmentActionTypes.REPORT, assignmentActionTypes.CANCEL],
+    handleAsyncCall
+  );
 }

@@ -1,4 +1,4 @@
-import { normalizedItemsReducer } from '@gemsorg/app-utils';
+import { normalizedItemsReducer } from '@expandorg/app-utils';
 import { onboardingActionTypes } from '../../sagas/actionTypes';
 
 const normalizedOnboarding = normalizedItemsReducer('onboarding');

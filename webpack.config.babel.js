@@ -81,29 +81,43 @@ export default (env = {}) => {
               ? babelPlugins.concat('react-hot-loader/babel')
               : babelPlugins,
           },
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
         {
           test: /^((?!\.module).)*\.styl$/,
           use: [
             dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader?sourceMap&importLoaders=2',
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                importLoaders: 2,
+              },
+            },
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
         {
           test: /\.module\.styl$/,
           use: [
             dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${
-              dev ? '[local]__[path][name]__' : ''
-            }[hash:base64:5]`,
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                importLoaders: 2,
+                modules: true,
+                localIdentName: dev
+                  ? '[local]__[path][name]__[hash:base64:5]'
+                  : '[hash:base64:5]',
+              },
+            },
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
         {
           test: /\.svg$/,
@@ -115,7 +129,7 @@ export default (env = {}) => {
         {
           test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
           loader: 'file-loader?name=static/[hash].[ext]',
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
       ],
     },
@@ -132,7 +146,7 @@ export default (env = {}) => {
         },
         gemsBuildInfo: {
           components: JSON.stringify(
-            packageJson.dependencies['@gemsorg/components']
+            packageJson.dependencies['@expandorg/components']
           ),
           buildDate: JSON.stringify(new Date().toUTCString()),
         },
@@ -151,7 +165,7 @@ export default (env = {}) => {
       minimize: !dev,
     },
     resolve: {
-      modules: [path.resolve('./src'), path.resolve('node_modules')],
+      modules: [path.resolve('./src'), 'node_modules'],
       extensions: ['.js', '.json'],
       symlinks: false,
     },

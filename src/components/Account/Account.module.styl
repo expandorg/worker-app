@@ -1,36 +1,27 @@
-@import '~@gemsorg/uikit/font'
-@import '~@gemsorg/uikit/colors'
-@import '~@gemsorg/uikit/consts'
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
 
 .container
-  padding-bottom:  5em
+  box-sizing: border-box;
+  padding: 50px 0
 
-.headline
-  margin: s-margin-medium 0
+.panel
+  box-sizing: border-box;
+  padding: 30px 30px
+  margin: 0 auto 50px auto
+  width: 512px
 
-  font(font-preset[subheader])
-  letter-spacing: 0.5
-  text-transform: uppercase
-
-  opacity: 0.4
-  color: #0b132b
+.title
+  font(h2-title)
+  color: color-text-dark
 
 .actions
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  @media(max-width: 660px)
-    flex-direction: column;
-    align-items: stretch;
-
-.gems
-  display: flex;
-
-  @media(max-width: 660px)
-    flex-direction: column;
-    align-items: stretch;
+  justify-content: flex-end;
+  margin-top: 30px
 
 .logout
-  @media(max-width: 660px)
-    margin-top: 30px;
+  line-height: 38px
+  height 40px
+  border-radius: 2px

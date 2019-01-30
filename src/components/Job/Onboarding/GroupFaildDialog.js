@@ -4,11 +4,10 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Dialog, DialogHeadline, Button } from '@gemsorg/components';
-
+import { Dialog, Button } from '@expandorg/components';
 import { onboardingProps } from '../../shared/propTypes';
 
-import styles from './GroupFaildDialog.module.styl';
+import styles from '../../shared/serviceForms.module.styl';
 
 export default class GroupFaildDialog extends Component {
   static propTypes = {
@@ -25,13 +24,13 @@ export default class GroupFaildDialog extends Component {
         hideButton
         contentLabel="onboarding group"
       >
-        <DialogHeadline>Answer</DialogHeadline>
         <div className={styles.container}>
           <div className={styles.inner}>
             <div className={styles.title}>Sorry, wrong answer!</div>
-            <div className={styles.message}>{onboarding.message}</div>
+            <div className={styles.description}>{onboarding.message}</div>
+
             {onboarding.allowedRetries && (
-              <div className={styles.message}>
+              <div className={styles.descriptionBold}>
                 <span className={styles.tries}>
                   {1 + onboarding.allowedRetries - +onboarding.currentTry}
                 </span>
@@ -40,22 +39,12 @@ export default class GroupFaildDialog extends Component {
             )}
             <div className={styles.actions}>
               <Link
-                className={cn(
-                  'gem-button',
-                  'gem-button-large',
-                  'gem-button-white',
-                  styles.link
-                )}
-                to="/jobs"
+                className={cn('gem-button', 'gem-button-grey', styles.button)}
+                to="/"
               >
                 Give up
               </Link>
-              <Button
-                theme="pink"
-                size="large"
-                className={styles.ok}
-                onClick={onHide}
-              >
+              <Button theme="pink" onClick={onHide} className={styles.button}>
                 Try again
               </Button>
             </div>
