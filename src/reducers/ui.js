@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 
 import { requestUiStateReducer } from '@expandorg/app-utils';
 import { notificationReducer as notification } from '@expandorg/app-utils/app';
-import { uiStateReducers as accountReducers } from '@expandorg/app-account';
+import { uiStateReducers as accountState } from '@expandorg/app-account';
 
-import { authStateReducers } from '@expandorg/app-auth';
+import { authStateReducers as authState } from '@expandorg/app-auth';
 import { web3ActionTypes } from '@expandorg/app-web3';
 import { uiStateReducers as gemsState } from '@expandorg/app-gemtokens';
 
@@ -19,9 +19,9 @@ import {
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
   notification,
-  ...authStateReducers,
+  ...authState,
   ...gemsState,
-  ...accountReducers,
+  ...accountState,
 
   submitOnboarding: requestUiStateReducer(onboardingActionTypes.SUBMIT),
   reportOnboarding: requestUiStateReducer(onboardingActionTypes.REPORT),

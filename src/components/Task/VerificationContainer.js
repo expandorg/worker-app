@@ -35,7 +35,7 @@ class Task extends Component {
     task: taskProps,
     variables: PropTypes.shape({}),
 
-    submitState: requestStateProps.isRequired,
+    verifyState: requestStateProps.isRequired,
     verifyResponse: PropTypes.func.isRequired,
   };
 
@@ -57,7 +57,7 @@ class Task extends Component {
   };
 
   render() {
-    const { submitState, assignment, job, task, variables } = this.props;
+    const { verifyState, assignment, job, task, variables } = this.props;
 
     return (
       <ModulesForm
@@ -65,7 +65,7 @@ class Task extends Component {
         form={job && job.verificationForm}
         visible={!!(job && task)}
         variables={variables}
-        submitState={submitState}
+        submitState={verifyState}
         onSubmit={this.handleSubmit}
       />
     );
