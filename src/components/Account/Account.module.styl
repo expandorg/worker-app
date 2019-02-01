@@ -1,15 +1,24 @@
 @import '~@expandorg/uikit/colors';
 @import '~@expandorg/uikit/font';
+@import '~@expandorg/uikit/size';
 
 .container
   box-sizing: border-box;
   padding: 50px 0
+
+  @media(max-width: breakpoint-mobile-sm)
+    padding: 20px 18px
 
 .panel
   box-sizing: border-box;
   padding: 30px 30px
   margin: 0 auto 50px auto
   width: 512px
+
+  @media(max-width: breakpoint-mobile-sm)
+    width: 100%
+    margin: 0 0 20px 0
+    padding: 30px 20px
 
 .title
   font(h3-bold)
@@ -25,3 +34,6 @@
   line-height: 38px
   height 40px
   border-radius: 2px
+
+  @media(max-width: breakpoint-mobile-sm)
+    width: 100%

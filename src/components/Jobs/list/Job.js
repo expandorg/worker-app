@@ -64,6 +64,7 @@ export default class Job extends Component {
             <div className={styles.description}>{job.requester}</div>
           </div>
         </div>
+
         <div className={styles.actions}>
           {!sufficientFonds && (
             <button className={styles.warning} onClick={this.handleTopupToggle}>
@@ -81,13 +82,6 @@ export default class Job extends Component {
             {job.logic.funding.reward}
             <GemsIcon viewBox="0 0 18 16" height={15} className={styles.icon} />
           </div>
-          {/* <Button
-            theme="white-blue"
-            className={styles.learn}
-            onClick={this.handleLearnMoreClick}
-          >
-            Learn More
-          </Button> */}
           {isJoined && (
             <Link
               className={cn('gem-button', 'gem-button-blue', styles.assign)}
@@ -110,6 +104,7 @@ export default class Job extends Component {
             </EmailConfirmed>
           )}
         </div>
+
         {topup && (
           <InsufficientFundsDialog
             user={user}
