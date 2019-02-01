@@ -34,7 +34,7 @@ class Stats extends Component {
         <Navbar title="Stats" />
         <Sidebar />
         <div className={styles.container}>
-          <Panel className={styles.content}>
+          <Panel className={styles.panel}>
             <Hero
               value={user.stats.pending}
               title={
