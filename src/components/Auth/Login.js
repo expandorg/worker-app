@@ -17,22 +17,20 @@ class Login extends Component {
   render() {
     return (
       <PageDark title="Login">
-        <div className={styles.panel}>
-          <div className={styles.content}>
-            <div className={styles.header}>
-              <Logo width={100} height={100} viewBox="0 0 50 50" />
-              <h2 className={styles.title}>Expand</h2>
-            </div>
-            <div className={styles.inner}>
-              <MetamaskLogin />
-              <EmailLogin />
-            </div>
-            <div className={styles.toggle}>
-              Don&apos;t have an account yet?
-              <Link to="/signup" className={styles.link}>
-                Sign up here.
-              </Link>
-            </div>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <Logo width={100} height={100} viewBox="0 0 50 50" />
+            <h2 className={styles.title}>Expand</h2>
+          </div>
+          <div className={styles.form}>
+            <MetamaskLogin />
+            <EmailLogin />
+          </div>
+          <div className={styles.toggle}>
+            Don&apos;t have an account yet?
+            <Link to="/signup" className={styles.link}>
+              Sign up here.
+            </Link>
           </div>
         </div>
       </PageDark>
