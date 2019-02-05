@@ -24,7 +24,7 @@ export default class OnboardingFailed extends Component {
           <div className={styles.title}>{job.onboarding.failureMessage}</div>
           <div className={styles.actions}>
             <Link
-              className={cn('gem-button', 'gem-button-grey', styles.back)}
+              className={cn('gem-button', 'gem-button-pink', styles.back)}
               to="/"
             >
               Ok
