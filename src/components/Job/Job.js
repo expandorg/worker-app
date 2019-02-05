@@ -6,8 +6,6 @@ import { bindActionCreators } from 'redux';
 
 import { authenticated } from '../shared/auth';
 
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
 import Page from '../shared/Page';
 
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
@@ -73,8 +71,6 @@ class JobDetails extends Component {
 
     return (
       <Page title={job.name}>
-        <Navbar title={job.name} />
-        <Sidebar />
         {onboarding.status === OnboardingStatus.InProgress && (
           <Onboarding jobId={jobId} onboarding={onboarding} />
         )}

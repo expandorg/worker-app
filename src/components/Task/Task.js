@@ -7,8 +7,6 @@ import { bindActionCreators } from 'redux';
 import { authenticated } from '../shared/auth';
 
 import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
 
 import TaskContainer from './TaskContainer';
 import VerificationContainer from './VerificationContainer';
@@ -110,8 +108,6 @@ class Task extends Component {
 
     return (
       <Page title={title}>
-        <Navbar title={title} />
-        <Sidebar />
         <div className={styles.container}>
           {!cancelled &&
             (assignment.responseId === null ? (
