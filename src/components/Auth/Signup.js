@@ -16,22 +16,20 @@ class Signup extends Component {
   render() {
     return (
       <PageDark title="Signup">
-        <div className={styles.panel}>
-          <div className={styles.content}>
-            <div className={styles.header}>
-              <Logo width={100} height={100} viewBox="0 0 50 50" />
-              <h2 className={styles.title}>Expand</h2>
-            </div>
-            <div className={styles.inner}>
-              <MetamaskSignup />
-              <EmailSignup />
-            </div>
-            <div className={styles.toggle}>
-              Already have an account?
-              <Link to="/login" className={styles.link}>
-                Sign in here.
-              </Link>
-            </div>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <Logo width={100} height={100} viewBox="0 0 50 50" />
+            <h2 className={styles.title}>Expand</h2>
+          </div>
+          <div className={styles.form}>
+            <MetamaskSignup />
+            <EmailSignup />
+          </div>
+          <div className={styles.toggle}>
+            Already have an account?
+            <Link to="/login" className={styles.link}>
+              Sign in here.
+            </Link>
           </div>
         </div>
       </PageDark>

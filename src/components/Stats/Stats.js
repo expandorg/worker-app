@@ -9,8 +9,6 @@ import { Panel } from '@expandorg/components';
 
 import I from '../shared/I';
 import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
 import Hero from '../shared/Hero';
 
 import { authenticated } from '../shared/auth';
@@ -31,8 +29,6 @@ class Stats extends Component {
 
     return (
       <Page title="Stats">
-        <Navbar title="Stats" />
-        <Sidebar />
         <div className={styles.container}>
           <Panel className={styles.panel}>
             <Hero

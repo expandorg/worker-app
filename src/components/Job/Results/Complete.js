@@ -68,7 +68,7 @@ class OnboardingComplete extends Component {
               Start
             </Button>
             <Link
-              className={cn('gem-button', 'gem-button-grey', styles.back)}
+              className={cn('gem-button', 'gem-button-pink', styles.back)}
               to="/"
             >
               Not interesting

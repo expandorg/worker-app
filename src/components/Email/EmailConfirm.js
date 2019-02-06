@@ -11,8 +11,6 @@ import { locationProps } from '@expandorg/app-utils';
 import { ConfirmEmailForm } from '@expandorg/app-account/components';
 
 import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
 
 import { authenticated } from '../shared/auth';
 
@@ -46,9 +44,7 @@ class EmailConfirm extends Component {
     }
 
     return (
-      <Page title="Confirm email">
-        <Navbar title="Browse Jobs" />
-        <Sidebar />
+      <Page title="Confirm Email">
         <Panel className={styles.container}>
           <ConfirmEmailForm code={code} user={user} />
         </Panel>

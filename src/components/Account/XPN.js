@@ -24,18 +24,22 @@ export default class XPN extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.stats}>
-          <Hero
-            className={styles.hero}
-            value={userBalance.get(user)}
-            gems
-            title="Balance"
-          />
-          <Hero
-            className={styles.hero}
-            value={user.gems.reserved}
-            gems
-            title="Reserved"
-          />
+          <div className={styles.inner}>
+            <Hero
+              className={styles.hero}
+              value={userBalance.get(user)}
+              gems
+              title="Balance"
+            />
+          </div>
+          <div className={styles.inner}>
+            <Hero
+              className={styles.hero}
+              value={user.gems.reserved}
+              gems
+              title="Reserved"
+            />
+          </div>
         </div>
         <div className={styles.actions}>
           <Deposit user={user}>
