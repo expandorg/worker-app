@@ -10,24 +10,24 @@ import EmailSignup from './email/EmailSignup';
 
 import { notAuthenticated } from '../shared/auth';
 
-import styles from './styles.module.styl';
+import './styles.styl';
 
 class Signup extends Component {
   render() {
     return (
       <PageDark title="Signup">
-        <div className={styles.container}>
-          <div className={styles.header}>
+        <div className="gem-auth-container">
+          <div className="gem-auth-header">
             <Logo width={100} height={100} viewBox="0 0 50 50" />
-            <h2 className={styles.title}>Expand</h2>
+            <h2 className="gem-auth-title">Expand</h2>
           </div>
-          <div className={styles.form}>
+          <div className="gem-auth-form">
             <MetamaskSignup />
             <EmailSignup />
           </div>
-          <div className={styles.toggle}>
+          <div className="gem-auth-toggle">
             Already have an account?
-            <Link to="/login" className={styles.link}>
+            <Link to="/login" className="gem-auth-link">
               Sign in here.
             </Link>
           </div>

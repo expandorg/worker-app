@@ -60,7 +60,7 @@ class EmailLogin extends Component {
     const { email, password, error } = this.state;
 
     return (
-      <div className={styles.container}>
+      <div className="gem-email-container">
         <div className={styles.header}>
           <Logo
             width={40}
