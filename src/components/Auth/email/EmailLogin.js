@@ -40,7 +40,7 @@ class EmailLogin extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    const { loginState } = this.state;
+    const { loginState } = this.props;
 
     if (loginState.state !== RequestStates.Fetching) {
       const { email, password } = this.state;
