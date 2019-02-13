@@ -40,7 +40,9 @@ class EmailLogin extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    if (this.props.loginState.state !== RequestStates.Fetching) {
+    const { loginState } = this.state;
+
+    if (loginState.state !== RequestStates.Fetching) {
       const { email, password } = this.state;
       this.setState({ error: null });
       this.props.login(email, password);
@@ -58,6 +60,7 @@ class EmailLogin extends Component {
   render() {
     const { loginState } = this.props;
     const { email, password, error } = this.state;
+    const isFetching = loginState.state === RequestStates.Fetching;
 
     return (
       <div className="gem-email-container">
@@ -96,7 +99,7 @@ class EmailLogin extends Component {
           </div>
           <ErrorMessage errors={error} className={styles.error} />
           <Button type="submit" theme="blue" className={styles.submit}>
-            Login
+            {isFetching ? 'Loggin in' : 'Login'}
           </Button>
         </form>
         <SubmitStateEffect

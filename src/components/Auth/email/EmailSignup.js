@@ -40,7 +40,9 @@ class EmailSignup extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    if (this.props.signupState.state !== RequestStates.Fetching) {
+    const { signupState } = this.props;
+
+    if (signupState.state !== RequestStates.Fetching) {
       const { email, password } = this.state;
       this.setState({ error: null });
       this.props.signup({ email, password });
@@ -58,6 +60,8 @@ class EmailSignup extends Component {
   render() {
     const { signupState } = this.props;
     const { email, password, error } = this.state;
+
+    const isFetching = signupState.state === RequestStates.Fetching;
 
     return (
       <div className="gem-email-container">
@@ -95,7 +99,7 @@ class EmailSignup extends Component {
             theme="blue"
             className={cn(styles.submit, styles.signUpSubmit)}
           >
-            Sign up
+            {isFetching ? 'Signing up' : 'Sign up'}
           </Button>
         </form>
         <SubmitStateEffect
