@@ -8,15 +8,12 @@ import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { historyProps } from '@expandorg/app-utils';
 
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
+import Page from '../shared/Page';
 
 import Job from './list/Job';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import { authenticated } from '../shared/auth';
-
-import Page from '../shared/Page';
 
 import { assignJob, fetchJobs } from '../../sagas/jobsSagas';
 import { jobsSelector } from '../../selectors/jobsSelectors';
@@ -69,8 +66,6 @@ class Jobs extends Component {
 
     return (
       <Page title="Browse Jobs">
-        <Navbar title="Browse Jobs" />
-        <Sidebar />
         <div className={styles.list}>
           {jobs.map(job => (
             <Job

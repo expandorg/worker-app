@@ -12,7 +12,7 @@ import {
   ReportToggle,
 } from '@expandorg/modules';
 
-import { Panel } from '@expandorg/components';
+import { Panel, withServices } from '@expandorg/components';
 
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
@@ -42,14 +42,37 @@ class Onboarding extends Component {
     jobId: PropTypes.number.isRequired,
     onboarding: onboardingProps.isRequired,
     submitState: requestStateProps.isRequired,
+    services: PropTypes.object.isRequired, // eslint-disable-line
 
     submitOnboarding: PropTypes.func.isRequired,
     removeOnboardingMessage: PropTypes.func.isRequired,
   };
 
-  state = {
-    reportMessage: null,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      reportMessage: null,
+      original: props.onboarding,
+      formData: {
+        ...props.onboarding,
+        fileUploadService: props.services.resolve('fileUpload'),
+      },
+    };
+  }
+
+  static getDerivedStateFromProps({ onboarding, services }, state) {
+    if (onboarding !== state.original) {
+      return {
+        original: onboarding,
+        formData: {
+          ...onboarding,
+          fileUploadService: services.resolve('fileUpload'),
+        },
+      };
+    }
+    return null;
+  }
 
   handleSaveStep = values => {
     const { jobId } = this.props;
@@ -67,7 +90,7 @@ class Onboarding extends Component {
 
   render() {
     const { jobId, onboarding, submitState } = this.props;
-    const { reportMessage } = this.state;
+    const { reportMessage, formData } = this.state;
 
     return (
       <div className={styles.container}>
@@ -85,7 +108,7 @@ class Onboarding extends Component {
             </ReportToggle>
           </div>
           <div className={styles.form}>
-            <FormDataProvider formData={onboarding}>
+            <FormDataProvider formData={formData}>
               <Form
                 form={onboarding.form}
                 errors={submitState.error}
@@ -113,4 +136,4 @@ class Onboarding extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Onboarding);
+)(withServices(Onboarding));

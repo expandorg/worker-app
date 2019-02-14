@@ -4,10 +4,9 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Dialog, Button } from '@expandorg/components';
-import { onboardingProps } from '../../shared/propTypes';
+import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
 
-import styles from '../../shared/serviceForms.module.styl';
+import { onboardingProps } from '../../shared/propTypes';
 
 export default class GroupFaildDialog extends Component {
   static propTypes = {
@@ -17,6 +16,7 @@ export default class GroupFaildDialog extends Component {
 
   render() {
     const { onboarding, onHide } = this.props;
+
     return (
       <Dialog
         onHide={onHide}
@@ -24,32 +24,35 @@ export default class GroupFaildDialog extends Component {
         hideButton
         contentLabel="onboarding group"
       >
-        <div className={styles.container}>
-          <div className={styles.inner}>
-            <div className={styles.title}>Sorry, wrong answer!</div>
-            <div className={styles.description}>{onboarding.message}</div>
+        <DF.Container>
+          <DF.Title>Sorry, wrong answer!</DF.Title>
+          <DF.Description>{onboarding.message}</DF.Description>
 
-            {onboarding.allowedRetries && (
-              <div className={styles.descriptionBold}>
-                <span className={styles.tries}>
-                  {1 + onboarding.allowedRetries - +onboarding.currentTry}
-                </span>
-                tries left
-              </div>
-            )}
-            <div className={styles.actions}>
-              <Link
-                className={cn('gem-button', 'gem-button-grey', styles.button)}
-                to="/"
-              >
-                Give up
-              </Link>
-              <Button theme="pink" onClick={onHide} className={styles.button}>
-                Try again
-              </Button>
-            </div>
-          </div>
-        </div>
+          {onboarding.allowedRetries && (
+            <DF.Description bold>
+              {1 + onboarding.allowedRetries - onboarding.currentTry} tries left
+            </DF.Description>
+          )}
+          <DF.Actions>
+            <Link
+              className={cn(
+                'gem-button',
+                'gem-button-grey',
+                'gem-dialogform-button'
+              )}
+              to="/"
+            >
+              Give up
+            </Link>
+            <Button
+              theme="pink"
+              onClick={onHide}
+              className="gem-dialogform-button"
+            >
+              Try again
+            </Button>
+          </DF.Actions>
+        </DF.Container>
       </Dialog>
     );
   }

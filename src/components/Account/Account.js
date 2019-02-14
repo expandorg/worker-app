@@ -16,8 +16,6 @@ import {
   ChangePasswordDialog,
 } from '@expandorg/app-account/components';
 
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 
@@ -66,8 +64,6 @@ class Account extends Component {
 
     return (
       <Page title="Account">
-        <Navbar title="Account" />
-        <Sidebar />
         <div className={styles.container}>
           <Panel className={styles.panel}>
             <XPN user={user} />

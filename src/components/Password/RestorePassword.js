@@ -66,7 +66,7 @@ class RestorePassword extends Component {
     const { password, code, isFetched } = this.state;
 
     return (
-      <PageDark title="Change password">
+      <PageDark title="Restore password">
         <Navbar
           title="Restore password"
           theme="dark"

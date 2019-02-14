@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Module, formProps } from '@expandorg/modules';
+import { withServices, Panel } from '@expandorg/components';
+import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
 import {
   RequestStates,
   requestStateProps,
   SubmitStateEffect,
 } from '@expandorg/app-utils';
-
-import { Panel } from '@expandorg/components';
 
 import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';
@@ -17,12 +16,13 @@ import { assignmentProps } from '../shared/propTypes';
 
 import styles from './styles.module.styl';
 
-export default class ModulesForm extends Component {
+class ModulesForm extends Component {
   static propTypes = {
     assignment: assignmentProps.isRequired,
     form: formProps,
     visible: PropTypes.bool.isRequired,
     variables: PropTypes.shape({}),
+    services: PropTypes.object.isRequired,  //eslint-disable-line
 
     submitState: requestStateProps.isRequired,
 
@@ -34,10 +34,18 @@ export default class ModulesForm extends Component {
     variables: null,
   };
 
-  state = {
-    isSubmitted: false,
-    reportMessage: null,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isSubmitted: false,
+      reportMessage: null,
+
+      formData: {
+        fileUploadService: props.services.resolve('fileUpload'),
+      },
+    };
+  }
 
   handleAssigned = () => {
     this.setState({ reportMessage: null, isSubmitted: false });
@@ -60,8 +68,8 @@ export default class ModulesForm extends Component {
       variables,
       onSubmit,
     } = this.props;
-    const { reportMessage, isSubmitted } = this.state;
 
+    const { reportMessage, isSubmitted, formData } = this.state;
     const isFetching = submitState.state === RequestStates.Fetching;
 
     return (
@@ -73,17 +81,19 @@ export default class ModulesForm extends Component {
               form={form}
               reportMessage={reportMessage}
             />
-            <Form
-              className={styles.form}
-              form={form}
-              variables={variables}
-              errors={submitState.error}
-              isSubmitting={isFetching}
-              onSubmit={onSubmit}
-              onModuleError={this.handleModuleError}
-            >
-              {props => <Module {...props} />}
-            </Form>
+            <FormDataProvider formData={formData}>
+              <Form
+                className={styles.form}
+                form={form}
+                variables={variables}
+                errors={submitState.error}
+                isSubmitting={isFetching}
+                onSubmit={onSubmit}
+                onModuleError={this.handleModuleError}
+              >
+                {props => <Module {...props} />}
+              </Form>
+            </FormDataProvider>
           </Panel>
         )}
         <SubmitStateEffect
@@ -100,3 +110,5 @@ export default class ModulesForm extends Component {
     );
   }
 }
+
+export default withServices(ModulesForm);

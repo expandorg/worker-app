@@ -58,7 +58,7 @@ class MetamaskLogin extends Component {
     const { metamaskDialog, error } = this.state;
     return (
       <div className={styles.container}>
-        <button className={styles.button} onClick={this.handleClick}>
+        <button className="gem-metamask-button" onClick={this.handleClick}>
           <ins className={styles.fox} /> Sign in with MetaMask
         </button>
         {metamaskDialog && (

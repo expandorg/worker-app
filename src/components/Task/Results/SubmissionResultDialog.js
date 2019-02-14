@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import { Dialog, Button } from '@expandorg/components';
+import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
 
 import {
   RequestStates,
@@ -21,8 +21,6 @@ import AssignedJobRedirect from '../../shared/AssignedJobRedirect';
 import { assignJob } from '../../../sagas/jobsSagas';
 import { jobListSelector } from '../../../selectors/jobsSelectors';
 import { assignJobStateSelector } from '../../../selectors/uiStateSelectors';
-
-import styles from '../../shared/serviceForms.module.styl';
 
 const mapStateToProps = state => ({
   jobs: jobListSelector(state),
@@ -60,50 +58,48 @@ class SubmissionResultDialog extends Component {
 
     return (
       <Dialog visible hideButton contentLabel="submit task">
-        <div className={styles.container}>
-          <div className={styles.inner}>
-            <div className={styles.title}>Task Submitted</div>
-            <div className={styles.description}>Submission successful!</div>
+        <DF.Container>
+          <DF.Title>Task Submitted</DF.Title>
+          <DF.Description>Submission successful!</DF.Description>
 
-            {assignable && (
-              <div className={styles.description}>
-                <Countdown
-                  interval={1000}
-                  expireIn={5000}
-                  onFinish={this.handleAssignJob}
-                >
-                  {({ timeLeft, finished }) => {
-                    const time = Math.ceil(timeLeft / 1000);
-                    return finished
-                      ? 'Assigning to task...'
-                      : `You will be automatically assigned to this task in ${time} seconds`;
-                  }}
-                </Countdown>
-              </div>
-            )}
-
-            <div className={styles.actions}>
-              <Link
-                to="/"
-                className={cn(
-                  'gem-button',
-                  'gem-button-secondary',
-                  styles.button
-                )}
+          {assignable && (
+            <DF.Description>
+              <Countdown
+                interval={1000}
+                expireIn={5000}
+                onFinish={this.handleAssignJob}
               >
-                Browse jobs
-              </Link>
-              {assignable && (
-                <Button
-                  className={styles.button}
-                  onClick={this.handleAssignJob}
-                >
-                  Start this task
-                </Button>
+                {({ timeLeft, finished }) => {
+                  const time = Math.ceil(timeLeft / 1000);
+                  return finished
+                    ? 'Assigning to task...'
+                    : `You will be automatically assigned to this task in ${time} seconds`;
+                }}
+              </Countdown>
+            </DF.Description>
+          )}
+
+          <DF.Actions>
+            <Link
+              to="/"
+              className={cn(
+                'gem-button',
+                'gem-button-secondary',
+                'gem-dialogform-button'
               )}
-            </div>
-          </div>
-        </div>
+            >
+              Browse jobs
+            </Link>
+            {assignable && (
+              <Button
+                className="gem-dialogform-button"
+                onClick={this.handleAssignJob}
+              >
+                Start this task
+              </Button>
+            )}
+          </DF.Actions>
+        </DF.Container>
         <AssignedJobRedirect jobId={jobId} />
         <SubmitStateEffect
           submitState={submitState}

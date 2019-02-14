@@ -11,6 +11,8 @@ import { GemsService } from '@expandorg/app-web3';
 
 import { validateForm } from '@expandorg/validation';
 
+import TaskFileUploadService from './common/TaskFileUploadService';
+
 import settings from './common/settings';
 
 const eventSources = new EventSourceService(settings.apiUrl).definition(
@@ -18,9 +20,12 @@ const eventSources = new EventSourceService(settings.apiUrl).definition(
   new TxEventSource()
 );
 
+const taskFileUploadService = new TaskFileUploadService();
+
 const services = new ServiceLocator()
   .register('gtm', new GoogleTagManager(settings.gtmTrackingId))
   .register('gems', new GemsService(settings.vaultAddress))
+  .register('fileUpload', taskFileUploadService)
   .register('eventSources', eventSources)
   .register('validate', validateForm)
   .register('jsScripts', new ScriptsLoader());

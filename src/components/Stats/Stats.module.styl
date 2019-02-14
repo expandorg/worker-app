@@ -4,8 +4,9 @@
 
 .container
   box-sizing: border-box
-  height: 'calc(100vh - %s)' % sz-navbar-height
+  height: 'calc(100vh - %s - 60px)' % sz-navbar-height
   width: 100%
+  padding: 20px 20px
 
   display: flex
   justify-content: center
@@ -13,27 +14,25 @@
 
   @media(max-width: breakpoint-mobile-sm)
     height: 100%
-    padding: 20px 20px
     align-items: flex-start
 
 .panel
   box-sizing: border-box
   width: 512px
-  height: 214px
 
   margin-bottom: 60px
-  padding: 0 40px
+  padding: 40px 10px
 
   display: flex
-  justify-content: space-between
+  justify-content: space-around
   align-items: center
 
   @media(max-width: breakpoint-mobile-sm)
     width: 100%
-    padding: 0 20px
 
 .item
   margin-top: 0
+  padding: 0 10px
 
 .pendingTitle
   position: relative

@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Dialog, Button } from '@expandorg/components';
+import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
 
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
 import { cancelAssignmentStateSelector } from '../../../selectors/uiStateSelectors';
 import { cancelAssignment } from '../../../sagas/assignmentsSagas';
-
-import styles from '../../shared/serviceForms.module.styl';
 
 const mapStateToProps = state => ({
   submitState: cancelAssignmentStateSelector(state),
@@ -42,22 +40,27 @@ class CancelAssignmentDialog extends Component {
 
     return (
       <Dialog visible onHide={onHide} contentLabel="submit task">
-        <div className={styles.container}>
-          <div className={styles.inner}>
-            <div className={styles.title}>Cancel task</div>
-            <div className={styles.description}>
-              Are you sure that you want to cancel current task?
-            </div>
-            <div className={styles.actions}>
-              <Button className={styles.button} onClick={this.handleSubmit}>
-                Cancel task
-              </Button>
-              <Button className={styles.button} theme="grey" onClick={onHide}>
-                go back
-              </Button>
-            </div>
-          </div>
-        </div>
+        <DF.Container>
+          <DF.Title>Cancel task</DF.Title>
+          <DF.Description>
+            Are you sure that you want to cancel current task?
+          </DF.Description>
+          <DF.Actions>
+            <Button
+              className="gem-dialogform-button"
+              onClick={this.handleSubmit}
+            >
+              Cancel task
+            </Button>
+            <Button
+              className="gem-dialogform-button"
+              theme="grey"
+              onClick={onHide}
+            >
+              go back
+            </Button>
+          </DF.Actions>
+        </DF.Container>
       </Dialog>
     );
   }

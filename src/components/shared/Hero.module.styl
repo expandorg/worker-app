@@ -1,5 +1,6 @@
 @import '~@expandorg/uikit/colors'
 @import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/size'
 
 .container
   margin-top: 50px;
@@ -7,8 +8,11 @@
   color: color-text-teel-large
 
 .value
-  font(oversized)
+  font(oversized, false, 80px)
   position: relative
+
+  @media(max-width: breakpoint-mobile-sm)
+    font-size: 60px
 
 .title
   font(subtitle)
