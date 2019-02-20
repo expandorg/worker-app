@@ -10,7 +10,11 @@ import {
 } from '@expandorg/app-utils/app';
 
 import { gemsActionTypes } from '@expandorg/app-gemtokens';
-import { onboardingActionTypes, assignmentActionTypes } from './actionTypes';
+import {
+  onboardingActionTypes,
+  assignmentActionTypes,
+  jobsActionTypes,
+} from './actionTypes';
 
 export const successMessageFactory = message => {
   function* handler() {
@@ -42,6 +46,12 @@ function* handleTxFailed({ payload }) {
   }
 }
 
+function* handleJobAssignFailed({ payload }) {
+  const expanation =
+    payload && payload.message !== 'null' ? `\n${payload.message}` : '';
+  yield put(addNotification('error', `Job can not be assigned${expanation}`));
+}
+
 function* handleReport() {
   yield put(addNotification('success', 'Report has been sent'));
 }
@@ -51,6 +61,7 @@ export function* notificationsSagas() {
 
   yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);
   yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
+  yield takeEvery(jobsActionTypes.ASSIGN_FAILED, handleJobAssignFailed);
 
   yield takeEvery(
     [
