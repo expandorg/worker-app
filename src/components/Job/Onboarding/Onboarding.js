@@ -7,10 +7,11 @@ import { bindActionCreators } from 'redux';
 import {
   Form,
   FormDataProvider,
-  moduleControls,
   Module,
   ReportToggle,
 } from '@expandorg/modules';
+
+import { moduleControls } from '@expandorg/modules/app';
 
 import { Panel, withServices } from '@expandorg/components';
 

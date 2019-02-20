@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withServices, Panel } from '@expandorg/components';
 import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
+import { moduleControls } from '@expandorg/modules/app';
 import {
   RequestStates,
   requestStateProps,
@@ -83,6 +84,7 @@ class ModulesForm extends Component {
             />
             <FormDataProvider formData={formData}>
               <Form
+                controls={moduleControls}
                 className={styles.form}
                 form={form}
                 variables={variables}
