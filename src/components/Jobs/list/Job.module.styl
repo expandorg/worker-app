@@ -17,7 +17,7 @@
 
   margin-bottom: 15px
 
-  @media(max-width: breakpoint-mobile-sm)
+  @media(max-width: breakpoint-mobile-md)
     flex-direction: column
     align-items: stretch
 
@@ -32,7 +32,7 @@
   padding: 30px 0 30px 30px
   max-width 50%
 
-  @media(max-width: breakpoint-mobile-sm)
+  @media(max-width: breakpoint-mobile-md)
     max-width 100%
     padding-right: 40px
 
@@ -52,7 +52,7 @@
   font(h2-title)
   color: color-text-dark
 
-  @media(max-width: breakpoint-mobile-sm)
+  @media(max-width: breakpoint-mobile-md)
     font(h3-title)
 
 
@@ -64,6 +64,8 @@
   overflow: hidden
   white-space: nowrap
 
+
+
 .actions
   box-sizing: border-box
   display: flex
@@ -72,8 +74,19 @@
 
   padding-right: 30px
 
-  @media(max-width: breakpoint-mobile-sm)
+  @media(max-width: breakpoint-mobile-md)
     padding-right: 0
+    flex-direction: column-reverse
+    align-items: stretch
+
+.primary
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  @media(max-width: breakpoint-mobile-md)
+    padding: 0 20px 20px 0
 
 
 .reward
@@ -82,11 +95,6 @@
   color: color-text-dark
   white-space: nowrap
 
-  @media(max-width: breakpoint-mobile-sm)
-    position: absolute
-    top: 35px
-    right: 20px
-
 .icon
   margin-left: 2px
   position relative
@@ -94,7 +102,6 @@
 
   path
     fill color-pink
-
 .assign
   padding: 0 30px
   width: 150px
@@ -107,9 +114,6 @@
   border-radius: 2px
 
   margin-left: 20px
-
-  @media(max-width: breakpoint-mobile-sm)
-    display: none
 
 .warning
   box-sizing: border-box
@@ -127,8 +131,7 @@
   cursor pointer
   outline 0
 
-
-  @media(max-width: breakpoint-mobile-sm)
+  @media(max-width: breakpoint-mobile-md)
     width: 100%
 
 .i

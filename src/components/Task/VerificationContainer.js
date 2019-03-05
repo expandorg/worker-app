@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { calculateVerificationScore, moduleControls } from '@expandorg/modules';
+import { moduleControls } from '@expandorg/modules/app';
+import { calculateVerificationScore } from '@expandorg/modules/model';
 
 import { requestStateProps } from '@expandorg/app-utils';
 

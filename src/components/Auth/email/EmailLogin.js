@@ -99,7 +99,7 @@ class EmailLogin extends Component {
           </div>
           <ErrorMessage errors={error} className={styles.error} />
           <Button type="submit" theme="blue" className={styles.submit}>
-            {isFetching ? 'Loggin in' : 'Login'}
+            {isFetching ? 'Logging in' : 'Login'}
           </Button>
         </form>
         <SubmitStateEffect

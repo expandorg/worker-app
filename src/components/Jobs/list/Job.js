@@ -78,31 +78,37 @@ export default class Job extends Component {
               />
             </button>
           )}
-          <div className={styles.reward}>
-            {job.logic.funding.reward}
-            <GemsIcon viewBox="0 0 18 16" height={15} className={styles.icon} />
+          <div className={styles.primary}>
+            <div className={styles.reward}>
+              {job.logic.funding.reward}
+              <GemsIcon
+                viewBox="0 0 18 16"
+                height={15}
+                className={styles.icon}
+              />
+            </div>
+            {isJoined && (
+              <Link
+                className={cn('gem-button', 'gem-button-blue', styles.assign)}
+                to={`/tasks/${assignment.taskId}`}
+              >
+                Continue
+              </Link>
+            )}
+            {!isJoined && (
+              <EmailConfirmed user={user} onConfirmed={this.handleAssign}>
+                {({ onToggle }) => (
+                  <Button
+                    theme="blue"
+                    className={styles.assign}
+                    onClick={onToggle}
+                  >
+                    Join
+                  </Button>
+                )}
+              </EmailConfirmed>
+            )}
           </div>
-          {isJoined && (
-            <Link
-              className={cn('gem-button', 'gem-button-blue', styles.assign)}
-              to={`/tasks/${assignment.taskId}`}
-            >
-              Continue
-            </Link>
-          )}
-          {!isJoined && (
-            <EmailConfirmed user={user} onConfirmed={this.handleAssign}>
-              {({ onToggle }) => (
-                <Button
-                  theme="blue"
-                  className={styles.assign}
-                  onClick={onToggle}
-                >
-                  Join
-                </Button>
-              )}
-            </EmailConfirmed>
-          )}
         </div>
 
         {topup && (

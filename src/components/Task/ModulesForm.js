@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withServices, Panel } from '@expandorg/components';
 import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
+import { moduleControls } from '@expandorg/modules/app';
 import {
   RequestStates,
   requestStateProps,
@@ -40,10 +41,7 @@ class ModulesForm extends Component {
     this.state = {
       isSubmitted: false,
       reportMessage: null,
-
-      formData: {
-        fileUploadService: props.services.resolve('fileUpload'),
-      },
+      services: new Map([['fileUpload', props.services.resolve('fileUpload')]]),
     };
   }
 
@@ -69,7 +67,7 @@ class ModulesForm extends Component {
       onSubmit,
     } = this.props;
 
-    const { reportMessage, isSubmitted, formData } = this.state;
+    const { reportMessage, isSubmitted, services } = this.state;
     const isFetching = submitState.state === RequestStates.Fetching;
 
     return (
@@ -81,9 +79,11 @@ class ModulesForm extends Component {
               form={form}
               reportMessage={reportMessage}
             />
-            <FormDataProvider formData={formData}>
+            <FormDataProvider formData={{}}>
               <Form
+                controls={moduleControls}
                 className={styles.form}
+                services={services}
                 form={form}
                 variables={variables}
                 errors={submitState.error}

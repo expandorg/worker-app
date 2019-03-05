@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 import { ReportToggle, formProps } from '@expandorg/modules';
+import { moduleControls } from '@expandorg/modules/app';
 
 import AssignmentReport from './AssignmentReport';
 import CancelAssignmentDialog from './CancelAssignmentDialog';
@@ -33,7 +34,7 @@ export default class Actions extends Component {
     const { cancel } = this.state;
     return (
       <div className={styles.actions}>
-        <ReportToggle form={form}>
+        <ReportToggle form={form} controls={moduleControls}>
           {({ onHide, reasons }) => (
             <AssignmentReport
               assignmentId={assignmentId}
