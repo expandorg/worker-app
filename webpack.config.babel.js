@@ -77,6 +77,7 @@ export default (env = {}) => {
               '@babel/preset-flow',
               '@babel/preset-react',
             ],
+            cacheDirectory: true,
             plugins: dev
               ? babelPlugins.concat('react-hot-loader/babel')
               : babelPlugins,

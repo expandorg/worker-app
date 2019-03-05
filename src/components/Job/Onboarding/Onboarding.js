@@ -51,28 +51,10 @@ class Onboarding extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       reportMessage: null,
-      original: props.onboarding,
-      formData: {
-        ...props.onboarding,
-        fileUploadService: props.services.resolve('fileUpload'),
-      },
+      services: new Map([['fileUpload', props.services.resolve('fileUpload')]]),
     };
-  }
-
-  static getDerivedStateFromProps({ onboarding, services }, state) {
-    if (onboarding !== state.original) {
-      return {
-        original: onboarding,
-        formData: {
-          ...onboarding,
-          fileUploadService: services.resolve('fileUpload'),
-        },
-      };
-    }
-    return null;
   }
 
   handleSaveStep = values => {
@@ -91,7 +73,7 @@ class Onboarding extends Component {
 
   render() {
     const { jobId, onboarding, submitState } = this.props;
-    const { reportMessage, formData } = this.state;
+    const { reportMessage, services } = this.state;
 
     return (
       <div className={styles.container}>
@@ -109,9 +91,10 @@ class Onboarding extends Component {
             </ReportToggle>
           </div>
           <div className={styles.form}>
-            <FormDataProvider formData={formData}>
+            <FormDataProvider formData={onboarding}>
               <Form
                 form={onboarding.form}
+                services={services}
                 errors={submitState.error}
                 controls={moduleControls}
                 isSubmitting={submitState.state === RequestStates.Fetching}
