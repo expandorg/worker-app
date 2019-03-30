@@ -16,8 +16,8 @@ import {
   jobsActionTypes,
 } from './actionTypes';
 
-export const successMessageFactory = message => {
-  function* handler() {
+export const successMessageFactory = (message: string) => {
+  function* handler(): any {
     yield put(addNotification('success', message));
   }
   return handler;
@@ -56,7 +56,7 @@ function* handleReport() {
   yield put(addNotification('success', 'Report has been sent'));
 }
 
-export function* notificationsSagas() {
+export function* notificationsSagas(): any {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
 
   yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);

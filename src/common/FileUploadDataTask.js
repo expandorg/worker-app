@@ -5,7 +5,7 @@ import { type XhrCallbacks } from '@expandorg/api-client/src/Xhr';
 import { filesApi } from '../api/FilesApi';
 
 export default class FileUploadDataTask extends FileUploadTask {
-  cb: XhrCallbacks = null;
+  cb: ?XhrCallbacks = null;
   aborted: boolean = false;
 
   upload = async () => {

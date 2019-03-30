@@ -7,13 +7,13 @@ export const assignmentsEntitiesSelector = (state: Object) =>
 export const assignmentsListSelector = (state: Object) =>
   state.assignments.list;
 
-export const assignmentsSelector = createSelector(
+export const assignmentsSelector: any = createSelector(
   assignmentsEntitiesSelector,
   assignmentsListSelector,
   (entities, list) => list.map(jobId => entities[jobId])
 );
 
-export const makeJobAssignmentSelector = () =>
+export const makeJobAssignmentSelector = (): any =>
   createSelector(
     assignmentsSelector,
     (state, jobId) => +jobId,
@@ -21,7 +21,7 @@ export const makeJobAssignmentSelector = () =>
       assignments.find(assignment => assignment.jobId === jobId)
   );
 
-export const makeTaskAssignmentSelector = () =>
+export const makeTaskAssignmentSelector = (): any =>
   createSelector(
     assignmentsSelector,
     (state, taskId) => +taskId,
