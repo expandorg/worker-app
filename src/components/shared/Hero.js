@@ -4,19 +4,19 @@ import cn from 'classnames';
 
 import { ReactComponent as GemsIcon } from '../assets/gem.svg';
 
-import styles from './Hero.module.styl';
+import './Hero.styl';
 
 const Hero = ({ className, value, title, gems }) => (
-  <div className={cn(styles.container, className)}>
-    <div className={styles.value}>
+  <div className={cn('gem-hero', className)}>
+    <div className="gem-hero-value">
       {value || '0'}
       {gems && (
-        <div className={styles.gems}>
-          <GemsIcon className={styles.icon} />{' '}
+        <div className="gem-hero-gems">
+          <GemsIcon className="gem-hero-icon" />{' '}
         </div>
       )}
     </div>
-    <div className={styles.title}>{title}</div>
+    <div className="gem-hero-title">{title}</div>
   </div>
 );
 

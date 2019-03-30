@@ -21,7 +21,6 @@ export const makeJobAssignmentSelector = (): any =>
       assignments.find(assignment => assignment.jobId === jobId)
   );
 
-
 export const makeTaskAssignmentSelector = (): any =>
   createSelector(
     assignmentsSelector,

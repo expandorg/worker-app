@@ -1,0 +1,41 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/size'
+
+.gem-hero
+  margin-top: 50px;
+  text-align: center;
+  color: color-text-teel-large
+
+  &-value
+    font(oversized, false, 80px)
+    position: relative
+
+    @media(max-width: breakpoint-mobile-sm)
+      font-size: 60px
+
+  &-title
+    font(subtitle)
+    color: color-text-grey
+    text-transform: uppercase;
+
+  &-gems
+    position: absolute
+    bottom: 18px
+    right: -18px
+
+    box-sizing: border-box
+    line-height: 36px
+    font-size: 36px
+
+    width: 36px
+    height: 36px
+
+    box-shadow: light-shadow
+    background-color: color-white;
+    border-radius: 18px
+
+
+  &-icon
+    path
+      fill color-pink
