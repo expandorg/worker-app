@@ -60,3 +60,9 @@ export const responsesActionTypes = createActionTypes('responses', {
   VERIFY_COMPLETE: null,
   VERIFY_FAILED: null,
 });
+
+export const profileActionTypes = createActionTypes('profile', {
+  SAVE: null,
+  SAVE_COMPLETE: null,
+  SAVE_FAILED: null,
+});

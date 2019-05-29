@@ -14,6 +14,7 @@ import {
   tasksActionTypes,
   assignmentActionTypes,
   responsesActionTypes,
+  profileActionTypes,
 } from '../sagas/actionTypes';
 
 export default combineReducers({
@@ -34,4 +35,6 @@ export default combineReducers({
   cancelAssignment: requestUiStateReducer(assignmentActionTypes.CANCEL),
 
   verifyResponse: requestUiStateReducer(responsesActionTypes.VERIFY),
+
+  saveProfile: requestUiStateReducer(profileActionTypes.SAVE),
 });
