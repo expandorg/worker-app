@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
 import Form from './Form/Form';
+
 import Name from './Form/Name';
 import Languages from './Form/Languages';
 import Location from './Form/Location';
@@ -22,6 +23,8 @@ const titles = [
   'What is your interests?',
 ];
 
+const last = titles.length - 1;
+
 export default function SurveyWizard({ onSubmit, submitState }) {
   const [profile, setProfile] = useState({
     name: '',
@@ -35,13 +38,7 @@ export default function SurveyWizard({ onSubmit, submitState }) {
 
   const [page, setPage] = useState(0);
 
-  const save = useCallback(() => {
-    if (submitState.state !== RequestStates.Fetching) {
-      onSubmit(profile);
-    }
-  }, [profile, submitState]);
-
-  const last = titles.length - 1;
+  const save = useCallback(() => onSubmit(profile), [profile]);
 
   return (
     <Form

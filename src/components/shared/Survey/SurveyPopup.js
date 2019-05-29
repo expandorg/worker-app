@@ -37,8 +37,6 @@ class SurveyPopup extends Component {
     }
   };
 
-  handleClose = () => {};
-
   render() {
     const { user, submitState, onHide } = this.props;
     return (
