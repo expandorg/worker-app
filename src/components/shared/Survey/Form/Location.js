@@ -20,6 +20,10 @@ const googlePlaces = `https://maps.googleapis.com/maps/api/js?libraries=places&l
   settings.googleMapsKey
 }`;
 
+const searchOptions = {
+  types: ['address'],
+};
+
 function Location({ profile, onChange }) {
   const loc = useCurrentLocation();
   const loaded = useScript(googlePlaces);
@@ -52,6 +56,8 @@ function Location({ profile, onChange }) {
         <PlacesAutocomplete
           value={value}
           onChange={setValue}
+          searchOptions={searchOptions}
+          debounce={400}
           onSelect={city => {
             setValue(city);
             onChange({ ...profile, location: city });
