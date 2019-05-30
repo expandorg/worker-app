@@ -6,6 +6,7 @@ import {
   Input,
   useScript,
   useService,
+  AutocompleteInput,
   Suggestions,
 } from '@expandorg/components';
 import PlacesAutocomplete from 'react-places-autocomplete';
@@ -52,6 +53,14 @@ function Location({ profile, onChange }) {
 
   return (
     <div className={styles.field}>
+      {!loaded && (
+        <AutocompleteInput
+          value={value}
+          className={styles.autocomplete}
+          placeholder="Country, City"
+          onChange={({ target }) => setValue(target.value)}
+        />
+      )}
       {loaded && (
         <PlacesAutocomplete
           value={value}
