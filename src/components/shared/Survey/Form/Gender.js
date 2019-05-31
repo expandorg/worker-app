@@ -6,9 +6,10 @@ import { Dropdown } from '@expandorg/components';
 import styles from './styles.module.styl';
 
 const options = [
-  { value: null, label: "Don't want to anser" },
+  { value: null, label: "Don't want to awnser" },
   { value: 'Male', label: 'Male' },
   { value: 'Female', label: 'Female' },
+  { value: 'Other', label: 'Other' },
 ];
 
 export default function Gender({ profile, onChange }) {
