@@ -22,7 +22,7 @@ const googlePlaces = `https://maps.googleapis.com/maps/api/js?libraries=places&l
 }`;
 
 const searchOptions = {
-  types: ['address'],
+  types: ['(cities)'],
 };
 
 function Location({ profile, onChange }) {
@@ -35,10 +35,10 @@ function Location({ profile, onChange }) {
   useEffect(() => {
     let unsubscribe = null;
     if (loc && loaded) {
-      console.log('services');
-
+      console.log(loc, loaded);
       const reverseGeocoder = services.resolve('reverseGeocoder');
       unsubscribe = reverseGeocoder.locateCity(loc.lat, loc.lng, city => {
+        console.log(city);
         if (!profile.location) {
           onChange({ ...profile, location: city });
         }
