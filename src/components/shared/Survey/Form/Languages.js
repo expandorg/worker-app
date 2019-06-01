@@ -32,7 +32,7 @@ export default function Languages({ profile, onChange }) {
         });
       }
     },
-    [profile]
+    [onChange, profile]
   );
 
   return (

@@ -35,10 +35,8 @@ function Location({ profile, onChange }) {
   useEffect(() => {
     let unsubscribe = null;
     if (loc && loaded) {
-      console.log(loc, loaded);
       const reverseGeocoder = services.resolve('reverseGeocoder');
       unsubscribe = reverseGeocoder.locateCity(loc.lat, loc.lng, city => {
-        console.log(city);
         if (!profile.location) {
           onChange({ ...profile, location: city });
         }
@@ -49,6 +47,7 @@ function Location({ profile, onChange }) {
         unsubscribe();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loc, loaded]);
 
   return (

@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 
 function Survey({ user }) {
   const [skipped, setSkipped] = useLocalStorage('expand-surey', false);
-  const handleHide = useCallback(() => setSkipped(true), [skipped]);
+  const handleHide = useCallback(() => setSkipped(true), [setSkipped]);
   if (skipped || !surveyVisible(user)) {
     return null;
   }

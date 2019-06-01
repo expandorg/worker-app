@@ -38,7 +38,7 @@ export default function SurveyWizard({ onSubmit, submitState }) {
 
   const [page, setPage] = useState(0);
 
-  const save = useCallback(() => onSubmit(profile), [profile]);
+  const save = useCallback(() => onSubmit(profile), [onSubmit, profile]);
 
   return (
     <Form

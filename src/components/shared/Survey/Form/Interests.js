@@ -22,7 +22,7 @@ export default function Interests({ profile, onChange }) {
         });
       }
     },
-    [profile]
+    [onChange, profile]
   );
 
   return (
