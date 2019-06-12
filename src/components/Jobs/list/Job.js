@@ -73,9 +73,7 @@ export default class Job extends Component {
               <I
                 tooltipOrientation="right"
                 className={styles.i}
-                tooltip={`You need ${
-                  job.logic.funding.requirement
-                } to qualify for this job.`}
+                tooltip={`You need ${job.logic.funding.requirement} to qualify for this job.`}
               />
             </button>
           )}

@@ -17,9 +17,7 @@ import settings from '../../../../common/settings';
 
 import styles from './styles.module.styl';
 
-const googlePlaces = `https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=${
-  settings.googleMapsKey
-}`;
+const googlePlaces = `https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=${settings.googleMapsKey}`;
 
 const searchOptions = {
   types: ['(cities)'],
