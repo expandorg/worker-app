@@ -14,7 +14,7 @@ class EmptyPlugin {
 }
 
 const entry = {
-  app: ['@babel/polyfill', './index'],
+  app: ['core-js/stable', 'regenerator-runtime/runtime', './index'],
 };
 
 const babelPlugins = [
@@ -72,6 +72,7 @@ export default (env = {}) => {
                 {
                   modules: false,
                   useBuiltIns: 'entry',
+                  corejs: 3,
                 },
               ],
               '@babel/preset-flow',
@@ -109,10 +110,11 @@ export default (env = {}) => {
               options: {
                 sourceMap: true,
                 importLoaders: 2,
-                modules: true,
-                localIdentName: dev
-                  ? '[local]__[path][name]__[hash:base64:5]'
-                  : '[hash:base64:5]',
+                modules: {
+                  localIdentName: dev
+                    ? '[local]__[path][name]__[hash:base64:5]'
+                    : '[hash:base64:5]',
+                },
               },
             },
             'postcss-loader?sourceMap',

@@ -5,6 +5,9 @@ import { gemsBalanceReducer as gemsBalance } from '@expandorg/app-gemtokens';
 
 import user from './userReducer';
 
+import profile from './profile/profileReducer';
+import filters from './profile/filtersReducer';
+
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
 import onboardingEntities from './jobs/onboardingEntitiesReducer';
@@ -23,6 +26,10 @@ import ui from './ui';
 export default combineReducers({
   user,
   gemsBalance,
+  profile: combineReducers({
+    profile,
+    filters,
+  }),
   jobs: combineReducers({
     entities: jobEntities,
     list: jobsList,
@@ -42,8 +49,8 @@ export default combineReducers({
     entities: responseEntities,
     assigned: assignedResponses,
   }),
-  ui,
   web3: combineReducers({
     metamask,
   }),
+  ui,
 });

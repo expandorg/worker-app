@@ -8,7 +8,7 @@ import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
 
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
-import { cancelAssignmentStateSelector } from '../../../selectors/uiStateSelectors';
+import { cancelAssignmentStateSelector } from '../../../selectors/ui';
 import { cancelAssignment } from '../../../sagas/assignmentsSagas';
 
 const mapStateToProps = state => ({

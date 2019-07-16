@@ -20,7 +20,7 @@ import AssignedJobRedirect from '../../shared/AssignedJobRedirect';
 
 import { assignJob } from '../../../sagas/jobsSagas';
 import { jobListSelector } from '../../../selectors/jobsSelectors';
-import { assignJobStateSelector } from '../../../selectors/uiStateSelectors';
+import { assignJobStateSelector } from '../../../selectors/ui';
 
 const mapStateToProps = state => ({
   jobs: jobListSelector(state),

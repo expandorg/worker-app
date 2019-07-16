@@ -8,13 +8,7 @@ import { gemsActionTypes } from '@expandorg/app-gemtokens';
 import { accountActionTypes } from '@expandorg/app-account';
 import { handleAssignAddress } from '@expandorg/app-account/sagas';
 
-import {
-  jobsActionTypes,
-  tasksActionTypes,
-  profileActionTypes,
-} from './actionTypes';
-
-import { profileApi } from '../api/ProfileApi';
+import { jobsActionTypes, tasksActionTypes } from './actionTypes';
 
 function* handleUserChangedSaga() {
   const user = yield select(userSelector);
@@ -27,12 +21,6 @@ function* handleUserChangedSaga() {
     });
   }
 }
-
-export const saveProfile = profile => ({
-  type: profileActionTypes.SAVE,
-  payload: { profile },
-  asyncCall: profileApi.save,
-});
 
 const actionsThatChangesUser = [
   authActionTypes.GET_CURRENT_COMPLETE,
@@ -62,7 +50,6 @@ export function* userSagas() {
       accountActionTypes.CONFIRM_EMAIL,
       accountActionTypes.RESEND_CONFIRM_EMAIL,
       accountActionTypes.CHANGE_PASSWORD,
-      profileActionTypes.SAVE,
     ],
     handleAsyncCall
   );

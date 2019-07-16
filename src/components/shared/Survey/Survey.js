@@ -1,33 +1,41 @@
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 
-import { connect } from 'react-redux';
-import { userProps } from '@expandorg/app-auth';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { userSelector } from '@expandorg/app-auth/selectors';
 
+import { RequestStates } from '@expandorg/app-utils';
 import SurveyPopup from './SurveyPopup';
+import { getProfile } from '../../../sagas/profileSagas';
+import { getProfileStateSelector } from '../../../selectors/ui';
+import { profileSelector } from '../../../selectors/profileSelectors';
 
-import { surveyVisible } from '../../../model/survey';
-import useLocalStorage from '../../common/useLocalStorage';
-
-const mapStateToProps = state => ({
-  user: userSelector(state),
-});
-
-function Survey({ user }) {
-  const [skipped, setSkipped] = useLocalStorage('expand-surey', false);
-  const handleHide = useCallback(() => setSkipped(true), [setSkipped]);
-  if (skipped || !surveyVisible(user)) {
+const showProfile = profile => {
+  if (!profile) {
     return null;
   }
-  return <SurveyPopup user={user} onHide={handleHide} />;
+  return false;
+};
+
+export default function Survey() {
+  const dispatch = useDispatch();
+
+  const user = useSelector(userSelector);
+  const profile = useSelector(profileSelector);
+
+  const fetchState = useSelector(getProfileStateSelector);
+
+  const userId = user ? user.id : null;
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getProfile(userId));
+    }
+  }, [dispatch, userId]);
+
+  const fetched = fetchState.state === RequestStates.Fetched;
+  if (!user || !fetched || !showProfile(profile)) {
+    return null;
+  }
+  return <SurveyPopup user={user} profile={profile} />;
 }
-
-Survey.propTypes = {
-  user: userProps,
-};
-
-Survey.defaultProps = {
-  user: null,
-};
-
-export default connect(mapStateToProps)(Survey);
