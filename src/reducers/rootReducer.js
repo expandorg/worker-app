@@ -4,6 +4,7 @@ import { metamaskReducer as metamask } from '@expandorg/app-web3';
 import { gemsBalanceReducer as gemsBalance } from '@expandorg/app-gemtokens';
 
 import user from './userReducer';
+import authToken from './authTokenReducer';
 
 import profile from './profile/profileReducer';
 import filters from './profile/filtersReducer';
@@ -25,6 +26,7 @@ import ui from './ui';
 
 export default combineReducers({
   user,
+  authToken,
   gemsBalance,
   profile: combineReducers({
     profile,

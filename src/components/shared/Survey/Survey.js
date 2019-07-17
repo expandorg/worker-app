@@ -37,5 +37,5 @@ export default function Survey() {
   if (!user || !fetched || !showProfile(profile)) {
     return null;
   }
-  return <SurveyPopup user={user} profile={profile} />;
+  return <SurveyPopup userId={user.id} profile={profile} />;
 }

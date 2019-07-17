@@ -1,49 +1,67 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { userProps } from '@expandorg/app-auth';
 import { RequestStates } from '@expandorg/app-utils';
 
 import Navbar from '../Navbar';
 import SurveyWizard from './SurveyWizard';
 
 import { saveProfileStateSelector } from '../../../selectors/ui';
-import { saveProfile } from '../../../sagas/profileSagas';
+import { profileFiltersSelector } from '../../../selectors/profileSelectors';
+import { saveProfile, getAllFilters } from '../../../sagas/profileSagas';
 
 import styles from './SurveyPopup.module.styl';
 
-export default function SurveyPopup({ user, onHide }) {
+export default function SurveyPopup({ userId, profile }) {
   const dispatch = useDispatch();
+
   const submitState = useSelector(saveProfileStateSelector);
+  const filters = useSelector(profileFiltersSelector);
+  const fetching = submitState.state === RequestStates.Fetching;
+
+  useEffect(() => {
+    dispatch(getAllFilters());
+  });
 
   const submit = useCallback(
-    profile => {
-      if (submitState.state !== RequestStates.Fetching) {
-        dispatch(saveProfile(profile));
+    form => {
+      if (!fetching) {
+        dispatch(saveProfile(userId, form));
       }
     },
-    [dispatch, submitState.state]
+    [dispatch, fetching, userId]
   );
+
+  const hide = useCallback(() => {
+    if (!fetching) {
+      dispatch(saveProfile(userId, null));
+    }
+  }, [dispatch, fetching, userId]);
 
   return (
     <div className={styles.container}>
       <Navbar title="Getting Started" theme="dark" top={false}>
         <div className={styles.header}>
-          <button onClick={onHide} className={styles.skip}>
+          <button onClick={hide} className={styles.skip}>
             skip
           </button>
         </div>
       </Navbar>
       <div className={styles.content}>
-        <SurveyWizard user={user} submitState={submitState} onSubmit={submit} />
+        <SurveyWizard
+          profile={profile}
+          filters={filters}
+          submitState={submitState}
+          onSubmit={submit}
+        />
       </div>
     </div>
   );
 }
 
 SurveyPopup.propTypes = {
-  user: userProps.isRequired,
-  onHide: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired,
+  profile: PropTypes.shape({}).isRequired,
 };

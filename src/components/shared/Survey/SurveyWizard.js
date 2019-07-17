@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
@@ -25,16 +25,25 @@ const titles = [
 
 const last = titles.length - 1;
 
-export default function SurveyWizard({ onSubmit, submitState }) {
-  const [profile, setProfile] = useState({
-    name: '',
-    languages: [],
-    location: '',
-    birthdate: undefined,
-    gender: '',
-    edication: '',
-    interests: [],
-  });
+const getInitialState = () => ({
+  name: '',
+  languages: [],
+  location: '',
+  birthdate: undefined,
+  gender: '',
+  edication: '',
+  interests: [],
+});
+
+export default function SurveyWizard({
+  onSubmit,
+  submitState,
+  profile: original,
+}) {
+  const [profile, setProfile] = useState(getInitialState(original));
+  useEffect(() => {
+    setProfile(getInitialState(original));
+  }, [original]);
 
   const [page, setPage] = useState(0);
 
@@ -62,6 +71,9 @@ export default function SurveyWizard({ onSubmit, submitState }) {
 }
 
 SurveyWizard.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  profile: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({}).isRequired,
+
   submitState: requestStateProps.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
