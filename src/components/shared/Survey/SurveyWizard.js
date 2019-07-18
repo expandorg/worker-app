@@ -36,7 +36,7 @@ export default function SurveyWizard({
   const [page, setPage] = useState(0);
 
   const skip = useCallback(() => {
-    onSave(getRequestForm(o, userId));
+    onSave(getRequestForm(getWizardForm(o), userId));
     onHide();
   }, [o, onHide, onSave, userId]);
 

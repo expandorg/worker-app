@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
-import { useSubmitEffect } from '@expandorg/app-utils';
+import { useSubmitEffect, RequestStates } from '@expandorg/app-utils';
 
 import SurveyPopup from './SurveyPopup';
 import { getProfile } from '../../../sagas/profileSagas';
@@ -14,7 +14,7 @@ const showProfile = profile => {
   if (!profile) {
     return false;
   }
-  return true; // profile.state === 'not_filled';
+  return profile.state === 'not_filled';
 };
 
 export default function Survey() {
@@ -27,12 +27,13 @@ export default function Survey() {
   const [visible, setVisible] = useState(false);
 
   const userId = user ? user.id : null;
+  const isFetched = fetchState.state === RequestStates.Fetched;
 
   useEffect(() => {
-    if (userId) {
+    if (!isFetched && userId) {
       dispatch(getProfile());
     }
-  }, [dispatch, userId]);
+  }, [dispatch, userId, isFetched]);
 
   const fetched = useCallback(() => {
     if (showProfile(profile)) {
