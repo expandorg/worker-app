@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { Dropdown } from '@expandorg/components';
 
 import styles from './styles.module.styl';
 
-const options = [
-  { value: null, label: "Don't want to awnser" },
-  { value: 'Male', label: 'Male' },
-  { value: 'Female', label: 'Female' },
-  { value: 'Other', label: 'Other' },
-];
+export default function Gender({ profile, onChange, genders }) {
+  const options = useMemo(
+    () => genders.map(({ id, value }) => ({ value: id, label: value })),
+    [genders]
+  );
 
-export default function Gender({ profile, onChange }) {
+  const change = useCallback(
+    v => {
+      onChange({ ...profile, gender: [+v] });
+    },
+    [onChange, profile]
+  );
+
+  const value = profile.gender.length ? profile.gender[0] : undefined;
+
   return (
     <div className={styles.field}>
       <Dropdown
         className={styles.dropdown}
         options={options}
         label="Your gender"
-        value={profile.gender}
-        onChange={gender => onChange({ ...profile, gender })}
+        value={value}
+        onChange={change}
       />
     </div>
   );
@@ -28,5 +35,6 @@ export default function Gender({ profile, onChange }) {
 
 Gender.propTypes = {
   profile: PropTypes.shape({}).isRequired,
+  genders: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
 };

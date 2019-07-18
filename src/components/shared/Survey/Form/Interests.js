@@ -1,51 +1,35 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
 
+import { useAutocomplete } from '../profile';
 import Tags from './Tags';
 
 import styles from './styles.module.styl';
 
-export const languages = [];
-
-export default function Interests({ profile, onChange }) {
-  const [suggest, setSuggest] = useState('');
-
-  const handleSelect = useCallback(
-    lang => {
-      setSuggest('');
-      if (lang) {
-        onChange({
-          ...profile,
-          interests: [...new Set(profile.interests.concat(lang))],
-        });
-      }
-    },
-    [onChange, profile]
-  );
+export default function Interests({ profile, onChange, interests }) {
+  const [
+    suggest,
+    change,
+    select,
+    deselect,
+    autocomplete,
+    seleted,
+  ] = useAutocomplete(profile, interests, onChange, 'interests');
 
   return (
     <div className={styles.field}>
       <AutocompleteInput
         className={styles.autocomplete}
         value={suggest}
-        allowAdd
         placeholder="Your interests"
-        options={languages}
-        onChange={({ target }) => setSuggest(target.value)}
-        onSelect={handleSelect}
+        options={autocomplete}
+        onChange={change}
+        onSelect={select}
       />
-      {profile.interests.length > 0 && (
-        <Tags
-          tags={profile.interests}
-          onDelete={lang =>
-            onChange({
-              ...profile,
-              interests: profile.interests.filter(v => v !== lang),
-            })
-          }
-        />
+      {seleted.length > 0 && (
+        <Tags tags={profile.interests} onDelete={deselect} />
       )}
     </div>
   );
@@ -53,5 +37,6 @@ export default function Interests({ profile, onChange }) {
 
 Interests.propTypes = {
   profile: PropTypes.shape({}).isRequired,
+  interests: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
 };

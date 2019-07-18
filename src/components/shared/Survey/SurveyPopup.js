@@ -3,65 +3,43 @@ import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { RequestStates } from '@expandorg/app-utils';
-
-import Navbar from '../Navbar';
-import SurveyWizard from './SurveyWizard';
-
 import { saveProfileStateSelector } from '../../../selectors/ui';
 import { profileFiltersSelector } from '../../../selectors/profileSelectors';
 import { saveProfile, getAllFilters } from '../../../sagas/profileSagas';
 
-import styles from './SurveyPopup.module.styl';
+import SurveyWizard from './SurveyWizard';
 
-export default function SurveyPopup({ userId, profile }) {
+export default function SurveyPopup({ profile, userId, onHide }) {
   const dispatch = useDispatch();
 
-  const submitState = useSelector(saveProfileStateSelector);
   const filters = useSelector(profileFiltersSelector);
-  const fetching = submitState.state === RequestStates.Fetching;
+  const saveState = useSelector(saveProfileStateSelector);
 
   useEffect(() => {
     dispatch(getAllFilters());
-  });
+  }, [dispatch]);
 
-  const submit = useCallback(
-    form => {
-      if (!fetching) {
-        dispatch(saveProfile(userId, form));
-      }
+  const save = useCallback(
+    data => {
+      dispatch(saveProfile(data));
     },
-    [dispatch, fetching, userId]
+    [dispatch]
   );
 
-  const hide = useCallback(() => {
-    if (!fetching) {
-      dispatch(saveProfile(userId, null));
-    }
-  }, [dispatch, fetching, userId]);
-
   return (
-    <div className={styles.container}>
-      <Navbar title="Getting Started" theme="dark" top={false}>
-        <div className={styles.header}>
-          <button onClick={hide} className={styles.skip}>
-            skip
-          </button>
-        </div>
-      </Navbar>
-      <div className={styles.content}>
-        <SurveyWizard
-          profile={profile}
-          filters={filters}
-          submitState={submitState}
-          onSubmit={submit}
-        />
-      </div>
-    </div>
+    <SurveyWizard
+      userId={userId}
+      profile={profile}
+      filters={filters}
+      saveState={saveState}
+      onSave={save}
+      onHide={onHide}
+    />
   );
 }
 
 SurveyPopup.propTypes = {
-  userId: PropTypes.number.isRequired,
   profile: PropTypes.shape({}).isRequired,
+  userId: PropTypes.number.isRequired,
+  onHide: PropTypes.func.isRequired,
 };

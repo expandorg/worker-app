@@ -30,10 +30,9 @@ Form.propTypes = {
   title: PropTypes.string.isRequired,
   onNext: PropTypes.func.isRequired,
   onBack: PropTypes.func,
-  nextTitle: PropTypes.string,
+  nextTitle: PropTypes.string.isRequired,
 };
 
 Form.defaultProps = {
   onBack: null,
-  nextTitle: 'Next',
 };

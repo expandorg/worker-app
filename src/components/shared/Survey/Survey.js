@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
+import { useSubmitEffect } from '@expandorg/app-utils';
 
-import { RequestStates } from '@expandorg/app-utils';
 import SurveyPopup from './SurveyPopup';
 import { getProfile } from '../../../sagas/profileSagas';
 import { getProfileStateSelector } from '../../../selectors/ui';
@@ -12,9 +12,9 @@ import { profileSelector } from '../../../selectors/profileSelectors';
 
 const showProfile = profile => {
   if (!profile) {
-    return null;
+    return false;
   }
-  return false;
+  return true; // profile.state === 'not_filled';
 };
 
 export default function Survey() {
@@ -22,20 +22,30 @@ export default function Survey() {
 
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
-
   const fetchState = useSelector(getProfileStateSelector);
+
+  const [visible, setVisible] = useState(false);
 
   const userId = user ? user.id : null;
 
   useEffect(() => {
     if (userId) {
-      dispatch(getProfile(userId));
+      dispatch(getProfile());
     }
   }, [dispatch, userId]);
 
-  const fetched = fetchState.state === RequestStates.Fetched;
-  if (!user || !fetched || !showProfile(profile)) {
+  const fetched = useCallback(() => {
+    if (showProfile(profile)) {
+      setVisible(true);
+    }
+  }, [profile]);
+
+  useSubmitEffect(fetchState, fetched);
+
+  const hide = useCallback(() => setVisible(false), []);
+
+  if (!visible) {
     return null;
   }
-  return <SurveyPopup userId={user.id} profile={profile} />;
+  return <SurveyPopup profile={profile} userId={userId} onHide={hide} />;
 }

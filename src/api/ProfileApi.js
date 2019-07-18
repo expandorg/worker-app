@@ -2,12 +2,12 @@
 import { BaseApi } from '@expandorg/api-client';
 
 export class ProfileApi extends BaseApi {
-  getUserProfile = ({ userId }: Object) => this.get(`/users/profile/${userId}`);
+  getUserProfile = () => this.get('/workers/profile');
 
-  getAllFilters = () => this.post('/eligibility/filters');
+  getAllFilters = () => this.get('/filters');
 
-  createWorkerProfile = ({ userId, profile }: Object) =>
-    this.post(`/users/profile/${userId}`, profile);
+  createWorkerProfile = ({ profile }: Object) =>
+    this.post('/workers/profile', profile);
 }
 
 export const profileApi = new ProfileApi();

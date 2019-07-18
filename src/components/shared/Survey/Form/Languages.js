@@ -1,39 +1,23 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
+
+import { useAutocomplete } from '../profile';
 
 import Tags from './Tags';
 
 import styles from './styles.module.styl';
 
-export const languages = [
-  'English',
-  'Spanish',
-  'Russian',
-  'Chinese',
-  'Arabic',
-  'Portuguese',
-  'Japanese',
-  'German',
-  'French',
-];
-
-export default function Languages({ profile, onChange }) {
-  const [suggest, setSuggest] = useState('');
-
-  const handleSelect = useCallback(
-    lang => {
-      setSuggest('');
-      if (lang) {
-        onChange({
-          ...profile,
-          languages: [...new Set(profile.languages.concat(lang))],
-        });
-      }
-    },
-    [onChange, profile]
-  );
+export default function Languages({ profile, onChange, languages }) {
+  const [
+    suggest,
+    change,
+    select,
+    deselect,
+    autocomplete,
+    seleted,
+  ] = useAutocomplete(profile, languages, onChange, 'languages');
 
   return (
     <div className={styles.field}>
@@ -41,26 +25,17 @@ export default function Languages({ profile, onChange }) {
         className={styles.autocomplete}
         value={suggest}
         placeholder="Languages"
-        options={languages}
-        onChange={({ target }) => setSuggest(target.value)}
-        onSelect={handleSelect}
+        options={autocomplete}
+        onChange={change}
+        onSelect={select}
       />
-      {profile.languages.length > 0 && (
-        <Tags
-          tags={profile.languages}
-          onDelete={lang =>
-            onChange({
-              ...profile,
-              languages: profile.languages.filter(v => v !== lang),
-            })
-          }
-        />
-      )}
+      {seleted.length > 0 && <Tags tags={seleted} onDelete={deselect} />}
     </div>
   );
 }
 
 Languages.propTypes = {
   profile: PropTypes.shape({}).isRequired,
+  languages: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
 };

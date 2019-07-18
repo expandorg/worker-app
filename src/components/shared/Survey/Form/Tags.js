@@ -6,10 +6,10 @@ import styles from './Tags.module.styl';
 export default function Tags({ tags, onDelete }) {
   return (
     <div className={styles.list}>
-      {tags.map(value => (
+      {tags.map(({ id, value }) => (
         <div key={value} className={styles.tag}>
           {value}
-          <button className={styles.delete} onClick={() => onDelete(value)}>
+          <button className={styles.delete} onClick={() => onDelete(id)}>
             ✕
           </button>
         </div>
@@ -19,7 +19,7 @@ export default function Tags({ tags, onDelete }) {
 }
 
 Tags.propTypes = {
-  tags: PropTypes.arrayOf(PropTypes.string),
+  tags: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func.isRequired,
 };
 

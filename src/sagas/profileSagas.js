@@ -1,13 +1,13 @@
 import { takeEvery } from 'redux-saga/effects';
 
 import { handleAsyncCall } from '@expandorg/app-utils';
-
 import { profileActionTypes } from './actionTypes';
+
 import { profileApi } from '../api/ProfileApi';
 
-export const getProfile = userId => ({
+export const getProfile = () => ({
   type: profileActionTypes.FETCH,
-  payload: { userId },
+  payload: {},
   asyncCall: profileApi.getUserProfile,
 });
 
@@ -17,9 +17,9 @@ export const getAllFilters = () => ({
   asyncCall: profileApi.getAllFilters,
 });
 
-export const saveProfile = (userId, profile) => ({
+export const saveProfile = profile => ({
   type: profileActionTypes.SAVE,
-  payload: { userId, profile },
+  payload: { profile },
   asyncCall: profileApi.createWorkerProfile,
 });
 
