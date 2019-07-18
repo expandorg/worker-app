@@ -1,5 +1,12 @@
 import { useState, useCallback, useMemo } from 'react';
 
+export const showProfile = profile => {
+  if (!profile) {
+    return false;
+  }
+  return profile.state === 'not_filled';
+};
+
 export const getWizardForm = profile => {
   const {
     attributes: { Language, Education, Interest, Gender },

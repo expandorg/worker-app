@@ -10,12 +10,7 @@ import { getProfile } from '../../../sagas/profileSagas';
 import { getProfileStateSelector } from '../../../selectors/ui';
 import { profileSelector } from '../../../selectors/profileSelectors';
 
-const showProfile = profile => {
-  if (!profile) {
-    return false;
-  }
-  return profile.state === 'not_filled';
-};
+import { showProfile } from './profile';
 
 export default function Survey() {
   const dispatch = useDispatch();
@@ -30,7 +25,7 @@ export default function Survey() {
   const isFetched = fetchState.state === RequestStates.Fetched;
 
   useEffect(() => {
-    if (!isFetched && userId) {
+    if (!isFetched && userId !== null) {
       dispatch(getProfile());
     }
   }, [dispatch, userId, isFetched]);
