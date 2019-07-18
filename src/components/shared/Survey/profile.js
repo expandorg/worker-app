@@ -47,15 +47,16 @@ export const getRequestForm = (form, userId) => {
 
 const filter = o => o;
 
-export function useDropdown(profile, options, onChange, property) {
-  let val = '';
-  if (profile[property].length) {
-    const id = profile[property][0];
-    const option = options.find(o => o.id === id);
-    if (option) {
-      val = option.value;
-    }
+const getSelectedValue = (values, options) => {
+  if (!values.length) {
+    return '';
   }
+  const option = options.find(o => o.id === values[0]);
+  return option ? option.value : '';
+};
+
+export function useDropdown(profile, options, onChange, property) {
+  const val = getSelectedValue(profile[property], options);
 
   const autocomplete = useMemo(() => options.map(({ value }) => value), [
     options,
