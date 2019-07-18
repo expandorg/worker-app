@@ -5,6 +5,7 @@ import { AutocompleteInput } from '@expandorg/components';
 
 import { useAutocomplete } from '../profile';
 import Tags from './Tags';
+import { Field } from './Form';
 
 import styles from './styles.module.styl';
 
@@ -19,7 +20,7 @@ export default function Interests({ profile, onChange, interests }) {
   ] = useAutocomplete(profile, interests, onChange, 'interests');
 
   return (
-    <div className={styles.field}>
+    <Field title="What is your interests?">
       <AutocompleteInput
         className={styles.autocomplete}
         value={suggest}
@@ -28,10 +29,8 @@ export default function Interests({ profile, onChange, interests }) {
         onChange={change}
         onSelect={select}
       />
-      {seleted.length > 0 && (
-        <Tags tags={profile.interests} onDelete={deselect} />
-      )}
-    </div>
+      {seleted.length > 0 && <Tags tags={seleted} onDelete={deselect} />}
+    </Field>
   );
 }
 

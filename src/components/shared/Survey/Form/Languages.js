@@ -6,6 +6,7 @@ import { AutocompleteInput } from '@expandorg/components';
 import { useAutocomplete } from '../profile';
 
 import Tags from './Tags';
+import { Field } from './Form';
 
 import styles from './styles.module.styl';
 
@@ -20,7 +21,7 @@ export default function Languages({ profile, onChange, languages }) {
   ] = useAutocomplete(profile, languages, onChange, 'languages');
 
   return (
-    <div className={styles.field}>
+    <Field title="What languages do you know?">
       <AutocompleteInput
         className={styles.autocomplete}
         value={suggest}
@@ -30,7 +31,7 @@ export default function Languages({ profile, onChange, languages }) {
         onSelect={select}
       />
       {seleted.length > 0 && <Tags tags={seleted} onDelete={deselect} />}
-    </div>
+    </Field>
   );
 }
 

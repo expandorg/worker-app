@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 
 import { DateInput } from '@expandorg/components';
-
-import styles from './styles.module.styl';
+import { Field } from './Form';
 
 export default function BirthDate({ profile, onChange }) {
   const change = useCallback(
@@ -16,14 +15,14 @@ export default function BirthDate({ profile, onChange }) {
   );
 
   return (
-    <div className={styles.field}>
+    <Field title="What is your birth date?">
       <DateInput
         name="birthdate"
         placeholder="Your birth date"
         value={profile.birthdate}
         onChange={change}
       />
-    </div>
+    </Field>
   );
 }
 

@@ -1,62 +1,90 @@
 import { useState, useCallback, useMemo } from 'react';
 
 export const getWizardForm = profile => {
-  const { attributes } = profile;
-
-  const languages = attributes.Language
-    ? attributes.Language.map(v => v.id)
-    : [];
-
-  const interests = attributes.Interest
-    ? attributes.Interest.map(v => v.id)
-    : [];
-
-  const gender = attributes.Gender ? attributes.Gender.map(v => v.id) : [];
+  const {
+    attributes: { Language, Education, Interest, Gender },
+  } = profile;
 
   return {
     worker_id: profile.worker_id,
     state: profile.state,
     name: profile.name,
     birthdate: profile.birthdate,
-    languages,
-    interests,
-    gender,
+    languages: Language ? Language.map(v => v.id) : [],
+    gender: Gender ? Gender.map(v => v.id) : [],
+    education: Education ? Education.map(v => v.id) : [],
+    interests: Interest ? Interest.map(v => v.id) : [],
   };
+};
+
+const getProfileState = p => {
+  return !!p.name &&
+    !!p.birthdate &&
+    !!p.languages.length &&
+    !!p.gender.length &&
+    !!p.education.length &&
+    !!p.interests.length
+    ? 'complete'
+    : 'incomplete';
 };
 
 export const getRequestForm = (form, userId) => {
   const notFilled = form.state === 'not_filled';
-  const attributes = [...form.languages, ...form.gender, ...form.interests];
 
   return {
     worker_id: notFilled ? userId : form.worker_id,
     name: form.name,
     birthdate: form.birthdate,
-    state: 'incomplete',
-    attributes,
+    state: getProfileState(form),
+    attributes: [
+      ...form.languages,
+      ...form.gender,
+      ...form.education,
+      ...form.interests,
+    ],
   };
 };
 
-export const titles = [
-  'Let’s get you all set up with just a few questions starting off with your name.',
-  'What languages do you know?',
-  'Where are you living?',
-  'What is your birth date?',
-  'What is your gender?',
-  'What is your education?',
-  'What is your interests?',
-];
+const filter = o => o;
 
-export const last = titles.length - 1;
+export function useDropdown(profile, options, onChange, property) {
+  let val = '';
+  if (profile[property].length) {
+    const id = profile[property][0];
+    const option = options.find(o => o.id === id);
+    if (option) {
+      val = option.value;
+    }
+  }
+
+  const autocomplete = useMemo(() => options.map(({ value }) => value), [
+    options,
+  ]);
+
+  const select = useCallback(
+    v => {
+      const option = options.find(l => l.value === v);
+      if (option) {
+        onChange({ ...profile, [property]: [option.id] });
+      }
+    },
+    [onChange, options, profile, property]
+  );
+  return [val, Function.prototype, select, autocomplete, filter];
+}
 
 export function useAutocomplete(profile, options, onChange, property) {
-  const [suggest, setSuggest] = useState('');
+  const autocomplete = useMemo(() => options.map(({ value }) => value), [
+    options,
+  ]);
 
+  const [suggest, setSuggest] = useState('');
   const change = useCallback(({ target }) => setSuggest(target.value), []);
+
   const select = useCallback(
-    lang => {
+    v => {
       setSuggest('');
-      const option = options.find(l => l.value === lang);
+      const option = options.find(l => l.value === v);
       if (option) {
         const edited = [...new Set(profile[property].concat(option.id))];
         onChange({ ...profile, [property]: edited });
@@ -72,10 +100,6 @@ export function useAutocomplete(profile, options, onChange, property) {
     },
     [onChange, profile, property]
   );
-
-  const autocomplete = useMemo(() => options.map(({ value }) => value), [
-    options,
-  ]);
 
   const selected = options.filter(l => profile[property].indexOf(l.id) !== -1);
 

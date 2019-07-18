@@ -2,41 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
+import { Field } from './Form';
+
+import { useDropdown } from '../profile';
 
 import styles from './styles.module.styl';
 
-const educations = [
-  'No schooling completed',
-  'Nursery school to 8th grade',
-  'Some high school, no diploma',
-  'High school graduate, diploma or the equivalent (for example: GED)',
-  'Some college credit, no degree',
-  'Trade/technical/vocational training',
-  'Associate degree',
-  'Bachelor’s degree',
-  'Master’s degree',
-  'Professional degree',
-  'Doctorate degree',
-];
+export default function Education({ profile, onChange, education }) {
+  const [value, change, select, autocomplete, filterFn] = useDropdown(
+    profile,
+    education,
+    onChange,
+    'education'
+  );
 
-export default function Education({ profile, onChange }) {
   return (
-    <div className={styles.field}>
+    <Field title="What is your education?">
       <AutocompleteInput
         className={styles.autocomplete}
-        value={profile.education}
+        value={value}
         placeholder="Education level"
-        options={educations}
-        onChange={({ target }) =>
-          onChange({ ...profile, education: target.value })
-        }
-        onSelect={education => onChange({ ...profile, education })}
+        options={autocomplete}
+        onChange={change}
+        onSelect={select}
+        filterFn={filterFn}
       />
-    </div>
+    </Field>
   );
 }
 
 Education.propTypes = {
   profile: PropTypes.shape({}).isRequired,
+  education: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
 };

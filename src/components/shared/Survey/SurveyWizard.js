@@ -9,7 +9,7 @@ import {
 import { useSyncedState } from '@expandorg/components';
 
 import Navbar from '../Navbar';
-import Form from './Form/Form';
+import { Form } from './Form/Form';
 
 import Name from './Form/Name';
 import Languages from './Form/Languages';
@@ -19,7 +19,7 @@ import BirthDate from './Form/BirthDate';
 import Education from './Form/Education';
 import Interests from './Form/Interests';
 
-import { titles, last, getRequestForm, getWizardForm } from './profile';
+import { getRequestForm, getWizardForm } from './profile';
 
 import styles from './SurveyWizard.module.styl';
 
@@ -31,7 +31,7 @@ export default function SurveyWizard({
   onSave,
   onHide,
 }) {
-  const [profile, setProfile] = useSyncedState(o, getWizardForm);
+  const [profile, set] = useSyncedState(o, getWizardForm);
 
   const [page, setPage] = useState(0);
 
@@ -46,7 +46,8 @@ export default function SurveyWizard({
     onSave(getRequestForm(profile, userId));
   }, [onSave, profile, userId]);
 
-  const isLast = page === last;
+  const isLast = page === 6;
+
   const saved = useCallback(() => {
     if (!isLast) {
       setPage(p => p + 1);
@@ -68,45 +69,36 @@ export default function SurveyWizard({
       </Navbar>
       <div className={styles.content}>
         <Form
-          title={titles[page]}
           isFetching={saveState.state === RequestStates.Fetching}
           nextTitle={isLast ? 'Done' : 'Next'}
           onNext={next}
           onBack={page !== 0 ? back : null}
         >
-          {page === 0 && <Name onChange={setProfile} profile={profile} />}
+          {page === 0 && <Name onChange={set} profile={profile} />}
           {page === 1 && (
             <Languages
-              onChange={setProfile}
+              onChange={set}
               profile={profile}
               languages={filters.Language}
             />
           )}
           {page === 2 && (
-            <Location
-              onChange={setProfile}
-              profile={profile}
-              filters={filters}
-            />
+            <Location onChange={set} profile={profile} filters={filters} />
           )}
-          {page === 3 && <BirthDate onChange={setProfile} profile={profile} />}
+          {page === 3 && <BirthDate onChange={set} profile={profile} />}
           {page === 4 && (
-            <Gender
-              onChange={setProfile}
-              profile={profile}
-              genders={filters.Gender}
-            />
+            <Gender onChange={set} profile={profile} genders={filters.Gender} />
           )}
           {page === 5 && (
             <Education
-              onChange={setProfile}
+              onChange={set}
               profile={profile}
-              filters={filters}
+              education={filters.Education}
             />
           )}
           {page === 6 && (
             <Interests
-              onChange={setProfile}
+              onChange={set}
               profile={profile}
               interests={filters.Interest}
             />

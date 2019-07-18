@@ -11,6 +11,8 @@ import {
 } from '@expandorg/components';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
+import { Field } from './Form';
+
 import useCurrentLocation from '../../useCurrentLocation';
 
 import settings from '../../../../common/settings';
@@ -49,7 +51,7 @@ function Location({ profile, onChange }) {
   }, [loc, loaded]);
 
   return (
-    <div className={styles.field}>
+    <Field title="Where are you living?">
       {!loaded && (
         <AutocompleteInput
           value={value}
@@ -94,7 +96,7 @@ function Location({ profile, onChange }) {
           )}
         </PlacesAutocomplete>
       )}
-    </div>
+    </Field>
   );
 }
 

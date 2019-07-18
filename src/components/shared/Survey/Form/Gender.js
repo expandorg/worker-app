@@ -1,35 +1,32 @@
-import React, { useMemo, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Dropdown } from '@expandorg/components';
+import { AutocompleteInput } from '@expandorg/components';
+import { Field } from './Form';
+
+import { useDropdown } from '../profile';
 
 import styles from './styles.module.styl';
 
 export default function Gender({ profile, onChange, genders }) {
-  const options = useMemo(
-    () => genders.map(({ id, value }) => ({ value: id, label: value })),
-    [genders]
+  const [value, change, select, autocomplete, filterFn] = useDropdown(
+    profile,
+    genders,
+    onChange,
+    'gender'
   );
-
-  const change = useCallback(
-    v => {
-      onChange({ ...profile, gender: [+v] });
-    },
-    [onChange, profile]
-  );
-
-  const value = profile.gender.length ? profile.gender[0] : undefined;
-
   return (
-    <div className={styles.field}>
-      <Dropdown
-        className={styles.dropdown}
-        options={options}
-        label="Your gender"
+    <Field title="What is your gender?">
+      <AutocompleteInput
+        className={styles.autocomplete}
         value={value}
+        placeholder="Your gender"
+        options={autocomplete}
         onChange={change}
+        onSelect={select}
+        filterFn={filterFn}
       />
-    </div>
+    </Field>
   );
 }
 
