@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
 
-import { useAutocomplete } from '../profile';
+import { useAutocomplete } from './hooks';
 import Tags from './Tags';
 import { Field } from './Form';
-
-import styles from './styles.module.styl';
 
 export default function Interests({ profile, onChange, interests }) {
   const [
@@ -22,7 +20,7 @@ export default function Interests({ profile, onChange, interests }) {
   return (
     <Field title="What is your interests?">
       <AutocompleteInput
-        className={styles.autocomplete}
+        theme="white"
         value={suggest}
         placeholder="Your interests"
         options={autocomplete}

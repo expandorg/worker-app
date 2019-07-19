@@ -17,6 +17,7 @@ export default function BirthDate({ profile, onChange }) {
   return (
     <Field title="What is your birth date?">
       <DateInput
+        theme="white"
         name="birthdate"
         placeholder="Your birth date"
         value={profile.birthdate}

@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { AutocompleteInput } from '@expandorg/components';
 import { Field } from './Form';
 
-import { useDropdown } from '../profile';
-
-import styles from './styles.module.styl';
+import { useDropdown } from './hooks';
 
 export default function Education({ profile, onChange, education }) {
   const [value, change, select, autocomplete, filterFn] = useDropdown(
@@ -19,7 +17,7 @@ export default function Education({ profile, onChange, education }) {
   return (
     <Field title="What is your education?">
       <AutocompleteInput
-        className={styles.autocomplete}
+        theme="white"
         value={value}
         placeholder="Education level"
         options={autocomplete}

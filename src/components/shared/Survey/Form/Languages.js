@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
 
-import { useAutocomplete } from '../profile';
+import { useAutocomplete } from './hooks';
 
 import Tags from './Tags';
 import { Field } from './Form';
-
-import styles from './styles.module.styl';
 
 export default function Languages({ profile, onChange, languages }) {
   const [
@@ -23,7 +21,7 @@ export default function Languages({ profile, onChange, languages }) {
   return (
     <Field title="What languages do you know?">
       <AutocompleteInput
-        className={styles.autocomplete}
+        theme="white"
         value={suggest}
         placeholder="Languages"
         options={autocomplete}

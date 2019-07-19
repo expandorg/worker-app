@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import {
   Input,
@@ -14,10 +13,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import { Field } from './Form';
 
 import useCurrentLocation from '../../useCurrentLocation';
-
 import settings from '../../../../common/settings';
-
-import styles from './styles.module.styl';
 
 const googlePlaces = `https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=${settings.googleMapsKey}`;
 
@@ -55,7 +51,7 @@ function Location({ profile, onChange }) {
       {!loaded && (
         <AutocompleteInput
           value={value}
-          className={styles.autocomplete}
+          theme="white"
           placeholder="Country, City"
           onChange={({ target }) => setValue(target.value)}
         />
@@ -72,8 +68,9 @@ function Location({ profile, onChange }) {
           }}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-            <div className={cn('gem-autocomplete', styles.autocomplete)}>
+            <div className="gem-autocomplete">
               <Input
+                theme="white"
                 {...getInputProps({
                   placeholder: 'Country, City',
                   className: 'gem-autocomplete-input',

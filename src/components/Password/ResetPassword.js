@@ -73,7 +73,7 @@ class ResetPassword extends Component {
             {!isFetched && (
               <form className={styles.form} onSubmit={this.handleSubmit}>
                 <Input
-                  className={styles.input}
+                  theme="white"
                   type="email"
                   required
                   placeholder="Email address"

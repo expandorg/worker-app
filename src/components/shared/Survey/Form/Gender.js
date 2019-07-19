@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { AutocompleteInput } from '@expandorg/components';
 import { Field } from './Form';
 
-import { useDropdown } from '../profile';
-
-import styles from './styles.module.styl';
+import { useDropdown } from './hooks';
 
 export default function Gender({ profile, onChange, genders }) {
   const [value, change, select, autocomplete, filterFn] = useDropdown(
@@ -18,8 +16,8 @@ export default function Gender({ profile, onChange, genders }) {
   return (
     <Field title="What is your gender?">
       <AutocompleteInput
-        className={styles.autocomplete}
         value={value}
+        theme="white"
         placeholder="Your gender"
         options={autocomplete}
         onChange={change}

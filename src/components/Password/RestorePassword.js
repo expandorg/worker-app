@@ -79,7 +79,7 @@ class RestorePassword extends Component {
             {!isFetched && (
               <form className={styles.form} onSubmit={this.handleSubmit}>
                 <Input
-                  className={styles.input}
+                  theme="white"
                   type="text"
                   required
                   placeholder="Confirmation code"
@@ -89,7 +89,7 @@ class RestorePassword extends Component {
                   }
                 />
                 <Input
-                  className={styles.input}
+                  theme="white"
                   type="password"
                   required
                   placeholder="New password"
