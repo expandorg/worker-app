@@ -15,6 +15,9 @@ export const getWizardForm = profile => {
     state: profile.state,
     name: profile.name,
     birthdate: profile.birthdate,
+    country: profile.country,
+    locality: profile.locality,
+    city: profile.city,
     languages: Language ? Language.map(v => v.id) : [],
     gender: Gender ? Gender.map(v => v.id) : [],
     education: Education ? Education.map(v => v.id) : [],
@@ -25,6 +28,9 @@ export const getWizardForm = profile => {
 const getProfileState = p => {
   return !!p.name &&
     !!p.birthdate &&
+    !!p.country &&
+    !!p.locality &&
+    !!p.city &&
     !!p.languages.length &&
     !!p.gender.length &&
     !!p.education.length &&
@@ -40,6 +46,9 @@ export const getRequestForm = (form, userId) => {
     worker_id: notFilled ? userId : form.worker_id,
     name: form.name,
     birthdate: form.birthdate,
+    country: form.country,
+    locality: form.locality,
+    city: form.city,
     state: getProfileState(form),
     attributes: [
       ...form.languages,

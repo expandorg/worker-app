@@ -23,6 +23,16 @@ import { getRequestForm, getWizardForm } from './profile';
 
 import styles from './SurveyWizard.module.styl';
 
+const pages = {
+  Name: 0,
+  Languages: 1,
+  Location: 2,
+  BirthDate: 3,
+  Gender: 4,
+  Education: 5,
+  Intersts: 6,
+};
+
 export default function SurveyWizard({
   profile: o,
   filters,
@@ -46,7 +56,7 @@ export default function SurveyWizard({
     onSave(getRequestForm(profile, userId));
   }, [onSave, profile, userId]);
 
-  const isLast = page === 6;
+  const isLast = page === pages.length;
 
   const saved = useCallback(() => {
     if (!isLast) {
@@ -74,29 +84,31 @@ export default function SurveyWizard({
           onNext={next}
           onBack={page !== 0 ? back : null}
         >
-          {page === 0 && <Name onChange={set} profile={profile} />}
-          {page === 1 && (
+          {page === pages.Name && <Name onChange={set} profile={profile} />}
+          {page === pages.Languages && (
             <Languages
               onChange={set}
               profile={profile}
               languages={filters.Language}
             />
           )}
-          {page === 2 && (
+          {page === pages.Location && (
             <Location onChange={set} profile={profile} filters={filters} />
           )}
-          {page === 3 && <BirthDate onChange={set} profile={profile} />}
-          {page === 4 && (
+          {page === pages.BirthDate && (
+            <BirthDate onChange={set} profile={profile} />
+          )}
+          {page === pages.Gender && (
             <Gender onChange={set} profile={profile} genders={filters.Gender} />
           )}
-          {page === 5 && (
+          {page === pages.Education && (
             <Education
               onChange={set}
               profile={profile}
               education={filters.Education}
             />
           )}
-          {page === 6 && (
+          {page === pages.Intersts && (
             <Interests
               onChange={set}
               profile={profile}

@@ -7,11 +7,7 @@ export default class ReverseGeocoder extends PubSubMap {
 
   getKey = (lat: number, lng: number) => `${lat},${lng}`;
 
-  getCity = (lat: number, lng: number) => {
-    this.valuesCache.get(this.getKey(lat, lng));
-  };
-
-  locateCity = (lat: number, lng: number, onComplete: Function) => {
+  locate = (lat: number, lng: number, onComplete: Function) => {
     const key = this.getKey(lat, lng);
     if (!this.hasKey(key)) {
       this.startGeocoding(lat, lng);
@@ -25,16 +21,14 @@ export default class ReverseGeocoder extends PubSubMap {
     geocoder.geocode({ latLng }, (results, status) => {
       if (status === window.google.maps.GeocoderStatus.OK) {
         const key = this.getKey(lat, lng);
-        const address = this.extractAddress(results);
-        this.valuesCache.set(key, address);
-        this.notify(key, address);
+        this.valuesCache.set(key, results);
+        this.notify(key, results);
       }
     });
   };
 
-  extractAddress = (results: Array<Object>): string => {
+  extractAddress = (results: Array<Object>): Object => {
     const components = ['administrative_area_level_1', 'locality', 'country'];
-
     const address = {};
 
     for (let x = 0; x < results.length; x += 1) {
@@ -52,10 +46,6 @@ export default class ReverseGeocoder extends PubSubMap {
         }
       }
     }
-    return [
-      address.country,
-      address.locality,
-      address.administrative_area_level_1,
-    ].join(', ');
+    return address;
   };
 }
