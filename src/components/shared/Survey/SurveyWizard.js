@@ -56,7 +56,7 @@ export default function SurveyWizard({
     onSave(getRequestForm(profile, userId));
   }, [onSave, profile, userId]);
 
-  const isLast = page === pages.length;
+  const isLast = page === Reflect.ownKeys(pages).length - 1;
 
   const saved = useCallback(() => {
     if (!isLast) {

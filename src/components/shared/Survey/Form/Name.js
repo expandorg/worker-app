@@ -6,7 +6,7 @@ import { Field } from './Form';
 
 export default function Name({ profile, onChange }) {
   return (
-    <Field title="Let’s get you all set up with just a few questions starting off with your name.">
+    <Field title="With a bit of info from you, we can do a better job matching you up with jobs & save you some time. Let's start with your name.">
       <Input
         theme="white"
         placeholder="Your name"
