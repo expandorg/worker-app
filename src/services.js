@@ -13,8 +13,7 @@ import { validateForm } from '@expandorg/validation';
 
 import TaskFileUploadService from './common/TaskFileUploadService';
 import LocationService from './common/LocationService';
-import ReverseGeocoder from './common/ReverseGeocoder';
-import ForwardGeocoder from './common/ForwardGeocoder';
+import Geocoder from './common/Geocoder';
 
 import settings from './common/settings';
 
@@ -33,7 +32,6 @@ const services = new ServiceLocator()
   .register('validate', validateForm)
   .register('jsScripts', new ScriptsLoader())
   .register('location', new LocationService())
-  .register('reverseGeocoder', new ReverseGeocoder())
-  .register('forwardGeocoder', new ForwardGeocoder(settings.mapboxKey));
+  .register('geocoder', new Geocoder(settings.mapboxKey));
 
 export default services;

@@ -3,7 +3,7 @@ import { encodeUrlParams } from '@expandorg/api-client';
 
 const placesApi = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
 
-export default class ForwardGeocoder {
+export default class Geocoder {
   apiKey: string;
 
   constructor(apiKey: string) {
@@ -34,6 +34,22 @@ export default class ForwardGeocoder {
     return [];
   };
 
+  reverseGeocode = async (lat: number, lng: number, types: string) => {
+    const params = encodeUrlParams({
+      access_token: this.apiKey,
+      language: 'en',
+      types,
+    });
+    try {
+      const response = await fetch(`${placesApi}/${lng},${lat}.json?${params}`);
+      const json = await response.json();
+      return json.features;
+    } catch (e) {
+      console.log(e);
+    }
+    return [];
+  };
+
   extractAddress = (place: Object) => {
     const address = { city: place.text_en, country: '', locality: '' };
     const country = place.context.find(c => c.id.startsWith('country'));
@@ -53,7 +69,19 @@ export default class ForwardGeocoder {
       if (!features) {
         return [];
       }
-      console.log(features);
+      return features;
+    } catch (e) {
+      console.log(e);
+    }
+    return [];
+  };
+
+  reverseGeocodeCity = async (lat: number, lng: number) => {
+    try {
+      const features = await this.reverseGeocode(lat, lng, 'place');
+      if (!features) {
+        return [];
+      }
       return features;
     } catch (e) {
       console.log(e);

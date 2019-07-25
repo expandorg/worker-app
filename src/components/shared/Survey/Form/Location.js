@@ -1,22 +1,36 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useService, AutocompleteInput } from '@expandorg/components';
+
+import useCurrentLocation from '../../useCurrentLocation';
 
 import { Field } from './Form';
 
 const getAddressString = profile =>
   [profile.city, profile.locality, profile.country].filter(c => !!c).join(', ');
 
-export default function Country({ profile, onChange }) {
+const noop = p => p;
+
+export default function Location({ profile, onChange }) {
   const services = useService();
 
-  const geocoder = services.resolve('forwardGeocoder');
+  const geocoder = services.resolve('geocoder');
 
   const [value, setValue] = useState(getAddressString(profile));
   const [autocomplete, setAutocomplete] = useState([]);
 
   const placesRef = useRef([]);
+
+  const loc = useCurrentLocation();
+  useEffect(() => {
+    if (loc && !profile.city) {
+      geocoder.reverseGeocodeCity(loc.lat, loc.lng).then(places => {
+        placesRef.current = places;
+        setAutocomplete(places.map(p => p.place_name));
+      });
+    }
+  }, [geocoder, loc, profile.city]);
 
   const change = useCallback(
     ({ target }) => {
@@ -50,12 +64,13 @@ export default function Country({ profile, onChange }) {
         placeholder="City, State, Country"
         onChange={change}
         onSelect={select}
+        filterFn={noop}
       />
     </Field>
   );
 }
 
-Country.propTypes = {
+Location.propTypes = {
   profile: PropTypes.shape({}).isRequired,
   onChange: PropTypes.func.isRequired,
 };
