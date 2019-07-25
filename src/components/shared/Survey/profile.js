@@ -1,10 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 export const showProfile = profile => {
-  // return false;
   if (!profile) {
     return false;
   }
-  return true; // profile.state === 'not_filled';
+  return profile.state === 'not_filled';
 };
 
 export const getWizardForm = profile => {
