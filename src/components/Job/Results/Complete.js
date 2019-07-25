@@ -14,7 +14,7 @@ import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { jobProps } from '../../shared/propTypes';
 
 import { assignJob } from '../../../sagas/jobsSagas';
-import { assignJobStateSelector } from '../../../selectors/uiStateSelectors';
+import { assignJobStateSelector } from '../../../selectors/ui';
 
 import styles from './styles.module.styl';
 

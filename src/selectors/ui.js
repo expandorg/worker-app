@@ -40,3 +40,18 @@ export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification
 );
+
+export const getProfileStateSelector = createSelector(
+  uiStateSelector,
+  state => state.getProfile
+);
+
+export const getProfileFiltersStateSelector = createSelector(
+  uiStateSelector,
+  state => state.getProfileFilters
+);
+
+export const saveProfileStateSelector = createSelector(
+  uiStateSelector,
+  state => state.saveProfile
+);

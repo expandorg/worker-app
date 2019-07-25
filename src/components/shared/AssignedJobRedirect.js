@@ -11,7 +11,7 @@ import {
 } from '@expandorg/app-utils';
 
 import { assignmentProps } from './propTypes';
-import { assignJobStateSelector } from '../../selectors/uiStateSelectors';
+import { assignJobStateSelector } from '../../selectors/ui';
 import { makeJobAssignmentSelector } from '../../selectors/assignmentsSelectors';
 
 const makeMapStateToProps = () => {

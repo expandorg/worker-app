@@ -14,7 +14,14 @@ import {
   tasksActionTypes,
   assignmentActionTypes,
   responsesActionTypes,
+  profileActionTypes,
 } from '../sagas/actionTypes';
+
+const profile = {
+  getProfile: requestUiStateReducer(profileActionTypes.FETCH),
+  getProfileFilters: requestUiStateReducer(profileActionTypes.FETCH_FILTERS),
+  saveProfile: requestUiStateReducer(profileActionTypes.SAVE),
+};
 
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
@@ -34,4 +41,5 @@ export default combineReducers({
   cancelAssignment: requestUiStateReducer(assignmentActionTypes.CANCEL),
 
   verifyResponse: requestUiStateReducer(responsesActionTypes.VERIFY),
+  ...profile,
 });

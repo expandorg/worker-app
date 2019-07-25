@@ -10,7 +10,7 @@ import ModulesFrom from './ModulesForm';
 
 import { submitTask } from '../../sagas/tasksSagas';
 
-import { submitTaskStateSelector } from '../../selectors/uiStateSelectors';
+import { submitTaskStateSelector } from '../../selectors/ui';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 

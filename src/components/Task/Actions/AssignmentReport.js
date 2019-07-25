@@ -12,7 +12,7 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import { reportAssignmentStateSelector } from '../../../selectors/uiStateSelectors';
+import { reportAssignmentStateSelector } from '../../../selectors/ui';
 import { reportAssignment } from '../../../sagas/assignmentsSagas';
 
 const mapStateToProps = state => ({

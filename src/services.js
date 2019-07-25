@@ -12,6 +12,9 @@ import { GemsService } from '@expandorg/app-web3';
 import { validateForm } from '@expandorg/validation';
 
 import TaskFileUploadService from './common/TaskFileUploadService';
+import LocationService from './common/LocationService';
+import ReverseGeocoder from './common/ReverseGeocoder';
+import ForwardGeocoder from './common/ForwardGeocoder';
 
 import settings from './common/settings';
 
@@ -28,6 +31,9 @@ const services = new ServiceLocator()
   .register('fileUpload', taskFileUploadService)
   .register('eventSources', eventSources)
   .register('validate', validateForm)
-  .register('jsScripts', new ScriptsLoader());
+  .register('jsScripts', new ScriptsLoader())
+  .register('location', new LocationService())
+  .register('reverseGeocoder', new ReverseGeocoder())
+  .register('forwardGeocoder', new ForwardGeocoder(settings.mapboxKey));
 
 export default services;
