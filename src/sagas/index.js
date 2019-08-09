@@ -12,6 +12,7 @@ import { authSagas } from './authSagas';
 import { notificationsSagas } from './notificationsSagas';
 import { responsesSagas } from './responsesSagas';
 import { assignmentsSagas } from './assignmentsSagas';
+import { profileSagas } from './profileSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -24,4 +25,5 @@ export default function* sagas() {
   yield fork(notificationsSagas);
   yield fork(responsesSagas);
   yield fork(assignmentsSagas);
+  yield fork(profileSagas);
 }

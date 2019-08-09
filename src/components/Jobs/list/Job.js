@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@expandorg/components';
+import { JobLogo } from '@expandorg/components/app';
 import { userProps } from '@expandorg/app-auth';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
@@ -58,7 +59,7 @@ export default class Job extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.info}>
-          <img className={styles.logo} src={job.logo} alt={job.name} />
+          <JobLogo className={styles.logo} src={job.logo} name={job.name} />
           <div className={styles.heading}>
             <div className={styles.name}>{job.name}</div>
             <div className={styles.description}>{job.requester}</div>
@@ -72,9 +73,7 @@ export default class Job extends Component {
               <I
                 tooltipOrientation="right"
                 className={styles.i}
-                tooltip={`You need ${
-                  job.logic.funding.requirement
-                } to qualify for this job.`}
+                tooltip={`You need ${job.logic.funding.requirement} to qualify for this job.`}
               />
             </button>
           )}

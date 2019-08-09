@@ -8,6 +8,8 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
+import Survey from './Survey/Survey';
+
 import styles from './Page.module.styl';
 
 export default function Page({ children, title, ...rest }) {
@@ -18,6 +20,7 @@ export default function Page({ children, title, ...rest }) {
       <div className={styles.container}>{children}</div>
       <Footer />
       <Notifications />
+      <Survey />
     </UIPage>
   );
 }

@@ -5,7 +5,7 @@ import { submitStateEffect } from '@expandorg/app-utils';
 import {
   reportAssignmentStateSelector,
   cancelAssignmentStateSelector,
-} from '../../selectors/uiStateSelectors';
+} from '../../selectors/ui';
 
 export const ReportAssignmentStateEffect = submitStateEffect(
   reportAssignmentStateSelector

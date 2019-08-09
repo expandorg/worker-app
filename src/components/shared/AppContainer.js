@@ -12,9 +12,7 @@ export default class AppContainer extends Component {
       <>
         {children}
         <JsScript
-          src={`https://www.googletagmanager.com/gtm.js?id=${
-            settings.gtmTrackingId
-          }`}
+          src={`https://www.googletagmanager.com/gtm.js?id=${settings.gtmTrackingId}`}
           disable={!settings.gtmTrackingId}
         />
       </>

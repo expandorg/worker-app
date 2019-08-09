@@ -27,7 +27,7 @@ import {
   removeOnboardingMessage,
 } from '../../../sagas/onboardingSagas';
 
-import { submitOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
+import { submitOnboardingStateSelector } from '../../../selectors/ui';
 
 import styles from './Onboarding.module.styl';
 

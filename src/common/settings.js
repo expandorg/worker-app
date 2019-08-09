@@ -1,7 +1,6 @@
 import { settings } from '@expandorg/utils';
 
-const appSettings = {
+export default {
   ...settings,
+  mapboxKey: process.env.MAPBOX_API_KEY,
 };
-
-export default appSettings;

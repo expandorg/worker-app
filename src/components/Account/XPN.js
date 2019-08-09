@@ -27,7 +27,7 @@ export default class XPN extends Component {
           <div className={styles.inner}>
             <Hero
               className={styles.hero}
-              value={userBalance.get(user)}
+              value={Math.round(userBalance.get(user) * 100) / 100}
               gems
               title="Balance"
             />
@@ -35,7 +35,7 @@ export default class XPN extends Component {
           <div className={styles.inner}>
             <Hero
               className={styles.hero}
-              value={user.gems.reserved}
+              value={Math.round(user.gems.reserved * 100) / 100}
               gems
               title="Reserved"
             />

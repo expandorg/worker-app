@@ -10,20 +10,20 @@ export const jobListSelector = (state: Object) => state.jobs.list;
 export const onboardingEntitiesSelector = (state: Object) =>
   state.jobs.onboarding.entities;
 
-export const makeJobSelector = () =>
+export const makeJobSelector = (): any =>
   createSelector(
     jobEntitiesSelector,
     (state, id) => id,
     (entities, id) => entities[id]
   );
 
-export const jobsSelector = createSelector(
+export const jobsSelector: any = createSelector(
   jobListSelector,
   jobEntitiesSelector,
   (list, entities) => list.map(id => entities[id])
 );
 
-export const makeAssignedJobSelector = () => {
+export const makeAssignedJobSelector = (): any => {
   const taskAssignmentSelector = makeTaskAssignmentSelector();
   return createSelector(
     taskAssignmentSelector,
@@ -37,7 +37,7 @@ export const makeAssignedJobSelector = () => {
   );
 };
 
-export const makeOnboardingSelector = () =>
+export const makeOnboardingSelector = (): any =>
   createSelector(
     onboardingEntitiesSelector,
     (state, id) => id,

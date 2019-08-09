@@ -9,7 +9,7 @@ export const responsesEntitiesSelector = (state: Object) =>
 export const assigedResponseListSelector = (state: Object) =>
   state.responses.assigned;
 
-export const makeVerficationVarsSelector = () =>
+export const makeVerficationVarsSelector = (): any =>
   createSelector(
     responsesEntitiesSelector,
     (state, task) => task,

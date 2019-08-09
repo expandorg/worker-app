@@ -14,7 +14,7 @@ import ModulesForm from './ModulesForm';
 import { verifyResponse } from '../../sagas/responsesSagas';
 
 import { makeVerficationVarsSelector } from '../../selectors/responsesSelectors';
-import { verifyResponseStateSelector } from '../../selectors/uiStateSelectors';
+import { verifyResponseStateSelector } from '../../selectors/ui';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 

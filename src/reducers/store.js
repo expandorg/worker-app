@@ -1,5 +1,3 @@
-// @flow
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createAnalyticsMiddlware } from '@expandorg/app-utils/gtm';
@@ -10,7 +8,9 @@ import services from '../services';
 
 import rootReducer from './rootReducer';
 
-export const sagaMiddleware = createSagaMiddleware({ context: { services } });
+export const sagaMiddleware = createSagaMiddleware({
+  context: { services },
+});
 
 const middleware = (middlewares => {
   if (process.env.NODE_ENV !== 'production' || settings.devTools) {

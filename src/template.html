@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/favicon.ico">
     <title>Expand</title>
     <meta property="og:description" content="Earn your first cryptocurrency with Expand"/>
@@ -13,7 +14,7 @@
       }
       html,
       body {
-        font-family: 'Poppins';
+        font-family: 'Avenir';
         margin: 0;
       }
       * {
@@ -109,6 +110,15 @@
       opacity: 0.5;
     }
     </style>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "ae0d4657-091b-4ed0-a0f9-10832d62e066",
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="root">

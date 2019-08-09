@@ -12,7 +12,7 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import { reportOnboardingStateSelector } from '../../../selectors/uiStateSelectors';
+import { reportOnboardingStateSelector } from '../../../selectors/ui';
 import { reportOnboarding } from '../../../sagas/onboardingSagas';
 
 const mapStateToProps = state => ({

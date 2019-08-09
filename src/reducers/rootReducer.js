@@ -4,6 +4,10 @@ import { metamaskReducer as metamask } from '@expandorg/app-web3';
 import { gemsBalanceReducer as gemsBalance } from '@expandorg/app-gemtokens';
 
 import user from './userReducer';
+import authToken from './authTokenReducer';
+
+import profile from './profile/profileReducer';
+import filters from './profile/filtersReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
@@ -22,7 +26,12 @@ import ui from './ui';
 
 export default combineReducers({
   user,
+  authToken,
   gemsBalance,
+  profile: combineReducers({
+    profile,
+    filters,
+  }),
   jobs: combineReducers({
     entities: jobEntities,
     list: jobsList,
@@ -42,8 +51,8 @@ export default combineReducers({
     entities: responseEntities,
     assigned: assignedResponses,
   }),
-  ui,
   web3: combineReducers({
     metamask,
   }),
+  ui,
 });
