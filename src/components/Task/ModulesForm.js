@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { withServices, Panel } from '@expandorg/components';
+import { useService, Panel } from '@expandorg/components';
 import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
 import { moduleControls } from '@expandorg/modules/app';
 import {
@@ -17,98 +17,86 @@ import { assignmentProps } from '../shared/propTypes';
 
 import styles from './styles.module.styl';
 
-class ModulesForm extends Component {
-  static propTypes = {
-    assignment: assignmentProps.isRequired,
-    form: formProps,
-    visible: PropTypes.bool.isRequired,
-    variables: PropTypes.shape({}),
-    services: PropTypes.object.isRequired,  //eslint-disable-line
+export default function ModulesForm({
+  submitState,
+  visible,
+  form,
+  assignment,
+  variables,
+  onSubmit,
+  onNotify,
+  timeThreshold,
+}) {
+  const svc = useService();
+  const services = useMemo(
+    () => new Map([['fileUpload', svc.resolve('fileUpload')]]),
+    [svc]
+  );
 
-    submitState: requestStateProps.isRequired,
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [reportMessage, setReportMessage] = useState(null);
 
-    onSubmit: PropTypes.func.isRequired,
-  };
+  const moduleError = useCallback(msg => setReportMessage(msg), []);
+  const submitted = useCallback(() => setIsSubmitted(true), []);
+  const assigned = useCallback(() => {
+    setReportMessage(null);
+    setIsSubmitted(false);
+  }, []);
 
-  static defaultProps = {
-    form: null,
-    variables: null,
-  };
+  const isFetching = submitState.state === RequestStates.Fetching;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isSubmitted: false,
-      reportMessage: null,
-      services: new Map([['fileUpload', props.services.resolve('fileUpload')]]),
-    };
-  }
-
-  handleAssigned = () => {
-    this.setState({ reportMessage: null, isSubmitted: false });
-  };
-
-  handleSubmitted = () => {
-    this.setState({ isSubmitted: true });
-  };
-
-  handleModuleError = reportMessage => {
-    this.setState({ reportMessage });
-  };
-
-  render() {
-    const {
-      submitState,
-      visible,
-      form,
-      assignment,
-      variables,
-      onSubmit,
-    } = this.props;
-
-    const { reportMessage, isSubmitted, services } = this.state;
-    const isFetching = submitState.state === RequestStates.Fetching;
-
-    return (
-      <>
-        {visible && (
-          <Panel className={styles.panel}>
-            <TaskActions
-              assignmentId={assignment.id}
-              form={form}
-              reportMessage={reportMessage}
-            />
-            <FormDataProvider formData={{}}>
-              <Form
-                controls={moduleControls}
-                className={styles.form}
-                services={services}
-                form={form}
-                variables={variables}
-                errors={submitState.error}
-                isSubmitting={isFetching}
-                onSubmit={onSubmit}
-                onModuleError={this.handleModuleError}
-              >
-                {props => <Module {...props} />}
-              </Form>
-            </FormDataProvider>
-          </Panel>
-        )}
-        <SubmitStateEffect
-          submitState={submitState}
-          onComplete={this.handleSubmitted}
-        />
-        {isSubmitted && (
-          <SubmissionResultDialog
-            jobId={assignment.jobId}
-            onAssignComplete={this.handleAssigned}
+  return (
+    <>
+      {visible && (
+        <Panel className={styles.panel}>
+          <TaskActions
+            assignmentId={assignment.id}
+            form={form}
+            reportMessage={reportMessage}
           />
-        )}
-      </>
-    );
-  }
+          <FormDataProvider formData={{}}>
+            <Form
+              timeThreshold={timeThreshold}
+              controls={moduleControls}
+              className={styles.form}
+              services={services}
+              form={form}
+              variables={variables}
+              errors={submitState.error}
+              isSubmitting={isFetching}
+              onSubmit={onSubmit}
+              onNotify={onNotify}
+              onModuleError={moduleError}
+            >
+              {props => <Module {...props} />}
+            </Form>
+          </FormDataProvider>
+        </Panel>
+      )}
+      <SubmitStateEffect submitState={submitState} onComplete={submitted} />
+      {isSubmitted && (
+        <SubmissionResultDialog
+          jobId={assignment.jobId}
+          onAssignComplete={assigned}
+        />
+      )}
+    </>
+  );
 }
 
-export default withServices(ModulesForm);
+ModulesForm.propTypes = {
+  assignment: assignmentProps.isRequired,
+  timeThreshold: PropTypes.number,
+  form: formProps,
+  visible: PropTypes.bool.isRequired,
+  variables: PropTypes.shape({}),
+  submitState: requestStateProps.isRequired,
+  onNotify: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+ModulesForm.defaultProps = {
+  form: null,
+  timeThreshold: 0,
+  variables: null,
+};

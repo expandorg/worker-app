@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Form,
@@ -13,10 +12,11 @@ import {
 
 import { moduleControls } from '@expandorg/modules/app';
 
-import { Panel, withServices } from '@expandorg/components';
+import { Panel, useService } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { RequestStates } from '@expandorg/app-utils';
 
+import { addNotification } from '@expandorg/app-utils/app';
 import GroupFaildDialog from './GroupFaildDialog';
 import OnboardingReport from './OnboardingReport';
 
@@ -31,93 +31,80 @@ import { submitOnboardingStateSelector } from '../../../selectors/ui';
 
 import styles from './Onboarding.module.styl';
 
-const mapStateToProps = state => ({
-  submitState: submitOnboardingStateSelector(state),
-});
+export default function Onboarding({ jobId, onboarding }) {
+  const dispatch = useDispatch();
+  const svc = useService();
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ submitOnboarding, removeOnboardingMessage }, dispatch);
+  const services = useMemo(
+    () => new Map([['fileUpload', svc.resolve('fileUpload')]]),
+    [svc]
+  );
 
-class Onboarding extends Component {
-  static propTypes = {
-    jobId: PropTypes.number.isRequired,
-    onboarding: onboardingProps.isRequired,
-    submitState: requestStateProps.isRequired,
-    services: PropTypes.object.isRequired, // eslint-disable-line
+  const submitState = useSelector(submitOnboardingStateSelector);
+  const [reportMessage, setReportMessage] = useState(null);
 
-    submitOnboarding: PropTypes.func.isRequired,
-    removeOnboardingMessage: PropTypes.func.isRequired,
-  };
+  const moduleError = useCallback(msg => setReportMessage(msg), []);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      reportMessage: null,
-      services: new Map([['fileUpload', props.services.resolve('fileUpload')]]),
-    };
-  }
+  const hide = useCallback(() => {
+    dispatch(removeOnboardingMessage(jobId));
+  }, [dispatch, jobId]);
 
-  handleSaveStep = values => {
-    const { jobId } = this.props;
-    this.props.submitOnboarding(jobId, values);
-  };
+  const submit = useCallback(
+    values => {
+      dispatch(submitOnboarding(jobId, values));
+    },
+    [dispatch, jobId]
+  );
 
-  handleHideDialog = () => {
-    const { jobId } = this.props;
-    this.props.removeOnboardingMessage(jobId);
-  };
+  const notify = useCallback(
+    (type, msg) => {
+      dispatch(addNotification(type, msg));
+    },
+    [dispatch]
+  );
 
-  handleModuleError = reportMessage => {
-    this.setState({ reportMessage });
-  };
+  const isSubmitting = submitState.state === RequestStates.Fetching;
 
-  render() {
-    const { jobId, onboarding, submitState } = this.props;
-    const { reportMessage, services } = this.state;
-
-    return (
-      <div className={styles.container}>
-        <Panel className={styles.panel}>
-          <div className={styles.actions}>
-            <ReportToggle form={onboarding.form} controls={moduleControls}>
-              {({ onHide, reasons }) => (
-                <OnboardingReport
-                  jobId={jobId}
-                  onHide={onHide}
-                  reasons={reasons}
-                  report={reportMessage}
-                />
-              )}
-            </ReportToggle>
-          </div>
-          <div className={styles.form}>
-            <FormDataProvider formData={onboarding}>
-              <Form
-                form={onboarding.form}
-                services={services}
-                errors={submitState.error}
-                controls={moduleControls}
-                isSubmitting={submitState.state === RequestStates.Fetching}
-                onSubmit={this.handleSaveStep}
-                onModuleError={this.handleModuleError}
-              >
-                {props => <Module {...props} />}
-              </Form>
-            </FormDataProvider>
-          </div>
-        </Panel>
-        {onboarding.message && (
-          <GroupFaildDialog
-            onboarding={onboarding}
-            onHide={this.handleHideDialog}
-          />
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className={styles.container}>
+      <Panel className={styles.panel}>
+        <div className={styles.actions}>
+          <ReportToggle form={onboarding.form} controls={moduleControls}>
+            {({ onHide, reasons }) => (
+              <OnboardingReport
+                jobId={jobId}
+                onHide={onHide}
+                reasons={reasons}
+                report={reportMessage}
+              />
+            )}
+          </ReportToggle>
+        </div>
+        <div className={styles.form}>
+          <FormDataProvider formData={onboarding}>
+            <Form
+              form={onboarding.form}
+              services={services}
+              errors={submitState.error}
+              controls={moduleControls}
+              isSubmitting={isSubmitting}
+              onSubmit={submit}
+              onNotify={notify}
+              onModuleError={moduleError}
+            >
+              {props => <Module {...props} />}
+            </Form>
+          </FormDataProvider>
+        </div>
+      </Panel>
+      {onboarding.message && (
+        <GroupFaildDialog onboarding={onboarding} onHide={hide} />
+      )}
+    </div>
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withServices(Onboarding));
+Onboarding.propTypes = {
+  jobId: PropTypes.number.isRequired,
+  onboarding: onboardingProps.isRequired,
+};
