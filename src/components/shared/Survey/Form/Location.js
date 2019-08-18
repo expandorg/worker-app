@@ -71,6 +71,8 @@ export default function Location({ profile, onChange }) {
 }
 
 Location.propTypes = {
-  profile: PropTypes.shape({}).isRequired,
+  profile: PropTypes.shape({
+    city: PropTypes.string,
+  }).isRequired,
   onChange: PropTypes.func.isRequired,
 };

@@ -123,7 +123,12 @@ export default function SurveyWizard({
 
 SurveyWizard.propTypes = {
   profile: PropTypes.shape({}).isRequired,
-  filters: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({
+    Interest: PropTypes.array,
+    Education: PropTypes.array,
+    Gender: PropTypes.array,
+    Language: PropTypes.array,
+  }).isRequired,
   userId: PropTypes.number.isRequired,
   saveState: requestStateProps.isRequired,
   onSave: PropTypes.func.isRequired,

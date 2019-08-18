@@ -18,6 +18,8 @@ export default function Name({ profile, onChange }) {
 }
 
 Name.propTypes = {
-  profile: PropTypes.shape({}).isRequired,
+  profile: PropTypes.shape({
+    name: PropTypes.string,
+  }).isRequired,
   onChange: PropTypes.func.isRequired,
 };
