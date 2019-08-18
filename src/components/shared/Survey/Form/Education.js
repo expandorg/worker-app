@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { AutocompleteInput } from '@expandorg/components';
 import { Field } from './Form';
 
-import { useDropdown } from './hooks';
+import { useDropdown, useStopPropagation } from './hooks';
 
 export default function Education({ profile, onChange, education }) {
   const [value, change, select, autocomplete, filterFn] = useDropdown(
@@ -13,10 +13,12 @@ export default function Education({ profile, onChange, education }) {
     onChange,
     'education'
   );
+  const keyDown = useStopPropagation();
 
   return (
     <Field title="What is your education?">
       <AutocompleteInput
+        onKeyDown={keyDown}
         theme="white"
         value={value}
         placeholder="Education level"

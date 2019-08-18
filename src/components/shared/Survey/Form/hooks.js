@@ -10,6 +10,13 @@ const getSelectedValue = (values, options) => {
   return option ? option.value : '';
 };
 
+export function useStopPropagation() {
+  return useCallback(e => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  }, []);
+}
+
 export function useDropdown(profile, options, onChange, property) {
   const val = getSelectedValue(profile[property], options);
 

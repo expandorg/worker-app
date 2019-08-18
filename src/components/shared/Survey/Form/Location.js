@@ -5,6 +5,7 @@ import { useService, AutocompleteInput } from '@expandorg/components';
 
 import useCurrentLocation from '../../useCurrentLocation';
 
+import { useStopPropagation } from './hooks';
 import { Field } from './Form';
 
 const getAddressString = profile =>
@@ -55,9 +56,12 @@ export default function Location({ profile, onChange }) {
     [geocoder, onChange, profile]
   );
 
+  const keyDown = useStopPropagation();
+
   return (
     <Field title="Your country and city of residence.">
       <AutocompleteInput
+        onKeyDown={keyDown}
         value={value}
         options={autocomplete}
         theme="white"
