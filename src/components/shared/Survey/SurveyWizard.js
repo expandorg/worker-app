@@ -22,6 +22,7 @@ import Interests from './Form/Interests';
 import { getRequestForm, getWizardForm } from './profile';
 
 import styles from './SurveyWizard.module.styl';
+import useCurrentLocation from '../useCurrentLocation';
 
 const pages = {
   Name: 0,
@@ -67,6 +68,7 @@ export default function SurveyWizard({
   }, [isLast, onHide]);
 
   useSubmitEffect(saveState, saved);
+  useCurrentLocation();
 
   return (
     <div className={styles.container}>
