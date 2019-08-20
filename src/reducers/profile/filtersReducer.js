@@ -2,7 +2,6 @@ import { profileActionTypes } from '../../sagas/actionTypes';
 
 const initialState = {
   Education: [],
-  Gender: [],
   Interest: [],
   Language: [],
 };
