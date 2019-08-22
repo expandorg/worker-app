@@ -3,7 +3,7 @@ export const showProfile = profile => {
   if (!profile) {
     return false;
   }
-  return profile.state === 'not_filled';
+  return true; // profile.state === 'not_filled';
 };
 
 export const getWizardForm = profile => {
