@@ -27,6 +27,7 @@ import {
   removeOnboardingMessage,
 } from '../../../sagas/onboardingSagas';
 
+import { onboardingVariablesSelector } from '../../../selectors/variablesSelectors';
 import { submitOnboardingStateSelector } from '../../../selectors/ui';
 
 import styles from './Onboarding.module.styl';
@@ -63,6 +64,8 @@ export default function Onboarding({ jobId, onboarding }) {
     [dispatch]
   );
 
+  const variables = useSelector(onboardingVariablesSelector);
+
   const isSubmitting = submitState.state === RequestStates.Fetching;
 
   return (
@@ -86,6 +89,7 @@ export default function Onboarding({ jobId, onboarding }) {
               form={onboarding.form}
               services={services}
               errors={submitState.error}
+              variables={variables}
               controls={moduleControls}
               isSubmitting={isSubmitting}
               onSubmit={submit}
