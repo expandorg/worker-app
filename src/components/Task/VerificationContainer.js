@@ -10,7 +10,7 @@ import ModulesForm from './ModulesForm';
 
 import { verifyResponse } from '../../sagas/responsesSagas';
 
-import { makeVerficationVarsSelector } from '../../selectors/responsesSelectors';
+import { makeVerficationVariablesSelector } from '../../selectors/variablesSelectors';
 import { verifyResponseStateSelector } from '../../selectors/ui';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
@@ -19,8 +19,10 @@ export default function VerificationContainer({ assignment, job, task }) {
   const dispatch = useDispatch();
   const verifyState = useSelector(verifyResponseStateSelector);
 
-  const varsSelector = useMemo(makeVerficationVarsSelector, []);
-  const variables = useSelector(state => varsSelector(state, task, assignment));
+  const variablsSelector = useMemo(makeVerficationVariablesSelector, []);
+  const variables = useSelector(state =>
+    variablsSelector(state, task, assignment)
+  );
 
   const submit = useCallback(
     result => {
