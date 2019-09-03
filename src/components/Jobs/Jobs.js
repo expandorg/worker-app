@@ -55,7 +55,7 @@ class Jobs extends Component {
   handleAssign = job => {
     const { history } = this.props;
     if (job.onboarding.enabled) {
-      history.push(`/jobs/${job.id}`);
+      history.push(`/onboarding/${job.id}`);
     } else {
       this.props.assignJob(job.id);
     }
