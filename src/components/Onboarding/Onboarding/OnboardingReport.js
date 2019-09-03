@@ -10,7 +10,7 @@ import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 import { reportOnboardingStateSelector } from '../../../selectors/ui';
 import { reportOnboarding } from '../../../sagas/onboardingSagas';
 
-function OnboardingReport({ report, reasons, onHide, jobId }) {
+export default function OnboardingReport({ report, reasons, onHide, jobId }) {
   const dispatch = useDispatch();
   const reportState = useSelector(reportOnboardingStateSelector);
 
