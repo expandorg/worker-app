@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
 
-import { useAutocomplete } from './hooks';
+import { useAutocomplete, useStopPropagation } from './hooks';
 
 import Tags from './Tags';
 import { Field } from './Form';
@@ -18,10 +18,13 @@ export default function Languages({ profile, onChange, languages }) {
     seleted,
   ] = useAutocomplete(profile, languages, onChange, 'languages');
 
+  const keyDown = useStopPropagation();
+
   return (
     <Field title="What languages do you know?">
       <AutocompleteInput
         theme="white"
+        onKeyDown={keyDown}
         value={suggest}
         placeholder="Languages"
         options={autocomplete}

@@ -1,79 +1,68 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useMemo } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { moduleControls } from '@expandorg/modules/app';
 import { calculateVerificationScore } from '@expandorg/modules/model';
 
-import { requestStateProps } from '@expandorg/app-utils';
-
+import { addNotification } from '@expandorg/app-utils/app';
 import ModulesForm from './ModulesForm';
 
 import { verifyResponse } from '../../sagas/responsesSagas';
 
-import { makeVerficationVarsSelector } from '../../selectors/responsesSelectors';
+import { makeVerficationVariablesSelector } from '../../selectors/variablesSelectors';
 import { verifyResponseStateSelector } from '../../selectors/ui';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
-const makeMapStateToProps = () => {
-  const varsSelector = makeVerficationVarsSelector();
-  return (state, props) => ({
-    variables: varsSelector(state, props.task, props.assignment),
-    verifyState: verifyResponseStateSelector(state),
-  });
-};
+export default function VerificationContainer({ assignment, job, task }) {
+  const dispatch = useDispatch();
+  const verifyState = useSelector(verifyResponseStateSelector);
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ verifyResponse }, dispatch);
+  const variablsSelector = useMemo(makeVerficationVariablesSelector, []);
+  const variables = useSelector(state =>
+    variablsSelector(state, task, assignment)
+  );
 
-class Task extends Component {
-  static propTypes = {
-    assignment: assignmentProps.isRequired,
-    job: jobProps,
-    task: taskProps,
-    variables: PropTypes.shape({}),
+  const submit = useCallback(
+    result => {
+      const score = calculateVerificationScore(
+        result,
+        job.verificationForm.modules,
+        moduleControls
+      );
+      dispatch(verifyResponse(assignment.responseId, score));
+    },
+    [assignment.responseId, dispatch, job.verificationForm.modules]
+  );
 
-    verifyState: requestStateProps.isRequired,
-    verifyResponse: PropTypes.func.isRequired,
-  };
+  const notify = useCallback(
+    (type, msg) => {
+      dispatch(addNotification(type, msg));
+    },
+    [dispatch]
+  );
 
-  static defaultProps = {
-    variables: null,
-    job: null,
-    task: null,
-  };
-
-  handleSubmit = result => {
-    const { job, assignment } = this.props;
-    const score = calculateVerificationScore(
-      result,
-      job.verificationForm.modules,
-      moduleControls
-    );
-
-    this.props.verifyResponse(assignment.responseId, score);
-  };
-
-  render() {
-    const { verifyState, assignment, job, task, variables } = this.props;
-
-    return (
-      <ModulesForm
-        assignment={assignment}
-        form={job && job.verificationForm}
-        visible={!!(job && task)}
-        variables={variables}
-        submitState={verifyState}
-        onSubmit={this.handleSubmit}
-      />
-    );
-  }
+  return (
+    <ModulesForm
+      assignment={assignment}
+      form={job && job.verificationForm}
+      visible={!!(job && task)}
+      variables={variables}
+      submitState={verifyState}
+      onSubmit={submit}
+      onNotify={notify}
+    />
+  );
 }
 
-export default connect(
-  makeMapStateToProps,
-  mapDispatchToProps
-)(Task);
+VerificationContainer.propTypes = {
+  assignment: assignmentProps.isRequired,
+  job: jobProps,
+  task: taskProps,
+};
+
+VerificationContainer.defaultProps = {
+  job: null,
+  task: null,
+};

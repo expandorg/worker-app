@@ -1,37 +1,32 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { format, isValid, parse } from 'date-fns';
+import { format, parse } from 'date-fns';
 
-import { DateInput } from '@expandorg/components';
+import { DropdownDate } from '@expandorg/components';
 import { Field } from './Form';
 
+import styles from './BirthDate.module.styl';
+
 export default function BirthDate({ profile, onChange }) {
-  const [value, setValue] = useState(profile.birthdate);
+  const [value, setValue] = useState(
+    profile.birthdate || format(new Date(), 'MM/DD/YYYY')
+  );
 
   const dayChange = useCallback(
-    (date, _, dayPickerInput) => {
-      setValue(dayPickerInput.getInput().value);
-      if (isValid(date)) {
-        const birthdate = format(date, 'MM/DD/YYYY');
-        onChange({ ...profile, birthdate });
-      }
+    date => {
+      const birthdate = format(date, 'MM/DD/YYYY');
+      setValue(birthdate);
+      onChange({ ...profile, birthdate });
     },
     [onChange, profile, setValue]
   );
 
   return (
     <Field title="What is your birth date?">
-      <DateInput
-        value={value}
-        theme="white"
-        placeholder="Your birth date"
-        dayPickerProps={{
-          selectedDays: profile.birthdate
-            ? parse(profile.birthdate, 'MM/DD/YYYY')
-            : undefined,
-          disabledDays: d => d >= new Date(),
-        }}
-        onDayChange={dayChange}
+      <DropdownDate
+        className={styles.birthdate}
+        value={parse(value, 'MM/DD/YYYY')}
+        onChange={dayChange}
       />
     </Field>
   );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { AutocompleteInput } from '@expandorg/components';
 
-import { useAutocomplete } from './hooks';
+import { useAutocomplete, useStopPropagation } from './hooks';
 import Tags from './Tags';
 import { Field } from './Form';
 
@@ -17,9 +17,12 @@ export default function Interests({ profile, onChange, interests }) {
     seleted,
   ] = useAutocomplete(profile, interests, onChange, 'interests');
 
+  const keyDown = useStopPropagation();
+
   return (
     <Field title="What is your interests?">
       <AutocompleteInput
+        onKeyDown={keyDown}
         theme="white"
         value={suggest}
         placeholder="Your interests"

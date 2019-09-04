@@ -14,7 +14,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
 import Jobs from './components/Jobs/Jobs';
-import Job from './components/Job/Job';
+import Onboarding from './components/Onboarding/Onboarding';
 
 import Task from './components/Task/Task';
 
@@ -41,7 +41,7 @@ const App = () => (
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
 
-            <Route path="/jobs/:jobId" component={Job} />
+            <Route path="/onboarding/:jobId" component={Onboarding} />
             <Route path="/tasks/:taskId" component={Task} />
 
             <Route path="/account" component={Account} />

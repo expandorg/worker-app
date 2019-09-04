@@ -14,7 +14,6 @@ import { Form } from './Form/Form';
 import Name from './Form/Name';
 import Languages from './Form/Languages';
 import Location from './Form/Location';
-import Gender from './Form/Gender';
 import BirthDate from './Form/BirthDate';
 import Education from './Form/Education';
 import Interests from './Form/Interests';
@@ -22,15 +21,15 @@ import Interests from './Form/Interests';
 import { getRequestForm, getWizardForm } from './profile';
 
 import styles from './SurveyWizard.module.styl';
+import useCurrentLocation from '../useCurrentLocation';
 
 const pages = {
   Name: 0,
   Languages: 1,
   Location: 2,
   BirthDate: 3,
-  Gender: 4,
-  Education: 5,
-  Intersts: 6,
+  Education: 4,
+  Intersts: 5,
 };
 
 export default function SurveyWizard({
@@ -67,6 +66,7 @@ export default function SurveyWizard({
   }, [isLast, onHide]);
 
   useSubmitEffect(saveState, saved);
+  useCurrentLocation();
 
   return (
     <div className={styles.container}>
@@ -98,9 +98,6 @@ export default function SurveyWizard({
           {page === pages.BirthDate && (
             <BirthDate onChange={set} profile={profile} />
           )}
-          {page === pages.Gender && (
-            <Gender onChange={set} profile={profile} genders={filters.Gender} />
-          )}
           {page === pages.Education && (
             <Education
               onChange={set}
@@ -123,7 +120,11 @@ export default function SurveyWizard({
 
 SurveyWizard.propTypes = {
   profile: PropTypes.shape({}).isRequired,
-  filters: PropTypes.shape({}).isRequired,
+  filters: PropTypes.shape({
+    Interest: PropTypes.array,
+    Education: PropTypes.array,
+    Language: PropTypes.array,
+  }).isRequired,
   userId: PropTypes.number.isRequired,
   saveState: requestStateProps.isRequired,
   onSave: PropTypes.func.isRequired,

@@ -151,6 +151,9 @@ export default (env = {}) => {
           components: JSON.stringify(
             packageJson.dependencies['@expandorg/components']
           ),
+          modules: JSON.stringify(
+            packageJson.dependencies['@expandorg/modules']
+          ),
           buildDate: JSON.stringify(new Date().toUTCString()),
         },
       }),
