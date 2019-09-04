@@ -19,7 +19,7 @@
     "@expandorg/app-utils": "^0.0.35",
     "@expandorg/app-web3": "^0.0.31",
     "@expandorg/components": "^0.2.74",
-    "@expandorg/modules": "^0.2.124",
+    "@expandorg/modules": "^0.2.125",
     "@expandorg/uikit": "^0.2.18",
     "@expandorg/utils": "^0.0.8",
     "@expandorg/validation": "^0.2.6",
