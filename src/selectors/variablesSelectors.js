@@ -34,19 +34,19 @@ export const onboardingVariablesSelector: any = createSelector(
 export const makeVerficationVariablesSelector = (): any =>
   createSelector(
     responsesEntitiesSelector,
-    defaultVariablesSelector,
+    // defaultVariablesSelector,
     (state, task) => task,
     (state, task, assignment) => assignment,
-    (responsesEntities, vars, task, assignment) => {
+    (responsesEntities, task, assignment) => {
       if (!task || !assignment) {
-        return vars;
+        return {};
       }
       const response = responsesEntities[assignment.responseId];
       if (!response) {
-        return vars;
+        return {};
       }
       return {
-        ...vars,
+        workerId: response.workerId,
         ...(task.taskData || {}),
         ...(response.value || {}),
       };
