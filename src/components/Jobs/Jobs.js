@@ -1,91 +1,106 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { historyProps } from '@expandorg/app-utils';
+import { useToggle } from '@expandorg/components';
 
 import Page from '../shared/Page';
-
-import Job from './list/Job';
+import { authenticated } from '../shared/auth';
+import SurveyPopup from '../shared/Survey/SurveyPopup';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
-import { authenticated } from '../shared/auth';
+import InsufficientFundsDialog from './InsufficientFundsDialog';
+
+import Job from './list/Job';
 
 import { assignJob, fetchJobs } from '../../sagas/jobsSagas';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
+import { profileSelector } from '../../selectors/profileSelectors';
 
-import { assignmentProps, jobProps } from '../shared/propTypes';
+import { jobHasSufficientFunds } from '../../model/jobs';
 
 import styles from './Jobs.module.styl';
 
-const mapStateToProps = state => ({
-  user: userSelector(state),
-  jobs: jobsSelector(state),
-  assignments: assignmentsSelector(state),
-});
+function Jobs({ history }) {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ assignJob, fetchJobs }, dispatch);
+  const user = useSelector(userSelector);
+  const profile = useSelector(profileSelector);
+  const jobs = useSelector(jobsSelector);
+  const assignments = useSelector(assignmentsSelector);
 
-class Jobs extends Component {
-  static propTypes = {
-    user: userProps.isRequired,
-    history: historyProps.isRequired,
-    jobs: PropTypes.arrayOf(jobProps),
-    assignments: PropTypes.arrayOf(assignmentProps),
+  const [profilePoup, toggleProfile] = useToggle();
 
-    assignJob: PropTypes.func.isRequired,
-    fetchJobs: PropTypes.func.isRequired,
-  };
+  const [topup, setTopup] = useState(false);
+  const topupJob = useCallback(
+    job => setTopup(job.logic.funding.requirement),
+    []
+  );
 
-  static defaultProps = {
-    jobs: [],
-    assignments: [],
-  };
+  const hideTopup = useCallback(() => setTopup(false), []);
 
-  componentDidMount() {
-    this.props.fetchJobs();
-  }
+  const assign = useCallback(
+    job => {
+      if (!jobHasSufficientFunds(job, user)) {
+        setTopup(job.logic.funding.requirement);
+        return;
+      }
+      const completeProfile = profile && profile.state !== 'complete';
+      if (job.requiresProfile && !completeProfile) {
+        toggleProfile();
+        return;
+      }
+      if (job.onboarding.enabled) {
+        history.push(`/onboarding/${job.id}`);
+      } else {
+        dispatch(assignJob(job.id));
+      }
+    },
+    [dispatch, history, profile, toggleProfile, user]
+  );
 
-  handleAssign = job => {
-    const { history } = this.props;
-    if (job.onboarding.enabled) {
-      history.push(`/onboarding/${job.id}`);
-    } else {
-      this.props.assignJob(job.id);
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
 
-  render() {
-    const { jobs, user, assignments } = this.props;
-
-    return (
-      <Page title="Browse Jobs">
-        <div className={styles.list}>
-          {jobs.map(job => (
-            <Job
-              key={job.id}
-              job={job}
-              user={user}
-              assignment={assignments.find(a => a.jobId === job.id)}
-              onAssign={this.handleAssign}
-            />
-          ))}
-        </div>
-        <AssignedJobRedirect />
-      </Page>
-    );
-  }
+  return (
+    <Page title="Browse Jobs">
+      <div className={styles.list}>
+        {jobs.map(job => (
+          <Job
+            key={job.id}
+            job={job}
+            user={user}
+            assignment={assignments.find(a => a.jobId === job.id)}
+            onAssign={assign}
+            onTopup={topupJob}
+          />
+        ))}
+      </div>
+      {topup && (
+        <InsufficientFundsDialog
+          user={user}
+          requires={topup}
+          onHide={hideTopup}
+        />
+      )}
+      <AssignedJobRedirect />
+      {profilePoup && (
+        <SurveyPopup
+          profile={profile}
+          userId={user.id}
+          onHide={toggleProfile}
+        />
+      )}
+    </Page>
+  );
 }
 
-export default authenticated(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Jobs)
-);
+Jobs.propTypes = {
+  history: historyProps.isRequired,
+};
+
+export default authenticated(Jobs);
