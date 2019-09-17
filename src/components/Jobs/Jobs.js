@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { historyProps } from '@expandorg/app-utils';
-import { useToggle } from '@expandorg/components';
+import { useToggle, usePrevious } from '@expandorg/components';
 
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
@@ -36,11 +36,12 @@ function Jobs({ history }) {
 
   const [topup, setTopup] = useState(false);
   const topupJob = useCallback(
-    job => setTopup(job.logic.funding.requirement),
+    ({ logic }) => setTopup(logic.funding.requirement),
     []
   );
-
   const hideTopup = useCallback(() => setTopup(false), []);
+
+  const completeProfile = !!profile && profile.state !== 'complete';
 
   const assign = useCallback(
     job => {
@@ -48,7 +49,6 @@ function Jobs({ history }) {
         setTopup(job.logic.funding.requirement);
         return;
       }
-      const completeProfile = profile && profile.state !== 'complete';
       if (job.requiresProfile && !completeProfile) {
         toggleProfile();
         return;
@@ -59,8 +59,17 @@ function Jobs({ history }) {
         dispatch(assignJob(job.id));
       }
     },
-    [dispatch, history, profile, toggleProfile, user]
+    [completeProfile, dispatch, history, toggleProfile, user]
   );
+
+  const prevProfile = usePrevious(profile);
+  useEffect(() => {
+    if (profile && prevProfile) {
+      if (prevProfile.state !== 'complete' && profile.state === 'complete') {
+        dispatch(fetchJobs());
+      }
+    }
+  }, [dispatch, prevProfile, profile]);
 
   useEffect(() => {
     dispatch(fetchJobs());
