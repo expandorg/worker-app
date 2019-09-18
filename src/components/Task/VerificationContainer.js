@@ -26,6 +26,9 @@ export default function VerificationContainer({ assignment, job, task }) {
 
   const submit = useCallback(
     result => {
+      if (!job) {
+        return;
+      }
       const score = calculateVerificationScore(
         result,
         job.verificationForm.modules,
@@ -33,7 +36,7 @@ export default function VerificationContainer({ assignment, job, task }) {
       );
       dispatch(verifyResponse(assignment.responseId, score));
     },
-    [assignment.responseId, dispatch, job.verificationForm.modules]
+    [assignment.responseId, dispatch, job]
   );
 
   const notify = useCallback(
