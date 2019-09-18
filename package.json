@@ -18,11 +18,11 @@
     "@expandorg/app-gemtokens": "^0.0.40",
     "@expandorg/app-utils": "^0.0.35",
     "@expandorg/app-web3": "^0.0.31",
-    "@expandorg/components": "^0.2.74",
-    "@expandorg/modules": "^0.2.125",
+    "@expandorg/components": "^0.2.80",
+    "@expandorg/modules": "^0.2.135",
     "@expandorg/uikit": "^0.2.18",
     "@expandorg/utils": "^0.0.8",
-    "@expandorg/validation": "^0.2.6",
+    "@expandorg/validation": "^0.2.8",
     "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
     "classnames": "^2.2.6",
     "core-js": "^3.2.1",
@@ -41,7 +41,7 @@
     "react-router-dom": "^5.0.1",
     "react-spring": "^8.0.27",
     "redux": "^4.0.4",
-    "redux-saga": "^1.0.5",
+    "redux-saga": "^1.1.1",
     "reselect": "^4.0.0"
   },
   "devDependencies": {
@@ -64,7 +64,7 @@
     "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^6.3.0",
+    "eslint": "^6.4.0",
     "eslint-loader": "^3.0.0",
     "file-loader": "^4.2.0",
     "flow-bin": "^0.106.3",
@@ -74,12 +74,12 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.18.2",
-    "react-hot-loader": "^4.12.12",
+    "react-hot-loader": "^4.12.13",
     "style-loader": "^1.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0"
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
   }
 }
