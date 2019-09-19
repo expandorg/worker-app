@@ -1,0 +1,39 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  display flex
+  align-items: center
+  justify-content: center
+  height 110px
+
+.pie
+  box-sizing: border-box
+  position relative
+
+  width: 72px
+  height 72px
+  border-radius: 36px
+  background-color:  #1471EB
+  box-shadow: 0px 10px 30px rgba(255, 45, 132, 0.3);
+
+  &::after
+    position absolute
+    content: ''
+    left: calc(50% - 15px)
+    top: calc(50% - 15px)
+
+    border-radius: 15px
+    height 30px
+    width: 30px
+    background-color: color-white
+
+.sector
+  position absolute
+  box-sizing: border-box
+  left: 0
+  top: 0
+  right 0
+  bottom: 0
+  border-radius: 36px
+

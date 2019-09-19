@@ -20,6 +20,7 @@ import Task from './components/Task/Task';
 
 import Stats from './components/Stats/Stats';
 import Account from './components/Account/Account';
+import Profile from './components/Profile/Profile';
 
 import ResetPassword from './components/Password/ResetPassword';
 import RestorePassword from './components/Password/RestorePassword';
@@ -46,6 +47,7 @@ const App = () => (
 
             <Route path="/account" component={Account} />
             <Route path="/stats" component={Stats} />
+            <Route path="/profile" component={Profile} />
 
             <Route path="/password" component={ResetPassword} />
             <Route path="/restore" component={RestorePassword} />
