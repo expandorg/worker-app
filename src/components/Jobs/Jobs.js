@@ -41,7 +41,7 @@ function Jobs({ history }) {
   );
   const hideTopup = useCallback(() => setTopup(false), []);
 
-  const completeProfile = !!profile && profile.state !== 'complete';
+  const completeProfile = !!profile && profile.state === 'complete';
 
   const assign = useCallback(
     job => {
