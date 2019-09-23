@@ -1,0 +1,37 @@
+@import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/colors'
+
+.container
+  box-sizing: border-box
+
+.option
+  box-sizing: border-box
+
+  height 40px
+  width: 122px
+
+  font(h4-title, false, 14px, 38px)
+  color: color-black
+  background-color: color-light-blue
+  border: 1px solid color-heavy-blue
+  border-right-color: transparent
+
+  outline 0
+  cursor pointer
+
+  &:hover
+    background-color: lighten(color-light-blue, 40%)
+
+  &:first-child
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+
+
+  &:last-child
+    border-top-right-radius: 5px
+    border-bottom-right-radius: 5px
+    border-right-color: color-heavy-blue
+
+  &.selected
+    background-color: color-white
+    font-weight: 600

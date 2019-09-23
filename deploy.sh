@@ -1,3 +1,5 @@
+#!/bin/bash
+
 case $1 in
   production)
     subdomain=portal;;
@@ -14,3 +16,5 @@ NODE_ENV=$1 webpack
 
 gsutil cp -r ./public/static ./public/app-* ./public/index.html ${url}/
 gsutil rm ${url}/app-${old_hash}*
+
+
