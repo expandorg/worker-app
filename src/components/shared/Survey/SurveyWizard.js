@@ -36,6 +36,7 @@ export default function SurveyWizard({
   profile: o,
   filters,
   userId,
+  title,
   saveState,
   onSave,
   onHide,
@@ -70,7 +71,7 @@ export default function SurveyWizard({
 
   return (
     <div className={styles.container}>
-      <Navbar title="Getting Started" theme="dark" top={false}>
+      <Navbar title={title} theme="dark" top={false}>
         <div className={styles.header}>
           <button onClick={skip} className={styles.skip}>
             skip
@@ -120,6 +121,7 @@ export default function SurveyWizard({
 
 SurveyWizard.propTypes = {
   profile: PropTypes.shape({}).isRequired,
+  title: PropTypes.string,
   filters: PropTypes.shape({
     Interest: PropTypes.array,
     Education: PropTypes.array,
@@ -129,4 +131,8 @@ SurveyWizard.propTypes = {
   saveState: requestStateProps.isRequired,
   onSave: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
+};
+
+SurveyWizard.defaultProps = {
+  title: 'Getting Started',
 };

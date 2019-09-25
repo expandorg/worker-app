@@ -9,7 +9,7 @@ import { saveProfile, getAllFilters } from '../../../sagas/profileSagas';
 
 import SurveyWizard from './SurveyWizard';
 
-export default function SurveyPopup({ profile, userId, onHide }) {
+export default function SurveyPopup({ profile, userId, onHide, title }) {
   const dispatch = useDispatch();
 
   const filters = useSelector(profileFiltersSelector);
@@ -29,6 +29,7 @@ export default function SurveyPopup({ profile, userId, onHide }) {
   return (
     <SurveyWizard
       userId={userId}
+      title={title}
       profile={profile}
       filters={filters}
       saveState={saveState}
@@ -40,6 +41,11 @@ export default function SurveyPopup({ profile, userId, onHide }) {
 
 SurveyPopup.propTypes = {
   profile: PropTypes.shape({}).isRequired,
+  title: PropTypes.string,
   userId: PropTypes.number.isRequired,
   onHide: PropTypes.func.isRequired,
+};
+
+SurveyPopup.defaultProps = {
+  title: 'Getting Started',
 };
