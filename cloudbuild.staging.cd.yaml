@@ -1,25 +1,18 @@
 steps:
-  # - id: Install
-  #   name: 'gcr.io/cloud-builders/npm'
-  #   args: ['install']
-  #   env: 
-  #   - 'NPM_TOKEN=${_NPM_TOKEN}'
-  # - id: Build
-  #   name: 'gcr.io/cloud-builders/npm'
-  #   args: ['run', 'build']
-  #   env: 
-  #   - 'NPM_TOKEN=${_NPM_TOKEN}'
-  - id: Detect Old Version
+  - id: Install
+    name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    env: 
+    - 'NPM_TOKEN=${_NPM_TOKEN}'
+  - id: Build
+    name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+    env: 
+    - 'NPM_TOKEN=${_NPM_TOKEN}'
+  - id: Deploy
     name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: /bin/sh
-    args:
-    - '-c'
-    - | 
-      '_OLD_VERSION=$(gcr.io/cloud-builders/gsutil ls gs://cloud_build_testing/ | sed -nE "s,app-(.+)\.js$,\1,p"}*)'
-  - id: Remove Old Version
-    name: gcr.io/cloud-builders/gsutil
-    args: ['rm', 'gs://cloud_build_testing/app-${_OLD_VERSION}']
-   
+    entrypoint: bash
+    args: ['./cloud-deploy.sh']
 substitutions:
 options:
     substitution_option: 'ALLOW_LOOSE'
