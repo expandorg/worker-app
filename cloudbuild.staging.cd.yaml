@@ -1,0 +1,18 @@
+steps:
+  - id: Install
+    name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    env: 
+    - 'NPM_TOKEN=${_NPM_TOKEN}'
+  - id: Build
+    name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+    env: 
+    - 'NPM_TOKEN=${_NPM_TOKEN}'
+  - id: Deploy
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: bash
+    args: ['./cloud-deploy.sh']
+substitutions:
+options:
+    substitution_option: 'ALLOW_LOOSE'
