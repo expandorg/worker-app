@@ -8,11 +8,13 @@ steps:
     name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'build']
     env: 
-    - 'NPM_TOKEN=${_NPM_TOKEN}'
+    - 'NPM_TOKEN=${_NPM_TOKEN}' 
   - id: Deploy
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: bash
-    args: ['./cloud-deploy.sh']
+    name: gcr.io/cloud-builders/gsutil
+    args: ['cp', '-r', './public/static', './public/app-*', './public/index.html', 'gs://cloud_build_testing/']
+  - id: Remove Old Version
+    name: gcr.io/cloud-builders/gsutil
+    args: ['rm', 'gs://cloud_build_testing/app-${_OLD_VERSION}*']
 substitutions:
 options:
     substitution_option: 'ALLOW_LOOSE'
