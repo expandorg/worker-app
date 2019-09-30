@@ -12,6 +12,7 @@ import {
 
 import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';
+import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import { assignmentProps } from '../shared/propTypes';
 
@@ -74,6 +75,7 @@ export default function ModulesForm({
         </Panel>
       )}
       <SubmitStateEffect submitState={submitState} onComplete={submitted} />
+      <AssignedJobRedirect />
       {isSubmitted && (
         <SubmissionResultDialog
           jobId={assignment.jobId}
