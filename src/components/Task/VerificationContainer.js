@@ -26,15 +26,14 @@ export default function VerificationContainer({ assignment, job, task }) {
 
   const submit = useCallback(
     result => {
-      if (!job) {
-        return;
+      if (job) {
+        const score = calculateVerificationScore(
+          result,
+          job.verificationForm.modules,
+          moduleControls
+        );
+        dispatch(verifyResponse(assignment.responseId, score));
       }
-      const score = calculateVerificationScore(
-        result,
-        job.verificationForm.modules,
-        moduleControls
-      );
-      dispatch(verifyResponse(assignment.responseId, score));
     },
     [assignment.responseId, dispatch, job]
   );
