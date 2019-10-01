@@ -3,7 +3,7 @@ import { userSelector } from '@expandorg/app-auth/selectors';
 
 import Mixpanel from '../common/Mixpanel';
 
-import { jobsActionTypes } from './actionTypes';
+import { tasksActionTypes } from './actionTypes';
 
 function* taskSubmitted() {
   const user = yield select(userSelector);
@@ -13,5 +13,5 @@ function* taskSubmitted() {
 
 // eslint-disable-next-line import/prefer-default-export
 export function* mixpanelSagas() {
-  yield takeEvery(jobsActionTypes.ASSIGN_COMPLETE, taskSubmitted);
+  yield takeEvery(tasksActionTypes.SUBMIT_COMPLETE, taskSubmitted);
 }
