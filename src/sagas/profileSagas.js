@@ -23,12 +23,27 @@ export const saveProfile = profile => ({
   asyncCall: profileApi.createWorkerProfile,
 });
 
+export const fetchSummary = () => ({
+  type: profileActionTypes.SUMMARY,
+  payload: {},
+  asyncCall: profileApi.summary,
+});
+
+export const taskHistory = (page = 0) => ({
+  type: profileActionTypes.FETCH_TASK_HISTORY,
+  payload: { page },
+  asyncCall: profileApi.taskHistory,
+  meta: { params: { page } },
+});
+
 export function* profileSagas() {
   yield takeEvery(
     [
       profileActionTypes.SAVE,
       profileActionTypes.FETCH,
       profileActionTypes.FETCH_FILTERS,
+      profileActionTypes.SUMMARY,
+      profileActionTypes.FETCH_TASK_HISTORY,
     ],
     handleAsyncCall
   );

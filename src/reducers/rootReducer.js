@@ -9,6 +9,9 @@ import authToken from './authTokenReducer';
 import profile from './profile/profileReducer';
 import filters from './profile/filtersReducer';
 
+import profileSummary from './profile/summaryReducer';
+import taskHistory from './profile/taskHistoryReducer';
+
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
 import onboardingEntities from './jobs/onboardingEntitiesReducer';
@@ -31,6 +34,8 @@ export default combineReducers({
   profile: combineReducers({
     profile,
     filters,
+    summary: profileSummary,
+    taskHistory,
   }),
   jobs: combineReducers({
     entities: jobEntities,
