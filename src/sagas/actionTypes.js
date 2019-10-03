@@ -73,4 +73,12 @@ export const profileActionTypes = createActionTypes('profile', {
   SAVE: null,
   SAVE_COMPLETE: null,
   SAVE_FAILED: null,
+
+  SUMMARY: null,
+  SUMMARY_COMPLETE: null,
+  SUMMARY_FAILED: null,
+
+  FETCH_TASK_HISTORY: null,
+  FETCH_TASK_HISTORY_COMPLETE: null,
+  FETCH_TASK_HISTORY_FAILED: null,
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
@@ -10,8 +10,8 @@ import Page from '../shared/Page';
 
 import Summary from './Summary/Summary';
 import History from './History/History';
-import Compliments from './Compliments/Compliments';
-import Stones from './Stones/Stones';
+// import Compliments from './Compliments/Compliments';
+// import Stones from './Stones/Stones';
 
 import { profileSelector } from '../../selectors/profileSelectors';
 
@@ -26,14 +26,14 @@ function Profile() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>Worker Profile</h1>
-          <Link to="" className={styles.verifier}>
+          {/* <Link to="" className={styles.verifier}>
             view verifier profile
-          </Link>
+          </Link> */}
         </div>
         <Summary user={user} profile={profile} />
         <History user={user} />
-        <Compliments />
-        <Stones />
+        {/* <Compliments /> */}
+        {/* <Stones /> */}
       </div>
     </Page>
   );

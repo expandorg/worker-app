@@ -1,21 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { range } from '@expandorg/utils';
 import Sort from './Sort';
 import Filter from './Filter';
 import TaskItem from './TaskItem';
 
+import { fetchTaskHistory } from '../../../sagas/profileSagas';
+import { taskHistorySelector } from '../../../selectors/profileSelectors';
+
 import styles from './History.module.styl';
 
-const tasks = range(10).map(id => ({
-  id,
-  name: 'Task Name',
-  createDate: 'Thu Sep 19 2019 21:13:48 GMT+0300 (Moscow Standard Time)',
-  reward: 200,
-  rejected: id === 3,
-}));
-
 export default function History() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTaskHistory(0));
+  }, [dispatch]);
+
+  const tasks = useSelector(taskHistorySelector);
+
   const [sort, setSort] = useState('recent');
   const onSort = useCallback(val => setSort(val), []);
 
