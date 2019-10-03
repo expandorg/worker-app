@@ -26,9 +26,9 @@ function Profile() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>Worker Profile</h1>
-          <Link to="" className={styles.verifier}>
+          {/* <Link to="" className={styles.verifier}>
             view verifier profile
-          </Link>
+          </Link> */}
         </div>
         <Summary user={user} profile={profile} />
         <History user={user} />
