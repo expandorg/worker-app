@@ -29,7 +29,7 @@ export const fetchSummary = () => ({
   asyncCall: profileApi.summary,
 });
 
-export const taskHistory = (page = 0) => ({
+export const fetchTaskHistory = (page = 0) => ({
   type: profileActionTypes.FETCH_TASK_HISTORY,
   payload: { page },
   asyncCall: profileApi.taskHistory,

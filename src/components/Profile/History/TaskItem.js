@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -12,18 +13,18 @@ export default function TaskItem({ task }) {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <JobLogo className={styles.logo} name={task.name} />
+        <JobLogo className={styles.logo} name={task.title} />
         <div className={styles.heading}>
-          <div className={styles.name}>{task.name}</div>
+          <div className={styles.name}>{task.title}</div>
           <div className={styles.date}>
-            {format(parse(task.createDate), 'MM/DD/YYYY HH:mm')}
+            {format(parse(task.submitted_at), 'MM/DD/YYYY HH:mm')}
           </div>
         </div>
       </div>
       <div className={styles.stats}>
-        {task.rejected && <div className={styles.rejected}>rejected</div>}
+        {!task.status && <div className={styles.rejected}>rejected</div>}
         <div className={styles.reward}>
-          {task.reward}
+          {task.gems}
           <GemsIcon className={styles.gem} />
         </div>
       </div>
