@@ -10,8 +10,8 @@ import Page from '../shared/Page';
 
 import Summary from './Summary/Summary';
 import History from './History/History';
-import Compliments from './Compliments/Compliments';
-import Stones from './Stones/Stones';
+// import Compliments from './Compliments/Compliments';
+// import Stones from './Stones/Stones';
 
 import { profileSelector } from '../../selectors/profileSelectors';
 
@@ -32,8 +32,8 @@ function Profile() {
         </div>
         <Summary user={user} profile={profile} />
         <History user={user} />
-        <Compliments />
-        <Stones />
+        {/* <Compliments /> */}
+        {/* <Stones /> */}
       </div>
     </Page>
   );
