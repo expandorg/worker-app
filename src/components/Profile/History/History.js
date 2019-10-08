@@ -25,6 +25,11 @@ export default function History() {
   const [filter, setFilter] = useState('all');
   const onFilter = useCallback(val => setFilter(val), []);
 
+  // TODO : use nextPage
+  // const nextPage = useCallback(() => {
+  //   dispatch(fetchTaskHistory(ts.next));
+  // }, [dispatch, ts.next]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
