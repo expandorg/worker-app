@@ -40,7 +40,7 @@ export default function Summary({ user, profile }) {
           <div className={styles.desc}>Gems earned</div>
         </div>
         <div className={styles.item}>
-          <ProfileState profile={profile} />
+          <ProfileState profile={profile} user={user} />
           <div className={styles.desc}>Profile</div>
         </div>
       </div>

@@ -29,11 +29,11 @@ export const fetchSummary = () => ({
   asyncCall: profileApi.summary,
 });
 
-export const fetchTaskHistory = (page = 0) => ({
+export const fetchTaskHistory = (next = null) => ({
   type: profileActionTypes.FETCH_TASK_HISTORY,
-  payload: { page },
+  payload: { next_cursor: next, limit: 10 },
   asyncCall: profileApi.taskHistory,
-  meta: { params: { page } },
+  meta: { params: { next } },
 });
 
 export function* profileSagas() {

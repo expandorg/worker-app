@@ -13,11 +13,11 @@ import styles from './History.module.styl';
 export default function History() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchTaskHistory(0));
-  }, [dispatch]);
+  const ts = useSelector(taskHistorySelector);
 
-  const tasks = useSelector(taskHistorySelector);
+  useEffect(() => {
+    dispatch(fetchTaskHistory());
+  }, [dispatch]);
 
   const [sort, setSort] = useState('recent');
   const onSort = useCallback(val => setSort(val), []);
@@ -34,7 +34,7 @@ export default function History() {
       <div className={styles.content}>
         <Sort onSelect={onSort} selected={sort} />
         <div className={styles.list}>
-          {tasks.map(task => (
+          {ts.tasks.map(task => (
             <TaskItem key={task.id} task={task} />
           ))}
         </div>

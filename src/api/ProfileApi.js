@@ -11,8 +11,9 @@ export class ProfileApi extends BaseApi {
 
   summary = () => this.get('/profiles/summary');
 
-  taskHistory = ({ page }: Object) =>
-    this.get('/profiles/task-history', { page: page || 0 });
+  // eslint-disable-next-line camelcase
+  taskHistory = ({ next_cursor, limit }: Object) =>
+    this.get('/profiles/task-history', { next_cursor, limit });
 }
 
 export const profileApi = new ProfileApi();

@@ -20,7 +20,6 @@ import styles from './Profile.module.styl';
 function Profile() {
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
-
   return (
     <Page title="Profile" className={styles.page}>
       <div className={styles.container}>
@@ -30,10 +29,14 @@ function Profile() {
             view verifier profile
           </Link> */}
         </div>
-        <Summary user={user} profile={profile} />
-        <History user={user} />
-        {/* <Compliments /> */}
-        {/* <Stones /> */}
+        {user && (
+          <>
+            <Summary user={user} profile={profile} />
+            <History user={user} />
+            {/* <Compliments /> */}
+            {/* <Stones /> */}
+          </>
+        )}
       </div>
     </Page>
   );
