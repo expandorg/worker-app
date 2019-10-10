@@ -5,11 +5,10 @@ import cn from 'classnames';
 
 import styles from './Sort.module.styl';
 
-const options = ['tokens', 'type', 'recent'];
+const options = ['token', 'submission'];
 const titles = {
-  tokens: 'Tokens',
-  type: 'Job Type',
-  recent: 'Recent',
+  token: 'Tokens',
+  submission: 'Recent',
 };
 
 export default function Sort({ selected, onSelect }) {
