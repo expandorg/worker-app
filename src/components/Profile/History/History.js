@@ -17,20 +17,22 @@ export default function History() {
 
   const ts = useSelector(taskHistorySelector);
 
+  const [status, setStatus] = useState('all');
+  const [sort, setSort] = useState(null);
+
   useEffect(() => {
     dispatch(fetchTaskHistory());
   }, [dispatch]);
 
-  const [status, setStatus] = useState('all');
   const onStatus = useCallback(
     val => {
       setStatus(val);
+      setSort(null);
       dispatch(fetchTaskHistory(undefined, val));
     },
     [dispatch]
   );
 
-  const [sort, setSort] = useState(null);
   const onSort = useCallback(
     val => {
       setSort(val);
