@@ -51,7 +51,11 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
           </div>
           {isJoined && (
             <Link
-              className={cn('gem-button', 'gem-button-blue', styles.assign)}
+              className={cn(
+                'gem-button',
+                'gem-button-white-blue',
+                styles.assign
+              )}
               to={`/tasks/${assignment.taskId}`}
             >
               Continue
@@ -61,7 +65,7 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
             <EmailConfirmed user={user} onConfirmed={assign}>
               {({ onToggle }) => (
                 <Button
-                  theme="blue"
+                  theme="white-blue"
                   className={styles.assign}
                   onClick={onToggle}
                 >
