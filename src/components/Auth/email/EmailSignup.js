@@ -96,7 +96,6 @@ class EmailSignup extends Component {
           <ErrorMessage errors={error} className={styles.error} />
           <Button
             type="submit"
-            theme="blue"
             className={cn(styles.submit, styles.signUpSubmit)}
           >
             {isFetching ? 'Signing up' : 'Sign up'}
