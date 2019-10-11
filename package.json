@@ -18,11 +18,11 @@
     "@expandorg/app-gemtokens": "^0.0.41",
     "@expandorg/app-utils": "^0.0.36",
     "@expandorg/app-web3": "^0.0.32",
-    "@expandorg/components": "^0.2.82",
-    "@expandorg/modules": "^0.2.137",
-    "@expandorg/uikit": "^0.2.22",
+    "@expandorg/components": "^0.2.84",
+    "@expandorg/modules": "^0.2.138",
+    "@expandorg/uikit": "^0.2.23",
     "@expandorg/utils": "^0.0.8",
-    "@expandorg/validation": "^0.2.10",
+    "@expandorg/validation": "^0.2.11",
     "bignumber.js": "github:frozeman/bignumber.js-nolookahead",
     "classnames": "^2.2.6",
     "core-js": "^3.2.1",
@@ -45,7 +45,7 @@
     "reselect": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.3",
+    "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
@@ -63,7 +63,7 @@
     "css-loader": "^3.2.0",
     "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.5.1",
     "eslint-loader": "^3.0.2",
     "file-loader": "^4.2.0",
@@ -78,7 +78,7 @@
     "style-loader": "^1.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "webpack": "^4.41.0",
+    "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
   }
