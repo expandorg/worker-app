@@ -7,38 +7,26 @@
   justify-content: center
   height 110px
 
-
-.pie
-  box-sizing: border-box
-  position relative
-
-  width: 72px
-  height 72px
-  border-radius: 36px
-  background-color:  #1471EB
-  box-shadow: 0px 10px 30px rgba(255, 45, 132, 0.3);
-
-  border: 0
-  cursor pointer
   outline: none
+  cursor pointer
 
-  &::after
-    position absolute
-    content: ''
-    left: calc(50% - 15px)
-    top: calc(50% - 15px)
+.svg
+  position relative
+  transform-origin: center
+  transform: rotate(-90deg)
 
-    border-radius: 15px
-    height 30px
-    width: 30px
-    background-color: color-white
+  outline: none
+  cursor pointer
 
-.sector
-  position absolute
-  box-sizing: border-box
-  left: 0
-  top: 0
-  right 0
-  bottom: 0
-  border-radius: 36px
+.empty
+.bar
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  stroke-width: 30px;
+
+.empty
+  stroke: #FF2D84;
+
+.bar
+  stroke: #1471EB;
 
