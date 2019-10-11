@@ -20,6 +20,7 @@ import styles from './Profile.module.styl';
 function Profile() {
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
+
   return (
     <Page title="Profile" className={styles.page}>
       <div className={styles.container}>

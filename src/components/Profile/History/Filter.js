@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import cn from 'classnames';
-
+import { Tabs, Tab } from '@expandorg/components';
 import styles from './Filter.module.styl';
 
 const options = ['all', 'pedning', 'inprogress', 'completed', 'rejected'];
@@ -16,19 +15,18 @@ const titles = {
 
 export default function Filter({ selected, onSelect }) {
   return (
-    <div className={styles.container}>
+    <Tabs className={styles.container} theme="underline">
       {options.map(option => (
-        <button
+        <Tab
           key={option}
-          className={cn(styles.option, {
-            [styles.selected]: option === selected,
-          })}
+          className={styles.option}
+          active={option === selected}
           onClick={() => onSelect(option)}
         >
           {titles[option]}
-        </button>
+        </Tab>
       ))}
-    </div>
+    </Tabs>
   );
 }
 

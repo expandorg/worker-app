@@ -64,7 +64,6 @@ export default function Location({ profile, onChange }) {
         onKeyDown={keyDown}
         value={value}
         options={autocomplete}
-        theme="white"
         placeholder="City, State, Country"
         onChange={change}
         onSelect={select}

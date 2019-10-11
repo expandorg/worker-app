@@ -47,28 +47,28 @@ export default function History() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Job History</h2>
-        <Filter selected={status} onSelect={onStatus} />
-      </div>
-      <div className={styles.content}>
-        <Sort onSelect={onSort} selected={sort} />
-        <div className={styles.list}>
-          {ts.tasks.map(task => (
-            <TaskItem key={task.id} task={task} />
-          ))}
-          {ts.next && (
-            <Button
-              size="small"
-              className={styles.next}
-              theme="white-blue"
-              onClick={nextPage}
-            >
-              Next
-            </Button>
-          )}
+      <h2 className={styles.title}>Job History</h2>
+      <Filter selected={status} onSelect={onStatus} />
+      {ts.tasks.length > 0 && (
+        <div className={styles.content}>
+          <Sort onSelect={onSort} selected={sort} />
+          <div className={styles.list}>
+            {ts.tasks.map(task => (
+              <TaskItem key={task.id} task={task} />
+            ))}
+            {ts.next && (
+              <Button
+                size="small"
+                className={styles.next}
+                theme="white-blue"
+                onClick={nextPage}
+              >
+                Next
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -23,7 +23,6 @@ export default function Languages({ profile, onChange, languages }) {
   return (
     <Field title="What languages do you know?">
       <AutocompleteInput
-        theme="white"
         onKeyDown={keyDown}
         value={suggest}
         placeholder="Languages"

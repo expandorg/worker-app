@@ -12,7 +12,6 @@ export default function Name({ profile, onChange }) {
       <Input
         onKeyDown={keyDown}
         tabIndex="0"
-        theme="white"
         placeholder="Your name"
         value={profile.name}
         onChange={({ target }) => onChange({ ...profile, name: target.value })}
