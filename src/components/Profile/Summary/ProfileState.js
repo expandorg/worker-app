@@ -40,7 +40,7 @@ export default function ProfileState({ profile, user }) {
   return (
     <>
       <div className={styles.container}>
-        <button className={styles.pie} onClick={toggleSurvey}>
+        <button className={styles.button} onClick={toggleSurvey}>
           <svg
             className={styles.svg}
             width="72"
