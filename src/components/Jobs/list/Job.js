@@ -69,7 +69,7 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
                   className={styles.assign}
                   onClick={onToggle}
                 >
-                  Join
+                  Start
                 </Button>
               )}
             </EmailConfirmed>
