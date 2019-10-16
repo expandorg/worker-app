@@ -24,6 +24,7 @@ export default function Interests({ profile, onChange, interests }) {
       <AutocompleteInput
         onKeyDown={keyDown}
         value={suggest}
+        className="gem-autocomplete-multi"
         placeholder="Your interests"
         options={autocomplete}
         onChange={change}

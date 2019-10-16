@@ -24,6 +24,7 @@ export default function Languages({ profile, onChange, languages }) {
     <Field title="What languages do you know?">
       <AutocompleteInput
         onKeyDown={keyDown}
+        className="gem-autocomplete-multi"
         value={suggest}
         placeholder="Languages"
         options={autocomplete}

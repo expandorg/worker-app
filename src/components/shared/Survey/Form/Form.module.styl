@@ -7,7 +7,7 @@
   width: 100%
   height: 100%
 
-  padding: 0 15px 15px
+  padding: 0 32px 32px
 
   display flex
   flex-direction: column
@@ -38,7 +38,7 @@
   justify-content: flex-end
 
   > *
-    margin-left: 15px
+    margin-left: 24px
     border-radius: 5px
     height 32px
     line-height 32px
@@ -48,3 +48,24 @@
 
   &:hover
     background-color: color-white;
+
+
+.field
+  :global(.gem-autocomplete-suggestions)
+    max-height: 300px
+
+  :global(.gem-autocomplete-multi .gem-autocomplete-suggestion)
+    position relative
+    padding-right: 36px
+
+    &:before
+      position absolute
+
+      content: ""
+      height 14px
+      width: 14px
+
+      right 22px
+      top: calc(50% - 7px)
+      background-image: url(./add.svg)
+
