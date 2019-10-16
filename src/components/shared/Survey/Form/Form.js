@@ -28,11 +28,18 @@ export function Form({ onNext, onBack, children, nextTitle }) {
       <div className={styles.content}>{children}</div>
       <div className={styles.actions}>
         {onBack && (
-          <Button theme="secondary" onClick={onBack}>
+          <Button
+            size="small"
+            theme="white-blue"
+            className={styles.back}
+            onClick={onBack}
+          >
             Back
           </Button>
         )}
-        <Button onClick={onNext}>{nextTitle}</Button>
+        <Button size="small" onClick={onNext}>
+          {nextTitle}
+        </Button>
       </div>
     </div>
   );

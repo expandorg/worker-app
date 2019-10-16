@@ -25,6 +25,16 @@
   &:hover
     color: lighten(color-text-blue, 20%)
 
+.arrow
+  position relative
+  top: -2px
+  margin-left: 8px
+  path
+    fill: color-text-blue
+
+.up
+  .arrow
+    transform: rotateX(180deg)
 
 .selected
   font-weight: 800

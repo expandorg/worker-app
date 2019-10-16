@@ -20,8 +20,9 @@ import Interests from './Form/Interests';
 
 import { getRequestForm, getWizardForm } from './profile';
 
-import styles from './SurveyWizard.module.styl';
 import useCurrentLocation from '../useCurrentLocation';
+
+import styles from './SurveyWizard.module.styl';
 
 const pages = {
   Name: 0,

@@ -27,7 +27,7 @@ export default function Summary({ user, profile }) {
         <div className={styles.name}>{profile && profile.name}</div>
         <div className={styles.email}>{user.email}</div>
         <div className={styles.rating}>
-          <Rating rating={5} />
+          {false && <Rating rating={profile && profile.rating} />}
         </div>
       </div>
       <div className={styles.stats}>
@@ -50,7 +50,10 @@ export default function Summary({ user, profile }) {
 
 Summary.propTypes = {
   user: userProps.isRequired,
-  profile: PropTypes.shape({ name: PropTypes.string }),
+  profile: PropTypes.shape({
+    name: PropTypes.string,
+    rating: PropTypes.number,
+  }),
 };
 
 Summary.defaultProps = {

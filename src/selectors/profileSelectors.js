@@ -6,4 +6,8 @@ export const profileFiltersSelector = (state: Object) => state.profile.filters;
 
 export const profileSummarySelector = (state: Object) => state.profile.summary;
 
-export const taskHistorySelector = (state: Object) => state.profile.taskHistory;
+export const taskHistorySelector = (state: Object) =>
+  state.profile.taskHistory.list;
+
+export const taskHistoryEntities = (state: Object) =>
+  state.profile.taskHistory.entities;
