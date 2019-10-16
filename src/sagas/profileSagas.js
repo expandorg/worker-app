@@ -40,6 +40,12 @@ export const fetchTaskHistory = (
   meta: { params: { cursor } },
 });
 
+export const fetchTaskHistoryEntity = id => ({
+  type: profileActionTypes.FETCH_TASK_HISTORY_BY_ID,
+  payload: { id },
+  asyncCall: profileApi.taskHistoryById,
+});
+
 export function* profileSagas() {
   yield takeEvery(
     [
@@ -48,6 +54,7 @@ export function* profileSagas() {
       profileActionTypes.FETCH_FILTERS,
       profileActionTypes.SUMMARY,
       profileActionTypes.FETCH_TASK_HISTORY,
+      profileActionTypes.FETCH_TASK_HISTORY_BY_ID,
     ],
     handleAsyncCall
   );

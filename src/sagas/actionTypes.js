@@ -81,4 +81,8 @@ export const profileActionTypes = createActionTypes('profile', {
   FETCH_TASK_HISTORY: null,
   FETCH_TASK_HISTORY_COMPLETE: null,
   FETCH_TASK_HISTORY_FAILED: null,
+
+  FETCH_TASK_HISTORY_BY_ID: null,
+  FETCH_TASK_HISTORY_BY_ID_COMPLETE: null,
+  FETCH_TASK_HISTORY_BY_ID_FAILED: null,
 });

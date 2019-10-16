@@ -10,7 +10,8 @@ import profile from './profile/profileReducer';
 import filters from './profile/filtersReducer';
 
 import profileSummary from './profile/summaryReducer';
-import taskHistory from './profile/taskHistoryReducer';
+import taskHistoryList from './profile/taskHistoryReducer';
+import taskHistoryEntities from './profile/taskHistoryEntitiesReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
@@ -35,7 +36,10 @@ export default combineReducers({
     profile,
     filters,
     summary: profileSummary,
-    taskHistory,
+    taskHistory: combineReducers({
+      list: taskHistoryList,
+      entities: taskHistoryEntities,
+    }),
   }),
   jobs: combineReducers({
     entities: jobEntities,

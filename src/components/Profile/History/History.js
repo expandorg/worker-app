@@ -7,8 +7,14 @@ import Sort from './Sort';
 import Filter from './Filter';
 import TaskItem from './TaskItem';
 
-import { fetchTaskHistory } from '../../../sagas/profileSagas';
-import { taskHistorySelector } from '../../../selectors/profileSelectors';
+import {
+  fetchTaskHistory,
+  fetchTaskHistoryEntity,
+} from '../../../sagas/profileSagas';
+import {
+  taskHistorySelector,
+  taskHistoryEntities,
+} from '../../../selectors/profileSelectors';
 
 import styles from './History.module.styl';
 
@@ -16,6 +22,7 @@ export default function History() {
   const dispatch = useDispatch();
 
   const ts = useSelector(taskHistorySelector);
+  const details = useSelector(taskHistoryEntities);
 
   const [status, setStatus] = useState('all');
   const [sort, setSort] = useState(null);
@@ -45,6 +52,10 @@ export default function History() {
     dispatch(fetchTaskHistory(ts.next, status, sort));
   }, [dispatch, sort, status, ts.next]);
 
+  const fetchDetails = useCallback(id => dispatch(fetchTaskHistoryEntity(id)), [
+    dispatch,
+  ]);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Job History</h2>
@@ -54,7 +65,12 @@ export default function History() {
           <Sort onSelect={onSort} selected={sort} />
           <div className={styles.list}>
             {ts.tasks.map(task => (
-              <TaskItem key={task.id} task={task} />
+              <TaskItem
+                key={task.id}
+                task={task}
+                details={details[task.id]}
+                onFetchDetails={fetchDetails}
+              />
             ))}
             {ts.next && (
               <Button

@@ -53,6 +53,10 @@ export default function Sort({ selected: sel, onSelect }) {
 }
 
 Sort.propTypes = {
-  selected: PropTypes.string.isRequired,
+  selected: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
+};
+
+Sort.defaultProps = {
+  selected: null,
 };
