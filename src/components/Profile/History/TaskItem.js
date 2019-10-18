@@ -33,7 +33,9 @@ export default function TaskItem({ task, details, onFetchDetails }) {
           </div>
         </div>
         <div className={styles.stats}>
-          {!task.status && <div className={styles.rejected}>rejected</div>}
+          {task.status === false && (
+            <div className={styles.rejected}>rejected</div>
+          )}
           <div className={styles.reward}>
             {task.gems}
             <GemsIcon className={styles.gem} />
