@@ -16,8 +16,7 @@ export default function TaskItem({ task, details, onFetchDetails }) {
     }
     setExpanded(!expanded);
   }, [details, expanded, onFetchDetails, task.id]);
-
-  console.log(details);
+  console.log(task);
 
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -41,6 +40,11 @@ export default function TaskItem({ task, details, onFetchDetails }) {
           </div>
         </div>
       </div>
+      {expanded && (
+        <div className={styles.details}>
+          <div className={styles.info} />
+        </div>
+      )}
     </div>
   );
 }

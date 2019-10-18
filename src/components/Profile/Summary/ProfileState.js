@@ -17,6 +17,10 @@ const getProfileFillPercentage = profile => {
     return 0;
   }
 
+  if (!profile.attributes) {
+    return 0;
+  }
+
   const { Language, Education, Interest } = profile.attributes;
 
   const score =
