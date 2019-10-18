@@ -28,7 +28,7 @@ export default function TaskItem({ task, details, onFetchDetails }) {
           <div className={styles.heading}>
             <div className={styles.name}>{task.title}</div>
             <div className={styles.date}>
-              {format(parse(task.submitted_at), 'MM/DD/YYYY HH:mm')}
+              {format(parse(task.SubmittedAt), 'MM/DD/YYYY HH:mm')}
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@ TaskItem.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    submitted_at: PropTypes.string,
+    SubmittedAt: PropTypes.string,
     status: PropTypes.string,
     gems: PropTypes.number,
   }).isRequired,
