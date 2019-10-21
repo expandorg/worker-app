@@ -66,7 +66,7 @@ export default function History() {
           <div className={styles.list}>
             {ts.tasks.map(task => (
               <TaskItem
-                key={task.id}
+                key={task.response_id}
                 task={task}
                 details={details[task.id]}
                 onFetchDetails={fetchDetails}

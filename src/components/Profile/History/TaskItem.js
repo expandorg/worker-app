@@ -12,11 +12,10 @@ export default function TaskItem({ task, details, onFetchDetails }) {
   const [expanded, setExpanded] = useState(false);
   const toggle = useCallback(() => {
     if (!expanded && !details) {
-      onFetchDetails(task.id);
+      onFetchDetails(task.response_id);
     }
     setExpanded(!expanded);
-  }, [details, expanded, onFetchDetails, task.id]);
-  console.log(task);
+  }, [details, expanded, onFetchDetails, task.response_id]);
 
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -55,6 +54,7 @@ TaskItem.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
+    response_id: PropTypes.number,
     submitted_at: PropTypes.string,
     status: PropTypes.string,
     gems: PropTypes.number,
