@@ -17,6 +17,7 @@ import Location from './Form/Location';
 import BirthDate from './Form/BirthDate';
 import Education from './Form/Education';
 import Interests from './Form/Interests';
+import Availability from './Form/Availability';
 
 import { getRequestForm, getWizardForm } from './profile';
 
@@ -31,6 +32,7 @@ const pages = {
   BirthDate: 3,
   Education: 4,
   Intersts: 5,
+  Availability: 6,
 };
 
 export default function SurveyWizard({
@@ -114,6 +116,13 @@ export default function SurveyWizard({
               interests={filters.Interest}
             />
           )}
+          {page === pages.Availability && (
+            <Availability
+              onChange={set}
+              profile={profile}
+              availability={filters.Availability}
+            />
+          )}
         </Form>
       </div>
     </div>
@@ -127,6 +136,7 @@ SurveyWizard.propTypes = {
     Interest: PropTypes.array,
     Education: PropTypes.array,
     Language: PropTypes.array,
+    Availability: PropTypes.array,
   }).isRequired,
   userId: PropTypes.number.isRequired,
   saveState: requestStateProps.isRequired,

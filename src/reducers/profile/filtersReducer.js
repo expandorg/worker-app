@@ -4,12 +4,20 @@ const initialState = {
   Education: [],
   Interest: [],
   Language: [],
+  Availability: [],
 };
 
-export default function filtersReducer(state = initialState, action) {
+export default function profileFiltersReducer(state = initialState, action) {
   switch (action.type) {
     case profileActionTypes.FETCH_FILTERS_COMPLETE: {
-      return action.payload;
+      const { Education, Interest, Language, Availability } = action.payload;
+      return {
+        ...state,
+        Education: Education || [],
+        Interest: Interest || [],
+        Language: Language || [],
+        Availability: Availability || [],
+      };
     }
     default:
       break;

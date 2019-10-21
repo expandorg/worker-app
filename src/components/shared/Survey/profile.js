@@ -8,7 +8,7 @@ export const showProfile = profile => {
 
 export const getWizardForm = profile => {
   const {
-    attributes: { Language, Education, Interest },
+    attributes: { Language, Education, Interest, Availability },
   } = profile;
 
   return {
@@ -22,6 +22,7 @@ export const getWizardForm = profile => {
     languages: Language ? Language.map(v => v.id) : [],
     education: Education ? Education.map(v => v.id) : [],
     interests: Interest ? Interest.map(v => v.id) : [],
+    availability: Availability ? Availability.map(v => v.id) : [],
   };
 };
 
@@ -33,8 +34,9 @@ const getProfileState = p => {
     !!p.city &&
     !!p.languages.length &&
     !!p.education.length &&
-    !!p.interests.length
-    ? 'complete'
+    !!p.interests.length // &&
+    ? // !!p.availability.length
+      'complete'
     : 'incomplete';
 };
 
@@ -49,6 +51,11 @@ export const getRequestForm = (form, userId) => {
     locality: form.locality,
     city: form.city,
     state: getProfileState(form),
-    attributes: [...form.languages, ...form.education, ...form.interests],
+    attributes: [
+      ...form.languages,
+      ...form.education,
+      ...form.interests,
+      ...form.availability,
+    ],
   };
 };
