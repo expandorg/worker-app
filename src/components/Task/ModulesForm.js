@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
+import { differenceInSeconds } from 'date-fns';
+
 import { useService, Panel } from '@expandorg/components';
 import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
 import { moduleControls } from '@expandorg/modules/app';
@@ -17,6 +19,8 @@ import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 import { assignmentProps } from '../shared/propTypes';
 
 import styles from './styles.module.styl';
+
+const fd = {};
 
 export default function ModulesForm({
   submitState,
@@ -35,6 +39,9 @@ export default function ModulesForm({
   );
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [startTime, setStartTime] = useState(new Date());
+
   const [reportMessage, setReportMessage] = useState(null);
 
   const moduleError = useCallback(msg => setReportMessage(msg), []);
@@ -42,9 +49,24 @@ export default function ModulesForm({
   const assigned = useCallback(() => {
     setReportMessage(null);
     setIsSubmitted(false);
+    setStartTime(new Date());
   }, []);
 
   const isFetching = submitState.state === RequestStates.Fetching;
+
+  const submit = useCallback(
+    (...args) => {
+      if (
+        timeThreshold &&
+        differenceInSeconds(new Date(), startTime) < timeThreshold
+      ) {
+        onNotify('error', 'You spent too little time on the task');
+      } else {
+        onSubmit(...args);
+      }
+    },
+    [onNotify, onSubmit, startTime, timeThreshold]
+  );
 
   return (
     <>
@@ -55,9 +77,8 @@ export default function ModulesForm({
             form={form}
             reportMessage={reportMessage}
           />
-          <FormDataProvider formData={{}}>
+          <FormDataProvider formData={fd}>
             <Form
-              timeThreshold={timeThreshold}
               controls={moduleControls}
               className={styles.form}
               services={services}
@@ -65,7 +86,7 @@ export default function ModulesForm({
               variables={variables}
               errors={submitState.error}
               isSubmitting={isFetching}
-              onSubmit={onSubmit}
+              onSubmit={submit}
               onNotify={onNotify}
               onModuleError={moduleError}
             >
