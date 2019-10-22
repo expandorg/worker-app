@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@expandorg/components';
+import { Button, useHotkey } from '@expandorg/components';
 import { KeyCodes } from '@expandorg/components/src/common/dom';
-import useHotkey from '../../useHotkey';
 
 import styles from './Form.module.styl';
 

@@ -18,6 +18,8 @@ import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import { assignmentProps } from '../shared/propTypes';
 
+import useFormPersist from './useFormPersist';
+
 import styles from './styles.module.styl';
 
 const fd = {};
@@ -39,10 +41,11 @@ export default function ModulesForm({
   );
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-
   const [startTime, setStartTime] = useState(new Date());
-
   const [reportMessage, setReportMessage] = useState(null);
+
+  const [initial, persist, clear] = useFormPersist(assignment.id);
+  const change = useCallback(value => persist(value), [persist]);
 
   const moduleError = useCallback(msg => setReportMessage(msg), []);
   const submitted = useCallback(() => setIsSubmitted(true), []);
@@ -63,9 +66,10 @@ export default function ModulesForm({
         onNotify('error', 'You spent too little time on the task');
       } else {
         onSubmit(...args);
+        clear(null);
       }
     },
-    [onNotify, onSubmit, startTime, timeThreshold]
+    [clear, onNotify, onSubmit, startTime, timeThreshold]
   );
 
   return (
@@ -81,10 +85,12 @@ export default function ModulesForm({
             <Form
               className={styles.form}
               form={form}
+              initial={initial}
               controls={moduleControls}
               services={services}
               variables={variables}
               isSubmitting={isFetching}
+              onChange={change}
               onSubmit={submit}
               onNotify={onNotify}
               onModuleError={moduleError}
