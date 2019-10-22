@@ -79,12 +79,11 @@ export default function ModulesForm({
           />
           <FormDataProvider formData={fd}>
             <Form
-              controls={moduleControls}
               className={styles.form}
-              services={services}
               form={form}
+              controls={moduleControls}
+              services={services}
               variables={variables}
-              errors={submitState.error}
               isSubmitting={isFetching}
               onSubmit={submit}
               onNotify={onNotify}
