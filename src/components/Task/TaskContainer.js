@@ -35,7 +35,7 @@ export default function TaskContainer({ job, task, assignment }) {
   return (
     <ModulesForm
       key={assignment.id}
-      id={assignment.id}
+      id={`-t-${assignment.id}`}
       assignmentId={assignment.id}
       jobId={assignment.jobId}
       timeThreshold={job && job.logic.verification.minimumExecutionTime}

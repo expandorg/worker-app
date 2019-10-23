@@ -48,7 +48,7 @@ export default function VerificationContainer({ assignment, job, task }) {
   return (
     <ModulesForm
       key={assignment.responseId}
-      id={assignment.responseId}
+      id={`-v-${assignment.responseId}`}
       assignmentId={assignment.id}
       jobId={assignment.jobId}
       form={job && job.verificationForm}
