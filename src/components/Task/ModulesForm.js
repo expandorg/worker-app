@@ -16,8 +16,6 @@ import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';
 import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
-import { assignmentProps } from '../shared/propTypes';
-
 import useFormPersist from './useFormPersist';
 
 import styles from './styles.module.styl';
@@ -25,10 +23,12 @@ import styles from './styles.module.styl';
 const fd = {};
 
 export default function ModulesForm({
+  id,
+  assignmentId,
+  jobId,
   submitState,
   visible,
   form,
-  assignment,
   variables,
   onSubmit,
   onNotify,
@@ -44,7 +44,7 @@ export default function ModulesForm({
   const [startTime, setStartTime] = useState(new Date());
   const [reportMessage, setReportMessage] = useState(null);
 
-  const [initial, persist, clear] = useFormPersist(assignment.id);
+  const [initial, persist, clear] = useFormPersist(id);
   const change = useCallback(value => persist(value), [persist]);
 
   const moduleError = useCallback(msg => setReportMessage(msg), []);
@@ -77,7 +77,7 @@ export default function ModulesForm({
       {visible && (
         <Panel className={styles.panel}>
           <TaskActions
-            assignmentId={assignment.id}
+            assignmentId={assignmentId}
             form={form}
             reportMessage={reportMessage}
           />
@@ -103,17 +103,16 @@ export default function ModulesForm({
       <SubmitStateEffect submitState={submitState} onComplete={submitted} />
       <AssignedJobRedirect />
       {isSubmitted && (
-        <SubmissionResultDialog
-          jobId={assignment.jobId}
-          onAssignComplete={assigned}
-        />
+        <SubmissionResultDialog jobId={jobId} onAssignComplete={assigned} />
       )}
     </>
   );
 }
 
 ModulesForm.propTypes = {
-  assignment: assignmentProps.isRequired,
+  id: PropTypes.number.isRequired,
+  assignmentId: PropTypes.number.isRequired,
+  jobId: PropTypes.number.isRequired,
   timeThreshold: PropTypes.number,
   form: formProps,
   visible: PropTypes.bool.isRequired,

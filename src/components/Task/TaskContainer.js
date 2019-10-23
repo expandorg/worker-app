@@ -34,7 +34,10 @@ export default function TaskContainer({ job, task, assignment }) {
 
   return (
     <ModulesForm
-      assignment={assignment}
+      key={assignment.id}
+      id={assignment.id}
+      assignmentId={assignment.id}
+      jobId={assignment.jobId}
       timeThreshold={job && job.logic.verification.minimumExecutionTime}
       form={job && job.taskForm}
       visible={!!(job && task)}

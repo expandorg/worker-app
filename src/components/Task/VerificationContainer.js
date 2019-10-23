@@ -47,7 +47,10 @@ export default function VerificationContainer({ assignment, job, task }) {
 
   return (
     <ModulesForm
-      assignment={assignment}
+      key={assignment.responseId}
+      id={assignment.responseId}
+      assignmentId={assignment.id}
+      jobId={assignment.jobId}
       form={job && job.verificationForm}
       visible={!!(job && task)}
       variables={variables}
