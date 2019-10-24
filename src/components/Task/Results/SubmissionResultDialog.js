@@ -1,116 +1,77 @@
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
-
-import {
-  RequestStates,
-  requestStateProps,
-  SubmitStateEffect,
-} from '@expandorg/app-utils';
+import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 
 import Countdown from '../../shared/Countdown';
-import AssignedJobRedirect from '../../shared/AssignedJobRedirect';
 
 import { assignJob } from '../../../sagas/jobsSagas';
 import { jobListSelector } from '../../../selectors/jobsSelectors';
 import { assignJobStateSelector } from '../../../selectors/ui';
 
-const mapStateToProps = state => ({
-  jobs: jobListSelector(state),
-  submitState: assignJobStateSelector(state),
-});
+const linkClasses = cn(
+  'gem-button',
+  'gem-button-secondary',
+  'gem-dialogform-button'
+);
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ assignJob }, dispatch);
+export default function SubmissionResultDialog({ jobId, onAssignComplete }) {
+  const dispatch = useDispatch();
 
-class SubmissionResultDialog extends Component {
-  static propTypes = {
-    jobId: PropTypes.number.isRequired,
-    jobs: PropTypes.arrayOf(PropTypes.number),
+  const jobs = useSelector(jobListSelector);
+  const submitState = useSelector(assignJobStateSelector);
 
-    submitState: requestStateProps.isRequired,
-    assignJob: PropTypes.func.isRequired,
-    onAssignComplete: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    jobs: [],
-  };
-
-  handleAssignJob = () => {
-    const { jobId, submitState } = this.props;
+  const assign = useCallback(() => {
     if (submitState.state !== RequestStates.Fetching) {
-      this.props.assignJob(jobId);
+      dispatch(assignJob(jobId));
     }
-  };
+  }, [dispatch, jobId, submitState.state]);
 
-  render() {
-    const { jobId, jobs, submitState, onAssignComplete } = this.props;
+  const assignable = jobs.includes(jobId);
 
-    const assignable = jobs.includes(jobId);
-
-    return (
-      <Dialog visible hideButton contentLabel="submit task">
-        <DF.Container>
-          <DF.Title>Task Submitted</DF.Title>
-          <DF.Description>Submission successful!</DF.Description>
-
+  return (
+    <Dialog visible hideButton contentLabel="submit task">
+      <DF.Container>
+        <DF.Title>Task Submitted</DF.Title>
+        <DF.Description>Submission successful!</DF.Description>
+        {assignable && (
+          <DF.Description>
+            <Countdown interval={1000} expireIn={5000} onFinish={assign}>
+              {({ timeLeft, finished }) =>
+                finished
+                  ? 'Assigning to task...'
+                  : `You will be automatically assigned to this task in ${Math.ceil(
+                      timeLeft / 1000
+                    )} seconds`
+              }
+            </Countdown>
+          </DF.Description>
+        )}
+        <DF.Actions>
+          <Link to="/" className={linkClasses}>
+            Browse jobs
+          </Link>
           {assignable && (
-            <DF.Description>
-              <Countdown
-                interval={1000}
-                expireIn={5000}
-                onFinish={this.handleAssignJob}
-              >
-                {({ timeLeft, finished }) => {
-                  const time = Math.ceil(timeLeft / 1000);
-                  return finished
-                    ? 'Assigning to task...'
-                    : `You will be automatically assigned to this task in ${time} seconds`;
-                }}
-              </Countdown>
-            </DF.Description>
+            <Button className="gem-dialogform-button" onClick={assign}>
+              Start this task
+            </Button>
           )}
-
-          <DF.Actions>
-            <Link
-              to="/"
-              className={cn(
-                'gem-button',
-                'gem-button-secondary',
-                'gem-dialogform-button'
-              )}
-            >
-              Browse jobs
-            </Link>
-            {assignable && (
-              <Button
-                className="gem-dialogform-button"
-                onClick={this.handleAssignJob}
-              >
-                Start this task
-              </Button>
-            )}
-          </DF.Actions>
-        </DF.Container>
-        <AssignedJobRedirect jobId={jobId} />
-        <SubmitStateEffect
-          submitState={submitState}
-          onComplete={onAssignComplete}
-        />
-      </Dialog>
-    );
-  }
+        </DF.Actions>
+      </DF.Container>
+      <SubmitStateEffect
+        submitState={submitState}
+        onComplete={onAssignComplete}
+      />
+    </Dialog>
+  );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SubmissionResultDialog);
+SubmissionResultDialog.propTypes = {
+  jobId: PropTypes.number.isRequired,
+  onAssignComplete: PropTypes.func.isRequired,
+};

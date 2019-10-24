@@ -98,7 +98,7 @@ class EmailLogin extends Component {
             </Link>
           </div>
           <ErrorMessage errors={error} className={styles.error} />
-          <Button type="submit" theme="blue" className={styles.submit}>
+          <Button type="submit" className={styles.submit}>
             {isFetching ? 'Logging in' : 'Login'}
           </Button>
         </form>

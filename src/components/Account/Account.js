@@ -69,7 +69,7 @@ class Account extends Component {
             <XPN user={user} />
           </Panel>
           <Panel className={styles.panel}>
-            <div className={styles.title}>Your account</div>
+            <div className={styles.title}>Account Details</div>
             <Field
               title="Account address"
               placeholder="No ethereum address found"

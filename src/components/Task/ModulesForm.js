@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
+import { differenceInSeconds } from 'date-fns';
+
 import { useService, Panel } from '@expandorg/components';
 import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
 import { moduleControls } from '@expandorg/modules/app';
@@ -12,16 +14,21 @@ import {
 
 import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';
+import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
-import { assignmentProps } from '../shared/propTypes';
+import useFormPersist from './useFormPersist';
 
 import styles from './styles.module.styl';
 
+const fd = {};
+
 export default function ModulesForm({
+  id,
+  assignmentId,
+  jobId,
   submitState,
   visible,
   form,
-  assignment,
   variables,
   onSubmit,
   onNotify,
@@ -34,37 +41,57 @@ export default function ModulesForm({
   );
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [startTime, setStartTime] = useState(new Date());
   const [reportMessage, setReportMessage] = useState(null);
+
+  const [initial, persist, clear] = useFormPersist(id);
+  const change = useCallback(value => persist(value), [persist]);
 
   const moduleError = useCallback(msg => setReportMessage(msg), []);
   const submitted = useCallback(() => setIsSubmitted(true), []);
   const assigned = useCallback(() => {
     setReportMessage(null);
     setIsSubmitted(false);
+    setStartTime(new Date());
   }, []);
 
   const isFetching = submitState.state === RequestStates.Fetching;
+
+  const submit = useCallback(
+    (...args) => {
+      if (
+        timeThreshold &&
+        differenceInSeconds(new Date(), startTime) < timeThreshold
+      ) {
+        onNotify('error', 'You spent too little time on the task');
+      } else {
+        onSubmit(...args);
+        clear(null);
+      }
+    },
+    [clear, onNotify, onSubmit, startTime, timeThreshold]
+  );
 
   return (
     <>
       {visible && (
         <Panel className={styles.panel}>
           <TaskActions
-            assignmentId={assignment.id}
+            assignmentId={assignmentId}
             form={form}
             reportMessage={reportMessage}
           />
-          <FormDataProvider formData={{}}>
+          <FormDataProvider formData={fd}>
             <Form
-              timeThreshold={timeThreshold}
-              controls={moduleControls}
               className={styles.form}
-              services={services}
               form={form}
+              initial={initial}
+              controls={moduleControls}
+              services={services}
               variables={variables}
-              errors={submitState.error}
               isSubmitting={isFetching}
-              onSubmit={onSubmit}
+              onChange={change}
+              onSubmit={submit}
               onNotify={onNotify}
               onModuleError={moduleError}
             >
@@ -74,18 +101,18 @@ export default function ModulesForm({
         </Panel>
       )}
       <SubmitStateEffect submitState={submitState} onComplete={submitted} />
+      <AssignedJobRedirect />
       {isSubmitted && (
-        <SubmissionResultDialog
-          jobId={assignment.jobId}
-          onAssignComplete={assigned}
-        />
+        <SubmissionResultDialog jobId={jobId} onAssignComplete={assigned} />
       )}
     </>
   );
 }
 
 ModulesForm.propTypes = {
-  assignment: assignmentProps.isRequired,
+  id: PropTypes.number.isRequired,
+  assignmentId: PropTypes.number.isRequired,
+  jobId: PropTypes.number.isRequired,
   timeThreshold: PropTypes.number,
   form: formProps,
   visible: PropTypes.bool.isRequired,

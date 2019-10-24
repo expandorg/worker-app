@@ -125,7 +125,6 @@ class Task extends Component {
                 assignment={assignment}
               />
             ))}
-
           {cancelled && <TaskCancelled />}
 
           <ReportAssignmentStateEffect onComplete={this.handleCancelled} />

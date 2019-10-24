@@ -88,7 +88,6 @@ export default function Onboarding({ jobId, onboarding }) {
             <Form
               form={onboarding.form}
               services={services}
-              errors={submitState.error}
               variables={variables}
               controls={moduleControls}
               isSubmitting={isSubmitting}

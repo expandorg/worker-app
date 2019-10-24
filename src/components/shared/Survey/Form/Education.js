@@ -19,7 +19,6 @@ export default function Education({ profile, onChange, education }) {
     <Field title="What is your education?">
       <AutocompleteInput
         onKeyDown={keyDown}
-        theme="white"
         value={value}
         placeholder="Education level"
         options={autocomplete}

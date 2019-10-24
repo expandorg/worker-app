@@ -23,12 +23,38 @@ export const saveProfile = profile => ({
   asyncCall: profileApi.createWorkerProfile,
 });
 
+export const fetchSummary = () => ({
+  type: profileActionTypes.SUMMARY,
+  payload: {},
+  asyncCall: profileApi.summary,
+});
+
+export const fetchTaskHistory = (
+  cursor = null,
+  status = null,
+  order = null
+) => ({
+  type: profileActionTypes.FETCH_TASK_HISTORY,
+  payload: { cursor, status, order, limit: 10 },
+  asyncCall: profileApi.taskHistory,
+  meta: { params: { cursor } },
+});
+
+export const fetchTaskHistoryEntity = id => ({
+  type: profileActionTypes.FETCH_TASK_HISTORY_BY_ID,
+  payload: { id },
+  asyncCall: profileApi.taskHistoryById,
+});
+
 export function* profileSagas() {
   yield takeEvery(
     [
       profileActionTypes.SAVE,
       profileActionTypes.FETCH,
       profileActionTypes.FETCH_FILTERS,
+      profileActionTypes.SUMMARY,
+      profileActionTypes.FETCH_TASK_HISTORY,
+      profileActionTypes.FETCH_TASK_HISTORY_BY_ID,
     ],
     handleAsyncCall
   );

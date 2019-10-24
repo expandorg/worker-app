@@ -8,6 +8,13 @@ export class ProfileApi extends BaseApi {
 
   createWorkerProfile = ({ profile }: Object) =>
     this.post('/workers/profile', profile);
+
+  summary = () => this.get('/profiles/summary');
+
+  taskHistory = ({ cursor, status, order, limit }: Object) =>
+    this.get('/profiles/task-history', { cursor, status, order, limit });
+
+  taskHistoryById = ({ id }: Object) => this.get(`/profiles/responses/${id}`);
 }
 
 export const profileApi = new ProfileApi();

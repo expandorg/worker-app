@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { requestStateProps, SubmitStateEffect } from '@expandorg/app-utils';
+import { SubmitStateEffect } from '@expandorg/app-utils';
 import { ErrorMessage } from '@expandorg/components';
 
 import { loginMetamaskStateSelector } from '@expandorg/app-auth/selectors';
@@ -17,69 +15,42 @@ import { MetamaskPromt } from '@expandorg/app-web3/components';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
-  metamaskState: metamaskStateSelector(state),
-  loginState: loginMetamaskStateSelector(state),
-});
+export default function MetamaskLogin() {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loginMetamask }, dispatch);
+  const metamaskState = useSelector(metamaskStateSelector);
+  const loginState = useSelector(loginMetamaskStateSelector);
 
-class MetamaskLogin extends Component {
-  static propTypes = {
-    metamaskState: PropTypes.string.isRequired,
-    loginState: requestStateProps.isRequired,
-    loginMetamask: PropTypes.func.isRequired,
-  };
+  const [error, setError] = useState(null);
+  const [dialog, setDialog] = useState(false);
 
-  state = {
-    metamaskDialog: false,
-    error: null,
-  };
+  const hide = useCallback(() => setDialog(false), []);
+  const login = useCallback(() => dispatch(loginMetamask()), [dispatch]);
+  const failed = useCallback(p => setError(p.error), []);
 
-  handleHide = () => {
-    this.setState({ metamaskDialog: false });
-  };
-
-  handleClick = () => {
-    if (this.props.metamaskState !== MetamaskState.Authorized) {
-      this.setState({ metamaskDialog: true });
+  const click = useCallback(() => {
+    if (metamaskState !== MetamaskState.Authorized) {
+      setDialog(true);
     } else {
-      this.props.loginMetamask();
+      dispatch(loginMetamask());
     }
-  };
+  }, [dispatch, metamaskState]);
 
-  handleFailed = ({ error }) => {
-    this.setState({ error });
-  };
-
-  render() {
-    const { metamaskState, loginState } = this.props;
-    const { metamaskDialog, error } = this.state;
-    return (
-      <div className={styles.container}>
-        <button className="gem-metamask-button" onClick={this.handleClick}>
-          <ins className={styles.fox} /> Sign in with MetaMask
-        </button>
-        {metamaskDialog && (
-          <MetamaskPromt
-            metamaskState={metamaskState}
-            onLogin={this.props.loginMetamask}
-            onHide={this.handleHide}
-            error={error}
-          />
-        )}
-        <ErrorMessage errors={error} className={styles.error} />
-        <SubmitStateEffect
-          submitState={loginState}
-          onFailed={this.handleFailed}
+  return (
+    <div className={styles.container}>
+      <button className="gem-metamask-button" onClick={click}>
+        <ins className={styles.fox} /> Sign in with MetaMask
+      </button>
+      {dialog && (
+        <MetamaskPromt
+          metamaskState={metamaskState}
+          onLogin={login}
+          onHide={hide}
+          error={error}
         />
-      </div>
-    );
-  }
+      )}
+      <ErrorMessage errors={error} className={styles.error} />
+      <SubmitStateEffect submitState={loginState} onFailed={failed} />
+    </div>
+  );
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MetamaskLogin);

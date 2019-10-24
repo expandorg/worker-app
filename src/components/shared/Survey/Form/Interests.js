@@ -23,8 +23,8 @@ export default function Interests({ profile, onChange, interests }) {
     <Field title="What is your interests?">
       <AutocompleteInput
         onKeyDown={keyDown}
-        theme="white"
         value={suggest}
+        className="gem-autocomplete-multi"
         placeholder="Your interests"
         options={autocomplete}
         onChange={change}

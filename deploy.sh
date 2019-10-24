@@ -15,6 +15,6 @@ npm install
 NODE_ENV=$1 webpack
 
 gsutil cp -r ./public/static ./public/app-* ./public/index.html ${url}/
-gsutil rm ${url}/app-${old_hash}*
+# gsutil rm ${url}/app-${old_hash}*
 
 

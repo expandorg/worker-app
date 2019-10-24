@@ -100,6 +100,7 @@ function Jobs({ history }) {
       {profilePoup && (
         <SurveyPopup
           profile={profile}
+          title="User Profile"
           userId={user.id}
           onHide={toggleProfile}
         />

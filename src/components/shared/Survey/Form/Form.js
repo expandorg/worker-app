@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@expandorg/components';
+import { Button, useHotkey } from '@expandorg/components';
 import { KeyCodes } from '@expandorg/components/src/common/dom';
-import useHotkey from '../../useHotkey';
 
 import styles from './Form.module.styl';
 
@@ -28,11 +27,18 @@ export function Form({ onNext, onBack, children, nextTitle }) {
       <div className={styles.content}>{children}</div>
       <div className={styles.actions}>
         {onBack && (
-          <Button theme="secondary" onClick={onBack}>
+          <Button
+            size="small"
+            theme="white-blue"
+            className={styles.back}
+            onClick={onBack}
+          >
             Back
           </Button>
         )}
-        <Button onClick={onNext}>{nextTitle}</Button>
+        <Button size="small" onClick={onNext}>
+          {nextTitle}
+        </Button>
       </div>
     </div>
   );
