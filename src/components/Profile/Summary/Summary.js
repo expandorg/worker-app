@@ -37,7 +37,7 @@ export default function Summary({ user, profile }) {
         </div>
         <div className={styles.item}>
           <div className={styles.value}>{summary.gemsEarned}</div>
-          <div className={styles.desc}>Gems earned</div>
+          <div className={styles.desc}>XPN earned</div>
         </div>
         <div className={styles.item}>
           <ProfileState profile={profile} user={user} />
