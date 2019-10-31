@@ -20,9 +20,9 @@ export default function TaskContainer({ job, task, assignment }) {
 
   const submit = useCallback(
     form => {
-      dispatch(submitTask(assignment.taskId, form));
+      dispatch(submitTask(assignment.taskId, form, assignment.jobId));
     },
-    [assignment.taskId, dispatch]
+    [assignment.jobId, assignment.taskId, dispatch]
   );
 
   const notify = useCallback(

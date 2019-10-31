@@ -6,8 +6,8 @@ import Mixpanel from '../common/Mixpanel';
 
 import { tasksActionTypes } from './actionTypes';
 
-function taskSubmitted() {
-  Mixpanel.track('complete_task');
+function taskSubmitted({ meta }) {
+  Mixpanel.track('complete_task', { jobId: meta.params.jobId });
 }
 
 const authCompleteAction = [

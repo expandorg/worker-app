@@ -19,10 +19,11 @@ export const fetchTask = taskId => ({
   meta: { schema: { task: taskSchema } },
 });
 
-export const submitTask = (taskId, response) => ({
+export const submitTask = (taskId, response, jobId) => ({
   type: tasksActionTypes.SUBMIT,
   payload: { taskId, response },
   meta: {
+    params: { taskId, response, jobId },
     track: {
       action: GtmActions.TaskSubmit,
     },

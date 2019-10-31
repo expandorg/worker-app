@@ -110,7 +110,7 @@ export default function ModulesForm({
 }
 
 ModulesForm.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType(PropTypes.number, PropTypes.string).isRequired,
   assignmentId: PropTypes.number.isRequired,
   jobId: PropTypes.number.isRequired,
   timeThreshold: PropTypes.number,
