@@ -5,7 +5,6 @@ import { notificationReducer as notification } from '@expandorg/app-utils/app';
 import { uiStateReducers as accountState } from '@expandorg/app-account';
 
 import { authStateReducers as authState } from '@expandorg/app-auth';
-import { web3ActionTypes } from '@expandorg/app-web3';
 import { uiStateReducers as gemsState } from '@expandorg/app-gemtokens';
 
 import {
@@ -24,7 +23,6 @@ const profile = {
 };
 
 export default combineReducers({
-  initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
   notification,
   ...authState,
   ...gemsState,
