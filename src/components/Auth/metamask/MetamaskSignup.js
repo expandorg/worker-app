@@ -20,7 +20,7 @@ export default function MetamaskSignup() {
   const [error, setError] = useState(null);
   const [metamaskDialog, setMetamaskDialog] = useState(false);
 
-  const metamaskState = useSelector(metamaskStateSelector);
+  const mmask = useSelector(metamaskStateSelector);
   const signupState = useSelector(signupMetamaskStateSelector);
 
   const hide = useCallback(() => setMetamaskDialog(false), []);
@@ -29,12 +29,12 @@ export default function MetamaskSignup() {
   const signup = useCallback(() => dispatch(signupMetamask()), [dispatch]);
 
   const click = useCallback(() => {
-    if (metamaskState !== MetamaskState.Authorized) {
+    if (mmask.state !== MetamaskState.Authorized) {
       setMetamaskDialog(true);
     } else {
       dispatch(signupMetamask());
     }
-  }, [dispatch, metamaskState]);
+  }, [dispatch, mmask.state]);
 
   return (
     <div className={styles.container}>
@@ -43,8 +43,7 @@ export default function MetamaskSignup() {
       </button>
       {metamaskDialog && (
         <MetamaskPromt
-          metamaskState={metamaskState}
-          onLogin={signup}
+          onAction={signup}
           onHide={hide}
           action="Sign up"
           error={error}
