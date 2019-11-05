@@ -22,21 +22,6 @@ export default class Footer extends Component {
         isExternal: true,
       },
       {
-        link: '/toc',
-        text: 'Terms of Service',
-        isExternal: false,
-      },
-      {
-        link: '/privacy',
-        text: 'Privacy Policy',
-        isExternal: false,
-      },
-      {
-        link: '/help',
-        text: 'Help',
-        isExternal: false,
-      },
-      {
         link: 'https://twitter.com/xpn',
         text: 'Twitter',
         isExternal: true,
