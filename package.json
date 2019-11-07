@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@expandorg/api-client": "^0.0.21",
-    "@expandorg/app-account": "^0.0.24",
+    "@expandorg/app-account": "^0.0.25",
     "@expandorg/app-auth": "^0.0.31",
     "@expandorg/app-gemtokens": "^0.0.42",
     "@expandorg/app-utils": "^0.0.37",
