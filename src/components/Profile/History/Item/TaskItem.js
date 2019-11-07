@@ -1,21 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
 import { format, parse } from 'date-fns';
 
+import { useToggle } from '@expandorg/components';
 import { JobLogo } from '@expandorg/components/app';
-import { ReactComponent as GemsIcon } from '../../assets/gem.svg';
+
+import Details from './Details';
+import { ReactComponent as GemsIcon } from '../../../assets/gem.svg';
 
 import styles from './TaskItem.module.styl';
 
-export default function TaskItem({ task, details, onFetchDetails }) {
-  const [expanded, setExpanded] = useState(false);
-  const toggle = useCallback(() => {
-    if (!expanded && !details) {
-      onFetchDetails(task.id);
-    }
-    setExpanded(!expanded);
-  }, [details, expanded, onFetchDetails, task.id]);
+export default function TaskItem({ task, services }) {
+  const [expanded, toggle] = useToggle();
 
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -41,11 +37,7 @@ export default function TaskItem({ task, details, onFetchDetails }) {
           </div>
         </div>
       </div>
-      {expanded && (
-        <div className={styles.details}>
-          <div className={styles.info} />
-        </div>
-      )}
+      {expanded && <Details taskId={task.id} services={services} />}
     </div>
   );
 }
@@ -58,10 +50,5 @@ TaskItem.propTypes = {
     status: PropTypes.string,
     gems: PropTypes.number,
   }).isRequired,
-  details: PropTypes.shape({}),
-  onFetchDetails: PropTypes.func.isRequired,
-};
-
-TaskItem.defaultProps = {
-  details: null,
+  services: PropTypes.shape({}).isRequired,
 };
