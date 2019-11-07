@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps, Form, Module, FormDataProvider } from '@expandorg/modules';
@@ -9,7 +9,7 @@ import styles from './ResponsePreview.module.styl';
 
 const fd = {};
 
-export default function ResponsePreview({ form, data, response, services }) {
+function ResponsePreview({ form, data, response, services }) {
   const preview = useMemo(() => previewFormGenerator(form), [form]);
 
   const variables = useMemo(
@@ -48,3 +48,5 @@ ResponsePreview.defaultProps = {
   data: null,
   response: null,
 };
+
+export default memo(ResponsePreview);
