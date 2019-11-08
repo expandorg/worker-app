@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from '@expandorg/components';
 import styles from './Filter.module.styl';
 
-const options = ['all', 'pending', 'inprogress', 'completed', 'rejected'];
+const options = ['all', 'pending', 'completed', 'rejected'];
 const titles = {
   all: 'All',
   pending: 'Pending',
-  inprogress: 'In Progress',
   completed: 'Completed',
   rejected: 'Rejected',
 };
