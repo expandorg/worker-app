@@ -27,12 +27,12 @@ export default function VerificationContainer({ assignment, job, task }) {
   const submit = useCallback(
     result => {
       if (job) {
-        const score = calculateVerificationScore(
+        const { score, reason } = calculateVerificationScore(
           result,
           job.verificationForm.modules,
           moduleControls
         );
-        dispatch(verifyResponse(assignment.responseId, score));
+        dispatch(verifyResponse(assignment.responseId, score, reason));
       }
     },
     [assignment.responseId, dispatch, job]

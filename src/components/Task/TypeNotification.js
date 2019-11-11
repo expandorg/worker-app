@@ -41,7 +41,4 @@ class TypeNotification extends Component {
   }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(TypeNotification);
+export default connect(null, mapDispatchToProps)(TypeNotification);

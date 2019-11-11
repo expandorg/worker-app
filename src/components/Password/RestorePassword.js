@@ -128,7 +128,4 @@ class RestorePassword extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RestorePassword);
+export default connect(mapStateToProps, mapDispatchToProps)(RestorePassword);

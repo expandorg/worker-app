@@ -62,7 +62,4 @@ class AssignmentReport extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AssignmentReport);
+export default connect(mapStateToProps, mapDispatchToProps)(AssignmentReport);

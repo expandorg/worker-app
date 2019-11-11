@@ -138,8 +138,5 @@ class Task extends Component {
 }
 
 export default authenticated(
-  connect(
-    makeMapStateToProps,
-    mapDispatchToProps
-  )(Task)
+  connect(makeMapStateToProps, mapDispatchToProps)(Task)
 );

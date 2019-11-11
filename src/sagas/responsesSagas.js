@@ -9,9 +9,9 @@ import { jobSchema } from '../model/schemas';
 import { responsesApi } from '../api/ResponsesApi';
 import { jobsApi } from '../api/JobsApi';
 
-export const verifyResponse = (responseId, score) => ({
+export const verifyResponse = (responseId, score, reason) => ({
   type: responsesActionTypes.VERIFY,
-  payload: { responseId, score },
+  payload: { responseId, score, reason },
 });
 
 function* handleVerifyResponse({ payload, meta }) {

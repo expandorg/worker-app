@@ -9,7 +9,6 @@ const mapStateToProps = state => ({
   notification: notificationSelector(state),
 });
 
-export default connect(
-  mapStateToProps,
-  { onClear: clearNotification }
-)(NotificationAnimated);
+export default connect(mapStateToProps, { onClear: clearNotification })(
+  NotificationAnimated
+);

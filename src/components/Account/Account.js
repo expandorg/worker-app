@@ -117,8 +117,5 @@ class Account extends Component {
 }
 
 export default authenticated(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Account)
+  connect(mapStateToProps, mapDispatchToProps)(Account)
 );

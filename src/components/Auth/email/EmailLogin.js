@@ -111,7 +111,4 @@ class EmailLogin extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmailLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailLogin);

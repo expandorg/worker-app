@@ -80,7 +80,4 @@ class OnboardingComplete extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OnboardingComplete);
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingComplete);

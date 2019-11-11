@@ -110,7 +110,4 @@ class EmailSignup extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmailSignup);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignup);
