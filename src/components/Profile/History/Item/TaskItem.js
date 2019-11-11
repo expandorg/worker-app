@@ -28,7 +28,10 @@ export default function TaskItem({ task, services }) {
           </div>
         </div>
         <div className={styles.stats}>
-          {task.status === false && (
+          {task.accepted === true && (
+            <div className={styles.accepted}>accepted</div>
+          )}
+          {task.accepted === false && (
             <div className={styles.rejected}>rejected</div>
           )}
           <div className={styles.reward}>
@@ -47,7 +50,7 @@ TaskItem.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     submitted_at: PropTypes.string,
-    status: PropTypes.string,
+    accepted: PropTypes.bool,
     gems: PropTypes.number,
   }).isRequired,
   services: PropTypes.shape({}).isRequired,
