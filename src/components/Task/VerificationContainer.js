@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { moduleControls } from '@expandorg/modules/app';
-import { calculateVerificationScore } from '@expandorg/modules/model';
+import { getVerificationResponse } from '@expandorg/modules/model';
 
 import { addNotification } from '@expandorg/app-utils/app';
 import ModulesForm from './ModulesForm';
@@ -27,9 +27,9 @@ export default function VerificationContainer({ assignment, job, task }) {
   const submit = useCallback(
     result => {
       if (job) {
-        const { score, reason } = calculateVerificationScore(
+        const { score, reason } = getVerificationResponse(
           result,
-          job.verificationForm.modules,
+          job.verificationForm,
           moduleControls
         );
         dispatch(verifyResponse(assignment.responseId, score, reason));
