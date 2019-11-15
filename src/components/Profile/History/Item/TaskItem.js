@@ -40,7 +40,7 @@ export default function TaskItem({ task, services }) {
           </div>
         </div>
       </div>
-      {expanded && <Details taskId={task.id} services={services} />}
+      {expanded && <Details task={task} services={services} />}
     </div>
   );
 }
