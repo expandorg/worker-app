@@ -18,7 +18,6 @@ import Onboarding from './components/Onboarding/Onboarding';
 
 import Task from './components/Task/Task';
 
-import Stats from './components/Stats/Stats';
 import Account from './components/Account/Account';
 import Profile from './components/Profile/Profile';
 
@@ -46,7 +45,6 @@ const App = () => (
             <Route path="/tasks/:taskId" component={Task} />
 
             <Route path="/account" component={Account} />
-            <Route path="/stats" component={Stats} />
             <Route path="/profile" component={Profile} />
 
             <Route path="/password" component={ResetPassword} />
