@@ -7,8 +7,9 @@
   justify-content: space-between
 
 .actions
-  padding: 0 28px
+  padding: 0
   flex-grow: 1
+  max-width: calc(50% - 60px)
 
 .reason
   box-sizing: border-box;
@@ -20,3 +21,24 @@
   color: color-text-yellow-2
   background-color: color-yellow-light-bg
   border 1px solid color-yellow
+
+.disput
+  display block
+  width 100%
+
+  margin-top: 20px
+
+  background-color: #FBBC05
+  color: color-text-yellow-2
+  border-radius: 5px;
+  border: 0
+
+  font(subtitle, 800, false, 40px)
+  height: 40px
+
+  text-transform: uppercase
+  outline: 0
+  cursor pointer
+
+  &:hover
+    background-color: lighten(#FBBC05, 10%)

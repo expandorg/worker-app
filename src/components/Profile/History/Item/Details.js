@@ -37,13 +37,11 @@ export default function Details({ task, services }) {
       )}
       <div className={styles.actions}>
         {task.accepted === false && (
-          <div className={styles.disput}>
+          <div className={styles.rejection}>
             <div className={styles.reason}>{task.reason}</div>
-            {false && (
-              <button className={styles.disput} onClick={disput}>
-                dispute rejection
-              </button>
-            )}
+            <button className={styles.disput} onClick={disput}>
+              dispute rejection
+            </button>
           </div>
         )}
       </div>

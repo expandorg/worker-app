@@ -105,7 +105,6 @@ class Task extends Component {
     }
 
     const title = cancelled ? 'Task cancelled' : (job && job.name) || '';
-
     return (
       <Page title={title}>
         <div className={styles.container}>
