@@ -86,3 +86,9 @@ export const profileActionTypes = createActionTypes('profile', {
   FETCH_TASK_HISTORY_BY_ID_COMPLETE: null,
   FETCH_TASK_HISTORY_BY_ID_FAILED: null,
 });
+
+export const transactionActionTypes = createActionTypes('transactions', {
+  FETCH_LIST: null,
+  FETCH_LIST_COMPLETE: null,
+  FETCH_LIST_FAILED: null,
+});

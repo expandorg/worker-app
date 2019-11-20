@@ -14,6 +14,7 @@ import { responsesSagas } from './responsesSagas';
 import { assignmentsSagas } from './assignmentsSagas';
 import { profileSagas } from './profileSagas';
 import { mixpanelSagas } from './mixpanelSagas';
+import { transactionsSagas } from './transactionsSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -28,4 +29,5 @@ export default function* sagas() {
   yield fork(assignmentsSagas);
   yield fork(profileSagas);
   yield fork(mixpanelSagas);
+  yield fork(transactionsSagas);
 }

@@ -26,6 +26,8 @@ import assignedTasks from './tasks/assignedTasksReducer';
 import responseEntities from './responses/responseEntitiesReducer';
 import assignedResponses from './responses/assignedResponsesReducer';
 
+import transactionsList from './transactions/transactionsListReducer';
+
 import ui from './ui';
 
 export default combineReducers({
@@ -62,6 +64,9 @@ export default combineReducers({
   }),
   web3: combineReducers({
     metamask,
+  }),
+  transactions: combineReducers({
+    list: transactionsList,
   }),
   ui,
 });
