@@ -19,7 +19,7 @@ import {
 import { restorePassword } from '@expandorg/app-auth/sagas';
 import { restorePasswordStateSelector } from '@expandorg/app-auth/selectors';
 
-import Navbar from '../shared/Navbar';
+import Navbar from '../shared/Page/Navbar';
 
 import styles from './styles.module.styl';
 

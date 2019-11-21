@@ -17,7 +17,7 @@ import {
 import { resetPassword } from '@expandorg/app-auth/sagas';
 import { resetPasswordStateSelector } from '@expandorg/app-auth/selectors';
 
-import Navbar from '../shared/Navbar';
+import Navbar from '../shared/Page/Navbar';
 
 import styles from './styles.module.styl';
 

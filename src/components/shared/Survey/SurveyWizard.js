@@ -8,7 +8,7 @@ import {
 } from '@expandorg/app-utils';
 import { useSyncedState } from '@expandorg/components';
 
-import Navbar from '../Navbar';
+import Navbar from '../Page/Navbar';
 import { Form } from './Form/Form';
 
 import Name from './Form/Name';

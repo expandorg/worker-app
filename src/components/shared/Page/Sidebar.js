@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Sidebar as UISidebar, SidebarLink } from '@expandorg/components/app';
 
 import { ReactComponent as JobsIcon } from '@expandorg/uikit/assets/jobs.svg';
-import { ReactComponent as ProfileIcon } from '../assets/person.svg';
-import { ReactComponent as AccountIcon } from '../assets/settings.svg';
+import { ReactComponent as ProfileIcon } from '../../assets/person.svg';
+import { ReactComponent as AccountIcon } from '../../assets/settings.svg';
 
 export default function Sidebar({ navigation }) {
   return (
