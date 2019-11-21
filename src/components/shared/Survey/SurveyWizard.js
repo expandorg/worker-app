@@ -7,8 +7,8 @@ import {
   useSubmitEffect,
 } from '@expandorg/app-utils';
 import { useSyncedState } from '@expandorg/components';
+import { Navbar } from '@expandorg/components/app';
 
-import Navbar from '../Page/Navbar';
 import { Form } from './Form/Form';
 
 import Name from './Form/Name';

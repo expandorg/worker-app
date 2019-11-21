@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button, Input, ErrorMessage } from '@expandorg/components';
-import { PageDark } from '@expandorg/components/app';
+import { PageDark, Navbar } from '@expandorg/components/app';
 import {
   RequestStates,
   requestStateProps,
@@ -18,8 +18,6 @@ import {
 
 import { restorePassword } from '@expandorg/app-auth/sagas';
 import { restorePasswordStateSelector } from '@expandorg/app-auth/selectors';
-
-import Navbar from '../shared/Page/Navbar';
 
 import styles from './styles.module.styl';
 
@@ -67,12 +65,7 @@ class RestorePassword extends Component {
 
     return (
       <PageDark title="Restore password">
-        <Navbar
-          title="Restore password"
-          theme="dark"
-          logout={false}
-          top={false}
-        />
+        <Navbar title="Restore password" theme="dark" top={false} />
         <div className={styles.container}>
           <div className={styles.panel}>
             <h2 className={styles.title}>Change password</h2>
