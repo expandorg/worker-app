@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { differenceInSeconds } from 'date-fns';
+import differenceInSeconds from 'date-fns/difference_in_seconds';
 
 import { useService, Panel } from '@expandorg/components';
 import { Form, Module, formProps, FormDataProvider } from '@expandorg/modules';
