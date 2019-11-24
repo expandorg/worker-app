@@ -7,7 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { envFilePath } from './config';
 
-import packageJson from './package.json';
+import { dependencies as deps } from './package.json';
 
 class EmptyPlugin {
   apply() {}
@@ -29,6 +29,12 @@ const babelPlugins = [
 export default (env = {}) => {
   const dev = !!env.dev;
   const port = env.port || 3000;
+
+  const gemsBuildInfo = {
+    components: JSON.stringify(deps['@expandorg/components']),
+    modules: JSON.stringify(deps['@expandorg/modules']),
+    buildDate: JSON.stringify(new Date().toUTCString()),
+  };
 
   return {
     context: path.join(__dirname, 'src'),
@@ -139,15 +145,7 @@ export default (env = {}) => {
         'process.env': {
           NODE_ENV: JSON.stringify(!dev ? 'production' : 'development'),
         },
-        gemsBuildInfo: {
-          components: JSON.stringify(
-            packageJson.dependencies['@expandorg/components']
-          ),
-          modules: JSON.stringify(
-            packageJson.dependencies['@expandorg/modules']
-          ),
-          buildDate: JSON.stringify(new Date().toUTCString()),
-        },
+        gemsBuildInfo,
       }),
       new MiniCssExtractPlugin({
         filename: dev ? '[name].css' : '[name]-[chunkhash].css',
