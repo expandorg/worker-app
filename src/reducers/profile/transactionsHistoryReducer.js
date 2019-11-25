@@ -1,13 +1,26 @@
 import { transactionActionTypes } from '../../sagas/actionTypes';
 
-export default function transactionsListReducer(state = [], action) {
+const initialState = {
+  txs: [],
+  next: null,
+  prev: null,
+};
+
+export default function transactionsListReducer(state = initialState, action) {
   switch (action.type) {
     case transactionActionTypes.FETCH_LIST_COMPLETE: {
       const { payload, meta } = action;
-      if (!meta.page) {
-        return payload.transactions || [];
-      }
-      return state.concat(payload.transactions || []);
+
+      const txs = meta.params.cursor
+        ? [...state.txs, ...payload.transactions]
+        : payload.transactions;
+
+      return {
+        ...state,
+        txs,
+        next: payload.next_cursor,
+        prev: payload.previous_cursor,
+      };
     }
     default:
       break;

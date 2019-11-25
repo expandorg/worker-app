@@ -17,7 +17,9 @@ export default function Transaction({ transaction }) {
       <T.Cell className={cn(styles.cell, styles.amt)}>
         {transaction.value}
       </T.Cell>
-      <T.Cell className={styles.cell}>{transaction.type}</T.Cell>
+      <T.Cell className={cn(styles.cell, styles.type)}>
+        {transaction.type}
+      </T.Cell>
       <T.Cell className={styles.cell}>
         {format(parse(transaction.created_at), 'MM/DD/YYYY')}
       </T.Cell>
