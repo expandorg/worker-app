@@ -1,28 +1,23 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
-import { useClickOutside } from '@expandorg/components';
-
+import { useToggle } from '@expandorg/components';
 import { ReactComponent as Icon } from '../../assets/notifications.svg';
+
+import NotificationsList from './NotificationsList';
 
 import styles from './Badge.module.styl';
 
 export default function Badge() {
   const counter = 0;
-
-  const [display, setDispay] = useState(false);
-
-  const ref = useRef();
-  useClickOutside(ref, () => setDispay(false));
+  const [display, toggle] = useToggle(false);
 
   return (
-    <div ref={ref} className={styles.container}>
-      <div onClick={() => setDispay(!display)}>
+    <div className={styles.container}>
+      <button className={styles.btn} onClick={toggle}>
         <Icon className={styles.icon} />
         {!!counter && <div className={styles.counter}>{counter}</div>}
-      </div>
-      {display && !!counter && <div className={styles.list}>list lalala</div>}
+      </button>
+      {display && !!counter && <NotificationsList onHide={toggle} />}
     </div>
   );
 }
