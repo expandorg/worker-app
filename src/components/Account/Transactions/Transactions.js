@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import cn from 'classnames';
 
 import { Table as T } from '@expandorg/components';
 
@@ -24,7 +25,9 @@ export default function Transactions() {
       <T.ScrollContainer>
         <T.Table className={styles.container}>
           <T.Header>
-            <T.HeaderCell className={styles.hdr}>AMT</T.HeaderCell>
+            <T.HeaderCell className={cn(styles.hdr, styles.amt)}>
+              AMT
+            </T.HeaderCell>
             <T.HeaderCell className={styles.hdr}>Transaction Type</T.HeaderCell>
             <T.HeaderCell className={styles.hdr}>
               Transaction History

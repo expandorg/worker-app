@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 import PropTypes from 'prop-types';
 
@@ -13,12 +14,14 @@ export default function Transaction({ transaction }) {
   console.log(transaction);
   return (
     <T.Row className={styles.container}>
-      <T.Cell className={styles.cell}>{transaction.id}</T.Cell>
+      <T.Cell className={cn(styles.cell, styles.amt)}>
+        {transaction.value}
+      </T.Cell>
       <T.Cell className={styles.cell}>{transaction.type}</T.Cell>
       <T.Cell className={styles.cell}>
         {format(parse(transaction.created_at), 'MM/DD/YYYY')}
       </T.Cell>
-      <T.Cell className={styles.cell}>
+      <T.Cell className={(styles.cell, styles.eth)}>
         {transaction.hash && (
           <a
             className={styles.link}
