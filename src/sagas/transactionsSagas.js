@@ -2,15 +2,15 @@ import { takeEvery } from 'redux-saga/effects';
 
 import { handleAsyncCall } from '@expandorg/app-utils';
 
-import { transactionsApi } from '../api/TransactionsApi';
+import { profileApi } from '../api/ProfileApi';
 
 import { transactionActionTypes } from './actionTypes';
 
-export const fetchTransactions = page => ({
+export const fetchTransactions = cursor => ({
   type: transactionActionTypes.FETCH_LIST,
-  payload: { page },
-  asyncCall: transactionsApi.fetchList,
-  meta: { params: { page } },
+  payload: { cursor },
+  asyncCall: profileApi.transactionHistory,
+  meta: { params: { cursor } },
 });
 
 export function* transactionsSagas() {

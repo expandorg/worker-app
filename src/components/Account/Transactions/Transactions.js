@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Table as T } from '@expandorg/components';
 
 import { fetchTransactions } from '../../../sagas/transactionsSagas';
-import { makeTransactionsSelector } from '../../../selectors/transactionsSelectors';
+import { transactionsSelector } from '../../../selectors/transactionsSelectors';
 
 import Transaction from './Transaction';
 
@@ -12,14 +12,12 @@ import styles from './Transactions.module.styl';
 
 export default function Transactions() {
   const dispatch = useDispatch();
-  const txsSelector = useMemo(makeTransactionsSelector, []);
 
-  const [page] = useState(0);
-  const transactions = useSelector(state => txsSelector(state, page));
+  const transactions = useSelector(transactionsSelector);
 
   useEffect(() => {
-    dispatch(fetchTransactions(page));
-  }, [dispatch, page]);
+    dispatch(fetchTransactions());
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
