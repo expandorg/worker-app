@@ -13,15 +13,19 @@ import styles from './Transactions.module.styl';
 
 export default function Transactions() {
   const dispatch = useDispatch();
-  const { txs, next } = useSelector(transactionsHistorySelector);
+  const { txs, next, fetching } = useSelector(transactionsHistorySelector);
 
   useEffect(() => {
-    dispatch(fetchTransactions());
-  }, [dispatch]);
+    if (!fetching) {
+      dispatch(fetchTransactions());
+    }
+  }, [dispatch, fetching]);
 
   const fetchNext = useCallback(() => {
-    dispatch(fetchTransactions(next));
-  }, [dispatch, next]);
+    if (!fetching) {
+      dispatch(fetchTransactions(next));
+    }
+  }, [dispatch, fetching, next]);
 
   return (
     <div className={styles.container}>
@@ -48,6 +52,7 @@ export default function Transactions() {
             <Button
               className={styles.next}
               size="small"
+              disabled={fetching}
               theme="white-blue"
               onClick={fetchNext}
             >
