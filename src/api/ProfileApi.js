@@ -17,7 +17,7 @@ export class ProfileApi extends BaseApi {
   taskHistoryById = ({ id }: Object) => this.get(`/profiles/responses/${id}`);
 
   transactionHistory = ({ cursor }: Object) =>
-    this.get(`/profiles/transaction-history/`, { cursor });
+    this.get(`/profiles/transaction-history`, { cursor });
 }
 
 export const profileApi = new ProfileApi();
