@@ -13,7 +13,6 @@ import styles from './Transactions.module.styl';
 
 export default function Transactions() {
   const dispatch = useDispatch();
-
   const { txs, next } = useSelector(transactionsHistorySelector);
 
   useEffect(() => {
