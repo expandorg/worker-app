@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Table as T } from '@expandorg/components';
 
 import { fetchTransactions } from '../../../sagas/transactionsSagas';
-import { transactionsSelector } from '../../../selectors/transactionsSelectors';
+import { transactionsHistorySelector } from '../../../selectors/profileSelectors';
 
 import Transaction from './Transaction';
 
@@ -14,7 +14,7 @@ import styles from './Transactions.module.styl';
 export default function Transactions() {
   const dispatch = useDispatch();
 
-  const transactions = useSelector(transactionsSelector);
+  const transactions = useSelector(transactionsHistorySelector);
 
   useEffect(() => {
     dispatch(fetchTransactions());

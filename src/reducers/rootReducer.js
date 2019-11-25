@@ -26,7 +26,7 @@ import assignedTasks from './tasks/assignedTasksReducer';
 import responseEntities from './responses/responseEntitiesReducer';
 import assignedResponses from './responses/assignedResponsesReducer';
 
-import transactionsList from './transactions/transactionsListReducer';
+import transactionsHistory from './profile/transactionsHistoryReducer';
 
 import ui from './ui';
 
@@ -42,6 +42,7 @@ export default combineReducers({
       list: taskHistoryList,
       entities: taskHistoryEntities,
     }),
+    transactionsHistory,
   }),
   jobs: combineReducers({
     entities: jobEntities,
@@ -64,9 +65,6 @@ export default combineReducers({
   }),
   web3: combineReducers({
     metamask,
-  }),
-  transactions: combineReducers({
-    list: transactionsList,
   }),
   ui,
 });
