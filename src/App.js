@@ -17,6 +17,7 @@ import Jobs from './components/Jobs/Jobs';
 import Onboarding from './components/Onboarding/Onboarding';
 
 import Task from './components/Task/Task';
+import Verification from './components/Requester/Verification';
 
 import Account from './components/Account/Account';
 import Profile from './components/Profile/Profile';
@@ -43,6 +44,7 @@ const App = () => (
 
             <Route path="/onboarding/:jobId" component={Onboarding} />
             <Route path="/tasks/:taskId" component={Task} />
+            <Route path="/verify/:taskId" component={Verification} />
 
             <Route path="/account" component={Account} />
             <Route path="/profile" component={Profile} />
