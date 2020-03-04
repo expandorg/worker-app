@@ -1,0 +1,47 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font'
+
+.container
+  box-sizing: border-box;
+
+  position: absolute
+  top: 60px
+  right: 20px
+
+  width: 320px;
+  max-height: 500px
+
+  overflow-y: scroll
+  overflow-x: hidden
+
+  border-radius: 10px
+
+  background: color-white
+  box-shadow: heavy-shadow
+
+  > *
+    &:first-child
+      border-top-left-radius: 10px
+      border-top-right-radius: 10px
+
+    &:last-child
+      border-bottom-left-radius: 10px
+      border-bottom-right-radius: 10px
+
+.more
+  box-sizing: border-box
+
+  height 50px
+  width: 100%
+
+  font(subtitle-bold, 800, false, 50px)
+  text-transform: uppercase
+  letter-spacing: 0.15em;
+  color: color-text-dark
+  background-color: color-light-blue
+
+  outline: 0
+  cursor pointer
+
+  &:hover
+    background-color: darken(color-light-blue, 2%)

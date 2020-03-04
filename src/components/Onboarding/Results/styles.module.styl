@@ -1,0 +1,54 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  height: 'calc(100vh - %s)' % sz-navbar-height
+  width: 100%
+
+  display: flex
+  justify-content: center
+  align-items: center
+
+.panel
+  box-sizing: border-box
+  margin: 60px auto 0 auto
+  max-width 900px
+  padding: 40px 80px
+
+.heading
+  text-align: center
+  font(h1)
+  color: color-text-dark
+
+.title
+  margin-top: 30px
+  text-align: center
+  font(h3-bold)
+  color: color-text-dark
+
+.description
+  margin-top: 5px
+  font(body)
+  text-align: center
+  color: color-text-dark
+
+.actions
+  display: flex
+  align-items: center
+  justify-content: center
+
+  margin-top: 50px
+
+  > *
+    margin: 0 10px
+
+.start
+  width: 200px
+
+.back
+  display: inline-block
+  line-height: 50px
+  text-decoration: none
+  width: 230px
+
+

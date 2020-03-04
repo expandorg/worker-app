@@ -1,0 +1,29 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+
+.i
+  display: inline-block;
+  height: 12px
+  width: 12px
+  line-height: 12px
+
+  :global(.gem-tooltip)
+    box-sizing: border-box;
+    padding: 16px 20px
+
+    color: color-blue-background
+    background-color: color-white
+    box-shadow: heavy-shadow
+
+    font(h4-bold)
+
+    &:after
+      border-right-color: color-white
+
+  path
+    fill: color-text-heavy-blue
+
+  &:hover
+    path
+      fill: color-text-dark

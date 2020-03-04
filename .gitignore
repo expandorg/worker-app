@@ -1,2 +1,12 @@
 build
 node_modules
+
+public/*.js*
+!public/manifest.json
+!public/OneSignalSDKUpdaterWorker.js
+!public/OneSignalSDKWorker.js
+
+public/*.css*
+public/static
+public/index.html
+coverage

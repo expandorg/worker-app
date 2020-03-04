@@ -1,0 +1,40 @@
+@import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/colors'
+
+.container
+  display flex
+  align-items: center
+  justify-content: flex-end
+
+.option
+  box-sizing: border-box
+  font(h3-title, false, false, 25px)
+  color: color-text-blue
+
+  margin-left: 30px
+
+  background-color: transparent
+  border: none
+
+  outline 0
+  cursor pointer
+
+  &:first-child
+    margin-left: 0
+
+  &:hover
+    color: lighten(color-text-blue, 20%)
+
+.arrow
+  position relative
+  top: -2px
+  margin-left: 8px
+  path
+    fill: color-text-blue
+
+.up
+  .arrow
+    transform: rotateX(180deg)
+
+.selected
+  font-weight: 800

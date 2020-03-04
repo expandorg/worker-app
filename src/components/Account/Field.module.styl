@@ -1,0 +1,49 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.container
+  box-sizing: border-box;
+  margin-top: 20px
+
+  max-width: 100%
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+.field
+  max-width: calc(100% - 30px)
+
+.title
+  color: color-text-dark
+  font(body)
+
+.value
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+.text
+  max-width: 100%
+  color: color-text-grey
+  font(small-text)
+
+  margin-right: 3px
+
+  text-overflow: ellipsis
+  overflow: hidden
+  white-space: nowrap
+
+.edit
+  box-sizing: border-box;
+  padding: 0
+  margin-left: 10px
+
+  background-color: transparent
+
+  border: 0
+  outline: 0
+  cursor: pointer;
+
+  path
+    fill: color-text-heavy-blue

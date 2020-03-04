@@ -1,0 +1,49 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/size'
+
+.container
+  position fixed
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
+
+  height: 100vh
+  width: 100vw
+
+  z-index 5
+
+  box-sizing: border-box
+  background-color: color-blue-background
+
+.header
+  display flex
+  align-items: center
+  justify-content: flex-end
+  width: 100%
+  padding-right: 32px
+  padding-left: 20px
+  box-sizing: border-box
+
+.skip
+  box-sizing: border-box
+  width: 160px
+  height: 32px
+
+  background-color: transparent
+  color: color-white
+  border: 1px solid color-heavy-blue
+  border-radius: 5px
+
+  font(subtitle-bold, 800)
+  letter-spacing: 0.15em;
+  text-transform: uppercase
+
+  cursor pointer
+  outline: none
+
+.content
+  box-sizing: border-box
+  height: 'calc(100vh - %s)' % sz-navbar-height
+  min-height: 'calc(100vh - %s)' % sz-navbar-height

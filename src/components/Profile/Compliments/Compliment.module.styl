@@ -1,0 +1,46 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  box-sizing: border-box
+
+  background-color: color-light-blue
+  border-radius: 28px
+  padding: 28px 49px 40px
+
+  width calc(50% - 10px)
+
+  margin-right: 20px
+  margin-bottom: 20px
+
+  &:nth-child(even)
+    margin-right: 0
+
+.autor
+  box-sizing: border-box
+  position relative
+  padding-left: 44px
+
+.person
+  position absolute
+  top: 8px
+  left: 10px
+
+.name
+  font(small-text, 800)
+  color: color-text-grey
+
+.date
+  font(small-text, 500)
+  color: color-text-grey
+  margin-top: 1px
+
+.title
+  margin-top: 30px
+  font(body, 900, 18px, 25px)
+  color: color-text-dark
+
+.text
+  margin-top: 10px
+  font(body)
+  color: color-text-dark

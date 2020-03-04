@@ -1,0 +1,152 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/size'
+@import '~@expandorg/uikit/font'
+
+.container
+  box-sizing: border-box
+  position relative
+
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  margin-bottom: 15px
+
+  border-radius: 20px
+  border: 1px solid #8CBBEE
+  box-shadow: none
+
+  transition: box-shadow 100ms ease-in, border-color 100ms ease-in;
+
+  @media(max-width: breakpoint-mobile-md)
+    flex-direction: column
+    align-items: stretch
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
+
+  &:hover
+    box-shadow: heavy-shadow
+    border-color: transparent
+    z-index: 1;
+
+.info
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  padding: 20px 0 20px 20px
+  max-width 50%
+
+  @media(max-width: breakpoint-mobile-md)
+    max-width 100%
+    padding-right: 40px
+
+.logo
+  display: inline-block
+
+.heading
+  box-sizing: border-box
+  padding-left: 30px
+  width: 100%;
+
+.name
+  font(h2-title)
+  color: color-text-dark
+
+  @media(max-width: breakpoint-mobile-md)
+    font(h3-title)
+
+
+.description
+  font(h3-bold)
+  color: color-text-heavy-blue
+
+  text-overflow: ellipsis
+  overflow: hidden
+  white-space: nowrap
+
+
+.actions
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  justify-content: flex-start
+
+  padding-right: 30px
+
+  @media(max-width: breakpoint-mobile-md)
+    padding-right: 0
+    flex-direction: column-reverse
+    align-items: stretch
+
+.primary
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  @media(max-width: breakpoint-mobile-md)
+    padding: 0 20px 20px 0
+
+
+.reward
+  margin-left: 30px
+  font(body-bold, false, false, 1)
+  color: color-text-dark
+  white-space: nowrap
+
+.icon
+  margin-left: 2px
+  position relative
+  top: 2px
+
+  path
+    fill color-pink
+
+.assign
+  padding: 0 30px
+  width: 150px
+  height: 32px;
+
+  line-height: 30px
+  letter-spacing: 0.15em;
+  text-decoration: none
+
+  border-radius: 5px
+
+  margin-left: 20px
+
+.warning
+  box-sizing: border-box
+  position relative
+
+  height 40px
+  width: 100px
+
+  text-align: center
+  font(subtitle, false, false, 40px)
+  color: color-text-yellow-2
+  border:  none
+  background-color: color-text-yellow
+
+  cursor pointer
+  outline 0
+
+  @media(max-width: breakpoint-mobile-md)
+    width: 100%
+
+.i
+  margin-left: 5px
+  path
+    fill: color-white
+
+  &:hover
+    path
+      fill: color-white
+
+  :global(.gem-tooltip)
+    font(h4-bold)
+    letter-spacing: 0
+
+
+

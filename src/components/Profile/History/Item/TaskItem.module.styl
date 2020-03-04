@@ -1,0 +1,92 @@
+@import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/colors'
+
+.container
+  box-sizing: border-box
+
+  width: 100%
+  margin-bottom: 15px
+
+  border-radius: 20px
+  border: 1px solid #8CBBEE
+
+  cursor pointer
+  transition: box-shadow 100ms ease-in, border-color 100ms ease-in;
+
+  &:hover
+    border-color: transparent;
+    box-shadow: heavy-shadow
+
+  &:last-child
+    margin-bottom: 0
+
+.preview
+  box-sizing: border-box
+  height 100px
+
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 0 25px
+
+.info
+  display: flex
+  align-items: center
+
+.logo:global(.gem-joblogo-medium)
+  width: 50px
+  height: 50px
+  min-width: 50px
+  min-height: 50px
+  max-width: 50px
+  max-height: 50px
+
+  margin-right: 28px
+
+.name
+  font(h2-title, false, false, 33px)
+  color: color-text-dark
+
+.date
+  margin-top: 2px
+  font(small-text)
+  color: color-text-grey
+
+.stats
+  display: flex
+  justify-content: flex-end
+  align-items: center
+
+.reward
+  color: color-text-dark
+  font(body-bold)
+
+.gem
+  margin-left: 8px
+  position relative
+  top: 3px
+
+  path
+    fill color-pink
+
+.rejected
+.accepted
+  margin-right: 45px
+  height 32px
+  width: 120px
+
+  font(subtitle-bold, 600, 12px, 32px)
+  text-align: center;
+  text-transform: uppercase
+  letter-spacing: 0.15em;
+  border-radius: 16px
+
+.accepted
+  background-color: #E1F2EF
+  color: color-teel-strong
+  border: 1px solid color-teel-strong
+
+.rejected
+  background-color: #FEEEC0
+  color: color-text-yellow-2
+  border: 1px solid color-yellow

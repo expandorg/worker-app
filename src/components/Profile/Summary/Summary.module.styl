@@ -1,0 +1,50 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  margin-top: 100px
+
+  display flex
+  justify-content: space-between
+
+.name
+  color color-text-dark
+  font(h2-bold)
+
+.email
+  font(body)
+  color: color-text-grey
+  margin-top: 5px
+
+.rating
+  margin-top: 30px
+
+.stats
+  height 138px
+  display: flex
+
+.item
+  height 138px
+  margin-left: 30px
+
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  &:first-child
+    margin-right: 0
+
+
+.value
+  text-align: center
+  font(oversized)
+  color: color-teel-dark
+
+.desc
+  box-sizing: border-box
+
+  color: color-text-grey
+  font(subtitle-bold, 900, 12px, 16px)
+  letter-spacing: 0.15em;
+  text-align: center
+  text-transform: uppercase;

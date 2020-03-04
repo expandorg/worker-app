@@ -1,0 +1,40 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.stats
+  display: flex
+  align-items: center;
+  justify-content: space-around
+  padding: 20px 0 0
+
+  @media(max-width: breakpoint-mobile-sm)
+    width: 100%
+    padding: 20px 10px 0 10px
+
+.inner
+  min-width 50%
+  flex-grow: 1
+  display: flex
+  justify-content: center
+  padding: 0 10px
+
+.hero
+  margin-top: 0
+  :global(.gem-hero-value)
+    font-size: 60px
+  :global(.gem-hero-gems)
+    bottom: 5px
+
+
+.actions
+  margin-top: 40px
+
+  display: flex;
+  justify-content: space-between;
+
+.deposit
+  width: 100%
+  margin-right: 15px
+
+.withdraw
+  width: 100%
