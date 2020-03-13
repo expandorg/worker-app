@@ -15,7 +15,7 @@ import InsufficientFundsDialog from './InsufficientFundsDialog';
 
 import Job from './list/Job';
 
-import { assignJob, fetchJobs } from '../../sagas/jobsSagas';
+import { assignTask, fetchJobs } from '../../sagas/jobsSagas';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 import { profileSelector } from '../../selectors/profileSelectors';
@@ -56,7 +56,7 @@ function Jobs({ history }) {
       if (job.onboarding.enabled) {
         history.push(`/onboarding/${job.id}`);
       } else {
-        dispatch(assignJob(job.id));
+        dispatch(assignTask(job.id));
       }
     },
     [completeProfile, dispatch, history, toggleProfile, user]

@@ -31,34 +31,37 @@ import services from './services';
 
 store.dispatch(initSaga());
 
-const App = () => (
-  <ServiceProvider services={services}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <AppContainer>
-          <Switch>
-            <Route path="/" exact component={Jobs} />
+function App() {
+  return (
+    <ServiceProvider services={services}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <AppContainer>
+            <Switch>
+              <Route path="/" exact component={Jobs} />
 
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
 
-            <Route path="/jobs/:jobId" component={JobPreview} />
-            <Route path="/onboarding/:jobId" component={Onboarding} />
-            <Route path="/tasks/:taskId" component={Task} />
+              <Route path="/jobs/:jobId" component={JobPreview} />
+              <Route path="/onboarding/:jobId" component={Onboarding} />
+              <Route path="/tasks/:taskId" component={Task} />
 
-            <Route path="/account" component={Account} />
-            <Route path="/profile" component={Profile} />
+              <Route path="/account" component={Account} />
+              <Route path="/profile" component={Profile} />
 
-            <Route path="/password" component={ResetPassword} />
-            <Route path="/restore" component={RestorePassword} />
-            <Route path="/confirm" component={EmailConfirm} />
+              <Route path="/password" component={ResetPassword} />
+              <Route path="/restore" component={RestorePassword} />
+              <Route path="/confirm" component={EmailConfirm} />
 
-            <Route component={NotFound} />
-          </Switch>
-        </AppContainer>
-      </BrowserRouter>
-    </Provider>
-  </ServiceProvider>
-);
+              <Route component={NotFound} />
+            </Switch>
+          </AppContainer>
+        </BrowserRouter>
+        a
+      </Provider>
+    </ServiceProvider>
+  );
+}
 
 export default hot(App);

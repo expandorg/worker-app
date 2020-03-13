@@ -10,7 +10,7 @@ import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 
 import Countdown from '../../shared/Countdown';
 
-import { assignJob } from '../../../sagas/jobsSagas';
+import { assignTask } from '../../../sagas/jobsSagas';
 import { jobListSelector } from '../../../selectors/jobsSelectors';
 import { assignJobStateSelector } from '../../../selectors/ui';
 
@@ -28,7 +28,7 @@ export default function SubmissionResultDialog({ jobId, onAssignComplete }) {
 
   const assign = useCallback(() => {
     if (submitState.state !== RequestStates.Fetching) {
-      dispatch(assignJob(jobId));
+      dispatch(assignTask(jobId));
     }
   }, [dispatch, jobId, submitState.state]);
 

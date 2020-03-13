@@ -23,10 +23,22 @@ export const fetchJob = jobId => ({
   meta: { schema: jobSchema },
 });
 
-export const assignJob = jobId => ({
-  type: jobsActionTypes.ASSIGN,
+export const assignTask = jobId => ({
+  type: jobsActionTypes.ASSIGN_TASK,
   payload: { jobId },
   asyncCall: jobsApi.assign,
+  meta: {
+    schema: authResponseSchema,
+    track: {
+      action: GtmActions.JobAssign,
+    },
+  },
+});
+
+export const assignVerification = jobId => ({
+  type: jobsActionTypes.ASSIGN_VERIFICATION,
+  payload: { jobId },
+  asyncCall: jobsApi.assignVerification,
   meta: {
     schema: authResponseSchema,
     track: {
@@ -47,7 +59,8 @@ export function* jobsSagas() {
     [
       jobsActionTypes.FETCH,
       jobsActionTypes.FETCH_LIST,
-      jobsActionTypes.ASSIGN,
+      jobsActionTypes.ASSIGN_TASK,
+      jobsActionTypes.ASSIGN_VERIFICATION,
       jobsActionTypes.FETCH_PREVIEW,
     ],
     handleAsyncCall

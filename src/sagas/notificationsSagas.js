@@ -61,7 +61,7 @@ export function* notificationsSagas(): any {
 
   yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);
   yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
-  yield takeEvery(jobsActionTypes.ASSIGN_FAILED, handleJobAssignFailed);
+  yield takeEvery(jobsActionTypes.ASSIGN_TASK_FAILED, handleJobAssignFailed);
 
   yield takeEvery(
     [
