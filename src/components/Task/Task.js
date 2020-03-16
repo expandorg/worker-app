@@ -11,7 +11,6 @@ import Page from '../shared/Page';
 import TaskContainer from './TaskContainer';
 import VerificationContainer from './VerificationContainer';
 
-import TypeNotification from './TypeNotification';
 import TaskCancelled from './Results/TaskCancelled';
 
 import { fetchTask } from '../../sagas/tasksSagas';
@@ -128,8 +127,6 @@ class Task extends Component {
 
           <ReportAssignmentStateEffect onComplete={this.handleCancelled} />
           <CancelAssignmentStateEffect onComplete={this.handleCancelled} />
-
-          <TypeNotification assignment={assignment} />
         </div>
       </Page>
     );
