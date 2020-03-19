@@ -6,7 +6,7 @@ import { moduleControls } from '@expandorg/modules/app';
 import { getVerificationResponse } from '@expandorg/modules/model';
 
 import { addNotification } from '@expandorg/app-utils/app';
-import ModulesForm from './ModulesForm';
+import ModulesForm from '../Task/ModulesForm';
 
 import { verifyResponse } from '../../sagas/responsesSagas';
 

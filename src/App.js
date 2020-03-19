@@ -18,6 +18,7 @@ import Onboarding from './components/Onboarding/Onboarding';
 import JobPreview from './components/JobPreview/JobPreview';
 
 import Task from './components/Task/Task';
+import Verification from './components/Verfication/Verification';
 
 import Account from './components/Account/Account';
 import Profile from './components/Profile/Profile';
@@ -46,6 +47,7 @@ function App() {
               <Route path="/jobs/:jobId" component={JobPreview} />
               <Route path="/onboarding/:jobId" component={Onboarding} />
               <Route path="/tasks/:taskId" component={Task} />
+              <Route path="/verification/:taskId" component={Verification} />
 
               <Route path="/account" component={Account} />
               <Route path="/profile" component={Profile} />

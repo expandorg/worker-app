@@ -8,9 +8,9 @@ import { authenticated } from '../shared/auth';
 
 import Page from '../shared/Page';
 
-import TaskContainer from './TaskContainer';
+import VerificationContainer from './VerificationContainer';
 
-import TaskCancelled from './Results/TaskCancelled';
+import TaskCancelled from '../Task/Results/TaskCancelled';
 
 import { fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
@@ -95,7 +95,7 @@ class Task extends Component {
   };
 
   render() {
-    const { job, task, taskId } = this.props;
+    const { job, task } = this.props;
     const { assignment, cancelled } = this.state;
 
     if (!assignment) {
@@ -107,8 +107,8 @@ class Task extends Component {
       <Page title={title}>
         <div className={styles.container}>
           {!cancelled && (
-            <TaskContainer
-              key={taskId}
+            <VerificationContainer
+              key={assignment.responseId}
               job={job}
               task={task}
               assignment={assignment}
