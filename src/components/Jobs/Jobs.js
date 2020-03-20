@@ -15,7 +15,11 @@ import InsufficientFundsDialog from './InsufficientFundsDialog';
 
 import Job from './list/Job';
 
-import { assignTask, fetchJobs } from '../../sagas/jobsSagas';
+import {
+  assignTask,
+  fetchJobs,
+  assignVerification,
+} from '../../sagas/jobsSagas';
 import { jobsSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 import { profileSelector } from '../../selectors/profileSelectors';
@@ -54,15 +58,23 @@ function Jobs({ history }) {
         return;
       }
       if (job.onboarding.enabled) {
-        history.push(`/onboarding/${job.id}`);
-      } else {
+        history.push(`/onboarding/${job.id}`, {
+          verification: job.isVerification,
+        });
+        return;
+      }
+
+      if (!job.isVerification) {
         dispatch(assignTask(job.id));
+      } else {
+        dispatch(assignVerification(job.id));
       }
     },
     [completeProfile, dispatch, history, toggleProfile, user]
   );
 
   const prevProfile = usePrevious(profile);
+
   useEffect(() => {
     if (profile && prevProfile) {
       if (prevProfile.state !== 'complete' && profile.state === 'complete') {
