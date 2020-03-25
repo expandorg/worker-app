@@ -15,11 +15,11 @@ import {
 import { reportAssignmentStateSelector } from '../../../selectors/ui';
 import { reportAssignment } from '../../../sagas/assignmentsSagas';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   reportState: reportAssignmentStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ reportAssignment }, dispatch);
 
 class AssignmentReport extends Component {

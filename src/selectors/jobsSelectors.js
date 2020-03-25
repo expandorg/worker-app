@@ -20,7 +20,7 @@ export const makeJobSelector = (): any =>
 export const jobsSelector: any = createSelector(
   jobListSelector,
   jobEntitiesSelector,
-  (list, entities) => list.map(id => entities[id])
+  (list, entities) => list.map((id) => entities[id])
 );
 
 export const makeAssignedJobSelector = (): any => {

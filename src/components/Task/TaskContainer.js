@@ -16,10 +16,10 @@ export default function TaskContainer({ job, task, assignment }) {
   const submitTaskState = useSelector(submitTaskStateSelector);
 
   const variablesSelector = useMemo(makeTaskVariablesSelector, []);
-  const variables = useSelector(state => variablesSelector(state, task));
+  const variables = useSelector((state) => variablesSelector(state, task));
 
   const submit = useCallback(
-    form => {
+    (form) => {
       dispatch(submitTask(assignment.taskId, form, assignment.jobId));
     },
     [assignment.jobId, assignment.taskId, dispatch]

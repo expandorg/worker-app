@@ -30,7 +30,7 @@ function ResponsePreview({ form, data, response, services }) {
           controls={moduleControls}
           onSubmit={Function.prototype}
         >
-          {props => <Module {...props} />}
+          {(props) => <Module {...props} />}
         </Form>
       </FormDataProvider>
     </div>

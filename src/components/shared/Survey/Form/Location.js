@@ -8,10 +8,12 @@ import useCurrentLocation from '../../useCurrentLocation';
 import { useStopPropagation } from './hooks';
 import { Field } from './Form';
 
-const getAddressString = profile =>
-  [profile.city, profile.locality, profile.country].filter(c => !!c).join(', ');
+const getAddressString = (profile) =>
+  [profile.city, profile.locality, profile.country]
+    .filter((c) => !!c)
+    .join(', ');
 
-const noop = p => p;
+const noop = (p) => p;
 
 export default function Location({ profile, onChange }) {
   const services = useService();
@@ -26,9 +28,9 @@ export default function Location({ profile, onChange }) {
   const loc = useCurrentLocation();
   useEffect(() => {
     if (loc && !profile.city) {
-      geocoder.reverseGeocodeCity(loc.lat, loc.lng).then(places => {
+      geocoder.reverseGeocodeCity(loc.lat, loc.lng).then((places) => {
         placesRef.current = places;
-        setAutocomplete(places.map(p => p.place_name));
+        setAutocomplete(places.map((p) => p.place_name));
       });
     }
   }, [geocoder, loc, profile.city]);
@@ -36,18 +38,18 @@ export default function Location({ profile, onChange }) {
   const change = useCallback(
     ({ target }) => {
       setValue(target.value);
-      geocoder.suggestCity(target.value).then(places => {
+      geocoder.suggestCity(target.value).then((places) => {
         placesRef.current = places;
-        setAutocomplete(places.map(p => p.place_name));
+        setAutocomplete(places.map((p) => p.place_name));
       });
     },
     [geocoder]
   );
 
   const select = useCallback(
-    v => {
+    (v) => {
       setValue(v);
-      const place = placesRef.current.find(p => p.place_name === v);
+      const place = placesRef.current.find((p) => p.place_name === v);
       if (place) {
         const address = geocoder.extractAddress(place);
         onChange({ ...profile, ...address });

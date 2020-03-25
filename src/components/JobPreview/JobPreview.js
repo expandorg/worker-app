@@ -28,7 +28,7 @@ export default function JobPreview() {
     dispatch(fetchJobPreview(jobId));
   }, [dispatch, jobId]);
   const previewSelector = useMemo(makeJobPreviewSelector, []);
-  const preview = useSelector(s => previewSelector(s, jobId), []);
+  const preview = useSelector((s) => previewSelector(s, jobId), []);
 
   const notify = useCallback(
     (type, msg) => {

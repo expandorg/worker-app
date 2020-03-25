@@ -8,7 +8,7 @@ import SurveyPopup from '../../shared/Survey/SurveyPopup';
 
 import styles from './ProfileState.module.styl';
 
-const getProfileFillPercentage = profile => {
+const getProfileFillPercentage = (profile) => {
   if (!profile) {
     return 0;
   }

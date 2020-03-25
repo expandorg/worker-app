@@ -20,12 +20,12 @@ export default function VerificationContainer({ assignment, job, task }) {
   const verifyState = useSelector(verifyResponseStateSelector);
 
   const variablsSelector = useMemo(makeVerficationVariablesSelector, []);
-  const variables = useSelector(state =>
+  const variables = useSelector((state) =>
     variablsSelector(state, task, assignment)
   );
 
   const submit = useCallback(
-    result => {
+    (result) => {
       if (job) {
         const { score, reason } = getVerificationResponse(
           result,

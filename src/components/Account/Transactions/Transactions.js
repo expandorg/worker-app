@@ -46,7 +46,7 @@ export default function Transactions() {
     <T.ScrollContainer>
       <T.Table className={styles.table}>
         <Header />
-        {txs.map(tx => (
+        {txs.map((tx) => (
           <Transaction key={tx.id} transaction={tx} />
         ))}
         {txs.length === 0 && <Empty />}

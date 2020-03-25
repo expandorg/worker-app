@@ -10,7 +10,7 @@ import { ReactComponent as AccountIcon } from '../../assets/settings.svg';
 export default function Sidebar({ navigation }) {
   return (
     <UISidebar>
-      {navigation.map(item => (
+      {navigation.map((item) => (
         <SidebarLink key={item.link} item={item} />
       ))}
     </UISidebar>

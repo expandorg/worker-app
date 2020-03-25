@@ -16,7 +16,7 @@ import { authenticated } from '../shared/auth';
 
 import styles from './EmailConfirm.module.styl';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: userSelector(state),
 });
 

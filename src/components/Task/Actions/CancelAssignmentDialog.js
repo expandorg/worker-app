@@ -11,11 +11,11 @@ import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { cancelAssignmentStateSelector } from '../../../selectors/ui';
 import { cancelAssignment } from '../../../sagas/assignmentsSagas';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   submitState: cancelAssignmentStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ cancelAssignment }, dispatch);
 
 class CancelAssignmentDialog extends Component {

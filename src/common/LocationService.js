@@ -17,7 +17,7 @@ export default class LocationService extends PubSub {
     this.started = true;
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+      navigator.geolocation.getCurrentPosition((position) => {
         this.latLng = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,

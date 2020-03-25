@@ -20,7 +20,7 @@ export default function SurveyPopup({ profile, userId, onHide, title }) {
   }, [dispatch]);
 
   const save = useCallback(
-    data => {
+    (data) => {
       dispatch(saveProfile(data));
     },
     [dispatch]

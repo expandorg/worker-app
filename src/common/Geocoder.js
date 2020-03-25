@@ -52,11 +52,11 @@ export default class Geocoder {
 
   extractAddress = (place: Object) => {
     const address = { city: place.text_en, country: '', locality: '' };
-    const country = place.context.find(c => c.id.startsWith('country'));
+    const country = place.context.find((c) => c.id.startsWith('country'));
     if (country) {
       address.country = country.text_en;
     }
-    const region = place.context.find(c => c.id.startsWith('region'));
+    const region = place.context.find((c) => c.id.startsWith('region'));
     if (country) {
       address.locality = region.text_en;
     }

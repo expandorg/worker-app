@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './Notification.module.styl';
 
 export default function Notification({ notification, onClick }) {
-  const click = useCallback(evt => onClick(evt, notification), [
+  const click = useCallback((evt) => onClick(evt, notification), [
     notification,
     onClick,
   ]);

@@ -48,7 +48,7 @@ function Jobs({ history }) {
   const completeProfile = !!profile && profile.state === 'complete';
 
   const assign = useCallback(
-    job => {
+    (job) => {
       if (!jobHasSufficientFunds(job, user)) {
         setTopup(job.logic.funding.requirement);
         return;
@@ -90,12 +90,12 @@ function Jobs({ history }) {
   return (
     <Page title="Browse Jobs">
       <div className={styles.list}>
-        {jobs.map(job => (
+        {jobs.map((job) => (
           <Job
             key={job.id}
             job={job}
             user={user}
-            assignment={assignments.find(a => a.jobId === job.id)}
+            assignment={assignments.find((a) => a.jobId === job.id)}
             onAssign={assign}
             onTopup={topupJob}
           />

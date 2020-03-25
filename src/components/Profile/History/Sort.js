@@ -13,7 +13,7 @@ export default function Sort({ selected: sel, onSelect }) {
   const sign = selected.slice(0, 1);
 
   const select = useCallback(
-    option => {
+    (option) => {
       let result = `-${option}`;
       if (type === option && selected === `-${option}`) {
         result = `+${option}`;

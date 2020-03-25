@@ -16,14 +16,14 @@ export const fetchJobs = () => ({
   meta: { schema: { jobs: [jobSchema] } },
 });
 
-export const fetchJob = jobId => ({
+export const fetchJob = (jobId) => ({
   type: jobsActionTypes.FETCH,
   payload: { jobId },
   asyncCall: jobsApi.fetch,
   meta: { schema: jobSchema },
 });
 
-export const assignTask = jobId => ({
+export const assignTask = (jobId) => ({
   type: jobsActionTypes.ASSIGN_TASK,
   payload: { jobId },
   asyncCall: jobsApi.assign,
@@ -35,7 +35,7 @@ export const assignTask = jobId => ({
   },
 });
 
-export const assignVerification = jobId => ({
+export const assignVerification = (jobId) => ({
   type: jobsActionTypes.ASSIGN_VERIFICATION,
   payload: { jobId },
   asyncCall: jobsApi.assignVerification,
@@ -47,7 +47,7 @@ export const assignVerification = jobId => ({
   },
 });
 
-export const fetchJobPreview = jobId => ({
+export const fetchJobPreview = (jobId) => ({
   type: jobsActionTypes.FETCH_PREVIEW,
   payload: { jobId },
   asyncCall: jobsApi.fetchPreview,

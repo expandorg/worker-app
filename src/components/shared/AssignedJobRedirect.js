@@ -42,7 +42,7 @@ class AssignedJobRedirect extends Component {
     }
   }
 
-  handleAssignComplete = submitState => {
+  handleAssignComplete = (submitState) => {
     this.move(submitState.payload.result.newAssignment.taskId);
   };
 

@@ -15,7 +15,7 @@ const titles = {
 export default function Filter({ selected, onSelect }) {
   return (
     <Tabs className={styles.container} theme="underline">
-      {options.map(option => (
+      {options.map((option) => (
         <Tab
           key={option}
           className={styles.option}

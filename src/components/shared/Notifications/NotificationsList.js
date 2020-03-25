@@ -33,14 +33,14 @@ export default function NotificationsList({ onHide }) {
   const [notifications, setNotifications] = useState(initial);
 
   const loadNext = useCallback(() => {
-    setNotifications(ns =>
+    setNotifications((ns) =>
       ns.concat(initial.map((n, i) => ({ ...n, id: ns.length + i })))
     );
   }, []);
 
   return (
     <div ref={ref} className={styles.container}>
-      {notifications.map(n => (
+      {notifications.map((n) => (
         <Notification key={n.id} notification={n} onClick={onHide} />
       ))}
       {true && (

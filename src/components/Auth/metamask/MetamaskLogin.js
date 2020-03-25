@@ -26,7 +26,7 @@ export default function MetamaskLogin() {
 
   const hide = useCallback(() => setDialog(false), []);
   const login = useCallback(() => dispatch(loginMetamask()), [dispatch]);
-  const failed = useCallback(p => setError(p.error), []);
+  const failed = useCallback((p) => setError(p.error), []);
 
   const click = useCallback(() => {
     if (mmask.state !== MetamaskState.Authorized) {

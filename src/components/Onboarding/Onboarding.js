@@ -29,8 +29,8 @@ function OnboardingPage({ match }) {
   const jobSelector = useMemo(makeJobSelector, []);
   const onboardingSelector = useMemo(makeOnboardingSelector, []);
 
-  const job = useSelector(state => jobSelector(state, jobId));
-  const onboarding = useSelector(state => onboardingSelector(state, jobId));
+  const job = useSelector((state) => jobSelector(state, jobId));
+  const onboarding = useSelector((state) => onboardingSelector(state, jobId));
 
   useEffect(() => {
     dispatch(fetchJobs());

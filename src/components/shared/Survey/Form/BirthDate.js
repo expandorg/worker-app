@@ -13,7 +13,7 @@ export default function BirthDate({ profile, onChange }) {
   );
 
   const dayChange = useCallback(
-    date => {
+    (date) => {
       const birthdate = format(date, 'MM/DD/YYYY');
       setValue(birthdate);
       onChange({ ...profile, birthdate });

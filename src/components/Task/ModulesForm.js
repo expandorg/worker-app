@@ -45,9 +45,9 @@ export default function ModulesForm({
   const [reportMessage, setReportMessage] = useState(null);
 
   const [initial, persist, clear] = useFormPersist(id);
-  const change = useCallback(value => persist(value), [persist]);
+  const change = useCallback((value) => persist(value), [persist]);
 
-  const moduleError = useCallback(msg => setReportMessage(msg), []);
+  const moduleError = useCallback((msg) => setReportMessage(msg), []);
   const submitted = useCallback(() => setIsSubmitted(true), []);
   const assigned = useCallback(() => {
     setReportMessage(null);
@@ -95,7 +95,7 @@ export default function ModulesForm({
               onNotify={onNotify}
               onModuleError={moduleError}
             >
-              {props => <Module {...props} />}
+              {(props) => <Module {...props} />}
             </Form>
           </FormDataProvider>
         </Panel>

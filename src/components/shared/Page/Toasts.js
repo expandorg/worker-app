@@ -6,7 +6,7 @@ import { clearNotification } from '@expandorg/app-utils/app';
 import { notificationSelector } from '../../../selectors/ui';
 
 export default connect(
-  state => ({
+  (state) => ({
     notification: notificationSelector(state),
   }),
   { onClear: clearNotification }

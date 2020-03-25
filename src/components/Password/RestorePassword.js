@@ -21,11 +21,11 @@ import { restorePasswordStateSelector } from '@expandorg/app-auth/selectors';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   submitState: restorePasswordStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ restorePassword }, dispatch);
 
 class RestorePassword extends Component {
@@ -50,7 +50,7 @@ class RestorePassword extends Component {
     this.setState({ isFetched: true });
   };
 
-  handleSubmit = evt => {
+  handleSubmit = (evt) => {
     evt.preventDefault();
     const { submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {

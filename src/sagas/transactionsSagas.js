@@ -6,7 +6,7 @@ import { profileApi } from '../api/ProfileApi';
 
 import { transactionActionTypes } from './actionTypes';
 
-export const fetchTransactions = cursor => ({
+export const fetchTransactions = (cursor) => ({
   type: transactionActionTypes.FETCH_LIST,
   payload: { cursor },
   asyncCall: profileApi.transactionHistory,

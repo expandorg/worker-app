@@ -17,7 +17,7 @@ export default function useFormPersist(id) {
     };
   }, [key]);
 
-  const persist = useCallback(value => debouncedWrite(key, value), [key]);
+  const persist = useCallback((value) => debouncedWrite(key, value), [key]);
   const clear = useCallback(() => lsRemove(key), [key]);
 
   return [initial, persist, clear];

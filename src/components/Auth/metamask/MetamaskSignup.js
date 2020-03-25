@@ -24,7 +24,7 @@ export default function MetamaskSignup() {
   const signupState = useSelector(signupMetamaskStateSelector);
 
   const hide = useCallback(() => setMetamaskDialog(false), []);
-  const failed = useCallback(p => setError(p.error), []);
+  const failed = useCallback((p) => setError(p.error), []);
 
   const signup = useCallback(() => dispatch(signupMetamask()), [dispatch]);
 

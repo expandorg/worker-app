@@ -19,7 +19,7 @@ export const getAllFilters = () => ({
   asyncCall: profileApi.getAllFilters,
 });
 
-export const saveProfile = profile => ({
+export const saveProfile = (profile) => ({
   type: profileActionTypes.SAVE,
   payload: { profile },
   asyncCall: profileApi.createWorkerProfile,
@@ -42,7 +42,7 @@ export const fetchTaskHistory = (
   meta: { params: { cursor } },
 });
 
-export const fetchTaskHistoryEntity = id => ({
+export const fetchTaskHistoryEntity = (id) => ({
   type: profileActionTypes.FETCH_TASK_HISTORY_BY_ID,
   payload: { id },
   asyncCall: profileApi.taskHistoryById,

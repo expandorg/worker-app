@@ -17,13 +17,13 @@ export default function ResetPassword() {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
-  const change = useCallback(evt => setEmail(evt.target.value), []);
+  const change = useCallback((evt) => setEmail(evt.target.value), []);
 
   const submitState = useSelector(resetPasswordStateSelector);
   const isFetching = submitState.state === RequestStates.Fetching;
 
   const submit = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
 
       if (!isFetching) {

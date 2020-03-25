@@ -11,7 +11,7 @@ import styles from './Rating.module.styl';
 export default function Rating({ rating }) {
   return (
     <div className={styles.container}>
-      {range(5).map(i => (
+      {range(5).map((i) => (
         <Star
           key={i}
           className={cn(styles.star, { [styles.fill]: rating > i })}

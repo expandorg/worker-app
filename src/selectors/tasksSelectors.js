@@ -19,7 +19,7 @@ export const assignedTasksSelector: any = createSelector(
   jobEntitiesSelector,
   assignmentsSelector,
   (entities, jobEntities, assignments) =>
-    assignments.map(assignment => ({
+    assignments.map((assignment) => ({
       ...entities[assignment.taskId],
       job: jobEntities[assignment.jobId],
     }))

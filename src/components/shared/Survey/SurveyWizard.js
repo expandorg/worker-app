@@ -53,7 +53,7 @@ export default function SurveyWizard({
     onHide();
   }, [o, onHide, onSave, userId]);
 
-  const back = useCallback(() => setPage(p => p - 1), []);
+  const back = useCallback(() => setPage((p) => p - 1), []);
 
   const next = useCallback(() => {
     onSave(getRequestForm(profile, userId));
@@ -63,7 +63,7 @@ export default function SurveyWizard({
 
   const saved = useCallback(() => {
     if (!isLast) {
-      setPage(p => p + 1);
+      setPage((p) => p + 1);
     } else {
       onHide();
     }
