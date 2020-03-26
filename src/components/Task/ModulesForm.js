@@ -27,6 +27,8 @@ export default function ModulesForm({
   assignmentId,
   jobId,
   submitState,
+  assignState,
+  onAssign,
   visible,
   form,
   variables,
@@ -54,8 +56,6 @@ export default function ModulesForm({
     setIsSubmitted(false);
     setStartTime(new Date());
   }, []);
-
-  const isFetching = submitState.state === RequestStates.Fetching;
 
   const submit = useCallback(
     (...args) => {
@@ -89,7 +89,7 @@ export default function ModulesForm({
               controls={moduleControls}
               services={services}
               variables={variables}
-              isSubmitting={isFetching}
+              isSubmitting={submitState.state === RequestStates.Fetching}
               onChange={change}
               onSubmit={submit}
               onNotify={onNotify}
@@ -101,9 +101,10 @@ export default function ModulesForm({
         </Panel>
       )}
       <SubmitStateEffect submitState={submitState} onComplete={submitted} />
+      <SubmitStateEffect submitState={assignState} onComplete={assigned} />
       <AssignedJobRedirect />
       {isSubmitted && (
-        <SubmissionResultDialog jobId={jobId} onAssignComplete={assigned} />
+        <SubmissionResultDialog jobId={jobId} onAssign={onAssign} />
       )}
     </>
   );
@@ -118,6 +119,8 @@ ModulesForm.propTypes = {
   visible: PropTypes.bool.isRequired,
   variables: PropTypes.shape({}),
   submitState: requestStateProps.isRequired,
+  assignState: requestStateProps.isRequired,
+  onAssign: PropTypes.func.isRequired,
   onNotify: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

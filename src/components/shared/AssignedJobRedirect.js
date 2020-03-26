@@ -11,14 +11,14 @@ import {
 } from '@expandorg/app-utils';
 
 import { assignmentProps } from './propTypes';
-import { assignJobStateSelector } from '../../selectors/ui';
+import { assignTaskStateSelector } from '../../selectors/ui';
 import { makeJobAssignmentSelector } from '../../selectors/assignmentsSelectors';
 
 const makeMapStateToProps = () => {
   const assignmentSelector = makeJobAssignmentSelector();
   return (state, props) => ({
     assignment: assignmentSelector(state, props.jobId),
-    submitState: assignJobStateSelector(state),
+    submitState: assignTaskStateSelector(state),
   });
 };
 

@@ -6,14 +6,19 @@ import { moduleControls } from '@expandorg/modules/app';
 import { getVerificationResponse } from '@expandorg/modules/model';
 
 import { addNotification } from '@expandorg/app-utils/app';
+import { RequestStates } from '@expandorg/app-utils';
 import ModulesForm from '../Task/ModulesForm';
 
 import { verifyResponse } from '../../sagas/responsesSagas';
 
 import { makeVerficationVariablesSelector } from '../../selectors/variablesSelectors';
-import { verifyResponseStateSelector } from '../../selectors/ui';
+import {
+  verifyResponseStateSelector,
+  assignVerificationStateSelector,
+} from '../../selectors/ui';
 
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
+import { assignVerification } from '../../sagas/jobsSagas';
 
 export default function VerificationContainer({ assignment, job, task }) {
   const dispatch = useDispatch();
@@ -45,6 +50,13 @@ export default function VerificationContainer({ assignment, job, task }) {
     [dispatch]
   );
 
+  const assignState = useSelector(assignVerificationStateSelector);
+  const assign = useCallback(() => {
+    if (assignState.state !== RequestStates.Fetching) {
+      dispatch(assignVerification(assignment.jobId));
+    }
+  }, [dispatch, assignment.jobId, assignState.state]);
+
   return (
     <ModulesForm
       key={assignment.responseId}
@@ -55,6 +67,8 @@ export default function VerificationContainer({ assignment, job, task }) {
       visible={!!(job && task)}
       variables={variables}
       submitState={verifyState}
+      assignState={assignState}
+      onAssign={assign}
       onSubmit={submit}
       onNotify={notify}
     />

@@ -4,11 +4,18 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { addNotification } from '@expandorg/app-utils/app';
 
+import { RequestStates } from '@expandorg/app-utils';
 import ModulesForm from './ModulesForm';
 
 import { makeTaskVariablesSelector } from '../../selectors/variablesSelectors';
 import { submitTask } from '../../sagas/tasksSagas';
-import { submitTaskStateSelector } from '../../selectors/ui';
+import {
+  submitTaskStateSelector,
+  assignTaskStateSelector,
+} from '../../selectors/ui';
+
+import { assignTask } from '../../sagas/jobsSagas';
+
 import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
 export default function TaskContainer({ job, task, assignment }) {
@@ -32,6 +39,13 @@ export default function TaskContainer({ job, task, assignment }) {
     [dispatch]
   );
 
+  const assignState = useSelector(assignTaskStateSelector);
+  const assign = useCallback(() => {
+    if (assignState.state !== RequestStates.Fetching) {
+      dispatch(assignTask(assignment.jobId));
+    }
+  }, [dispatch, assignment.jobId, assignState.state]);
+
   return (
     <ModulesForm
       key={assignment.id}
@@ -43,7 +57,9 @@ export default function TaskContainer({ job, task, assignment }) {
       visible={!!(job && task)}
       variables={variables}
       submitState={submitTaskState}
+      assignState={assignState}
       onSubmit={submit}
+      onAssign={assign}
       onNotify={notify}
     />
   );

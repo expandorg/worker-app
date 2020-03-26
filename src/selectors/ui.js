@@ -1,4 +1,7 @@
-export const assignJobStateSelector = (state) => state.ui.assignJob;
+export const assignTaskStateSelector = (state) => state.ui.assignTask;
+
+export const assignVerificationStateSelector = (state) =>
+  state.ui.assignVerification;
 
 export const submitOnboardingStateSelector = (state) =>
   state.ui.submitOnboarding;

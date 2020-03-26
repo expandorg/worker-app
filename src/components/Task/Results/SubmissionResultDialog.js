@@ -1,18 +1,15 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
-import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 
 import Countdown from '../../shared/Countdown';
 
-import { assignTask } from '../../../sagas/jobsSagas';
 import { jobListSelector } from '../../../selectors/jobsSelectors';
-import { assignJobStateSelector } from '../../../selectors/ui';
 
 const linkClasses = cn(
   'gem-button',
@@ -20,28 +17,18 @@ const linkClasses = cn(
   'gem-dialogform-button'
 );
 
-export default function SubmissionResultDialog({ jobId, onAssignComplete }) {
-  const dispatch = useDispatch();
-
+export default function SubmissionResultDialog({ jobId, title, onAssign }) {
   const jobs = useSelector(jobListSelector);
-  const submitState = useSelector(assignJobStateSelector);
-
-  const assign = useCallback(() => {
-    if (submitState.state !== RequestStates.Fetching) {
-      dispatch(assignTask(jobId));
-    }
-  }, [dispatch, jobId, submitState.state]);
-
   const assignable = jobs.includes(jobId);
 
   return (
     <Dialog visible hideButton contentLabel="submit task">
       <DF.Container>
-        <DF.Title>Task Submitted</DF.Title>
+        <DF.Title>{title}</DF.Title>
         <DF.Description>Submission successful!</DF.Description>
         {assignable && (
           <DF.Description>
-            <Countdown interval={1000} expireIn={5000} onFinish={assign}>
+            <Countdown interval={1000} expireIn={5000} onFinish={onAssign}>
               {({ timeLeft, finished }) =>
                 finished
                   ? 'Assigning to task...'
@@ -57,21 +44,22 @@ export default function SubmissionResultDialog({ jobId, onAssignComplete }) {
             Browse jobs
           </Link>
           {assignable && (
-            <Button className="gem-dialogform-button" onClick={assign}>
+            <Button className="gem-dialogform-button" onClick={onAssign}>
               Start this task
             </Button>
           )}
         </DF.Actions>
       </DF.Container>
-      <SubmitStateEffect
-        submitState={submitState}
-        onComplete={onAssignComplete}
-      />
     </Dialog>
   );
 }
 
 SubmissionResultDialog.propTypes = {
   jobId: PropTypes.number.isRequired,
-  onAssignComplete: PropTypes.func.isRequired,
+  onAssign: PropTypes.func.isRequired,
+  title: PropTypes.string,
+};
+
+SubmissionResultDialog.defaultProps = {
+  title: 'Task Submitted',
 };

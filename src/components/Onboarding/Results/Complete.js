@@ -12,14 +12,14 @@ import { RequestStates } from '@expandorg/app-utils';
 import { jobProps } from '../../shared/propTypes';
 
 import { assignTask } from '../../../sagas/jobsSagas';
-import { assignJobStateSelector } from '../../../selectors/ui';
+import { assignTaskStateSelector } from '../../../selectors/ui';
 
 import styles from './styles.module.styl';
 
 export default function OnboardingComplete({ job }) {
   const dispatch = useDispatch();
 
-  const assignState = useSelector(assignJobStateSelector);
+  const assignState = useSelector(assignTaskStateSelector);
 
   useEffect(() => {
     if (!job.onboarding.successMessage) {
