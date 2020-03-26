@@ -10,7 +10,7 @@ export class JobsApi extends BaseApi {
   assign = ({ jobId }) => this.post(`/jobs/${jobId}/assign`);
 
   assignVerification = ({ jobId }) =>
-    this.post(`/jobs/${jobId}/verification/assign`);
+    this.post(`/verifications/${jobId}/assign`);
 }
 
 export const jobsApi = new JobsApi();
