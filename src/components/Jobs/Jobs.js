@@ -57,18 +57,16 @@ function Jobs({ history }) {
         toggleProfile();
         return;
       }
-      if (job.onboarding.enabled) {
-        history.push(`/onboarding/${job.id}`, {
-          verification: job.isVerification,
-        });
+
+      if (job.isVerification) {
+        dispatch(assignVerification(job.id));
         return;
       }
-
-      if (!job.isVerification) {
-        dispatch(assignTask(job.id));
-      } else {
-        dispatch(assignVerification(job.id));
+      if (job.onboarding.enabled) {
+        history.push(`/onboarding/${job.id}`);
+        return;
       }
+      dispatch(assignTask(job.id));
     },
     [completeProfile, dispatch, history, toggleProfile, user]
   );
