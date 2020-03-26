@@ -27,6 +27,7 @@ import {
 } from './effects';
 
 import styles from './styles.module.styl';
+import AssignmentRedirect from '../shared/AssignmentRedirect';
 
 const makeMapStateToProps = () => {
   const assignedJobSelector = makeAssignedJobSelector();
@@ -116,6 +117,7 @@ class Task extends Component {
           )}
           {cancelled && <TaskCancelled />}
         </div>
+        <AssignmentRedirect />
         <ReportAssignmentStateEffect onComplete={this.handleCancelled} />
         <CancelAssignmentStateEffect onComplete={this.handleCancelled} />
       </Page>

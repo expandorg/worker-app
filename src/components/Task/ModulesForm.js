@@ -14,7 +14,6 @@ import {
 
 import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';
-import AssignmentRedirect from '../shared/AssignmentRedirect';
 
 import useFormPersist from './useFormPersist';
 
@@ -102,7 +101,6 @@ export default function ModulesForm({
       )}
       <SubmitStateEffect submitState={submitState} onComplete={submitted} />
       <SubmitStateEffect submitState={assignState} onComplete={assigned} />
-      <AssignmentRedirect />
       {isSubmitted && (
         <SubmissionResultDialog jobId={jobId} onAssign={onAssign} />
       )}
