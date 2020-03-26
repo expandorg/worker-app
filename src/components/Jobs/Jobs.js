@@ -9,7 +9,7 @@ import { useToggle, usePrevious } from '@expandorg/components';
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 import SurveyPopup from '../shared/Survey/SurveyPopup';
-import AssignedJobRedirect from '../shared/AssignedJobRedirect';
+import AssignmentRedirect from '../shared/AssignmentRedirect';
 
 import InsufficientFundsDialog from './InsufficientFundsDialog';
 
@@ -106,7 +106,7 @@ function Jobs({ history }) {
           onHide={hideTopup}
         />
       )}
-      <AssignedJobRedirect />
+      <AssignmentRedirect />
       {profilePoup && (
         <SurveyPopup
           profile={profile}

@@ -7,7 +7,7 @@ import { authenticated } from '../shared/auth';
 
 import Page from '../shared/Page';
 
-import AssignedJobRedirect from '../shared/AssignedJobRedirect';
+import AssignmentRedirect from '../shared/AssignmentRedirect';
 
 import Onboarding from './Onboarding/Onboarding';
 import Complete from './Results/Complete';
@@ -48,7 +48,7 @@ function OnboardingPage({ match }) {
       )}
       {onboarding.status === OnboardingStatus.Failed && <Failed job={job} />}
       {onboarding.status === OnboardingStatus.Passed && <Complete job={job} />}
-      <AssignedJobRedirect replace jobId={jobId} />
+      <AssignmentRedirect replace jobId={jobId} />
     </Page>
   );
 }

@@ -22,7 +22,7 @@ const makeMapStateToProps = () => {
   });
 };
 
-class AssignedJobRedirect extends Component {
+class AssignmentRedirect extends Component {
   static propTypes = {
     assignment: assignmentProps,
     history: historyProps.isRequired,
@@ -68,4 +68,4 @@ class AssignedJobRedirect extends Component {
   }
 }
 
-export default withRouter(connect(makeMapStateToProps)(AssignedJobRedirect));
+export default withRouter(connect(makeMapStateToProps)(AssignmentRedirect));
