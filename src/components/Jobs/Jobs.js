@@ -20,7 +20,7 @@ import {
   fetchJobs,
   assignVerification,
 } from '../../sagas/jobsSagas';
-import { jobsSelector } from '../../selectors/jobsSelectors';
+import { dashboardSelector } from '../../selectors/jobsSelectors';
 import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
 import { profileSelector } from '../../selectors/profileSelectors';
 
@@ -33,7 +33,7 @@ function Jobs({ history }) {
 
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
-  const jobs = useSelector(jobsSelector);
+  const jobs = useSelector(dashboardSelector);
   const assignments = useSelector(assignmentsSelector);
 
   const [profilePoup, toggleProfile] = useToggle();
@@ -90,7 +90,7 @@ function Jobs({ history }) {
       <div className={styles.list}>
         {jobs.map((job) => (
           <Job
-            key={job.id}
+            key={job.key}
             job={job}
             user={user}
             assignment={assignments.find((a) => a.jobId === job.id)}

@@ -15,6 +15,7 @@ import taskHistoryEntities from './profile/taskHistoryEntitiesReducer';
 
 import jobsList from './jobs/jobsListReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
+import eligibleJobs from './jobs/eligibleJobsReducer';
 
 import onboardingEntities from './jobs/onboardingEntitiesReducer';
 
@@ -53,6 +54,7 @@ export default combineReducers({
   jobs: combineReducers({
     entities: jobEntities,
     list: jobsList,
+    eligible: eligibleJobs,
     onboarding: combineReducers({
       entities: onboardingEntities,
     }),

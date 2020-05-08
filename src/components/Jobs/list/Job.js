@@ -15,13 +15,20 @@ import I from '../../shared/I';
 import { jobProps, assignmentProps } from '../../shared/propTypes';
 import { jobHasSufficientFunds } from '../../../model/jobs';
 
+import {
+  isTaskAssignment,
+  isVerificationAssignment,
+} from '../../../model/assignments';
+
 import styles from './Job.module.styl';
 
 export default function Job({ job, assignment, user, onAssign, onTopup }) {
-  const isJoined = !!assignment;
-
   const assign = useCallback(() => onAssign(job), [job, onAssign]);
   const topup = useCallback(() => onTopup(job), [job, onTopup]);
+
+  const isJoined = job.isVerification
+    ? isTaskAssignment(assignment)
+    : isVerificationAssignment(assignment);
 
   return (
     <div className={styles.container}>
@@ -29,7 +36,9 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
         <JobLogo className={styles.logo} src={job.logo} name={job.name} />
         <div className={styles.heading}>
           <div className={styles.name}>{job.name}</div>
-          <div className={styles.description}>{job.requester}</div>
+          {job.isVerification && (
+            <div className={styles.description}>Virify</div>
+          )}
         </div>
       </div>
 
