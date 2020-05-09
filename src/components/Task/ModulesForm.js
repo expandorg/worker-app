@@ -34,6 +34,7 @@ export default function ModulesForm({
   onSubmit,
   onNotify,
   timeThreshold,
+  showActions,
 }) {
   const svc = useService();
   const services = useMemo(
@@ -75,11 +76,13 @@ export default function ModulesForm({
     <>
       {visible && (
         <Panel className={styles.panel}>
-          <TaskActions
-            assignmentId={assignmentId}
-            form={form}
-            reportMessage={reportMessage}
-          />
+          {showActions && (
+            <TaskActions
+              assignmentId={assignmentId}
+              form={form}
+              reportMessage={reportMessage}
+            />
+          )}
           <FormDataProvider formData={fd}>
             <Form
               className={styles.form}
@@ -118,6 +121,7 @@ ModulesForm.propTypes = {
   variables: PropTypes.shape({}),
   submitState: requestStateProps.isRequired,
   assignState: requestStateProps.isRequired,
+  showActions: PropTypes.bool,
   onAssign: PropTypes.func.isRequired,
   onNotify: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -125,6 +129,7 @@ ModulesForm.propTypes = {
 
 ModulesForm.defaultProps = {
   form: null,
+  showActions: false,
   timeThreshold: 0,
   variables: null,
 };

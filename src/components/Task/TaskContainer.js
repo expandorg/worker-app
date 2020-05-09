@@ -61,6 +61,7 @@ export default function TaskContainer({ job, task, assignment }) {
       onSubmit={submit}
       onAssign={assign}
       onNotify={notify}
+      showActions
     />
   );
 }
