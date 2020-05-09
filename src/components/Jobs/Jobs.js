@@ -21,12 +21,14 @@ import {
   assignVerification,
 } from '../../sagas/jobsSagas';
 import { dashboardSelector } from '../../selectors/jobsSelectors';
-import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
+import { assignmentsByJobSelector } from '../../selectors/assignmentsSelectors';
 import { profileSelector } from '../../selectors/profileSelectors';
 
 import { jobHasSufficientFunds } from '../../model/jobs';
 
 import styles from './Jobs.module.styl';
+
+const jobTypeKey = (job) => (job.isVerification ? 'verification' : 'task');
 
 function Jobs({ history }) {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ function Jobs({ history }) {
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
   const jobs = useSelector(dashboardSelector);
-  const assignments = useSelector(assignmentsSelector);
+  const assignmentsMap = useSelector(assignmentsByJobSelector);
 
   const [profilePoup, toggleProfile] = useToggle();
 
@@ -93,7 +95,7 @@ function Jobs({ history }) {
             key={job.key}
             job={job}
             user={user}
-            assignment={assignments.find((a) => a.jobId === job.id)}
+            assignment={assignmentsMap[jobTypeKey(job)][job.id]}
             onAssign={assign}
             onTopup={topupJob}
           />

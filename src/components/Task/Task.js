@@ -32,14 +32,14 @@ import styles from './styles.module.styl';
 
 const makeMapStateToProps = () => {
   const assignedJobSelector = makeAssignedJobSelector();
-  const assignmentsSelector = makeTaskAssignmentSelector();
+  const assignmentSelector = makeTaskAssignmentSelector();
   const taskSelector = makeTaskSelector();
 
   return (state, props) => {
     const taskId = +props.match.params.taskId;
     return {
       taskId,
-      assignment: assignmentsSelector(state, taskId),
+      assignment: assignmentSelector(state, taskId),
       task: taskSelector(state, taskId),
       job: assignedJobSelector(state, taskId),
     };

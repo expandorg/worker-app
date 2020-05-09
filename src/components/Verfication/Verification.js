@@ -48,7 +48,7 @@ const makeMapStateToProps = () => {
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ fetchTask, fetchJobs }, dispatch);
 
-class Task extends Component {
+class Verification extends Component {
   static propTypes = {
     taskId: PropTypes.number.isRequired,
     assignment: assignmentProps,
@@ -126,5 +126,5 @@ class Task extends Component {
 }
 
 export default authenticated(
-  connect(makeMapStateToProps, mapDispatchToProps)(Task)
+  connect(makeMapStateToProps, mapDispatchToProps)(Verification)
 );

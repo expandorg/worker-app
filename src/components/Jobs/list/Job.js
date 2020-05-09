@@ -15,20 +15,13 @@ import I from '../../shared/I';
 import { jobProps, assignmentProps } from '../../shared/propTypes';
 import { jobHasSufficientFunds } from '../../../model/jobs';
 
-import {
-  isTaskAssignment,
-  isVerificationAssignment,
-} from '../../../model/assignments';
-
 import styles from './Job.module.styl';
 
 export default function Job({ job, assignment, user, onAssign, onTopup }) {
   const assign = useCallback(() => onAssign(job), [job, onAssign]);
   const topup = useCallback(() => onTopup(job), [job, onTopup]);
 
-  const isJoined = job.isVerification
-    ? isTaskAssignment(assignment)
-    : isVerificationAssignment(assignment);
+  const isJoined = !!assignment;
 
   return (
     <div className={styles.container}>
@@ -65,7 +58,11 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
                 'gem-button-white-blue',
                 styles.assign
               )}
-              to={`/tasks/${assignment.taskId}`}
+              to={
+                job.isVerification
+                  ? `/verification/${assignment.taskId}`
+                  : `/tasks/${assignment.taskId}`
+              }
             >
               Continue
             </Link>

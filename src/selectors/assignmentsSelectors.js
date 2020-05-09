@@ -1,5 +1,6 @@
 // @flow
 import { createSelector } from 'reselect';
+import { isTaskAssignment } from '../model/assignments';
 
 export const assignmentsEntitiesSelector = (state: Object) =>
   state.assignments.entities;
@@ -7,24 +8,34 @@ export const assignmentsEntitiesSelector = (state: Object) =>
 export const assignmentsListSelector = (state: Object) =>
   state.assignments.list;
 
-export const assignmentsSelector: any = createSelector(
+export const assignmentsByJobSelector: any = createSelector(
   assignmentsEntitiesSelector,
   assignmentsListSelector,
-  (entities, list) => list.map((jobId) => entities[jobId])
+  (entities, list) =>
+    list.reduce(
+      (map, id) => {
+        const assignment = entities[id];
+        const key = isTaskAssignment(assignment) ? 'task' : 'verification';
+        map[key][assignment.jobId] = assignment;
+        return map;
+      },
+      { task: {}, verification: {} }
+    )
 );
 
 export const makeJobAssignmentSelector = (): any =>
   createSelector(
-    assignmentsSelector,
+    assignmentsEntitiesSelector,
+    assignmentsListSelector,
     (state, jobId) => +jobId,
-    (assignments, jobId) =>
-      assignments.find((assignment) => assignment.jobId === jobId)
+    (entities, list, jobId) => list.find((id) => entities[id].jobId === jobId)
   );
 
 export const makeTaskAssignmentSelector = (): any =>
   createSelector(
-    assignmentsSelector,
+    assignmentsEntitiesSelector,
+    assignmentsListSelector,
     (state, taskId) => +taskId,
-    (assignments, taskId) =>
-      assignments.find((assignment) => assignment.taskId === taskId)
+    (entities, list, taskId) =>
+      list.find((id) => entities[id].taskId === taskId)
   );
