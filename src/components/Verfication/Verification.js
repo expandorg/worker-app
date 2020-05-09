@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { authenticated } from '../shared/auth';
-
 import Page from '../shared/Page';
 
 import VerificationContainer from './VerificationContainer';
@@ -15,11 +12,9 @@ import TaskCancelled from '../Task/Results/TaskCancelled';
 import { fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
 
-import { makeTaskAssignmentSelector } from '../../selectors/assignmentsSelectors';
-import { makeAssignedJobSelector } from '../../selectors/jobsSelectors';
+import { makeAssignmentSelector } from '../../selectors/assignmentsSelectors';
+import { makeJobSelector } from '../../selectors/jobsSelectors';
 import { makeTaskSelector } from '../../selectors/tasksSelectors';
-
-import { jobProps, taskProps, assignmentProps } from '../shared/propTypes';
 
 import {
   ReportAssignmentStateEffect,
@@ -27,104 +22,60 @@ import {
 } from './effects';
 
 import styles from './styles.module.styl';
-import AssignmentRedirect from '../shared/AssignmentRedirect';
 
-const makeMapStateToProps = () => {
-  const assignedJobSelector = makeAssignedJobSelector();
-  const assignmentsSelector = makeTaskAssignmentSelector();
-  const taskSelector = makeTaskSelector();
+function Verification() {
+  const dispatch = useDispatch();
+  const params = useParams();
+  const assignmentId = +params.assignmentId;
 
-  return (state, props) => {
-    const taskId = +props.match.params.taskId;
-    return {
-      taskId,
-      assignment: assignmentsSelector(state, taskId),
-      task: taskSelector(state, taskId),
-      job: assignedJobSelector(state, taskId),
-    };
-  };
-};
+  const assignmentSelector = useMemo(makeAssignmentSelector, []);
+  const assignment = useSelector((s) => assignmentSelector(s, assignmentId));
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ fetchTask, fetchJobs }, dispatch);
+  const taskSelector = useMemo(makeTaskSelector, []);
+  const task = useSelector((s) =>
+    taskSelector(s, assignment && assignment.taskId)
+  );
 
-class Verification extends Component {
-  static propTypes = {
-    taskId: PropTypes.number.isRequired,
-    assignment: assignmentProps,
-    job: jobProps,
-    task: taskProps,
-    fetchJobs: PropTypes.func.isRequired,
-    fetchTask: PropTypes.func.isRequired,
-  };
+  const jobSelector = useMemo(makeJobSelector, []);
+  const job = useSelector((s) =>
+    jobSelector(s, assignment && assignment.jobId)
+  );
 
-  static defaultProps = {
-    assignment: null,
-    job: null,
-    task: null,
-  };
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      assignment: props.assignment,
-      cancelled: false,
-    };
-  }
-
-  static getDerivedStateFromProps({ assignment }, state) {
-    // keep assignment even if it's gone
-    if (assignment && state.assignment !== assignment) {
-      return {
-        assignment,
-        cancelled: false,
-      };
+  useEffect(() => {
+    if (assignment) {
+      dispatch(fetchTask(assignment.taskId));
     }
+  }, [assignment, dispatch]);
+
+  const [cancelled, setCancalled] = useState(false);
+  const cancelComplete = useCallback(() => setCancalled(true), []);
+
+  if (!assignment) {
     return null;
   }
 
-  componentDidMount() {
-    const { taskId } = this.props;
-
-    this.props.fetchJobs();
-    this.props.fetchTask(taskId);
-  }
-
-  handleCancelled = () => {
-    this.setState({ cancelled: true });
-  };
-
-  render() {
-    const { job, task } = this.props;
-    const { assignment, cancelled } = this.state;
-
-    if (!assignment) {
-      return null;
-    }
-
-    const title = cancelled ? 'Task cancelled' : (job && job.name) || '';
-    return (
-      <Page title={title}>
-        <div className={styles.container}>
-          {!cancelled && (
-            <VerificationContainer
-              key={assignment.responseId}
-              job={job}
-              task={task}
-              assignment={assignment}
-            />
-          )}
-          {cancelled && <TaskCancelled />}
-        </div>
-        <AssignmentRedirect />
-        <ReportAssignmentStateEffect onComplete={this.handleCancelled} />
-        <CancelAssignmentStateEffect onComplete={this.handleCancelled} />
-      </Page>
-    );
-  }
+  const title = cancelled ? 'Task cancelled' : (job && job.name) || '';
+  return (
+    <Page title={title}>
+      <div className={styles.container}>
+        {!cancelled && (
+          <VerificationContainer
+            key={assignmentId}
+            job={job}
+            task={task}
+            assignment={assignment}
+          />
+        )}
+        {cancelled && <TaskCancelled />}
+      </div>
+      <ReportAssignmentStateEffect onComplete={cancelComplete} />
+      <CancelAssignmentStateEffect onComplete={cancelComplete} />
+    </Page>
+  );
 }
 
-export default authenticated(
-  connect(makeMapStateToProps, mapDispatchToProps)(Verification)
-);
+export default authenticated(Verification);

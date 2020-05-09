@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, getContext } from 'redux-saga/effects';
 
 import { handleAsyncCall } from '@expandorg/app-utils';
 
@@ -23,7 +23,7 @@ export const fetchJob = (jobId) => ({
   meta: { schema: jobSchema },
 });
 
-export const assignTask = (jobId) => ({
+export const assignTask = (jobId, redirect = 'push') => ({
   type: jobsActionTypes.ASSIGN_TASK,
   payload: { jobId },
   asyncCall: jobsApi.assign,
@@ -32,10 +32,11 @@ export const assignTask = (jobId) => ({
     track: {
       action: GtmActions.JobAssign,
     },
+    redirect,
   },
 });
 
-export const assignVerification = (jobId) => ({
+export const assignVerification = (jobId, redirect = 'push') => ({
   type: jobsActionTypes.ASSIGN_VERIFICATION,
   payload: { jobId },
   asyncCall: jobsApi.assignVerification,
@@ -44,6 +45,7 @@ export const assignVerification = (jobId) => ({
     track: {
       action: GtmActions.JobAssign,
     },
+    redirect,
   },
 });
 
@@ -53,6 +55,32 @@ export const fetchJobPreview = (jobId) => ({
   asyncCall: jobsApi.fetchPreview,
   meta: { schema: { job: jobPreviewSchema }, params: { jobId } },
 });
+
+function* handleRedirect(url, redirect) {
+  const services = yield getContext('services');
+  const history = services.resolve('history');
+  switch (redirect) {
+    case 'push': {
+      history.push(url);
+      break;
+    }
+    case 'replace': {
+      history.replace(url);
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+function* handleTaskAssigned({ payload, meta }) {
+  const url = `/tasks/${payload.result.newAssignment.id}`;
+  yield handleRedirect(url, meta.redirect);
+}
+function* handleVerificationAssigned({ payload, meta }) {
+  const url = `/verification/${payload.result.newAssignment.id}`;
+  yield handleRedirect(url, meta.redirect);
+}
 
 export function* jobsSagas() {
   yield takeEvery(
@@ -64,5 +92,11 @@ export function* jobsSagas() {
       jobsActionTypes.FETCH_PREVIEW,
     ],
     handleAsyncCall
+  );
+
+  yield takeEvery(jobsActionTypes.ASSIGN_TASK_COMPLETE, handleTaskAssigned);
+  yield takeEvery(
+    jobsActionTypes.ASSIGN_VERIFICATION_COMPLETE,
+    handleVerificationAssigned
   );
 }

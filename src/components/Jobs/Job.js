@@ -9,13 +9,18 @@ import { JobLogo } from '@expandorg/components/app';
 import { userProps } from '@expandorg/app-auth';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
-import { ReactComponent as GemsIcon } from '../../assets/gem.svg';
+import { ReactComponent as GemsIcon } from '../assets/gem.svg';
 
-import I from '../../shared/I';
-import { jobProps, assignmentProps } from '../../shared/propTypes';
-import { jobHasSufficientFunds } from '../../../model/jobs';
+import I from '../shared/I';
+import { jobProps, assignmentProps } from '../shared/propTypes';
+import { jobHasSufficientFunds } from '../../model/jobs';
 
 import styles from './Job.module.styl';
+
+const getUrl = (job, assignment) =>
+  job.isVerification
+    ? `/verification/${assignment.id}`
+    : `/tasks/${assignment.id}`;
 
 export default function Job({ job, assignment, user, onAssign, onTopup }) {
   const assign = useCallback(() => onAssign(job), [job, onAssign]);
@@ -58,11 +63,7 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
                 'gem-button-white-blue',
                 styles.assign
               )}
-              to={
-                job.isVerification
-                  ? `/verification/${assignment.taskId}`
-                  : `/tasks/${assignment.taskId}`
-              }
+              to={getUrl(job, assignment)}
             >
               Continue
             </Link>

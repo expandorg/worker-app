@@ -23,19 +23,9 @@ export const assignmentsByJobSelector: any = createSelector(
     )
 );
 
-export const makeJobAssignmentSelector = (): any =>
+export const makeAssignmentSelector = (): any =>
   createSelector(
     assignmentsEntitiesSelector,
-    assignmentsListSelector,
-    (state, jobId) => +jobId,
-    (entities, list, jobId) => list.find((id) => entities[id].jobId === jobId)
-  );
-
-export const makeTaskAssignmentSelector = (): any =>
-  createSelector(
-    assignmentsEntitiesSelector,
-    assignmentsListSelector,
-    (state, taskId) => +taskId,
-    (entities, list, taskId) =>
-      list.find((id) => entities[id].taskId === taskId)
+    (state, id) => +id,
+    (entities, id) => entities[id]
   );

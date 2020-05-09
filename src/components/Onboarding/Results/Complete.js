@@ -23,13 +23,14 @@ export default function OnboardingComplete({ job }) {
 
   useEffect(() => {
     if (!job.onboarding.successMessage) {
-      dispatch(assignTask(job.id));
+      dispatch(assignTask(job.id, 'replace'));
     }
   }, [dispatch, job]);
 
-  const assign = useCallback(() => {
-    dispatch(assignTask(job.id));
-  }, [dispatch, job.id]);
+  const assign = useCallback(() => dispatch(assignTask(job.id, 'replace')), [
+    dispatch,
+    job.id,
+  ]);
 
   if (!job.onboarding.successMessage) {
     return null;

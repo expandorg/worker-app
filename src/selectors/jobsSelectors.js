@@ -1,8 +1,6 @@
 // @flow
 import { createSelector } from 'reselect';
 
-import { makeTaskAssignmentSelector } from './assignmentsSelectors';
-
 export const jobEntitiesSelector = (state: Object) => state.jobs.entities;
 
 export const jobListSelector = (state: Object) => state.jobs.list;
@@ -36,20 +34,6 @@ export const dashboardSelector: any = createSelector(
     return verificationJobs.concat(taskJobs);
   }
 );
-
-export const makeAssignedJobSelector = (): any => {
-  const taskAssignmentSelector = makeTaskAssignmentSelector();
-  return createSelector(
-    taskAssignmentSelector,
-    jobEntitiesSelector,
-    (assignment, jobs) => {
-      if (!assignment) {
-        return null;
-      }
-      return jobs[assignment.jobId];
-    }
-  );
-};
 
 export const makeOnboardingSelector = (): any =>
   createSelector(

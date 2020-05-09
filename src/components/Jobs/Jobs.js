@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
-import { historyProps } from '@expandorg/app-utils';
 import { useToggle, usePrevious } from '@expandorg/components';
 
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 import SurveyPopup from '../shared/Survey/SurveyPopup';
-import AssignmentRedirect from '../shared/AssignmentRedirect';
 
 import InsufficientFundsDialog from './InsufficientFundsDialog';
 
-import Job from './list/Job';
+import Job from './Job';
 
 import {
   assignTask,
@@ -30,8 +29,9 @@ import styles from './Jobs.module.styl';
 
 const jobTypeKey = (job) => (job.isVerification ? 'verification' : 'task');
 
-function Jobs({ history }) {
+function Jobs() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
@@ -108,7 +108,6 @@ function Jobs({ history }) {
           onHide={hideTopup}
         />
       )}
-      <AssignmentRedirect />
       {profilePoup && (
         <SurveyPopup
           profile={profile}
@@ -120,9 +119,5 @@ function Jobs({ history }) {
     </Page>
   );
 }
-
-Jobs.propTypes = {
-  history: historyProps.isRequired,
-};
 
 export default authenticated(Jobs);
