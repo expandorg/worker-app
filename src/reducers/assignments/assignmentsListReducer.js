@@ -21,6 +21,9 @@ export default function assignmentsListReducer(state = initialState, action) {
     case jobsActionTypes.ASSIGN_TASK_COMPLETE:
       return action.payload.result.assignments;
 
+    case jobsActionTypes.ASSIGN_VERIFICATION_COMPLETE:
+      return action.payload.result.assignments;
+
     case onboardingActionTypes.REPORT_COMPLETE:
       return action.payload.result.assignments;
 

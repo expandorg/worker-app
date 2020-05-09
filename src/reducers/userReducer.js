@@ -24,6 +24,8 @@ export default function userReducer(state = initialState, action) {
 
     case jobsActionTypes.ASSIGN_TASK_COMPLETE:
       return action.payload.result.user;
+    case jobsActionTypes.ASSIGN_VERIFICATION_COMPLETE:
+      return action.payload.result.user;
 
     case onboardingActionTypes.REPORT_COMPLETE:
       return action.payload.result.user;
