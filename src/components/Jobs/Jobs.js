@@ -86,7 +86,7 @@ function Jobs() {
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
-  console.log(assignmentsMap);
+
   return (
     <Page title="Browse Jobs">
       <div className={styles.list}>
