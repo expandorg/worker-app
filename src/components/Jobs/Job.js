@@ -35,7 +35,7 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
         <div className={styles.heading}>
           <div className={styles.name}>{job.name}</div>
           {job.isVerification && (
-            <div className={styles.description}>Virify</div>
+            <div className={styles.description}>Verify</div>
           )}
         </div>
       </div>
