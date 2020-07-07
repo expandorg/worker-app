@@ -30,7 +30,7 @@ export default function PreviewForm({ form, variables, onSubmit, onNotify }) {
             onSubmit={onSubmit}
             onNotify={onNotify}
           >
-            {props => <Module {...props} />}
+            {(props) => <Module {...props} />}
           </Form>
         </FormDataProvider>
       </Panel>

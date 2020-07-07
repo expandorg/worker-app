@@ -1,13 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { matchProps } from '@expandorg/app-utils';
 
 import { authenticated } from '../shared/auth';
 
 import Page from '../shared/Page';
-
-import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import Onboarding from './Onboarding/Onboarding';
 import Complete from './Results/Complete';
@@ -22,15 +20,16 @@ import {
   makeOnboardingSelector,
 } from '../../selectors/jobsSelectors';
 
-function OnboardingPage({ match }) {
+function OnboardingPage() {
   const dispatch = useDispatch();
-  const jobId = +match.params.jobId;
+  const params = useParams();
+  const jobId = +params.jobId;
 
   const jobSelector = useMemo(makeJobSelector, []);
   const onboardingSelector = useMemo(makeOnboardingSelector, []);
 
-  const job = useSelector(state => jobSelector(state, jobId));
-  const onboarding = useSelector(state => onboardingSelector(state, jobId));
+  const job = useSelector((state) => jobSelector(state, jobId));
+  const onboarding = useSelector((state) => onboardingSelector(state, jobId));
 
   useEffect(() => {
     dispatch(fetchJobs());
@@ -48,13 +47,8 @@ function OnboardingPage({ match }) {
       )}
       {onboarding.status === OnboardingStatus.Failed && <Failed job={job} />}
       {onboarding.status === OnboardingStatus.Passed && <Complete job={job} />}
-      <AssignedJobRedirect replace jobId={jobId} />
     </Page>
   );
 }
-
-OnboardingPage.propTypes = {
-  match: matchProps.isRequired,
-};
 
 export default authenticated(OnboardingPage);

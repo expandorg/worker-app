@@ -18,7 +18,10 @@ export default function assignedResponsesReducer(state = initialState, action) {
     case authActionTypes.SIGNUP_COMPLETE:
       return action.payload.result.assignedResponses || initialState;
 
-    case jobsActionTypes.ASSIGN_COMPLETE:
+    case jobsActionTypes.ASSIGN_TASK_COMPLETE:
+      return action.payload.result.assignedResponses;
+
+    case jobsActionTypes.ASSIGN_VERIFICATION_COMPLETE:
       return action.payload.result.assignedResponses;
 
     case onboardingActionTypes.REPORT_COMPLETE:

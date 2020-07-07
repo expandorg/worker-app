@@ -14,7 +14,7 @@ export default function DisputeDialog({ onHide, response }) {
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState('');
-  const changeMessage = useCallback(evt => setMessage(evt.target.value), []);
+  const changeMessage = useCallback((evt) => setMessage(evt.target.value), []);
 
   const submitState = useSelector(startDisputeStateSelector);
   const isSubmitting = submitState.state === RequestStates.Fetching;

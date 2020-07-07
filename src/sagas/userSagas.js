@@ -33,7 +33,8 @@ const actionsThatChangesUser = [
   accountActionTypes.CONFIRM_EMAIL_COMPLETE,
   accountActionTypes.EDIT_EMAIL_COMPLETE,
 
-  jobsActionTypes.ASSIGN_COMPLETE,
+  jobsActionTypes.ASSIGN_TASK_COMPLETE,
+  jobsActionTypes.ASSIGN_VERIFICATION_COMPLETE,
   tasksActionTypes.SUBMIT_COMPLETE,
   gemsActionTypes.WITHDRAW_COMPLETE,
   gemsActionTypes.DEPOSIT_COMPLETE,

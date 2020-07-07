@@ -3,7 +3,6 @@ import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ServiceProvider } from '@expandorg/components';
 import { initSaga } from '@expandorg/app-utils/app';
 
 import { NotFound } from '@expandorg/components/app';
@@ -18,6 +17,7 @@ import Onboarding from './components/Onboarding/Onboarding';
 import JobPreview from './components/JobPreview/JobPreview';
 
 import Task from './components/Task/Task';
+import Verification from './components/Verfication/Verification';
 
 import Account from './components/Account/Account';
 import Profile from './components/Profile/Profile';
@@ -27,14 +27,13 @@ import RestorePassword from './components/Password/RestorePassword';
 import EmailConfirm from './components/Email/EmailConfirm';
 
 import store from './reducers/store';
-import services from './services';
 
 store.dispatch(initSaga());
 
-const App = () => (
-  <ServiceProvider services={services}>
-    <Provider store={store}>
-      <BrowserRouter>
+function App() {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
         <AppContainer>
           <Switch>
             <Route path="/" exact component={Jobs} />
@@ -44,7 +43,11 @@ const App = () => (
 
             <Route path="/jobs/:jobId" component={JobPreview} />
             <Route path="/onboarding/:jobId" component={Onboarding} />
-            <Route path="/tasks/:taskId" component={Task} />
+            <Route path="/tasks/:assignmentId" component={Task} />
+            <Route
+              path="/verification/:assignmentId"
+              component={Verification}
+            />
 
             <Route path="/account" component={Account} />
             <Route path="/profile" component={Profile} />
@@ -56,9 +59,9 @@ const App = () => (
             <Route component={NotFound} />
           </Switch>
         </AppContainer>
-      </BrowserRouter>
-    </Provider>
-  </ServiceProvider>
-);
+      </Provider>
+    </BrowserRouter>
+  );
+}
 
 export default hot(App);

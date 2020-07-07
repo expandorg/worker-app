@@ -4,11 +4,7 @@ import { schema } from 'normalizr';
 const jobSchema = new schema.Entity('jobs');
 const jobPreviewSchema = new schema.Entity('jobPreviews');
 
-const assignmentSchema = new schema.Entity(
-  'assignments',
-  {},
-  { idAttribute: 'jobId' }
-);
+const assignmentSchema = new schema.Entity('assignments');
 
 const taskSchema = new schema.Entity('tasks');
 

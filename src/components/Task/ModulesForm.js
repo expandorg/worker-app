@@ -14,7 +14,6 @@ import {
 
 import TaskActions from './Actions/Actions';
 import SubmissionResultDialog from './Results/SubmissionResultDialog';
-import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import useFormPersist from './useFormPersist';
 
@@ -27,12 +26,15 @@ export default function ModulesForm({
   assignmentId,
   jobId,
   submitState,
+  assignState,
+  onAssign,
   visible,
   form,
   variables,
   onSubmit,
   onNotify,
   timeThreshold,
+  showActions,
 }) {
   const svc = useService();
   const services = useMemo(
@@ -45,17 +47,15 @@ export default function ModulesForm({
   const [reportMessage, setReportMessage] = useState(null);
 
   const [initial, persist, clear] = useFormPersist(id);
-  const change = useCallback(value => persist(value), [persist]);
+  const change = useCallback((value) => persist(value), [persist]);
 
-  const moduleError = useCallback(msg => setReportMessage(msg), []);
+  const moduleError = useCallback((msg) => setReportMessage(msg), []);
   const submitted = useCallback(() => setIsSubmitted(true), []);
   const assigned = useCallback(() => {
     setReportMessage(null);
     setIsSubmitted(false);
     setStartTime(new Date());
   }, []);
-
-  const isFetching = submitState.state === RequestStates.Fetching;
 
   const submit = useCallback(
     (...args) => {
@@ -76,11 +76,13 @@ export default function ModulesForm({
     <>
       {visible && (
         <Panel className={styles.panel}>
-          <TaskActions
-            assignmentId={assignmentId}
-            form={form}
-            reportMessage={reportMessage}
-          />
+          {showActions && (
+            <TaskActions
+              assignmentId={assignmentId}
+              form={form}
+              reportMessage={reportMessage}
+            />
+          )}
           <FormDataProvider formData={fd}>
             <Form
               className={styles.form}
@@ -89,21 +91,21 @@ export default function ModulesForm({
               controls={moduleControls}
               services={services}
               variables={variables}
-              isSubmitting={isFetching}
+              isSubmitting={submitState.state === RequestStates.Fetching}
               onChange={change}
               onSubmit={submit}
               onNotify={onNotify}
               onModuleError={moduleError}
             >
-              {props => <Module {...props} />}
+              {(props) => <Module {...props} />}
             </Form>
           </FormDataProvider>
         </Panel>
       )}
       <SubmitStateEffect submitState={submitState} onComplete={submitted} />
-      <AssignedJobRedirect />
+      <SubmitStateEffect submitState={assignState} onComplete={assigned} />
       {isSubmitted && (
-        <SubmissionResultDialog jobId={jobId} onAssignComplete={assigned} />
+        <SubmissionResultDialog jobId={jobId} onAssign={onAssign} />
       )}
     </>
   );
@@ -118,12 +120,16 @@ ModulesForm.propTypes = {
   visible: PropTypes.bool.isRequired,
   variables: PropTypes.shape({}),
   submitState: requestStateProps.isRequired,
+  assignState: requestStateProps.isRequired,
+  showActions: PropTypes.bool,
+  onAssign: PropTypes.func.isRequired,
   onNotify: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 ModulesForm.defaultProps = {
   form: null,
+  showActions: false,
   timeThreshold: 0,
   variables: null,
 };

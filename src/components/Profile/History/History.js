@@ -31,7 +31,7 @@ export default function History() {
   }, [dispatch]);
 
   const onStatus = useCallback(
-    val => {
+    (val) => {
       setStatus(val);
       setSort(null);
       dispatch(fetchTaskHistory(undefined, val));
@@ -40,7 +40,7 @@ export default function History() {
   );
 
   const onSort = useCallback(
-    val => {
+    (val) => {
       setSort(val);
       dispatch(fetchTaskHistory(undefined, status, val));
     },
@@ -59,7 +59,7 @@ export default function History() {
         <div className={styles.content}>
           <Sort onSelect={onSort} selected={sort} />
           <div className={styles.list}>
-            {ts.tasks.map(response => (
+            {ts.tasks.map((response) => (
               <TaskItem
                 key={response.id}
                 response={response}

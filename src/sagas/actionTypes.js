@@ -14,9 +14,13 @@ export const jobsActionTypes = createActionTypes('jobs', {
   FETCH_PREVIEW_COMPLETE: null,
   FETCH_PREVIEW_FAILED: null,
 
-  ASSIGN: null,
-  ASSIGN_COMPLETE: null,
-  ASSIGN_FAILED: null,
+  ASSIGN_TASK: null,
+  ASSIGN_TASK_COMPLETE: null,
+  ASSIGN_TASK_FAILED: null,
+
+  ASSIGN_VERIFICATION: null,
+  ASSIGN_VERIFICATION_COMPLETE: null,
+  ASSIGN_VERIFICATION_FAILED: null,
 });
 
 export const onboardingActionTypes = createActionTypes('onboarding', {

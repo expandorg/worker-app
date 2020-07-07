@@ -9,19 +9,24 @@ import { JobLogo } from '@expandorg/components/app';
 import { userProps } from '@expandorg/app-auth';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
-import { ReactComponent as GemsIcon } from '../../assets/gem.svg';
+import { ReactComponent as GemsIcon } from '../assets/gem.svg';
 
-import I from '../../shared/I';
-import { jobProps, assignmentProps } from '../../shared/propTypes';
-import { jobHasSufficientFunds } from '../../../model/jobs';
+import I from '../shared/I';
+import { jobProps, assignmentProps } from '../shared/propTypes';
+import { jobHasSufficientFunds } from '../../model/jobs';
 
 import styles from './Job.module.styl';
 
-export default function Job({ job, assignment, user, onAssign, onTopup }) {
-  const isJoined = !!assignment;
+const getUrl = (job, assignment) =>
+  job.isVerification
+    ? `/verification/${assignment.id}`
+    : `/tasks/${assignment.id}`;
 
+export default function Job({ job, assignment, user, onAssign, onTopup }) {
   const assign = useCallback(() => onAssign(job), [job, onAssign]);
   const topup = useCallback(() => onTopup(job), [job, onTopup]);
+
+  const isJoined = !!assignment;
 
   return (
     <div className={styles.container}>
@@ -29,7 +34,9 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
         <JobLogo className={styles.logo} src={job.logo} name={job.name} />
         <div className={styles.heading}>
           <div className={styles.name}>{job.name}</div>
-          <div className={styles.description}>{job.requester}</div>
+          {job.isVerification && (
+            <div className={styles.description}>Verify</div>
+          )}
         </div>
       </div>
 
@@ -56,7 +63,7 @@ export default function Job({ job, assignment, user, onAssign, onTopup }) {
                 'gem-button-white-blue',
                 styles.assign
               )}
-              to={`/tasks/${assignment.taskId}`}
+              to={getUrl(job, assignment)}
             >
               Continue
             </Link>

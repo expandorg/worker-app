@@ -9,7 +9,7 @@ import { onboardingSchema } from '../model/schemas';
 
 import { onboardingApi } from '../api/OnboardingApi';
 
-export const fetchOnboarding = jobId => ({
+export const fetchOnboarding = (jobId) => ({
   type: onboardingActionTypes.FETCH,
   payload: { jobId },
   asyncCall: onboardingApi.fetch,
@@ -34,7 +34,7 @@ export const reportOnboarding = (jobId, reason, message) => ({
   },
 });
 
-export const removeOnboardingMessage = jobId => ({
+export const removeOnboardingMessage = (jobId) => ({
   type: onboardingActionTypes.REMOVE_MESSAGE,
   payload: { jobId },
 });

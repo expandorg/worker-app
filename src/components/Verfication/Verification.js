@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { authenticated } from '../shared/auth';
 import Page from '../shared/Page';
 
-import TaskContainer from './TaskContainer';
-import TaskCancelled from './Results/TaskCancelled';
+import VerificationContainer from './VerificationContainer';
+
+import TaskCancelled from '../Task/Results/TaskCancelled';
 
 import { fetchTask } from '../../sagas/tasksSagas';
 import { fetchJobs } from '../../sagas/jobsSagas';
@@ -23,7 +23,7 @@ import {
 
 import styles from './styles.module.styl';
 
-function Task() {
+function Verification() {
   const dispatch = useDispatch();
   const params = useParams();
   const assignmentId = +params.assignmentId;
@@ -63,7 +63,7 @@ function Task() {
     <Page title={title}>
       <div className={styles.container}>
         {!cancelled && (
-          <TaskContainer
+          <VerificationContainer
             key={assignmentId}
             job={job}
             task={task}
@@ -78,4 +78,4 @@ function Task() {
   );
 }
 
-export default authenticated(Task);
+export default authenticated(Verification);

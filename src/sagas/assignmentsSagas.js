@@ -16,7 +16,7 @@ export const reportAssignment = (id, reason, message) => ({
   },
 });
 
-export const cancelAssignment = id => ({
+export const cancelAssignment = (id) => ({
   type: assignmentActionTypes.CANCEL,
   payload: { id },
   asyncCall: assignmentsApi.cancel,

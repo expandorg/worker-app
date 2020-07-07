@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-export const showProfile = profile => {
+export const showProfile = (profile) => {
   if (!profile) {
     return false;
   }
   return profile.state === 'not_filled';
 };
 
-export const getWizardForm = profile => {
+export const getWizardForm = (profile) => {
   const {
     attributes: { Language, Education, Interest, Availability },
   } = profile;
@@ -19,14 +19,14 @@ export const getWizardForm = profile => {
     country: profile.country,
     locality: profile.locality,
     city: profile.city,
-    languages: Language ? Language.map(v => v.id) : [],
-    education: Education ? Education.map(v => v.id) : [],
-    interests: Interest ? Interest.map(v => v.id) : [],
-    availability: Availability ? Availability.map(v => v.id) : [],
+    languages: Language ? Language.map((v) => v.id) : [],
+    education: Education ? Education.map((v) => v.id) : [],
+    interests: Interest ? Interest.map((v) => v.id) : [],
+    availability: Availability ? Availability.map((v) => v.id) : [],
   };
 };
 
-const getProfileState = p => {
+const getProfileState = (p) => {
   return !!p.name &&
     !!p.birthdate &&
     !!p.country &&

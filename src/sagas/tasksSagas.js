@@ -12,7 +12,7 @@ import { GtmActions } from '../common/GtmEvents';
 import { tasksApi } from '../api/TasksApi';
 import { jobsApi } from '../api/JobsApi';
 
-export const fetchTask = taskId => ({
+export const fetchTask = (taskId) => ({
   type: tasksActionTypes.FETCH,
   payload: { taskId },
   asyncCall: tasksApi.fetch,

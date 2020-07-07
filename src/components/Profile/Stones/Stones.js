@@ -11,7 +11,7 @@ export default function Stones() {
     <div className={styles.container}>
       <h2 className={styles.title}>Stone Collection</h2>
       <div className={styles.content}>
-        {stone.map(s => (
+        {stone.map((s) => (
           <Stone key={s.id} stone={s} />
         ))}
       </div>

@@ -20,11 +20,12 @@ import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loginState: loginStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ login }, dispatch);
 
 class EmailLogin extends Component {
   static propTypes = {
@@ -38,7 +39,7 @@ class EmailLogin extends Component {
     error: null,
   };
 
-  handleSubmit = evt => {
+  handleSubmit = (evt) => {
     evt.preventDefault();
     const { loginState } = this.props;
 

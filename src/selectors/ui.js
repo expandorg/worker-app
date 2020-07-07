@@ -1,24 +1,31 @@
-export const assignJobStateSelector = state => state.ui.assignJob;
+export const assignTaskStateSelector = (state) => state.ui.assignTask;
 
-export const submitOnboardingStateSelector = state => state.ui.submitOnboarding;
+export const assignVerificationStateSelector = (state) =>
+  state.ui.assignVerification;
 
-export const reportOnboardingStateSelector = state => state.ui.reportOnboarding;
+export const submitOnboardingStateSelector = (state) =>
+  state.ui.submitOnboarding;
 
-export const submitTaskStateSelector = state => state.ui.submitTask;
+export const reportOnboardingStateSelector = (state) =>
+  state.ui.reportOnboarding;
 
-export const reportAssignmentStateSelector = state => state.ui.reportAssignment;
+export const submitTaskStateSelector = (state) => state.ui.submitTask;
 
-export const cancelAssignmentStateSelector = state => state.ui.cancelAssignment;
+export const reportAssignmentStateSelector = (state) =>
+  state.ui.reportAssignment;
 
-export const verifyResponseStateSelector = state => state.ui.verifyResponse;
+export const cancelAssignmentStateSelector = (state) =>
+  state.ui.cancelAssignment;
 
-export const notificationSelector = state => state.ui.notification;
+export const verifyResponseStateSelector = (state) => state.ui.verifyResponse;
 
-export const getProfileStateSelector = state => state.ui.getProfile;
+export const notificationSelector = (state) => state.ui.notification;
 
-export const getProfileFiltersStateSelector = state =>
+export const getProfileStateSelector = (state) => state.ui.getProfile;
+
+export const getProfileFiltersStateSelector = (state) =>
   state.ui.getProfileFilters;
 
-export const saveProfileStateSelector = state => state.ui.saveProfile;
+export const saveProfileStateSelector = (state) => state.ui.saveProfile;
 
-export const startDisputeStateSelector = state => state.ui.startDispute;
+export const startDisputeStateSelector = (state) => state.ui.startDispute;

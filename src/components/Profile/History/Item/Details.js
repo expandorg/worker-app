@@ -19,11 +19,11 @@ export default function Details({ response, services }) {
   const dispatch = useDispatch();
 
   const itemSelector = useMemo(makeTaskHistoryItemSelector, []);
-  const details = useSelector(s => itemSelector(s, response.id));
+  const details = useSelector((s) => itemSelector(s, response.id));
   const fetched = !!details;
 
   const disputeSelector = useMemo(makeDisputeSelector, []);
-  const dispute = useSelector(s => disputeSelector(s, response.id));
+  const dispute = useSelector((s) => disputeSelector(s, response.id));
 
   useEffect(() => {
     if (!fetched) {

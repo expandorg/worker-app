@@ -6,7 +6,7 @@ import { responsesEntitiesSelector } from './responsesSelectors';
 
 export const defaultVariablesSelector: any = createSelector(
   userSelector,
-  user => ({
+  (user) => ({
     workerId: user.id,
   })
 );
@@ -28,7 +28,7 @@ export const makeTaskVariablesSelector = (): any =>
 
 export const onboardingVariablesSelector: any = createSelector(
   defaultVariablesSelector,
-  vars => vars
+  (vars) => vars
 );
 
 export const makeVerficationVariablesSelector = (): any =>

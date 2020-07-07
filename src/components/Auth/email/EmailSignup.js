@@ -20,11 +20,12 @@ import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   signupState: signupStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ signup }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ signup }, dispatch);
 
 class EmailSignup extends Component {
   static propTypes = {
@@ -38,7 +39,7 @@ class EmailSignup extends Component {
     error: null,
   };
 
-  handleSubmit = evt => {
+  handleSubmit = (evt) => {
     evt.preventDefault();
     const { signupState } = this.props;
 

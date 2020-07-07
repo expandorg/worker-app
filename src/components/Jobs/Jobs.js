@@ -1,36 +1,42 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
-import { historyProps } from '@expandorg/app-utils';
 import { useToggle, usePrevious } from '@expandorg/components';
 
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 import SurveyPopup from '../shared/Survey/SurveyPopup';
-import AssignedJobRedirect from '../shared/AssignedJobRedirect';
 
 import InsufficientFundsDialog from './InsufficientFundsDialog';
 
-import Job from './list/Job';
+import Job from './Job';
 
-import { assignJob, fetchJobs } from '../../sagas/jobsSagas';
-import { jobsSelector } from '../../selectors/jobsSelectors';
-import { assignmentsSelector } from '../../selectors/assignmentsSelectors';
+import {
+  assignTask,
+  fetchJobs,
+  assignVerification,
+} from '../../sagas/jobsSagas';
+import { dashboardSelector } from '../../selectors/jobsSelectors';
+import { assignmentsByJobSelector } from '../../selectors/assignmentsSelectors';
 import { profileSelector } from '../../selectors/profileSelectors';
 
 import { jobHasSufficientFunds } from '../../model/jobs';
 
 import styles from './Jobs.module.styl';
 
-function Jobs({ history }) {
+const jobTypeKey = (job) => (job.isVerification ? 'verification' : 'task');
+
+function Jobs() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector(userSelector);
   const profile = useSelector(profileSelector);
-  const jobs = useSelector(jobsSelector);
-  const assignments = useSelector(assignmentsSelector);
+  const jobs = useSelector(dashboardSelector);
+  const assignmentsMap = useSelector(assignmentsByJobSelector);
 
   const [profilePoup, toggleProfile] = useToggle();
 
@@ -44,7 +50,7 @@ function Jobs({ history }) {
   const completeProfile = !!profile && profile.state === 'complete';
 
   const assign = useCallback(
-    job => {
+    (job) => {
       if (!jobHasSufficientFunds(job, user)) {
         setTopup(job.logic.funding.requirement);
         return;
@@ -53,16 +59,22 @@ function Jobs({ history }) {
         toggleProfile();
         return;
       }
+
+      if (job.isVerification) {
+        dispatch(assignVerification(job.id));
+        return;
+      }
       if (job.onboarding.enabled) {
         history.push(`/onboarding/${job.id}`);
-      } else {
-        dispatch(assignJob(job.id));
+        return;
       }
+      dispatch(assignTask(job.id));
     },
     [completeProfile, dispatch, history, toggleProfile, user]
   );
 
   const prevProfile = usePrevious(profile);
+
   useEffect(() => {
     if (profile && prevProfile) {
       if (prevProfile.state !== 'complete' && profile.state === 'complete') {
@@ -78,12 +90,12 @@ function Jobs({ history }) {
   return (
     <Page title="Browse Jobs">
       <div className={styles.list}>
-        {jobs.map(job => (
+        {jobs.map((job) => (
           <Job
-            key={job.id}
+            key={job.key}
             job={job}
             user={user}
-            assignment={assignments.find(a => a.jobId === job.id)}
+            assignment={assignmentsMap[jobTypeKey(job)][job.id]}
             onAssign={assign}
             onTopup={topupJob}
           />
@@ -96,7 +108,6 @@ function Jobs({ history }) {
           onHide={hideTopup}
         />
       )}
-      <AssignedJobRedirect />
       {profilePoup && (
         <SurveyPopup
           profile={profile}
@@ -108,9 +119,5 @@ function Jobs({ history }) {
     </Page>
   );
 }
-
-Jobs.propTypes = {
-  history: historyProps.isRequired,
-};
 
 export default authenticated(Jobs);

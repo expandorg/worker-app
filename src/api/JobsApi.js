@@ -8,6 +8,9 @@ export class JobsApi extends BaseApi {
   fetchPreview = ({ jobId }) => this.get(`/jobs/${jobId}/preview`);
 
   assign = ({ jobId }) => this.post(`/jobs/${jobId}/assign`);
+
+  assignVerification = ({ jobId }) =>
+    this.post(`/verifications/${jobId}/assign`);
 }
 
 export const jobsApi = new JobsApi();

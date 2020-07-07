@@ -44,14 +44,14 @@ export default function Onboarding({ jobId, onboarding }) {
   const submitState = useSelector(submitOnboardingStateSelector);
   const [reportMessage, setReportMessage] = useState(null);
 
-  const moduleError = useCallback(msg => setReportMessage(msg), []);
+  const moduleError = useCallback((msg) => setReportMessage(msg), []);
 
   const hide = useCallback(() => {
     dispatch(removeOnboardingMessage(jobId));
   }, [dispatch, jobId]);
 
   const submit = useCallback(
-    values => {
+    (values) => {
       dispatch(submitOnboarding(jobId, values));
     },
     [dispatch, jobId]
@@ -95,7 +95,7 @@ export default function Onboarding({ jobId, onboarding }) {
               onNotify={notify}
               onModuleError={moduleError}
             >
-              {props => <Module {...props} />}
+              {(props) => <Module {...props} />}
             </Form>
           </FormDataProvider>
         </div>
